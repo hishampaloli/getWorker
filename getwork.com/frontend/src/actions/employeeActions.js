@@ -73,12 +73,7 @@ export const userRegister =
         payload: data,
       });
 
-      dispatch({
-        type: USER_LOGIN_SUCCESS,
-        payload: data,
-      });
-  
-      localStorage.setItem("userInfo", JSON.stringify(data));
+    
     } catch (error) {
       dispatch({
         type: EMPLOYEE_REGISTER_FAIL,
@@ -114,7 +109,13 @@ export const verifyEmail = (userId, otp, userType) => async (dispatch) => {
       type: OTP_HELPER_SUCCESS,
       payload: data,
     });
+    
+    dispatch({
+      type: USER_LOGIN_SUCCESS,
+      payload: data,
+    });
 
+    localStorage.setItem("userInfo", JSON.stringify(data));
 
   } catch (error) {
     console.log(error);

@@ -90,6 +90,7 @@ export const userRegisterRegister = AsyncHandler(async (req, res) => {
       owner: newUser._id,
       token: OTP,
     });
+    console.log(verificationToken);
 
     await verificationToken.save();
     await newUser.save();
@@ -125,7 +126,7 @@ export const verifyEmail = AsyncHandler(async (req, res, next) => {
     }
     const token = await VerificationToken.findOne({ owner: userId });
     if (!token) {
-      throw new Error("No tokoen");
+      throw new Error("No tokon");
     } else {
       console.log("ds");
     }
@@ -153,6 +154,7 @@ export const verifyEmail = AsyncHandler(async (req, res, next) => {
           email: user.email,
           userType: user.userType,
           employeeData: user.employeeData,
+          emailVerified: user.emailVerified,
           token: generateToken(user._id),
         });
       }
@@ -171,6 +173,7 @@ export const verifyEmail = AsyncHandler(async (req, res, next) => {
           _id: user._id,
           name: user.name,
           email: user.email,
+          emailVerified: user.emailVerified,
           userType: user.userType,
           employerData: user.employerData,
           token: generateToken(user._id),

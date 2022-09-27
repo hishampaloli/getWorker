@@ -26,6 +26,15 @@ header {
     background-color: white;
 }
 
+.right {
+    display: flex;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
 
 .right .btn-1 {
     color:#3CCF4E

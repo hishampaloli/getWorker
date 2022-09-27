@@ -1,10 +1,21 @@
-
-import React from 'react'
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const EmployerHome = () => {
-  return (
-    <div>EmployerHome</div>
-  )
-}
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
 
-export default EmployerHome
+  useEffect(() => {
+    if (!user?.userInfo) {
+      navigate("/login");
+    }
+    if (user?.userInfo?.userType === "employee") {
+      navigate("/user/home");
+    }
+  }, [user, dispatch]);
+  return <div>EmployerHome</div>;
+};
+
+export default EmployerHome;

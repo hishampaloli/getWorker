@@ -49,10 +49,10 @@ const Signup = () => {
       }, 2000);
     }
 
-    if (userStatus?.userInfo?.userType === 'employee') {
+    if (userStatus?.userInfo?.userType === 'employee' && userStatus?.userInfo?.emailVerified) {
       navigate('/users/home')
     }
-    if (userStatus?.userInfo?.userType === 'employer') {
+    if (userStatus?.userInfo?.userType === 'employer' && userStatus?.userInfo?.emailVerified) {
       navigate('/employer/home')
     }
   }, [Otp, user]);
