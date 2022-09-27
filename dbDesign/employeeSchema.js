@@ -29,7 +29,6 @@ const employeeSchema = mongoose.Schema({
   },
   userType: {
     type: String,
-    default: "employee",
   },
   contractsPosted: [
     {

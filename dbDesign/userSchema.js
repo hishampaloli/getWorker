@@ -95,4 +95,17 @@ const userSchema = mongoose.Schema({
       ref: "Proposal",
     },
   ],
+  pendingWithdraw: {
+    type: Number,
+    default: 0
+  },
+  availableForWithdraw: {
+
+  },
+  savedJobs: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Contract",
+    }
+  ]
 });

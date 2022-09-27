@@ -11,7 +11,7 @@ const ProposalSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  duraction: {
+  duration: {
     type: String,
     required: true,
   },

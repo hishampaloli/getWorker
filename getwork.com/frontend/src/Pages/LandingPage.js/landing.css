@@ -1,0 +1,36 @@
+.landing-main {
+  display: flex;
+  margin-top: 100px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.landing-main .left {
+  margin-left: 40px;
+}
+
+.landing-main .left h1 {
+  color: #3ccf4e;
+font-weight: 700;
+font-size: 40px;
+line-height: 60px;
+}
+
+.landing-main .left p {
+    color: #405F32;
+    font-size: 20px;
+    line-height: 40px;
+}
+
+.landing-main .left button {
+background: #3CCF4E;
+opacity: 0.8;
+padding: 20px 25px;
+border: none;
+width: 200px;
+border-radius: 15px;
+color: white;
+margin-top: 40px;
+font-size: 18px;
+}
