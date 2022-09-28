@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../actions/employeeActions";
+import { login } from "../../actions/UserAction";
 import Spinner from "react-bootstrap/Spinner";
 
 const Login = () => {

@@ -4,6 +4,7 @@ import mongoDB from "./config/db.js";
 import swaggerUI from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
 import UserRouter from './routes/UserRouter.js'
+import EmployeeRouter from './routes/EmployeeRoutes.js'
 import { notFound, errorHandler } from "./middlewares/errorMiddleware.js";
 
 mongoDB();
@@ -17,7 +18,8 @@ app.get("/", (req, res) => {
 });
 
 
-app.use("/api/employees", UserRouter);
+app.use("/api", UserRouter);
+app.use("/api/employee", EmployeeRouter)
 
 app.use(notFound);
 app.use(errorHandler);

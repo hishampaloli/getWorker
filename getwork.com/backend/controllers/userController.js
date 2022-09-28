@@ -110,19 +110,19 @@ export const verifyEmail = AsyncHandler(async (req, res, next) => {
   console.log(userId, userType);
 
   if (!userId || !otp.trim()) {
-    return new Error("Invalid request, missing paramaters");
+   throw new Error("Invalid request, missing paramaters");
   }
 
   if (!isValidObjectId(userId)) {
-    return new Error("Invalid userId");
+    throw new Error("Invalid userId");
   } else {
     const user = await User.findById(userId);
     if (!user) {
-      return new Error("user not found");
+      throw new Error("This account is verified");
     }
 
     if (user.emailVerified) {
-      return new Error("This account is verified");
+      throw new Error("This account is verified");
     }
     const token = await VerificationToken.findOne({ owner: userId });
     if (!token) {

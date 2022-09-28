@@ -1,16 +1,16 @@
 import axios from "axios";
 import {
   OTP_HELPER_REQUEST,
-  EMPLOYEE_REGISTER_FAIL,
-  EMPLOYEE_REGISTER_REQUEST,
-  EMPLOYEE_REGISTER_SUCCESS,
+  USER_REGISTER_FAIL,
+  USER_REGISTER_REQUEST,
+  USER_REGISTER_SUCCESS,
   OTP_HELPER_SUCCESS,
   OTP_HELPER_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGOUT,
-} from "../contants/employeeConstands";
+} from "../contants/userConstants";
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -25,7 +25,7 @@ export const login = (email, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "/api/employees/login",
+      "/api/login",
       { email, password },
       config
     );
@@ -53,7 +53,7 @@ export const userRegister =
   (name, email, password, userType) => async (dispatch) => {
     try {
       dispatch({
-        type: EMPLOYEE_REGISTER_REQUEST,
+        type: USER_REGISTER_REQUEST,
       });
 
       const config = {
@@ -63,20 +63,20 @@ export const userRegister =
       };
 
       const { data } = await axios.post(
-        "/api/employees/register",
+        "/api/register",
         { name, email, password, userType },
         config
       );
 
       dispatch({
-        type: EMPLOYEE_REGISTER_SUCCESS,
+        type: USER_REGISTER_SUCCESS,
         payload: data,
       });
 
     
     } catch (error) {
       dispatch({
-        type: EMPLOYEE_REGISTER_FAIL,
+        type: USER_REGISTER_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message
@@ -98,7 +98,7 @@ export const verifyEmail = (userId, otp, userType) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "/api/employees/verify-email",
+      "/api/verify-email",
       { userId, otp, userType },
       config
     );

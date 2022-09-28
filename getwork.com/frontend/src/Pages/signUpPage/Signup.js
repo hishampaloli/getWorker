@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import "./signup.css";
-import { userRegister, verifyEmail } from "../../actions/employeeActions.js";
+import { userRegister, verifyEmail } from "../../actions/UserAction";
 import Spinner from "react-bootstrap/Spinner";
 import {
   OTP_HELPER_REQUEST,
-  EMPLOYEE_REGISTER_SUCCESS,
+ USER_REGISTER_SUCCESS,
   OTP_HELPER_FAIL,
-} from "../../contants/employeeConstands";
+} from "../../contants/userConstants.js";
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -43,7 +43,7 @@ const Signup = () => {
           type: OTP_HELPER_FAIL,
         });
         dispatch({
-          type: EMPLOYEE_REGISTER_SUCCESS,
+          type: USER_REGISTER_SUCCESS,
           payload: {},
         });
       }, 2000);

@@ -2,14 +2,14 @@ import {
   OTP_HELPER_FAIL,
   OTP_HELPER_SUCCESS,
   OTP_HELPER_REQUEST,
-  EMPLOYEE_REGISTER_REQUEST,
-  EMPLOYEE_REGISTER_FAIL,
-  EMPLOYEE_REGISTER_SUCCESS,
+  USER_REGISTER_FAIL,
+  USER_REGISTER_REQUEST,
+  USER_REGISTER_SUCCESS,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGOUT
-} from "../contants/employeeConstands.js";
+} from "../contants/userConstants.js";
 
 // export const userRegister = ()
 
@@ -32,11 +32,11 @@ export const userLoginReducer = (state = {}, action) => {
 export const userRegisterReducer = (state = { users: {} }, action) => {
   console.log(action);
   switch (action.type) {
-    case EMPLOYEE_REGISTER_REQUEST:
+    case USER_REGISTER_REQUEST:
       return { loading: true };
-    case EMPLOYEE_REGISTER_SUCCESS:
+    case USER_REGISTER_SUCCESS:
       return { loading: false, users: action.payload };
-    case EMPLOYEE_REGISTER_FAIL:
+    case USER_REGISTER_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;
