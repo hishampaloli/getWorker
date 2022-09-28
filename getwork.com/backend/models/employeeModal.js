@@ -48,10 +48,6 @@ const employeeSchema = mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "userInfo",
     },
-    ratePerHour: {
-      type: Number,
-      default: 5,
-    },
     workHistory: [],
     kyc: {
       type: mongoose.Schema.Types.ObjectId,

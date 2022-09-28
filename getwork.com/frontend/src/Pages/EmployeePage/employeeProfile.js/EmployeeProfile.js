@@ -1,27 +1,50 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./employeeProfile.css";
-import { getEmployeeProfile } from "../../../actions/EmplyeeActions";
+import {
+  addEducation,
+  deleteEducation,
+  getEmployeeProfile,
+} from "../../../actions/EmplyeeActions";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import DoNotDisturbOnIcon from "@mui/icons-material/DoNotDisturbOn";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
+import DeleteIcon from "@mui/icons-material/Delete";import CloseIcon from '@mui/icons-material/Close';
+import EditIcon from "@mui/icons-material/Edit";
+import EducationPopup from "../../../components/EducationPopup/educationPopup";
+import Spinner from "react-bootstrap/Spinner";
 
 import { EffectCoverflow, Pagination } from "swiper";
+import { useNavigate } from "react-router-dom";
 
 const EmployeeProfile = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const userProfile = useSelector((state) => state);
+  const userProfile = useSelector((state) => state.employeeData);
+  const user = useSelector((state) => state.user);
+  const [ed, setEd] = useState(false);
+  const [school, setSchool] = useState("");
+  const [title, setTitle] = useState("");
+
+  const { userData } = userProfile;
 
   useEffect(() => {
+    if (!user?.userInfo) {
+      navigate('/login')
+    }
+    if (user?.userInfo?.userType === 'employer' ) {
+      navigate('/employer/home')
+    }
     dispatch(getEmployeeProfile());
-    console.log(343);
-  }, []);
+  }, [user]);
 
-  console.log();
+  console.log(userData?._id);
   return (
     <div>
+    {ed ?  <CloseIcon className="closebtnIcon" onClick={(e) => setEd(false)} /> : '' }
       <div
         style={{
           display: "flex",
@@ -58,12 +81,22 @@ const EmployeeProfile = () => {
 
               <div className="left-bottom">
                 <span>
-                  <h5>Language</h5>
+                  <h5>
+                    Language{" "}
+                    <button className="editIcon">
+                      <EditIcon />
+                    </button>
+                  </h5>
                   <p>English</p>
                 </span>
 
                 <span>
-                  <h5>Skills</h5>
+                  <h5>
+                    Skills{" "}
+                    <button className="editIcon">
+                      <EditIcon />
+                    </button>
+                  </h5>
 
                   <ul>
                     <li>figma</li>
@@ -73,8 +106,22 @@ const EmployeeProfile = () => {
                 </span>
 
                 <span>
-                  <h5>Education</h5>
-                  <p>English</p>
+                  <h5>
+                    Education{" "}
+                    <button onClick={() => setEd(true)} className="editIcon">
+                      <EditIcon />
+                    </button>
+                  </h5>
+                  {userData?.educations.map((education) => {
+                    return (
+                      <ul key={education?._id}>
+                        <li>
+                          <strong>{education?.school}</strong>{" "}
+                        </li>
+                        <li>{education?.title}</li>
+                      </ul>
+                    );
+                  })}
                 </span>
               </div>
             </div>
@@ -105,57 +152,73 @@ const EmployeeProfile = () => {
 
           <div className="body">
             <div className="left">
-            <h4>Make a website</h4>
-            <div className="left-text">
-              <strong>$25.00</strong>
-              <p>Successfully Completed</p>
-            </div>
+              <h4>Make a website</h4>
+              <div className="left-text">
+                <strong>$25.00</strong>
+                <p>Successfully Completed</p>
+              </div>
             </div>
 
             <button>ee</button>
           </div>
         </div>
 
-
         <div className="box3">
-        <div className="top">
+          <div className="top">
             <p className="common-heading">Portfolio</p>
           </div>
           <div className="bottom">
-          <Swiper
-        effect={"coverflow"}
-        grabCursor={true}
-        centeredSlides={true}
-        slidesPerView={"4"}
-        coverflowEffect={{
-          rotate: 80,
-          stretch: 0,
-          depth: 100,
-          modifier: 1,
-          slideShadows: true,
-        }}
-        pagination={true}
-        modules={[EffectCoverflow, Pagination]}
-        className="mySwiper"
-        style={{width: '1000px'}}
-      >
-        <SwiperSlide style={{height: "200px", width: '400px'}}>
-          <img style={{height: "200px"}}  src="https://mbcreative.ca/blog/wp-content/uploads/2020/03/image_processing20200217-904-j9hrxy.png" />
-        </SwiperSlide >
-        <SwiperSlide  style={{height: "200px", width: '400px'}}>
-          <img style={{height: "200px"}} src="https://cdn.dribbble.com/users/1615584/screenshots/15266020/media/48e0cc23ac8f475bdee252226e3b7bf2.jpg?compress=1&resize=400x300&vertical=top" />
-        </SwiperSlide>
-        <SwiperSlide  style={{height: "200px", width: '400px'}}>
-          <img style={{height: "200px"}} src="https://swiperjs.com/demos/images/nature-3.jpg" />
-        </SwiperSlide>
-        <SwiperSlide style={{height: "200px", width: '400px'}}>
-          <img style={{height: "200px"}} src="https://swiperjs.com/demos/images/nature-4.jpg" />
-        </SwiperSlide>
-        
-      </Swiper>
+            <Swiper
+              effect={"coverflow"}
+              grabCursor={true}
+              centeredSlides={true}
+              slidesPerView={"4"}
+              coverflowEffect={{
+                rotate: 80,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: true,
+              }}
+              pagination={true}
+              modules={[EffectCoverflow, Pagination]}
+              className="mySwiper"
+              style={{ width: "1000px" }}
+            >
+              <SwiperSlide style={{ height: "200px", width: "400px" }}>
+                <img
+                  style={{ height: "200px" }}
+                  src="https://mbcreative.ca/blog/wp-content/uploads/2020/03/image_processing20200217-904-j9hrxy.png"
+                />
+              </SwiperSlide>
+              <SwiperSlide style={{ height: "200px", width: "400px" }}>
+                <img
+                  style={{ height: "200px" }}
+                  src="https://cdn.dribbble.com/users/1615584/screenshots/15266020/media/48e0cc23ac8f475bdee252226e3b7bf2.jpg?compress=1&resize=400x300&vertical=top"
+                />
+              </SwiperSlide>
+              <SwiperSlide style={{ height: "200px", width: "400px" }}>
+                <img
+                  style={{ height: "200px" }}
+                  src="https://swiperjs.com/demos/images/nature-3.jpg"
+                />
+              </SwiperSlide>
+              <SwiperSlide style={{ height: "200px", width: "400px" }}>
+                <img
+                  style={{ height: "200px" }}
+                  src="https://swiperjs.com/demos/images/nature-4.jpg"
+                />
+              </SwiperSlide>
+            </Swiper>
           </div>
         </div>
       </div>
+
+      {ed ? (
+        <EducationPopup />
+      ) : (
+        ""
+      )}
     </div>
   );
 };

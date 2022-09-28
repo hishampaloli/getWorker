@@ -42,6 +42,7 @@ export const userLogin = AsyncHandler(async (req, res) => {
 });
 
 export const userRegisterRegister = AsyncHandler(async (req, res) => {
+  
   const { name, email, password, userType } = req.body;
   const user = await User.findOne({ email });
   if (user) {
