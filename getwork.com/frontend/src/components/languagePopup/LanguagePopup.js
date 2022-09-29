@@ -59,7 +59,7 @@ const LanguagePopup = () => {
               {userData?.languages.map((language) => {
                 return (
                   <>
-                    <ul style={{ listStyle: "none" }}>
+                    <ul key={language?.language} style={{ listStyle: "none" }}>
                       <li
                         style={{
                           width: "430px",

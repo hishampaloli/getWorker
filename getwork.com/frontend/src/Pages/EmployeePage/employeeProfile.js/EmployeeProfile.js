@@ -16,11 +16,15 @@ import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
 import EducationPopup from "../../../components/EducationPopup/educationPopup";
 import Spinner from "react-bootstrap/Spinner";
+import AddIcon from "@mui/icons-material/Add";
 
 import { EffectCoverflow, Pagination } from "swiper";
 import { useNavigate } from "react-router-dom";
 import LanguagePopup from "../../../components/languagePopup/LanguagePopup";
 import SkillsPopup from "../../../components/skillsPopup/SkillsPopup";
+import InfoPopup from "../../../components/infoPopup/InfoPopup";
+import ImagePopup from "../../../components/profileImgPoprup/ProfileImgPopup";
+import KycPopup from "../../../components/kcyPopup/KycPopup";
 
 const EmployeeProfile = () => {
   const dispatch = useDispatch();
@@ -63,10 +67,15 @@ const EmployeeProfile = () => {
         <div className="box1">
           <div className="top">
             <div className="left">
-              <img
-                src="https://fiverr-res.cloudinary.com/t_profile_original,q_auto,f_auto/attachments/profile/photo/d114e57e9bb9e25a61c5c74ff704e285-1657943919669/ddb8acdc-4465-40ad-be77-29bed61072c9.jpg"
-                alt=""
-              />
+              <div className="img-box" onClick={(e) => setEd("imgPopup")}>
+                <AddIcon className="addIconHover" />
+                {userData?.image ? (
+                  <img src={userData?.image} alt="" />
+                ) : (
+                  <AddIcon className="addIcon" />
+                )}
+              </div>
+
               <p className="common-heading">Hisham paloli</p>
             </div>
             <button>Buy Credits</button>
@@ -107,8 +116,10 @@ const EmployeeProfile = () => {
                 <span>
                   <h5>
                     Skills{" "}
-                    <button 
-                      onClick={() => setEd("skillPopup")} className="editIcon">
+                    <button
+                      onClick={() => setEd("skillPopup")}
+                      className="editIcon"
+                    >
                       <EditIcon />
                     </button>
                   </h5>
@@ -145,11 +156,15 @@ const EmployeeProfile = () => {
             </div>
 
             <div className="right">
-              <h1 style={{display: 'flex'}}>Experienced web developer with hands-on-projects  <button
-                      className="editIcon bh"
-                    >
-                      <EditIcon />
-                    </button></h1>
+              <h1 style={{ display: "flex" }}>
+                Experienced web developer with hands-on-projects{" "}
+                <button
+                  onClick={(e) => setEd("infoPopup")}
+                  className="editIcon bh"
+                >
+                  <EditIcon />
+                </button>
+              </h1>
               <p>
                 Need a brand new website, an overhaul to your existing website,
                 or just a few updates? Then let's talk. Whether you're an
@@ -159,8 +174,9 @@ const EmployeeProfile = () => {
                 can take care of it for you 👇.
               </p>
 
-              <div>
-                <button>Complete Kyc</button>
+              <div style={{display: 'flex', alignItems: 'flex-end'}}>
+              {userData?.kyc ? <> {userData?.kycApproved ? '': <p><strong>kyc status:</strong> Pending  </p> } </> : <button onClick={(e) => setEd("kycPopup")} >Complete Kyc</button>}
+                
                 <button>Add payment method</button>
               </div>
             </div>
@@ -222,13 +238,13 @@ const EmployeeProfile = () => {
               <SwiperSlide style={{ height: "200px", width: "400px" }}>
                 <img
                   style={{ height: "200px" }}
-                  src="https://swiperjs.com/demos/images/nature-3.jpg"
+                  src="https://mbcreative.ca/blog/wp-content/uploads/2020/03/yursayurpreview_4x-1024x768.png"
                 />
               </SwiperSlide>
               <SwiperSlide style={{ height: "200px", width: "400px" }}>
                 <img
                   style={{ height: "200px" }}
-                  src="https://swiperjs.com/demos/images/nature-4.jpg"
+                  src="https://www.designer-daily.com/wp-content/uploads/2018/01/storytelling-illustrations.jpg"
                 />
               </SwiperSlide>
             </Swiper>
@@ -240,7 +256,17 @@ const EmployeeProfile = () => {
         <EducationPopup />
       ) : ed === "langPopup" ? (
         <LanguagePopup />
-      ) : ed === 'skillPopup' ? <SkillsPopup /> : ''}
+      ) : ed === "skillPopup" ? (
+        <SkillsPopup />
+      ) : ed === "infoPopup" ? (
+        <InfoPopup />
+      ) : ed === "imgPopup" ? (
+        <ImagePopup />
+      ) : ed === "kycPopup" ? (
+        <KycPopup />
+      ) : (
+        ""
+      )}
     </div>
   );
 };

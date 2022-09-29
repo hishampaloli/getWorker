@@ -28,10 +28,10 @@ export const getEmployeeProfile = () => async (dispatch) => {
 };
 
 export const addEducation = (education) => async (dispatch) => {
-    dispatch({
-        type: EMPLOYEE_PROFILE_REQUEST,
-      });
-  
+  dispatch({
+    type: EMPLOYEE_PROFILE_REQUEST,
+  });
+
   const id = JSON.parse(localStorage.getItem("userInfo"));
 
   const config = {
@@ -53,15 +53,14 @@ export const addEducation = (education) => async (dispatch) => {
     type: EMPLOYEE_PROFILE_SUCCESS,
     payload: data,
   });
-console.log(data);
-
+  console.log(data);
 };
 
 export const deleteEducation = (id, userId) => async (dispatch) => {
-    dispatch({
-        type: EMPLOYEE_PROFILE_REQUEST,
-      });
-  
+  dispatch({
+    type: EMPLOYEE_PROFILE_REQUEST,
+  });
+
   const tokenId = JSON.parse(localStorage.getItem("userInfo"));
 
   const config = {
@@ -86,63 +85,160 @@ export const deleteEducation = (id, userId) => async (dispatch) => {
   console.log(data);
 };
 
-
-
 export const addLanguageOrSkill = (language, skill) => async (dispatch) => {
-  dispatch({
-      type: EMPLOYEE_PROFILE_REQUEST,
-    });
-
-const tokenId = JSON.parse(localStorage.getItem("userInfo"));
-
-const config = {
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${tokenId.token}`,
-  },
-};
-
-const { datad } = await axios.post(
-  `/api/employee/editProfile/${tokenId._id}`,
-  {language, skill},
-  config
-);
-
-const { data } = await axios.get(`/api/employee/profile/${tokenId._id}`);
-
-dispatch({
-  type: EMPLOYEE_PROFILE_SUCCESS,
-  payload: data,
-});
-
-console.log(data);
-};
-
-export const deleteLanguageOrSkill = (language = '', skill = '') => async (dispatch) => {
   dispatch({
     type: EMPLOYEE_PROFILE_REQUEST,
   });
 
-const tokenId = JSON.parse(localStorage.getItem("userInfo"));
+  const tokenId = JSON.parse(localStorage.getItem("userInfo"));
 
-const config = {
-headers: {
-  "Content-Type": "application/json",
-  Authorization: `Bearer ${tokenId.token}`,
-},
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${tokenId.token}`,
+    },
+  };
+
+  const { datad } = await axios.post(
+    `/api/employee/editProfile/${tokenId._id}`,
+    { language, skill },
+    config
+  );
+
+  const { data } = await axios.get(`/api/employee/profile/${tokenId._id}`);
+
+  dispatch({
+    type: EMPLOYEE_PROFILE_SUCCESS,
+    payload: data,
+  });
+
+  console.log(data);
 };
 
-const { datad } = await axios.delete(
-`/api/employee/editProfile/${tokenId._id}?language=${language}&skill=${skill}`,
-config
-);
+export const deleteLanguageOrSkill =
+  (language = "", skill = "") =>
+  async (dispatch) => {
+    dispatch({
+      type: EMPLOYEE_PROFILE_REQUEST,
+    });
 
-const { data } = await axios.get(`/api/employee/profile/${tokenId._id}`);
+    const tokenId = JSON.parse(localStorage.getItem("userInfo"));
 
-dispatch({
-type: EMPLOYEE_PROFILE_SUCCESS,
-payload: data,
-});
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenId.token}`,
+      },
+    };
 
+    const { datad } = await axios.delete(
+      `/api/employee/editProfile/${tokenId._id}?language=${language}&skill=${skill}`,
+      config
+    );
+
+    const { data } = await axios.get(`/api/employee/profile/${tokenId._id}`);
+
+    dispatch({
+      type: EMPLOYEE_PROFILE_SUCCESS,
+      payload: data,
+    });
+
+    console.log(data);
+  };
+
+export const editInfo = (title, info) => async (dispatch) => {
+  dispatch({
+    type: EMPLOYEE_PROFILE_REQUEST,
+  });
+
+  const tokenId = JSON.parse(localStorage.getItem("userInfo"));
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${tokenId.token}`,
+    },
+  };
+
+  const { datad } = await axios.patch(
+    `/api/employee/editInfo/${tokenId._id}`,
+    { title, info },
+    config
+  );
+
+  const { data } = await axios.get(`/api/employee/profile/${tokenId._id}`);
+
+  dispatch({
+    type: EMPLOYEE_PROFILE_SUCCESS,
+    payload: data,
+  });
+
+  console.log(data);
+};
+
+
+
+export const addProfileImage = (image) => async (dispatch) => {
+  dispatch({
+    type: EMPLOYEE_PROFILE_REQUEST,
+  });
+
+  const tokenId = JSON.parse(localStorage.getItem("userInfo"));
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${tokenId.token}`,
+    },
+  };
+
+  const { datad } = await axios.patch(
+    `/api/employee/profileImg/${tokenId._id}`,
+    { image },
+    config
+  );
+
+  const { data } = await axios.get(`/api/employee/profile/${tokenId._id}`);
+
+  dispatch({
+    type: EMPLOYEE_PROFILE_SUCCESS,
+    payload: data,
+  });
+
+  console.log(data);
+};
+
+
+
+export const addkyc = (aathar, aatharSelfie, pan, gstNumber) => async (dispatch) => {
+  dispatch({
+    type: EMPLOYEE_PROFILE_REQUEST,
+  });
+  console.log(aathar);
+
+  const tokenId = JSON.parse(localStorage.getItem("userInfo"));
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${tokenId.token}`,
+    },
+  };
+
+  const { datad } = await axios.post(
+    `/api/employee/kyc/${tokenId._id}`,
+    { aathar, aatharSelfie, pan, gstNumber },
+    config
+  );
+
+  const { data } = await axios.get(`/api/employee/profile/${tokenId._id}`);
 console.log(data);
-}
+  dispatch({
+    type: EMPLOYEE_PROFILE_SUCCESS,
+    payload: data,
+  });
+
+  console.log(data);
+};
+
+

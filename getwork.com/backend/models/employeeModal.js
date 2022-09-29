@@ -7,92 +7,92 @@ const employeeSchema = mongoose.Schema({
     ref: "User",
     required: true,
   },
-    image: {
-      type: String,
-    },
-    location: {
-      type: String,
-    },
-    totalEarned: {
-      type: Number,
-      default: 0,
-    },
-    languages: {
-      type: Array,
-      default: ["English"],
-    },
-    educations: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Education",
-      },
-    ],
-    skills: [],
-    exprerience: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Exprerience",
-      },
-    ],
-    portfolio: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Portfolio",
-      },
-    ],
-    connects: {
-      type: Number,
-      default: 50,
-    },
-    userInfo: {
+  image: {
+    type: String,
+  },
+  location: {
+    type: String,
+  },
+  totalEarned: {
+    type: Number,
+    default: 0,
+  },
+  languages: {
+    type: Array,
+  },
+  educations: [
+    {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "userInfo",
+      ref: "Education",
     },
-    workHistory: [],
-    kyc: {
+  ],
+  skills: [],
+  exprerience: [
+    {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Kyc",
+      ref: "Exprerience",
     },
-    kycApproved: {
-      type: Boolean,
-      default: false,
+  ],
+  portfolio: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Portfolio",
     },
-    isBlocked: {
-      type: Boolean,
-      default: false
+  ],
+  connects: {
+    type: Number,
+    default: 50,
+  },
+  userTitle: {
+    type: String,
+    default: "PLease add your Title",
+  },
+  userInfo: {
+    type: String,
+    default: "PLease add your Info",
+  },
+  workHistory: [],
+  kyc: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Kyc",
+  },
+  kycApproved: {
+    type: Boolean,
+    default: false,
+  },
+  isBlocked: {
+    type: Boolean,
+    default: false,
+  },
+  reported: {
+    type: Number,
+    default: 0,
+  },
+  activeContracts: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Contract",
     },
-    reported: {
-      type: Number,
-      default: 0,
+  ],
+  myProposals: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Proposal",
     },
-    activeContracts: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Contract",
-      },
-    ],
-    myProposals: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Proposal",
-      },
-    ],
-    pendingWithdraw: {
-      type: Number,
-      default: 0
+  ],
+  pendingWithdraw: {
+    type: Number,
+    default: 0,
+  },
+  availableForWithdraw: {},
+  savedJobs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Contract",
     },
-    availableForWithdraw: {
-  
-    },
-    savedJobs: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Contract",
-      }
-    ],
-    userType: String,
-  })
+  ],
+  userType: String,
+});
 
-  
 const Employee = mongoose.model("Employee", employeeSchema);
 export default Employee;

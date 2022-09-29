@@ -63,7 +63,7 @@ const EducationPopup = () => {
               {userData?.educations.map((education) => {
                 return (
                   <>
-                    <ul style={{ listStyle: "none" }}>
+                    <ul key={education?._id} style={{ listStyle: "none" }}>
                       <li
                         style={{
                           width: "430px",

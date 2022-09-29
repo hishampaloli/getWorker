@@ -4,6 +4,14 @@ import generateToken from "../utils/jsonwebtoken.js";
 import Employee from "../models/employeeModal.js";
 import User from "../models/userModal.js";
 import Education from "../models/educations.js";
+import cloudinary from "cloudinary";
+import Kyc from "../models/kycModel.js";
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_KEY,
+  api_secret: process.env.CLOUD_SECRET,
+});
 
 export const employeeProfile = AsyncHandler(async (req, res) => {
   const { id } = req.params;
@@ -59,6 +67,7 @@ export const addLanguageAndSkill = AsyncHandler(async (req, res) => {
   const { skill, language } = req.body;
 
   const userData = await Employee.findOne({ owner: userId });
+  console.log(userData);
 
   if (skill) {
     userData.skills.push({ skill });
@@ -74,28 +83,30 @@ export const addLanguageAndSkill = AsyncHandler(async (req, res) => {
 
 export const editInfo = AsyncHandler(async (req, res) => {
   const { userId } = req.params;
-
   const { title, info } = req.body;
 
-  const userData = await Employee.findOne({ owner: userId });
-
-  if (skill) {
-    userData.skills.push({ skill });
-    await userData.save();
+  if (title) {
+    const userInfo = await Employee.findOneAndUpdate(
+      { owner: userId },
+      { userTitle: title }
+    );
   }
 
-  if (language) {
-    userData.languages.push({ language: language });
-    await userData.save();
+  if (info) {
+    const userInfo = await Employee.findOneAndUpdate(
+      { owner: userId },
+      { userInfo: info }
+    );
   }
 
+  res.json({
+    message: "Successfully updated",
+  });
 });
 
 export const deleteLanguageOrSkill = AsyncHandler(async (req, res) => {
   const { userId } = req.params;
   const { skill, language } = req.query;
-
-  console.log(language);
 
   if (language) {
     const userData = await Employee.findOneAndUpdate(
@@ -111,14 +122,58 @@ export const deleteLanguageOrSkill = AsyncHandler(async (req, res) => {
     );
   }
 
-  // const userData = await Employee.findOne({ owner: userId });
-
-  // if (language) {
-  //   userData.languages.pop()
-  //   await userData.save();
-  // }
-
   res.json({
     message: "Deleted succussfully",
   });
+});
+
+export const addProfileImage = AsyncHandler(async (req, res) => {
+  const { image } = req.body;
+
+  const userData = await Employee.findOne({ owner: req.params.userId });
+
+  if (userData) {
+    userData.image = image;
+    userData.save();
+  }
+
+  res.json(userData);
+});
+
+export const addKyc = AsyncHandler(async (req, res) => {
+  const { aathar, aatharSelfie, pan, gstNumber } = req.body;
+  const { userId } = req.params;
+
+  const userData = await Employee.findOne({ owner: userId });
+
+  console.log(userData);
+
+  // if (aathar && aatharSelfie && pan && gstNumber) {
+    console.log(aathar);
+    console.log(aatharSelfie);
+    console.log(pan);
+    console.log(gstNumber);
+try {
+  const kycData = new Kyc({
+    owner: userId,
+    aatharImage: aathar,
+    aatharSelfie: aatharSelfie,
+    panImage: pan,
+    gstNumber: gstNumber,
+  });
+
+  await kycData.save();
+
+  console.log(kycData);
+    userData.kyc = kycData._id;
+    await userData.save();
+console.log(userData);
+    res.json(userData);
+} catch (error) {
+  // console.log(error);
+}
+   
+
+  
+  // }
 });
