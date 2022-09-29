@@ -99,10 +99,6 @@
   justify-content: space-around;
 }
 
-.emplyerProfile .box1 .bottom .right h1 {
-  font-size: 25px;
-  margin-top: -25px;
-}
 
 .emplyerProfile .box1 .bottom .right p {
   color: #646464;
@@ -118,6 +114,18 @@
   background-color: #ff6c6c;
   color: white;
 }
+
+.emplyerProfile .box1 .bottom .right h1 button {
+  border: none;
+  width: 30px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #75e6ff;
+  color: rgb(255, 255, 255);
+}
+
 
 .emplyerProfile .box2 {
   width: 90%;
@@ -173,35 +181,35 @@
 }
 
 .emplyerProfile .box3 .bottom {
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
- .deleteIcon {
-    border: none;
-    padding: 5px;
-    margin-left: 50px;
-    border-radius: 50%;
-    background-color: #ffa0a0;
-    color: white;
+.deleteIcon {
+  border: none;
+  padding: 5px;
+  margin-left: 50px;
+  border-radius: 50%;
+  background-color: #ffa0a0;
+  color: white;
 }
 
-.emplyerProfile .box1 .editIcon {
-    border: none;
-    padding: 5px;
-    margin-left: auto;
-    border-radius: 50%;
-    background-color:#75E6FF ;
-    color: white;
+.editIcon {
+  border: none;
+  padding: 5px;
+  margin-left: auto;
+  border-radius: 50%;
+  background-color: #75e6ff;
+  color: rgb(255, 255, 255);
 }
 .closebtnIcon {
-    position: absolute;
-    right: 75px;
-    z-index: 10;
-    top: 150px;
-    color: rgb(255, 255, 255);
-    background-color: #3ccf4e;
-    border-radius: 50%;
+  position: absolute;
+  right: 75px;
+  z-index: 10;
+  top: 150px;
+  color: rgb(255, 255, 255);
+  background-color: #3ccf4e;
+  border-radius: 50%;
 }

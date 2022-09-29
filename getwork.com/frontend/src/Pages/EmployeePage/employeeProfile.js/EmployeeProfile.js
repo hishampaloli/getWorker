@@ -11,13 +11,16 @@ import "swiper/css";
 import DoNotDisturbOnIcon from "@mui/icons-material/DoNotDisturbOn";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
-import DeleteIcon from "@mui/icons-material/Delete";import CloseIcon from '@mui/icons-material/Close';
+import DeleteIcon from "@mui/icons-material/Delete";
+import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
 import EducationPopup from "../../../components/EducationPopup/educationPopup";
 import Spinner from "react-bootstrap/Spinner";
 
 import { EffectCoverflow, Pagination } from "swiper";
 import { useNavigate } from "react-router-dom";
+import LanguagePopup from "../../../components/languagePopup/LanguagePopup";
+import SkillsPopup from "../../../components/skillsPopup/SkillsPopup";
 
 const EmployeeProfile = () => {
   const dispatch = useDispatch();
@@ -33,10 +36,10 @@ const EmployeeProfile = () => {
 
   useEffect(() => {
     if (!user?.userInfo) {
-      navigate('/login')
+      navigate("/login");
     }
-    if (user?.userInfo?.userType === 'employer' ) {
-      navigate('/employer/home')
+    if (user?.userInfo?.userType === "employer") {
+      navigate("/employer/home");
     }
     dispatch(getEmployeeProfile());
   }, [user]);
@@ -44,7 +47,11 @@ const EmployeeProfile = () => {
   console.log(userData?._id);
   return (
     <div>
-    {ed ?  <CloseIcon className="closebtnIcon" onClick={(e) => setEd(false)} /> : '' }
+      {ed ? (
+        <CloseIcon className="closebtnIcon" onClick={(e) => setEd("")} />
+      ) : (
+        ""
+      )}
       <div
         style={{
           display: "flex",
@@ -83,32 +90,43 @@ const EmployeeProfile = () => {
                 <span>
                   <h5>
                     Language{" "}
-                    <button className="editIcon">
+                    <button
+                      onClick={() => setEd("langPopup")}
+                      className="editIcon"
+                    >
                       <EditIcon />
                     </button>
                   </h5>
-                  <p>English</p>
+                  {userData?.languages.map((language) => {
+                    return (
+                      <p style={{ marginLeft: "0px" }}>{language?.language}</p>
+                    );
+                  })}
                 </span>
 
                 <span>
                   <h5>
                     Skills{" "}
-                    <button className="editIcon">
+                    <button 
+                      onClick={() => setEd("skillPopup")} className="editIcon">
                       <EditIcon />
                     </button>
                   </h5>
 
-                  <ul>
-                    <li>figma</li>
-                    <li>c++</li>
-                    <li>python</li>
-                  </ul>
+                  {userData?.skills.map((education) => {
+                    return (
+                      <li style={{ marginLeft: "0px" }}>{education?.skill}</li>
+                    );
+                  })}
                 </span>
 
                 <span>
                   <h5>
                     Education{" "}
-                    <button onClick={() => setEd(true)} className="editIcon">
+                    <button
+                      onClick={() => setEd("edPopup")}
+                      className="editIcon"
+                    >
                       <EditIcon />
                     </button>
                   </h5>
@@ -127,7 +145,11 @@ const EmployeeProfile = () => {
             </div>
 
             <div className="right">
-              <h1>Experienced web developer with hands-on-projects</h1>
+              <h1 style={{display: 'flex'}}>Experienced web developer with hands-on-projects  <button
+                      className="editIcon bh"
+                    >
+                      <EditIcon />
+                    </button></h1>
               <p>
                 Need a brand new website, an overhaul to your existing website,
                 or just a few updates? Then let's talk. Whether you're an
@@ -214,11 +236,11 @@ const EmployeeProfile = () => {
         </div>
       </div>
 
-      {ed ? (
+      {ed === "edPopup" ? (
         <EducationPopup />
-      ) : (
-        ""
-      )}
+      ) : ed === "langPopup" ? (
+        <LanguagePopup />
+      ) : ed === 'skillPopup' ? <SkillsPopup /> : ''}
     </div>
   );
 };

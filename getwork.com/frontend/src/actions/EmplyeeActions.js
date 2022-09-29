@@ -85,3 +85,64 @@ export const deleteEducation = (id, userId) => async (dispatch) => {
 
   console.log(data);
 };
+
+
+
+export const addLanguageOrSkill = (language, skill) => async (dispatch) => {
+  dispatch({
+      type: EMPLOYEE_PROFILE_REQUEST,
+    });
+
+const tokenId = JSON.parse(localStorage.getItem("userInfo"));
+
+const config = {
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${tokenId.token}`,
+  },
+};
+
+const { datad } = await axios.post(
+  `/api/employee/editProfile/${tokenId._id}`,
+  {language, skill},
+  config
+);
+
+const { data } = await axios.get(`/api/employee/profile/${tokenId._id}`);
+
+dispatch({
+  type: EMPLOYEE_PROFILE_SUCCESS,
+  payload: data,
+});
+
+console.log(data);
+};
+
+export const deleteLanguageOrSkill = (language = '', skill = '') => async (dispatch) => {
+  dispatch({
+    type: EMPLOYEE_PROFILE_REQUEST,
+  });
+
+const tokenId = JSON.parse(localStorage.getItem("userInfo"));
+
+const config = {
+headers: {
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${tokenId.token}`,
+},
+};
+
+const { datad } = await axios.delete(
+`/api/employee/editProfile/${tokenId._id}?language=${language}&skill=${skill}`,
+config
+);
+
+const { data } = await axios.get(`/api/employee/profile/${tokenId._id}`);
+
+dispatch({
+type: EMPLOYEE_PROFILE_SUCCESS,
+payload: data,
+});
+
+console.log(data);
+}
