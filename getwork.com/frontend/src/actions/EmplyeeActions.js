@@ -1,5 +1,10 @@
 import axios from "axios";
 import {
+  BANK_DETAILS_FAIL,
+  BANK_DETAILS_REQUEST,
+  BANK_DETAILS_SUCCESS,
+  EDUCATION_REQUEST,
+  EDUCATION_SUCCESS,
   EMPLOYEE_PROFILE_FAIL,
   EMPLOYEE_PROFILE_REQUEST,
   EMPLOYEE_PROFILE_SUCCESS,
@@ -12,6 +17,8 @@ export const getEmployeeProfile = () => async (dispatch) => {
     });
 
     const id = JSON.parse(localStorage.getItem("userInfo"));
+
+    console.log(2323);
 
     const { data } = await axios.get(`/api/employee/profile/${id._id}`);
 
@@ -27,9 +34,9 @@ export const getEmployeeProfile = () => async (dispatch) => {
   }
 };
 
-export const addEducation = (education) => async (dispatch) => {
+export const addEducation = (education) => async (dispatch, getState) => {
   dispatch({
-    type: EMPLOYEE_PROFILE_REQUEST,
+    type: EDUCATION_REQUEST,
   });
 
   const id = JSON.parse(localStorage.getItem("userInfo"));
@@ -41,19 +48,26 @@ export const addEducation = (education) => async (dispatch) => {
     },
   };
 
-  const { datad } = await axios.post(
+  const { data } = await axios.post(
     `/api/employee/education/${id._id}`,
     { education },
     config
   );
 
-  const { data } = await axios.get(`/api/employee/profile/${id._id}`);
+  console.log(data);
+
+  if (data) {
+    getState().employeeData.userData.educations.push({
+      owner: data?.owner,
+      school: data?.school,
+      title: data?.title,
+      _id: data?._id,
+    });
+  }
 
   dispatch({
-    type: EMPLOYEE_PROFILE_SUCCESS,
-    payload: data,
+    type: EDUCATION_SUCCESS,
   });
-  console.log(data);
 };
 
 export const deleteEducation = (id, userId) => async (dispatch) => {
@@ -85,39 +99,43 @@ export const deleteEducation = (id, userId) => async (dispatch) => {
   console.log(data);
 };
 
-export const addLanguageOrSkill = (language, skill) => async (dispatch) => {
-  dispatch({
-    type: EMPLOYEE_PROFILE_REQUEST,
-  });
+export const addLanguageOrSkill =
+  (language, skill) => async (dispatch, getState) => {
+    // dispatch({
+    //   type: EMPLOYEE_PROFILE_REQUEST,
+    // });
 
-  const tokenId = JSON.parse(localStorage.getItem("userInfo"));
+    const tokenId = JSON.parse(localStorage.getItem("userInfo"));
 
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${tokenId.token}`,
-    },
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenId.token}`,
+      },
+    };
+
+    const { data } = await axios.post(
+      `/api/employee/editProfile/${tokenId._id}`,
+      { language, skill },
+      config
+    );
+
+    if (data) {
+      if (skill) {
+        getState().employeeData.userData.skills.push({ skill: skill });
+      }
+
+      if (language) {
+        getState().employeeData.userData.languages.push({ language: language });
+      }
+    }
+
+    console.log(getState().employeeData.userData.skills);
   };
-
-  const { datad } = await axios.post(
-    `/api/employee/editProfile/${tokenId._id}`,
-    { language, skill },
-    config
-  );
-
-  const { data } = await axios.get(`/api/employee/profile/${tokenId._id}`);
-
-  dispatch({
-    type: EMPLOYEE_PROFILE_SUCCESS,
-    payload: data,
-  });
-
-  console.log(data);
-};
 
 export const deleteLanguageOrSkill =
   (language = "", skill = "") =>
-  async (dispatch) => {
+  async (dispatch, getState) => {
     dispatch({
       type: EMPLOYEE_PROFILE_REQUEST,
     });
@@ -146,7 +164,7 @@ export const deleteLanguageOrSkill =
     console.log(data);
   };
 
-export const editInfo = (title, info) => async (dispatch) => {
+export const editInfo = (title, info) => async (dispatch, getState) => {
   dispatch({
     type: EMPLOYEE_PROFILE_REQUEST,
   });
@@ -175,8 +193,6 @@ export const editInfo = (title, info) => async (dispatch) => {
 
   console.log(data);
 };
-
-
 
 export const addProfileImage = (image) => async (dispatch) => {
   dispatch({
@@ -208,37 +224,111 @@ export const addProfileImage = (image) => async (dispatch) => {
   console.log(data);
 };
 
+export const addkyc =
+  (aathar, aatharSelfie, pan, gstNumber) => async (dispatch) => {
+    dispatch({
+      type: EMPLOYEE_PROFILE_REQUEST,
+    });
+    console.log(aathar);
 
+    const tokenId = JSON.parse(localStorage.getItem("userInfo"));
 
-export const addkyc = (aathar, aatharSelfie, pan, gstNumber) => async (dispatch) => {
-  dispatch({
-    type: EMPLOYEE_PROFILE_REQUEST,
-  });
-  console.log(aathar);
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenId.token}`,
+      },
+    };
 
-  const tokenId = JSON.parse(localStorage.getItem("userInfo"));
+    const { datad } = await axios.post(
+      `/api/employee/kyc/${tokenId._id}`,
+      { aathar, aatharSelfie, pan, gstNumber },
+      config
+    );
 
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${tokenId.token}`,
-    },
+    const { data } = await axios.get(`/api/employee/profile/${tokenId._id}`);
+    console.log(data);
+    dispatch({
+      type: EMPLOYEE_PROFILE_SUCCESS,
+      payload: data,
+    });
+
+    console.log(data);
   };
 
-  const { datad } = await axios.post(
-    `/api/employee/kyc/${tokenId._id}`,
-    { aathar, aatharSelfie, pan, gstNumber },
-    config
-  );
+export const addBankDetails = (ifsc, acNumber, acName) => async (dispatch) => {
+  try {
+    dispatch({
+      type: BANK_DETAILS_REQUEST,
+    });
 
-  const { data } = await axios.get(`/api/employee/profile/${tokenId._id}`);
-console.log(data);
-  dispatch({
-    type: EMPLOYEE_PROFILE_SUCCESS,
-    payload: data,
-  });
+    const tokenId = JSON.parse(localStorage.getItem("userInfo"));
 
-  console.log(data);
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenId.token}`,
+      },
+    };
+
+    const { data } = await axios.post(
+      `/api/employee/addBank/${tokenId._id}`,
+      { ifsc, acNumber, acName },
+      config
+    );
+    console.log(data);
+    dispatch({
+      type: BANK_DETAILS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: BANK_DETAILS_FAIL,
+      error: error,
+    });
+  }
 };
 
+export const addPortfolio = (image, title, description) => async (dispatch) => {
+  try {
+    const tokenId = JSON.parse(localStorage.getItem("userInfo"));
 
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenId.token}`,
+      },
+    };
+
+    const { data } = await axios.post(
+      `/api/employee/addPortfolio/${tokenId._id}`,
+      { image, title, description },
+      config
+    );
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deletePortfolio = (id) => async (dispatch) => {
+  try {
+    const tokenId = JSON.parse(localStorage.getItem("userInfo"));
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenId.token}`,
+      },
+    };
+
+    const { data } = await axios.delete(
+      `/api/employee/deletePortfolio/${tokenId._id}/${id}`,
+      config
+    );
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -11,18 +11,24 @@ import {
   deleteEducation,
   getEmployeeProfile,
 } from "../../actions/EmplyeeActions";
+
 const EducationPopup = () => {
   const dispatch = useDispatch();
 
   const userProfile = useSelector((state) => state.employeeData);
+  const educationReq = useSelector((state) => state.education)
   const [school, setSchool] = useState("");
   const [title, setTitle] = useState("");
 
   const { userData } = userProfile;
 
+  console.log(educationReq);
+
+  
+
   return (
     <div>
-      <div className="educationPopup">
+      <div className="educationPopUp">
         <p
           className="common-heading"
           style={{ textAlign: "center", marginLeft: "-30px" }}
@@ -35,9 +41,9 @@ const EducationPopup = () => {
             e.preventDefault();
             dispatch(addEducation({ school, title }));
           }}
-          style={{ marginLeft: "50px", marginTop: "50px" }}
         >
           <input
+            className="n"
             type="text"
             onChange={(e) => setSchool(e.target.value)}
             placeholder="school of education"
@@ -50,28 +56,20 @@ const EducationPopup = () => {
           <button type="submit">Add</button>
         </form>
 
-        <span
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            marginTop: "40px",
-          }}
-        >
+        <span className="popUpspan">
           {userData?.educations ? (
+            
             <>
+            {educationReq.loading ?  <div style={{display:'flex', justifyContent: 'center', marginBottom: '40px'}}><Spinner animation="border" role="status"></Spinner></div>  : ''}
               {userData?.educations.map((education) => {
                 return (
                   <>
                     <ul key={education?._id} style={{ listStyle: "none" }}>
-                      <li
-                        style={{
-                          width: "430px",
-                          display: "flex",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <strong>{education?.school}</strong>{" "}
+                      <p>
+                        {" "}
+                        <li>
+                          <strong>{education?.school}</strong>{" "}
+                        </li>{" "}
                         <button
                           onClick={() => {
                             dispatch(
@@ -82,7 +80,8 @@ const EducationPopup = () => {
                         >
                           <DeleteIcon />{" "}
                         </button>{" "}
-                      </li>
+                      </p>
+
                       <li>{education?.title}</li>
                     </ul>
                   </>

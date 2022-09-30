@@ -33,7 +33,7 @@ const employeeSchema = mongoose.Schema({
       ref: "Exprerience",
     },
   ],
-  portfolio: [
+  portfolios: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Portfolio",

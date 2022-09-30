@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import DoNotDisturbOnIcon from "@mui/icons-material/DoNotDisturbOn";
@@ -23,7 +22,7 @@ const InfoPopup = () => {
 
   return (
     <div>
-      <div className="educationPopup">
+      <div className="educationPopUp">
         <p
           className="common-heading"
           style={{ textAlign: "center", marginLeft: "-30px" }}
@@ -36,13 +35,7 @@ const InfoPopup = () => {
             e.preventDefault();
             dispatch(editInfo(title, info));
           }}
-          style={{
-            marginLeft: "50px",
-            marginTop: "50px",
-            display: "flex",
-            flexDirection: "column",
-            padding: "30px",
-          }}
+        
         >
           <input
             type="text"
@@ -50,9 +43,8 @@ const InfoPopup = () => {
             placeholder={userData?.userTitle}
           />
           <textarea
-            rows={10}
-            cols={100}
             type="text"
+            style={{height: '150px'}}
             onChange={(e) => setInfo(e.target.value)}
             className="mt-3"
             placeholder={userData?.userInfo}
@@ -60,24 +52,19 @@ const InfoPopup = () => {
           <button type="submit">Add</button>
         </form>
 
-        <span
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            marginTop: "40px",
-          }}
+        <ul
+        
         >
           {userData ? (
             <>
               {" "}
-              <h1>{userData?.userTitle}</h1>
-              <h3>{userData?.userInfo}</h3>
+              <h3>{userData?.userTitle}</h3>
+              <p>{userData?.userInfo}</p>
             </>
           ) : (
             <Spinner animation="border" role="status"></Spinner>
           )}
-        </span>
+        </ul>
       </div>
     </div>
   );

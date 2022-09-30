@@ -4,11 +4,13 @@ import "./employeeProfile.css";
 import {
   addEducation,
   deleteEducation,
+  deletePortfolio,
   getEmployeeProfile,
 } from "../../../actions/EmplyeeActions";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import DoNotDisturbOnIcon from "@mui/icons-material/DoNotDisturbOn";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -25,6 +27,8 @@ import SkillsPopup from "../../../components/skillsPopup/SkillsPopup";
 import InfoPopup from "../../../components/infoPopup/InfoPopup";
 import ImagePopup from "../../../components/profileImgPoprup/ProfileImgPopup";
 import KycPopup from "../../../components/kcyPopup/KycPopup";
+import PortfoilioPopup from "../../../components/PortfolioPopUp.js/PortfoilioPopup";
+import BankPopup from "../../../components/BankdetailsPopup/BankDetailsPopup";
 
 const EmployeeProfile = () => {
   const dispatch = useDispatch();
@@ -33,8 +37,11 @@ const EmployeeProfile = () => {
   const userProfile = useSelector((state) => state.employeeData);
   const user = useSelector((state) => state.user);
   const [ed, setEd] = useState(false);
-  const [school, setSchool] = useState("");
   const [title, setTitle] = useState("");
+  const [imgUlr, setImgUrl] = useState("");
+  const [description, setDescription] = useState("");
+  const [showPortfolio, setShowPortfolio] = useState("");
+  const [Id, setId] = useState("");
 
   const { userData } = userProfile;
 
@@ -48,7 +55,7 @@ const EmployeeProfile = () => {
     dispatch(getEmployeeProfile());
   }, [user]);
 
-  console.log(userData?._id);
+  
   return (
     <div>
       {ed ? (
@@ -56,6 +63,7 @@ const EmployeeProfile = () => {
       ) : (
         ""
       )}
+
       <div
         style={{
           display: "flex",
@@ -174,10 +182,27 @@ const EmployeeProfile = () => {
                 can take care of it for you 👇.
               </p>
 
-              <div style={{display: 'flex', alignItems: 'flex-end'}}>
-              {userData?.kyc ? <> {userData?.kycApproved ? '': <p><strong>kyc status:</strong> Pending  </p> } </> : <button onClick={(e) => setEd("kycPopup")} >Complete Kyc</button>}
-                
-                <button>Add payment method</button>
+              <div style={{ display: "flex", alignItems: "flex-end" }}>
+                {userData?.kyc ? (
+                  <>
+                    {" "}
+                    {userData?.kycApproved ? (
+                      ""
+                    ) : (
+                      <p>
+                        <strong>kyc status:</strong> Pending{" "}
+                      </p>
+                    )}{" "}
+                  </>
+                ) : (
+                  <button onClick={(e) => setEd("kycPopup")}>
+                    Complete Kyc
+                  </button>
+                )}
+
+                <button onClick={() => setEd("bankPopup")}>
+                  Add payment method
+                </button>
               </div>
             </div>
           </div>
@@ -202,8 +227,14 @@ const EmployeeProfile = () => {
         </div>
 
         <div className="box3">
-          <div className="top">
+          <div className="top" style={{ display: "flex" }}>
             <p className="common-heading">Portfolio</p>
+            <button
+              onClick={() => setEd("portfoilioPopup")}
+              className="editIco"
+            >
+              <EditIcon />
+            </button>
           </div>
           <div className="bottom">
             <Swiper
@@ -214,39 +245,116 @@ const EmployeeProfile = () => {
               coverflowEffect={{
                 rotate: 80,
                 stretch: 0,
-                depth: 100,
+                depth: 10,
                 modifier: 1,
-                slideShadows: true,
+                slideShadows: false,
               }}
               pagination={true}
               modules={[EffectCoverflow, Pagination]}
               className="mySwiper"
               style={{ width: "1000px" }}
             >
-              <SwiperSlide style={{ height: "200px", width: "400px" }}>
-                <img
-                  style={{ height: "200px" }}
-                  src="https://mbcreative.ca/blog/wp-content/uploads/2020/03/image_processing20200217-904-j9hrxy.png"
-                />
-              </SwiperSlide>
-              <SwiperSlide style={{ height: "200px", width: "400px" }}>
-                <img
-                  style={{ height: "200px" }}
-                  src="https://cdn.dribbble.com/users/1615584/screenshots/15266020/media/48e0cc23ac8f475bdee252226e3b7bf2.jpg?compress=1&resize=400x300&vertical=top"
-                />
-              </SwiperSlide>
-              <SwiperSlide style={{ height: "200px", width: "400px" }}>
-                <img
-                  style={{ height: "200px" }}
-                  src="https://mbcreative.ca/blog/wp-content/uploads/2020/03/yursayurpreview_4x-1024x768.png"
-                />
-              </SwiperSlide>
-              <SwiperSlide style={{ height: "200px", width: "400px" }}>
-                <img
-                  style={{ height: "200px" }}
-                  src="https://www.designer-daily.com/wp-content/uploads/2018/01/storytelling-illustrations.jpg"
-                />
-              </SwiperSlide>
+              {userData?.portfolios[0]?.Image ? (
+                <SwiperSlide
+                  style={{
+                    height: "350px",
+                    width: "200px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  className="swiperImg"
+                >
+                  <img
+                    style={{ height: "200px", width: "200px" }}
+                    src={userData?.portfolios[0]?.Image}
+                  />
+                  <button
+                    onClick={() => {
+                      setTitle(userData?.portfolios[0]?.title);
+                      setDescription(userData?.portfolios[0]?.description);
+                      setShowPortfolio("portfolio");
+                      setImgUrl(userData?.portfolios[0]?.Image);
+                      setId(userData?.portfolios[0]?._id)
+                    }}
+                    style={{ marginLeft: "0px" }}
+                    className="editIco mt-2 mb-2"
+                  >
+                    <RemoveRedEyeIcon />
+                  </button>
+                </SwiperSlide>
+              ) : (
+                ""
+              )}
+
+              {userData?.portfolios[1]?.Image ? (
+                <SwiperSlide
+                  style={{
+                    height: "350px",
+                    width: "200px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  className="swiperImg"
+                >
+                  <img
+                    style={{ height: "200px", width: "200px" }}
+                    src={userData?.portfolios[1]?.Image}
+                  />
+                  <button
+                    onClick={() => {
+                      setTitle(userData?.portfolios[1]?.title);
+                      setDescription(userData?.portfolios[1]?.description);
+                      setShowPortfolio("portfolio");
+                      setImgUrl(userData?.portfolios[1]?.Image);
+                      setId(userData?.portfolios[1]?._id)
+                    }}
+                    style={{ marginLeft: "0px" }}
+                    className="editIco mt-2 mb-2"
+                  >
+                    <RemoveRedEyeIcon />
+                  </button>
+                </SwiperSlide>
+              ) : (
+                ""
+              )}
+
+              {userData?.portfolios[2]?.Image ? (
+                <SwiperSlide
+                  style={{
+                    height: "350px",
+                    width: "200px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  className="swiperImg"
+                >
+                  <img
+                    style={{ height: "200px", width: "200px" }}
+                    src={userData?.portfolios[2]?.Image}
+                  />
+                  <button
+                    onClick={() => {
+                      setTitle(userData?.portfolios[2]?.title);
+                      setDescription(userData?.portfolios[2]?.description);
+                      setShowPortfolio("portfolio");
+                      setImgUrl(userData?.portfolios[2]?.Image);
+                      setId(userData?.portfolios[2]?._id)
+                    }}
+                    style={{ marginLeft: "0px" }}
+                    className="editIco mt-2 mb-2"
+                  >
+                    <RemoveRedEyeIcon />
+                  </button>
+                </SwiperSlide>
+              ) : (
+                ""
+              )}
             </Swiper>
           </div>
         </div>
@@ -264,6 +372,38 @@ const EmployeeProfile = () => {
         <ImagePopup />
       ) : ed === "kycPopup" ? (
         <KycPopup />
+      ) : ed === "bankPopup" ? (
+        <BankPopup />
+      ) : ed == "portfoilioPopup" ? (
+        <PortfoilioPopup />
+      ) : (
+        ""
+      )}
+
+      {showPortfolio === "portfolio" ? (
+        <div className="port-show">
+          <div>
+            {" "}
+            <CloseIcon
+              className="portClose"
+              onClick={() => setShowPortfolio("")}
+            />
+          </div>
+
+          <img src={imgUlr} alt="" />
+          <div style={{display: 'flex', alignItems: 'center'}}>
+            <div>
+              <h3 className="mt-5">
+                <strong>Title :</strong> {title}
+              </h3>
+              <p>
+                <strong>Description :</strong> {description}
+              </p>
+            </div>
+            <button className="trash-btn" onClick={(e) => dispatch(deletePortfolio(Id))} ><DeleteIcon  /></button>
+            
+          </div>
+        </div>
       ) : (
         ""
       )}

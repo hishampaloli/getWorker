@@ -7,8 +7,9 @@ import {
   userLoginReducer,
 } from "./reducers/userReducer";
 import {
-  educationReducer,
   employeeProfileReducer,
+  bankDetailsReducer,
+  educationReducer,
 } from "./reducers/employeeReducer";
 
 const reducer = combineReducers({
@@ -16,6 +17,8 @@ const reducer = combineReducers({
   user: userLoginReducer,
   otp: otpHelper,
   employeeData: employeeProfileReducer,
+  bankData: bankDetailsReducer,
+  education: educationReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
