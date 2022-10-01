@@ -78,8 +78,8 @@ const EducationPopup = () => {
                           }}
                           className="deleteIcon"
                         >
-                          <DeleteIcon />{" "}
-                        </button>{" "}
+                          <DeleteIcon />
+                        </button>
                       </p>
 
                       <li>{education?.title}</li>
