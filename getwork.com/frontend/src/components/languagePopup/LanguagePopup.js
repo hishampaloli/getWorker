@@ -16,6 +16,7 @@ const LanguagePopup = () => {
   const dispatch = useDispatch();
 
   const userProfile = useSelector((state) => state.employeeData);
+  const LangR = useSelector((state) => state.langNskill);
   const [language, setLanguage] = useState("");
 
   const { userData } = userProfile;
@@ -55,7 +56,9 @@ const LanguagePopup = () => {
           }}
         >
           {userData ? (
+            
             <>
+            {LangR?.loading ?  <div style={{display:'flex', justifyContent: 'center', marginBottom: '40px'}}><Spinner animation="border" role="status"></Spinner></div>  : ''}
               {userData?.languages.map((language) => {
                 return (
                   <>
@@ -83,7 +86,7 @@ const LanguagePopup = () => {
               })}
             </>
           ) : (
-            <Spinner animation="border" role="status"></Spinner>
+            ''
           )}
         </span>
       </div>

@@ -17,6 +17,7 @@ const SkillsPopup = () => {
 
   const userProfile = useSelector((state) => state.employeeData);
   const [skill, setSkill] = useState("");
+  const SkillR = useSelector((state) => state.langNskill);
 
   const { userData } = userProfile;
 
@@ -56,6 +57,8 @@ const SkillsPopup = () => {
         >
           {userData ? (
             <>
+            {SkillR?.loading ?  <div style={{display:'flex', justifyContent: 'center', marginBottom: '40px'}}><Spinner animation="border" role="status"></Spinner></div>  : ''}
+
               {userData?.skills.map((skill) => {
                 return (
                   <>

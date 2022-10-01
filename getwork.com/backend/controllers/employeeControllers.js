@@ -20,7 +20,8 @@ export const employeeProfile = AsyncHandler(async (req, res) => {
 
   const userData = await Employee.findOne({ owner: id })
     .populate("educations")
-    .populate("portfolios");
+    .populate("portfolios")
+    .populate("bankDetails");
 
   if (userData) {
     res.json(userData);
@@ -185,8 +186,8 @@ export const addBankDetails = AsyncHandler(async (req, res) => {
 
   try {
     const bank = await BankDetails.findOne({ owner: userId });
+    const userData = await Employee.findOne({ owner: userId });
     if (bank) {
-      console.log(7898);
       res.json({
         message: "Bank Details Exists",
       });
@@ -199,6 +200,8 @@ export const addBankDetails = AsyncHandler(async (req, res) => {
       });
       console.log(AddBank);
       await AddBank.save();
+      userData.bankDetails = AddBank._id;
+      userData.save();
       res.json(AddBank);
     }
   } catch (error) {
@@ -226,14 +229,13 @@ export const addPortfolio = AsyncHandler(async (req, res) => {
 
       userData.portfolios.push(portfolioData._id);
       await userData.save();
-      res.json(userData);
+      res.json(portfolioData);
     }
   } catch (error) {
     console.log(error);
     res.json(error);
   }
 });
-
 
 export const deletePortFolio = AsyncHandler(async (req, res) => {
   const { id } = req.params;

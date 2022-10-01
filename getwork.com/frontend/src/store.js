@@ -10,6 +10,10 @@ import {
   employeeProfileReducer,
   bankDetailsReducer,
   educationReducer,
+  languageAndSkillReducer,
+  infoReducer,
+  portfolioReducer,
+  PorfileImageReducer,
 } from "./reducers/employeeReducer";
 
 const reducer = combineReducers({
@@ -19,6 +23,10 @@ const reducer = combineReducers({
   employeeData: employeeProfileReducer,
   bankData: bankDetailsReducer,
   education: educationReducer,
+  langNskill: languageAndSkillReducer,
+  userInfo: infoReducer,
+  portfolio: portfolioReducer,
+  profileImage: PorfileImageReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

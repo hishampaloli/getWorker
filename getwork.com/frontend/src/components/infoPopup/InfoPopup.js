@@ -14,6 +14,7 @@ const InfoPopup = () => {
   const dispatch = useDispatch();
 
   const userProfile = useSelector((state) => state.employeeData);
+  const userInfo = useSelector((state) => state.userInfo)
 
   const [title, setTitle] = useState("");
   const [info, setInfo] = useState("");
@@ -57,7 +58,8 @@ const InfoPopup = () => {
         >
           {userData ? (
             <>
-              {" "}
+            {userInfo?.loading ?  <div style={{display:'flex', justifyContent: 'center', marginBottom: '40px'}}><Spinner animation="border" role="status"></Spinner></div>  : ''}
+            
               <h3>{userData?.userTitle}</h3>
               <p>{userData?.userInfo}</p>
             </>

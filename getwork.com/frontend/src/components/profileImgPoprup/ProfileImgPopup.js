@@ -19,23 +19,28 @@ const ImagePopup = () => {
   const dispatch = useDispatch();
 
   const userProfile = useSelector((state) => state.employeeData);
+  const profileImage = useSelector((state) => state.profileImage);
+
+  console.log(profileImage);
   const { userData } = userProfile;
 
   const [image, setImage] = useState("");
 
-  const [url, setUrl] = useState('');
+  const [url, setUrl] = useState("");
 
   const postDetails = async (e) => {
     e.preventDefault();
     const data = new FormData();
     data.append("file", image);
-    data.append('folder', 'GetworkerProfileImg');
+    data.append("folder", "GetworkerProfileImg");
     data.append("upload_preset", "getworker");
-    const cloud_data = await axios.post("https://api.cloudinary.com/v1_1/dpiah7oyh/image/upload", data)
+    const cloud_data = await axios.post(
+      "https://api.cloudinary.com/v1_1/dpiah7oyh/image/upload",
+      data
+    );
     setUrl(cloud_data);
-    dispatch(addProfileImage(cloud_data?.data?.secure_url))
+    dispatch(addProfileImage(cloud_data?.data?.secure_url));
   };
-
 
   return (
     <div>
@@ -47,19 +52,22 @@ const ImagePopup = () => {
           Uploud Image
         </p>
 
-        <form
-         
-          style={{ marginLeft: "50px", marginTop: "50px" }}
-        >
+        <form style={{ marginTop: "50px" }}>
           <input
             type="file"
             onChange={(e) => setImage(e.target.files[0])}
             placeholder="name of your degree"
           />
-          <button onClick={postDetails} type="submit">Add</button>
+          <button onClick={postDetails} type="submit">
+            Add
+          </button>
         </form>
-        {userData?.image ? 
-        <img src={userData?.image} alt="" /> :  <Spinner animation="border" role="status"></Spinner>}
+        {profileImage?.loading ?  <div style={{display:'flex', justifyContent: 'center', marginBottom: '40px'}}><Spinner animation="border" role="status"></Spinner></div>  : ''}
+        {userData?.image ? (
+          <img className="mb-5" src={userData?.image} style={{ width: "80%", borderRadius: '25px', maxHeight: '500px' }} alt="" />
+        ) : (
+          <Spinner animation="border" role="status"></Spinner>
+        )}
       </div>
     </div>
   );

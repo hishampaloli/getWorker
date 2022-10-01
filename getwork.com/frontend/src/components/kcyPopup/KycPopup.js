@@ -27,7 +27,7 @@ const KycPopup = () => {
   const [pan, setPan] = useState("");
   const [gst, setGstNumber] = useState("");
 
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
 
   const postDetails = async (e) => {
     e.preventDefault();
@@ -69,7 +69,7 @@ const KycPopup = () => {
         )
       );
     } else {
-      setError("Invalid gst number")
+      setError("Invalid gst number");
       return true;
     }
   };
@@ -78,7 +78,7 @@ const KycPopup = () => {
 
   return (
     <div>
-      <div className="educationPopup">
+      <div className="educationPopUp">
         <p
           className="common-heading"
           style={{ textAlign: "center", marginLeft: "-30px" }}
@@ -117,11 +117,13 @@ const KycPopup = () => {
             onChange={(e) => setGstNumber(e.target.value)}
             placeholder="name of your degree"
           />
+
+{error ? <p className="mt-4" style={{color: 'red'}}>{error}</p> : ""}
           {userData?.kyc ? (
             <button
               onClick={postDetails}
               disabled="disabled"
-              style={{ backgroundColor: "red" }}
+              
             >
               Add
             </button>
@@ -130,11 +132,9 @@ const KycPopup = () => {
               Add
             </button>
           )}
-
-          <button disabled="disabled"></button>
         </form>
 
-        {error ? <h1>{error}</h1> : '' }
+        
 
         {userProfile.loading ? (
           <Spinner animation="border" role="status"></Spinner>

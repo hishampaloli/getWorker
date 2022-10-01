@@ -35,6 +35,8 @@ const EmployeeProfile = () => {
   const navigate = useNavigate();
 
   const userProfile = useSelector((state) => state.employeeData);
+  const portfolio = useSelector((state) => state.portfolio);
+
   const user = useSelector((state) => state.user);
   const [ed, setEd] = useState(false);
   const [title, setTitle] = useState("");
@@ -165,7 +167,7 @@ const EmployeeProfile = () => {
 
             <div className="right">
               <h1 style={{ display: "flex" }}>
-                Experienced web developer with hands-on-projects{" "}
+                {userData?.userTitle}
                 <button
                   onClick={(e) => setEd("infoPopup")}
                   className="editIcon bh"
@@ -173,13 +175,8 @@ const EmployeeProfile = () => {
                   <EditIcon />
                 </button>
               </h1>
-              <p>
-                Need a brand new website, an overhaul to your existing website,
-                or just a few updates? Then let's talk. Whether you're an
-                entrepreneur who needs a personal portfolio, a small to mid-size
-                business owner who needs to strengthen their brand and services,
-                or just somebody who has an idea that needs a web presence, I
-                can take care of it for you 👇.
+              <p style={{marginTop: '-80px'}}>
+              {userData?.userInfo}
               </p>
 
               <div style={{ display: "flex", alignItems: "flex-end" }}>
@@ -187,11 +184,13 @@ const EmployeeProfile = () => {
                   <>
                     {" "}
                     {userData?.kycApproved ? (
-                      ""
+                      <button style={{backgroundColor: '#3ccf4e'}}>
+                 <strong>KYC STATUS :</strong> Accepted
+                </button>
                     ) : (
-                      <p>
-                        <strong>kyc status:</strong> Pending{" "}
-                      </p>
+                      <button style={{backgroundColor: '#3ccf4e'}}>
+                 <strong>KYC STATUS :</strong> Pending
+                </button>
                     )}{" "}
                   </>
                 ) : (
@@ -200,9 +199,21 @@ const EmployeeProfile = () => {
                   </button>
                 )}
 
-                <button onClick={() => setEd("bankPopup")}>
+                {userData?.bankDetails ? (
+                  <>
+                  
+                  <button  onClick={() => setEd("bankPopup")} style={{backgroundColor: '#3ccf4e'}}>
+                  Payment Details Added
+                </button>
+                  </>
+                ) : (
+                  <button onClick={() => setEd("bankPopup")}>
                   Add payment method
                 </button>
+                )}
+
+
+                
               </div>
             </div>
           </div>
@@ -226,7 +237,7 @@ const EmployeeProfile = () => {
           </div>
         </div>
 
-        <div className="box3">
+        <div className="box3 mb-5">
           <div className="top" style={{ display: "flex" }}>
             <p className="common-heading">Portfolio</p>
             <button
@@ -355,6 +366,40 @@ const EmployeeProfile = () => {
               ) : (
                 ""
               )}
+
+              {userData?.portfolios[3]?.Image ? (
+                <SwiperSlide
+                  style={{
+                    height: "350px",
+                    width: "200px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                  className="swiperImg"
+                >
+                  <img
+                    style={{ height: "200px", width: "200px" }}
+                    src={userData?.portfolios[3]?.Image}
+                  />
+                  <button
+                    onClick={() => {
+                      setTitle(userData?.portfolios[3]?.title);
+                      setDescription(userData?.portfolios[3]?.description);
+                      setShowPortfolio("portfolio");
+                      setImgUrl(userData?.portfolios[3]?.Image);
+                      setId(userData?.portfolios[3]?._id)
+                    }}
+                    style={{ marginLeft: "0px" }}
+                    className="editIco mt-2 mb-2"
+                  >
+                    <RemoveRedEyeIcon />
+                  </button>
+                </SwiperSlide>
+              ) : (
+                ""
+              )}
             </Swiper>
           </div>
         </div>
@@ -373,7 +418,7 @@ const EmployeeProfile = () => {
       ) : ed === "kycPopup" ? (
         <KycPopup />
       ) : ed === "bankPopup" ? (
-        <BankPopup />
+        <BankPopup bankData={userData?.bankDetails}  />
       ) : ed == "portfoilioPopup" ? (
         <PortfoilioPopup />
       ) : (
@@ -399,9 +444,10 @@ const EmployeeProfile = () => {
               <p>
                 <strong>Description :</strong> {description}
               </p>
+             
             </div>
             <button className="trash-btn" onClick={(e) => dispatch(deletePortfolio(Id))} ><DeleteIcon  /></button>
-            
+           
           </div>
         </div>
       ) : (

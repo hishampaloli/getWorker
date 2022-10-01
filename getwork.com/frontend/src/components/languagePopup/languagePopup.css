@@ -6,7 +6,7 @@
     border: 1px solid rgb(223, 223, 223);
     top: 140px;
     left: 50%;
-    min-height: 400px;
+    min-height: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,7 +24,7 @@
 .educationPopup form {
     width: 80%;
     display: flex;
-    padding: 30px;
+    padding: 30px 0;
     align-items: baseline;
 }
 
@@ -54,9 +54,26 @@
     margin-left: -30px;
 }
 
+.educationPopup .bank-info-div {
+    width: 80%;
+    display: flex;
+    align-items: baseline;
+}
 
+.educationPopup .bank-lt-fm {
+    width: 80%;
+    display: flex;
+    align-items: baseline;
+}
+
+
+.educationPopup .bank-lt-fm button {
+    margin-top: 20px;
+    margin-left: 0px;
+    width: 160px;
+}
 .educationPopup .bank-p p {
     color: #e8e8e8;
     width: 100%;
-    margin-left: -90px;
 }
+

@@ -92,6 +92,10 @@ const employeeSchema = mongoose.Schema({
     },
   ],
   userType: String,
+  bankDetails: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "BankDetails",
+  },
 });
 
 const Employee = mongoose.model("Employee", employeeSchema);
