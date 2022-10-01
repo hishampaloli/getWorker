@@ -1,6 +1,6 @@
 
 .educationPopup {
-    width: 50%;
+    width: 80%;
     color: white;
     position: absolute;
     border: 1px solid rgb(223, 223, 223);
@@ -77,3 +77,38 @@
     width: 100%;
 }
 
+
+
+
+@media (max-width: 790px) {
+    .educationPopup {
+      width: 90%;
+    }
+  
+    .educationPopup ul {
+      width: 420px;
+      margin-bottom: 40px;
+    }
+  }
+  
+  
+  @media (max-width: 490px) {
+  
+    
+      .educationPopup ul {
+        width: 300px;
+        margin-bottom: 40px;
+      }
+    }
+  
+    
+  @media (max-width: 390px) {
+  
+    
+      .educationPopup ul {
+        width: 250px;
+        margin-bottom: 40px;
+      }
+    }
+    
+    

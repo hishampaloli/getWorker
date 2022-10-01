@@ -21,6 +21,9 @@ import {
   PROFILE_PIC_REQUEST,
   PROFILE_PIC_SUCCESS,
   PROFILE_PIC_FAIL,
+  EMPLOYEE_PROFILE_PUBLIC_REQUEST,
+  EMPLOYEE_PROFILE_PUBLIC_SUCCESS,
+  EMPLOYEE_PROFILE_PUBLIC_FAIL,
 } from "../contants/employeeConstants.js";
 
 import { USER_LOGOUT } from "../contants/userConstants.js";
@@ -33,6 +36,22 @@ export const employeeProfileReducer = (state = {}, action) => {
       return { loading: false, userData: action.payload };
     case EMPLOYEE_PROFILE_FAIL:
       return { loading: false, error: action.payload };
+    case USER_LOGOUT:
+      return {};
+    default:
+      return state;
+  }
+};
+
+
+export const employeeProfilePublicViewReducer = (state = {}, action) => {
+  switch (action.type) {
+    case EMPLOYEE_PROFILE_PUBLIC_REQUEST:
+      return { loading: true };
+    case EMPLOYEE_PROFILE_PUBLIC_SUCCESS:
+      return { loading: false, userData: action.payload };
+    case EMPLOYEE_PROFILE_PUBLIC_FAIL:
+      return { loading: false, error: action.error };
     case USER_LOGOUT:
       return {};
     default:
@@ -94,7 +113,7 @@ export const portfolioReducer = (state = {}, action) => {
       return { loading: false, success: true};
  
     case PORTFOLIO_FAIL:
-      return { loading: false, error: true};
+      return { loading: false, error: true, success: false};
     default:
       return state;
   }

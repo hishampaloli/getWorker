@@ -10,6 +10,9 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGOUT,
+  CHANGE_PASSWORD_REQUEST,
+  CHANGE_PASSWORD_SUCCESS,
+  CHANGE_PASSWORD_FAIL,
 } from "../contants/userConstants";
 
 export const login = (email, password) => async (dispatch) => {
@@ -72,8 +75,6 @@ export const userRegister =
         type: USER_REGISTER_SUCCESS,
         payload: data,
       });
-
-    
     } catch (error) {
       dispatch({
         type: USER_REGISTER_FAIL,
@@ -109,14 +110,13 @@ export const verifyEmail = (userId, otp, userType) => async (dispatch) => {
       type: OTP_HELPER_SUCCESS,
       payload: data,
     });
-    
+
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data,
     });
 
     localStorage.setItem("userInfo", JSON.stringify(data));
-
   } catch (error) {
     console.log(error);
     dispatch({
@@ -137,8 +137,91 @@ export const logout = () => async (dispatch) => {
     });
 
     localStorage.removeItem("userInfo");
-
   } catch (error) {
     console.log(error);
   }
 };
+
+export const changePassword = (oldPass, newPass) => async (dispatch) => {
+  try {
+    dispatch({
+      type: CHANGE_PASSWORD_REQUEST,
+    });
+    const tokenId = JSON.parse(localStorage.getItem("userInfo"));
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenId.token}`,
+      },
+    };
+
+    const { data } = await axios.patch(
+      `/api/resetPassword/${tokenId._id}`,
+      { oldPass, newPass },
+      config
+    );
+
+    if (data === "Incorrect Old Password!") {
+      dispatch({
+        type: CHANGE_PASSWORD_SUCCESS,
+        message: "Incorrect Old Password!",
+      });
+      console.log('sdsdfdfsdfsdfdsf');
+    } else {
+      dispatch({
+        type: CHANGE_PASSWORD_SUCCESS,
+        message: "Successfully updated the password",
+      });
+    }
+
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: CHANGE_PASSWORD_FAIL,
+    });
+  }
+};
+
+
+
+export const getAllUsers = (id) => async (dispatch) => {
+  try {
+
+    const tokenId = JSON.parse(localStorage.getItem("userInfo"));
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenId.token}`,
+      },
+    };
+
+    const { data } = await axios.get(
+      `/api/getAllUsers/${id}`,
+      config
+    );
+
+    // if (data === "Incorrect Old Password!") {
+    //   dispatch({
+    //     type: CHANGE_PASSWORD_SUCCESS,
+    //     message: "Incorrect Old Password!",
+    //   });
+    //   console.log('sdsdfdfsdfsdfdsf');
+    // } else {
+    //   dispatch({
+    //     type: CHANGE_PASSWORD_SUCCESS,
+    //     message: "Successfully updated the password",
+    //   });
+    // }
+
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: CHANGE_PASSWORD_FAIL,
+    });
+  }
+};
+

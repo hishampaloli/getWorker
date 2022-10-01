@@ -1,6 +1,6 @@
 
 .portfoilio-Popup {
-    width: 50%;
+    width: 80%;
     color: white;
     position: absolute;
     border: 1px solid rgb(223, 223, 223);
@@ -73,3 +73,39 @@
     width: 100%;
     margin-left: -90px;
 }
+
+
+
+
+@media (max-width: 790px) {
+    .portfoilio-Popup {
+      width: 90%;
+    }
+  
+    .portfoilio-Popup ul {
+      width: 420px;
+      margin-bottom: 40px;
+    }
+  }
+  
+  
+  @media (max-width: 490px) {
+  
+    
+    .portfoilio-Popup ul {
+        width: 300px;
+        margin-bottom: 40px;
+      }
+    }
+  
+    
+  @media (max-width: 390px) {
+  
+    
+    .portfoilio-Popup ul {
+        width: 250px;
+        margin-bottom: 40px;
+      }
+    }
+    
+    

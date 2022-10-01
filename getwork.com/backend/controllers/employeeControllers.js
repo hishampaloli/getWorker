@@ -17,12 +17,12 @@ cloudinary.config({
 
 export const employeeProfile = AsyncHandler(async (req, res) => {
   const { id } = req.params;
-
+console.log(34);
   const userData = await Employee.findOne({ owner: id })
     .populate("educations")
     .populate("portfolios")
-    .populate("bankDetails");
-
+    .populate("bankDetails")
+    .populate("owner")
   if (userData) {
     res.json(userData);
   } else {
@@ -250,3 +250,6 @@ export const deletePortFolio = AsyncHandler(async (req, res) => {
     message: "Deleted Successfully",
   });
 });
+
+
+

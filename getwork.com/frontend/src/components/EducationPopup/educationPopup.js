@@ -65,7 +65,7 @@ const EducationPopup = () => {
                 return (
                   <>
                     <ul key={education?._id} style={{ listStyle: "none" }}>
-                      <p>
+                      <p className="lang-p">
                         {" "}
                         <li>
                           <strong>{education?.school}</strong>{" "}

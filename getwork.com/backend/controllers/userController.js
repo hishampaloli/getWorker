@@ -42,7 +42,6 @@ export const userLogin = AsyncHandler(async (req, res) => {
 });
 
 export const userRegisterRegister = AsyncHandler(async (req, res) => {
-  
   const { name, email, password, userType } = req.body;
   const user = await User.findOne({ email });
   if (user) {
@@ -111,7 +110,7 @@ export const verifyEmail = AsyncHandler(async (req, res, next) => {
   console.log(userId, userType);
 
   if (!userId || !otp.trim()) {
-   throw new Error("Invalid request, missing paramaters");
+    throw new Error("Invalid request, missing paramaters");
   }
 
   if (!isValidObjectId(userId)) {
@@ -180,8 +179,41 @@ export const verifyEmail = AsyncHandler(async (req, res, next) => {
           token: generateToken(user._id),
         });
       }
-
-
     }
+  }
+});
+
+export const changePassword = AsyncHandler(async (req, res) => {
+  const { userId } = req.params;
+  const { oldPass, newPass } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+
+    if (user && (await user.matchPassword(oldPass))) {
+      user.password = newPass;
+      await user.save();
+      res.json(user);
+    } else {
+      res.json("Incorrect Old Password!");
+    }
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+export const getAllUsers = AsyncHandler(async (req, res) => {
+  
+  const { userId } = req.params;
+  try {
+    const user = await User.findById(userId);
+
+    if (user) {
+      res.json(user);
+    } else {
+      res.json("No user Found");
+    }
+  } catch (error) {
+    res.json(error);
   }
 });

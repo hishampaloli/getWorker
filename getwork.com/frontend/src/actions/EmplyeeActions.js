@@ -6,6 +6,9 @@ import {
   EDUCATION_REQUEST,
   EDUCATION_SUCCESS,
   EMPLOYEE_PROFILE_FAIL,
+  EMPLOYEE_PROFILE_PUBLIC_FAIL,
+  EMPLOYEE_PROFILE_PUBLIC_REQUEST,
+  EMPLOYEE_PROFILE_PUBLIC_SUCCESS,
   EMPLOYEE_PROFILE_REQUEST,
   EMPLOYEE_PROFILE_SUCCESS,
   INFO_FAIL,
@@ -378,7 +381,6 @@ export const addPortfolio =
 
 export const deletePortfolio = (id) => async (dispatch, getState) => {
   try {
-
     dispatch({
       type: PORTFOLIO_REQUEST,
     });
@@ -398,24 +400,47 @@ export const deletePortfolio = (id) => async (dispatch, getState) => {
     );
 
     if (data) {
-      const newArray = getState().employeeData.userData.portfolios.filter((el) => {
-        return el._id != id;
-      });
+      const newArray = getState().employeeData.userData.portfolios.filter(
+        (el) => {
+          return el._id != id;
+        }
+      );
       getState().employeeData.userData.portfolios = newArray;
-      
+
       dispatch({
         type: PORTFOLIO_SUCCESS,
-      })
-      
+      });
     }
-
-
-
   } catch (error) {
     console.log(error);
 
     dispatch({
       type: PORTFOLIO_FAIL,
-    })
+    });
+  }
+};
+
+
+
+export const getEmployeeProfileView = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: EMPLOYEE_PROFILE_PUBLIC_REQUEST,
+    });
+
+ 
+
+    const { data } = await axios.get(`/api/employee/profile/${id}`);
+
+    dispatch({
+      type: EMPLOYEE_PROFILE_PUBLIC_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type:  EMPLOYEE_PROFILE_PUBLIC_FAIL,
+      error: error,
+    });
   }
 };

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { logout } from "../../actions/UserAction";
 import "./header.css";
 import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const Header = () => {
   };
 
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <header>
         <div className="left">
           <Link style={{ color: "white", textDecoration: "none" }} to="/">
@@ -25,31 +26,52 @@ const Header = () => {
         </div>
 
         {user?.userInfo?._id ? (
-          <div className="right">
-          {user?.userInfo?.userType === 'employee' ? 
-            <>
-            <Link style={{marginRight: '45px'}} to='/myjobs '>My Jobs</Link>
-            <Link style={{marginRight: '45px'}} to='/earnings '>Earnings</Link>
-            <Link style={{marginRight: '45px'}} to='/findJobs '>Find talents</Link>
-            <Link to='/message '>FindJobs</Link>
-            </>
-           : <>
-           <Link style={{marginRight: '45px'}} to='/findtalents '>Find talents</Link>
-            <Link to='/message '>message</Link>
-           </>}
-            
+          <div className="right big-nav">
+            {user?.userInfo?.userType === "employee" ? (
+              <>
+                <Link style={{ marginRight: "45px" }} to="/myjobs ">
+                  My Jobs
+                </Link>
+                <Link style={{ marginRight: "45px" }} to="/earnings ">
+                  Earnings
+                </Link>
+                <Link style={{ marginRight: "45px" }} to="/findJobs ">
+                  Find talents
+                </Link>
+                <Link to="/message ">FindJobs</Link>
+              </>
+            ) : (
+              <>
+                <Link style={{ marginRight: "45px" }} to="/findtalents ">
+                  Find talents
+                </Link>
+                <Link to="/message ">message</Link>
+              </>
+            )}
+
             <Dropdown>
               <Dropdown.Toggle
                 className="btn"
                 style={{ backgroundColor: "transparent", color: " #3CCF4E" }}
-                variant="success"
                 id="dropdown-basic"
               >
                 {user?.userInfo?.name}
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item > <Link to={user?.userInfo?.userType === 'employee' ? 'user/profile' : 'employer/profile'} style={{color: '#212529'}}>profile</Link></Dropdown.Item>
+                <Dropdown.Item>
+                  {" "}
+                  <Link
+                    to={
+                      user?.userInfo?.userType === "employee"
+                        ? "user/profile"
+                        : "employer/profile"
+                    }
+                    style={{ color: "#212529" }}
+                  >
+                    profile
+                  </Link>
+                </Dropdown.Item>
                 <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
                 <Dropdown.Item onClick={handleLogout}>LogOut</Dropdown.Item>
               </Dropdown.Menu>

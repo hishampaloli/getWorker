@@ -8,11 +8,13 @@ import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
-  USER_LOGOUT
+  USER_LOGOUT,
+  CHANGE_PASSWORD_REQUEST,
+  CHANGE_PASSWORD_SUCCESS,
+  CHANGE_PASSWORD_FAIL,
 } from "../contants/userConstants.js";
 
 // export const userRegister = ()
-
 
 export const userLoginReducer = (state = {}, action) => {
   switch (action.type) {
@@ -43,15 +45,27 @@ export const userRegisterReducer = (state = { users: {} }, action) => {
   }
 };
 
-
 export const otpHelper = (state = {}, action) => {
   switch (action.type) {
     case OTP_HELPER_REQUEST:
       return { loading: true };
     case OTP_HELPER_SUCCESS:
       return { loading: false, status: action.payload };
-      case OTP_HELPER_FAIL:
+    case OTP_HELPER_FAIL:
       return { loading: false, error: action.error };
+    default:
+      return state;
+  }
+};
+
+export const changePasswordReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CHANGE_PASSWORD_REQUEST:
+      return { loading: true };
+    case CHANGE_PASSWORD_SUCCESS:
+      return { loading: false, message: action.message };
+    case CHANGE_PASSWORD_FAIL:
+      return { loading: false, message: '' };
     default:
       return state;
   }

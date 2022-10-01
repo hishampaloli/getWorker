@@ -5,6 +5,7 @@ import {
   userRegisterReducer,
   otpHelper,
   userLoginReducer,
+  changePasswordReducer,
 } from "./reducers/userReducer";
 import {
   employeeProfileReducer,
@@ -14,6 +15,7 @@ import {
   infoReducer,
   portfolioReducer,
   PorfileImageReducer,
+  employeeProfilePublicViewReducer,
 } from "./reducers/employeeReducer";
 
 const reducer = combineReducers({
@@ -21,12 +23,14 @@ const reducer = combineReducers({
   user: userLoginReducer,
   otp: otpHelper,
   employeeData: employeeProfileReducer,
+  emplyeePublicData: employeeProfilePublicViewReducer,
   bankData: bankDetailsReducer,
   education: educationReducer,
   langNskill: languageAndSkillReducer,
   userInfo: infoReducer,
   portfolio: portfolioReducer,
   profileImage: PorfileImageReducer,
+  changePasswords: changePasswordReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

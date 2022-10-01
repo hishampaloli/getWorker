@@ -21,7 +21,7 @@ import Spinner from "react-bootstrap/Spinner";
 import AddIcon from "@mui/icons-material/Add";
 
 import { EffectCoverflow, Pagination } from "swiper";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LanguagePopup from "../../../components/languagePopup/LanguagePopup";
 import SkillsPopup from "../../../components/skillsPopup/SkillsPopup";
 import InfoPopup from "../../../components/infoPopup/InfoPopup";
@@ -29,6 +29,9 @@ import ImagePopup from "../../../components/profileImgPoprup/ProfileImgPopup";
 import KycPopup from "../../../components/kcyPopup/KycPopup";
 import PortfoilioPopup from "../../../components/PortfolioPopUp.js/PortfoilioPopup";
 import BankPopup from "../../../components/BankdetailsPopup/BankDetailsPopup";
+import ChangePasswordPopup from "../../../components/changePasswordPopup/chnagePasswordPopup";
+import { CHANGE_PASSWORD_FAIL } from "../../../contants/userConstants";
+import { PORTFOLIO_FAIL } from "../../../contants/employeeConstants.js";
 
 const EmployeeProfile = () => {
   const dispatch = useDispatch();
@@ -36,6 +39,9 @@ const EmployeeProfile = () => {
 
   const userProfile = useSelector((state) => state.employeeData);
   const portfolio = useSelector((state) => state.portfolio);
+  const User = useSelector((state) => state.user);
+
+  console.log(User?.userInfo?.name);
 
   const user = useSelector((state) => state.user);
   const [ed, setEd] = useState(false);
@@ -57,11 +63,22 @@ const EmployeeProfile = () => {
     dispatch(getEmployeeProfile());
   }, [user]);
 
-  
   return (
     <div>
       {ed ? (
-        <CloseIcon className="closebtnIcon" onClick={(e) => setEd("")} />
+        <CloseIcon
+          className="closebtnIcon"
+          onClick={(e) => {
+            setEd("");
+            dispatch({
+              type: CHANGE_PASSWORD_FAIL,
+            });
+
+            dispatch({
+              type: PORTFOLIO_FAIL,
+            });
+          }}
+        />
       ) : (
         ""
       )}
@@ -86,9 +103,35 @@ const EmployeeProfile = () => {
                 )}
               </div>
 
-              <p className="common-heading">Hisham paloli</p>
+              <div>
+                {" "}
+                <p className="common-heading">{User?.userInfo?.name}</p>
+                <p
+                  style={{
+                    marginLeft: "30px",
+                    marginTop: "-10px",
+                    fontSize: "14px",
+                  }}
+                >
+                  {User?.userInfo?.email}
+                </p>
+                <p
+                  onClick={(e) => setEd("changePasswordPopup")}
+                  style={{
+                    marginLeft: "30px",
+                    marginTop: "-15px",
+                    color: "#3ccf4e",
+                    cursor: "pointer",
+                    fontSize: "13px",
+                  }}
+                >
+                  Change Password ?
+                </p>
+              </div>
             </div>
-            <button>Buy Credits</button>
+            <div className="ep-tp-btn" ><button>Buy Credits</button>
+            <button><Link to={`/user/publicView/${userData?.owner?._id}`} >Public View</Link> </button></div>
+            
           </div>
 
           <div className="bottom">
@@ -175,22 +218,20 @@ const EmployeeProfile = () => {
                   <EditIcon />
                 </button>
               </h1>
-              <p style={{marginTop: '-80px'}}>
-              {userData?.userInfo}
-              </p>
+              <p >{userData?.userInfo}</p>
 
               <div style={{ display: "flex", alignItems: "flex-end" }}>
                 {userData?.kyc ? (
                   <>
                     {" "}
                     {userData?.kycApproved ? (
-                      <button style={{backgroundColor: '#3ccf4e'}}>
-                 <strong>KYC STATUS :</strong> Accepted
-                </button>
+                      <button style={{ backgroundColor: "#3ccf4e" }}>
+                        <strong>KYC STATUS :</strong> Accepted
+                      </button>
                     ) : (
-                      <button style={{backgroundColor: '#3ccf4e'}}>
-                 <strong>KYC STATUS :</strong> Pending
-                </button>
+                      <button style={{ backgroundColor: "#3ccf4e" }}>
+                        <strong>KYC STATUS :</strong> Pending
+                      </button>
                     )}{" "}
                   </>
                 ) : (
@@ -201,19 +242,18 @@ const EmployeeProfile = () => {
 
                 {userData?.bankDetails ? (
                   <>
-                  
-                  <button  onClick={() => setEd("bankPopup")} style={{backgroundColor: '#3ccf4e'}}>
-                  Payment Details Added
-                </button>
+                    <button
+                      onClick={() => setEd("bankPopup")}
+                      style={{ backgroundColor: "#3ccf4e" }}
+                    >
+                      Payment Details Added
+                    </button>
                   </>
                 ) : (
                   <button onClick={() => setEd("bankPopup")}>
-                  Add payment method
-                </button>
+                    Add payment method
+                  </button>
                 )}
-
-
-                
               </div>
             </div>
           </div>
@@ -287,7 +327,7 @@ const EmployeeProfile = () => {
                       setDescription(userData?.portfolios[0]?.description);
                       setShowPortfolio("portfolio");
                       setImgUrl(userData?.portfolios[0]?.Image);
-                      setId(userData?.portfolios[0]?._id)
+                      setId(userData?.portfolios[0]?._id);
                     }}
                     style={{ marginLeft: "0px" }}
                     className="editIco mt-2 mb-2"
@@ -321,7 +361,7 @@ const EmployeeProfile = () => {
                       setDescription(userData?.portfolios[1]?.description);
                       setShowPortfolio("portfolio");
                       setImgUrl(userData?.portfolios[1]?.Image);
-                      setId(userData?.portfolios[1]?._id)
+                      setId(userData?.portfolios[1]?._id);
                     }}
                     style={{ marginLeft: "0px" }}
                     className="editIco mt-2 mb-2"
@@ -355,7 +395,7 @@ const EmployeeProfile = () => {
                       setDescription(userData?.portfolios[2]?.description);
                       setShowPortfolio("portfolio");
                       setImgUrl(userData?.portfolios[2]?.Image);
-                      setId(userData?.portfolios[2]?._id)
+                      setId(userData?.portfolios[2]?._id);
                     }}
                     style={{ marginLeft: "0px" }}
                     className="editIco mt-2 mb-2"
@@ -389,7 +429,7 @@ const EmployeeProfile = () => {
                       setDescription(userData?.portfolios[3]?.description);
                       setShowPortfolio("portfolio");
                       setImgUrl(userData?.portfolios[3]?.Image);
-                      setId(userData?.portfolios[3]?._id)
+                      setId(userData?.portfolios[3]?._id);
                     }}
                     style={{ marginLeft: "0px" }}
                     className="editIco mt-2 mb-2"
@@ -418,9 +458,11 @@ const EmployeeProfile = () => {
       ) : ed === "kycPopup" ? (
         <KycPopup />
       ) : ed === "bankPopup" ? (
-        <BankPopup bankData={userData?.bankDetails}  />
+        <BankPopup bankData={userData?.bankDetails} />
       ) : ed == "portfoilioPopup" ? (
         <PortfoilioPopup />
+      ) : ed == "changePasswordPopup" ? (
+        <ChangePasswordPopup />
       ) : (
         ""
       )}
@@ -431,12 +473,17 @@ const EmployeeProfile = () => {
             {" "}
             <CloseIcon
               className="portClose"
-              onClick={() => setShowPortfolio("")}
+              onClick={() => {
+                setShowPortfolio("");
+                dispatch({
+                  type: PORTFOLIO_FAIL,
+                });
+              }}
             />
           </div>
 
           <img src={imgUlr} alt="" />
-          <div style={{display: 'flex', alignItems: 'center'}}>
+          <div style={{ display: "flex", alignItems: "center" }}>
             <div>
               <h3 className="mt-5">
                 <strong>Title :</strong> {title}
@@ -444,10 +491,13 @@ const EmployeeProfile = () => {
               <p>
                 <strong>Description :</strong> {description}
               </p>
-             
             </div>
-            <button className="trash-btn" onClick={(e) => dispatch(deletePortfolio(Id))} ><DeleteIcon  /></button>
-           
+            <button
+              className="trash-btn"
+              onClick={(e) => dispatch(deletePortfolio(Id))}
+            >
+              <DeleteIcon />
+            </button>
           </div>
         </div>
       ) : (

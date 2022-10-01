@@ -101,7 +101,7 @@ const Signup = () => {
                     <p>Continue with Google</p>
                   </button>
 
-                  <div className="line-wrapper">
+                  <div className="line-wrapper mt-5">
                     <div className="line"></div>
                     <p>or</p>
                     <div className="line"></div>
@@ -123,31 +123,25 @@ const Signup = () => {
                   </div>
 
                   <div
-                    style={{
-                      display: "flex",
-                      width: "480px",
-                      marginRight: "0px",
-                      flexWrap: "nowrap",
-                    }}
-                    className="row"
+                    className="row1"
                   >
                     <input
-                      style={{ width: "50%" }}
                       onChange={(e) => setPassword(e.target.value)}
                       type="text"
                       required
                       placeholder="Password"
+                      className=" mt-2"
                     />
+
                     <input
-                      style={{ width: "50%" }}
                       onChange={(e) => setCPassword(e.target.value)}
                       type="text"
                       placeholder="ConfirmPassword"
+                      className=" mt-2"
                     />
                   </div>
 
-                  {user?.error}
-                  {errMsg ? <p style={{ marginTop: "25px" }}>{errMsg}</p> : ""}
+                 
 
                   {user?.loading ? (
                     <Spinner animation="border" role="status"></Spinner>
@@ -155,10 +149,14 @@ const Signup = () => {
                     ""
                   )}
 
+                  {errMsg ? <p className="p-er mt-2">{errMsg}</p> : ""}
+
                   <div className="row">
                     <button type="submit" className="btn-2">
                       Create my Account
                     </button>
+
+                    
                   </div>
                 </div>
               </form>
