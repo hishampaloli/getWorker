@@ -17,11 +17,13 @@ import {
   PorfileImageReducer,
   employeeProfilePublicViewReducer,
 } from "./reducers/employeeReducer";
+import { EmpoyerPasswordReducer, EmpoyerProfileReducer } from "./reducers/employerReducer";
 
 const reducer = combineReducers({
   employee: userRegisterReducer,
   user: userLoginReducer,
   otp: otpHelper,
+
   employeeData: employeeProfileReducer,
   emplyeePublicData: employeeProfilePublicViewReducer,
   bankData: bankDetailsReducer,
@@ -31,6 +33,9 @@ const reducer = combineReducers({
   portfolio: portfolioReducer,
   profileImage: PorfileImageReducer,
   changePasswords: changePasswordReducer,
+
+  employerData: EmpoyerProfileReducer,
+  employerChangePassword: EmpoyerPasswordReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

@@ -39,13 +39,15 @@ export const editEmployerProfile = AsyncHandler(async (req, res) => {
           user.password = newPass;
         } else {
           res.json({
-            Message: "incorrect old passowrd",
+            message: "incorrect old passowrd",
           });
         }
       }
 
       if (image) {
+        console.log(image + "323332");
         userData.image = image;
+        console.log(userData);
         await userData.save();
       }
 

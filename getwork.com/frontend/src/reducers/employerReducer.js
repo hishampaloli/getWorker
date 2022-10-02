@@ -1,10 +1,13 @@
 import {
+    CHANGE_E_PASSWORD_FAIL,
+    CHANGE_E_PASSWORD_REQUEST,
+  CHANGE_E_PASSWORD_SUCCESS,
   EMPLOYER_PROFILE_FAIL,
   EMPLOYER_PROFILE_REQUEST,
   EMPLOYER_PROFILE_SUCCESS,
 } from "../contants/employerContants.js";
 
-export const userLoginReducer = (state = {}, action) => {
+export const EmpoyerProfileReducer = (state = {}, action) => {
   switch (action.type) {
     case EMPLOYER_PROFILE_REQUEST:
       return { loading: true };
@@ -19,3 +22,21 @@ export const userLoginReducer = (state = {}, action) => {
       return state;
   }
 };
+
+
+
+export const EmpoyerPasswordReducer = (state = {}, action) => {
+    switch (action.type) {
+      case CHANGE_E_PASSWORD_REQUEST:
+        return { loading: true,success: false };
+  
+      case CHANGE_E_PASSWORD_SUCCESS:
+        return { loading: false, success: true};
+  
+      case CHANGE_E_PASSWORD_FAIL:
+        return { loading: false, error: action.error, success: false };
+  
+      default:
+        return state;
+    }
+  };

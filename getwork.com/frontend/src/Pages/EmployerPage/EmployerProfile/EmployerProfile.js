@@ -5,12 +5,16 @@ import { getEmployerProfile } from "../../../actions/EmployerActions";
 import { logout } from "../../../actions/UserAction";
 import EmployerProfile1 from "../../../components/EmployerComponents/EmployerProfile-1/EmployerProfile1";
 import "./EmployerProfile.css";
+import AddIcon from "@mui/icons-material/Add";
 
 const EmployerProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const employerData = useSelector(state => state.employerData);
 
+
+  console.log(employerData);
   useEffect(() => {
     if (!user?.userInfo) {
       navigate("/login");
@@ -28,11 +32,12 @@ const EmployerProfile = () => {
     <div className="employerProfile">
       <div className="left">
         <div className="left-top">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTi37a9hVS3QQVHQu7f8f6k44zi5RbGMsUPtCqEjGxvWQ&s"
-            alt=""
-          />
-          <p>Employer</p>
+        {employerData?.userInfo?.image ? (
+                  <img src={employerData?.userInfo?.image} alt="" />
+                ) : (
+                  <img src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" alt="" />
+                )}
+          <p>{employerData?.userInfo?.owner?.name}</p>
         </div>
 
         <div className="left-bottom">
@@ -43,7 +48,7 @@ const EmployerProfile = () => {
       </div>
 
       <div className="right">
-        <EmployerProfile1 />
+        <EmployerProfile1 employerData={employerData} />
       </div>
     </div>
   );
