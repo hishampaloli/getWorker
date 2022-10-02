@@ -168,7 +168,7 @@ const EmployeeProfile = () => {
 
                 <span>
                   <h5>
-                    Skills{" "}
+                    Skills
                     <button
                       onClick={() => setEd("skillPopup")}
                       className="editIcon"
@@ -186,7 +186,7 @@ const EmployeeProfile = () => {
 
                 <span>
                   <h5>
-                    Education{" "}
+                    Education
                     <button
                       onClick={() => setEd("edPopup")}
                       className="editIcon"
