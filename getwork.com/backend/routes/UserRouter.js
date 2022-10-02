@@ -7,7 +7,6 @@ import {
   verifyEmail,
   userLogin,
   changePassword,
-  getAllUsers,
 } from "../controllers/userController.js";
 
 router.route("/register").post(userRegisterRegister);

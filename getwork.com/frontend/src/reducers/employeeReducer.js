@@ -1,4 +1,3 @@
-
 import {
   EMPLOYEE_PROFILE_FAIL,
   EMPLOYEE_PROFILE_REQUEST,
@@ -32,10 +31,13 @@ export const employeeProfileReducer = (state = {}, action) => {
   switch (action.type) {
     case EMPLOYEE_PROFILE_REQUEST:
       return { loading: true };
+
     case EMPLOYEE_PROFILE_SUCCESS:
       return { loading: false, userData: action.payload };
+
     case EMPLOYEE_PROFILE_FAIL:
       return { loading: false, error: action.payload };
+
     case USER_LOGOUT:
       return {};
     default:
@@ -43,15 +45,17 @@ export const employeeProfileReducer = (state = {}, action) => {
   }
 };
 
-
 export const employeeProfilePublicViewReducer = (state = {}, action) => {
   switch (action.type) {
     case EMPLOYEE_PROFILE_PUBLIC_REQUEST:
       return { loading: true };
+
     case EMPLOYEE_PROFILE_PUBLIC_SUCCESS:
       return { loading: false, userData: action.payload };
+
     case EMPLOYEE_PROFILE_PUBLIC_FAIL:
       return { loading: false, error: action.error };
+      
     case USER_LOGOUT:
       return {};
     default:
@@ -75,7 +79,7 @@ export const educationReducer = (state = {}, action) => {
 };
 
 export const languageAndSkillReducer = (state = {}, action) => {
-   switch (action.type) {
+  switch (action.type) {
     case SKILL_N_LANGUAGE_REQUEST:
       return { loading: true };
 
@@ -87,37 +91,37 @@ export const languageAndSkillReducer = (state = {}, action) => {
     default:
       return state;
   }
-}
+};
 
 export const infoReducer = (state = {}, action) => {
   switch (action.type) {
-   case INFO_REQUEST:
-     return { loading: true };
+    case INFO_REQUEST:
+      return { loading: true };
 
-   case INFO_SUCCESS:
-     return { loading: false};
+    case INFO_SUCCESS:
+      return { loading: false };
 
-   case INFO_FAIL:
-     return { loading: false};
-   default:
-     return state;
- }
-}
+    case INFO_FAIL:
+      return { loading: false };
+    default:
+      return state;
+  }
+};
 
 export const portfolioReducer = (state = {}, action) => {
   switch (action.type) {
     case PORTFOLIO_REQUEST:
       return { loading: true, success: false };
- 
+
     case PORTFOLIO_SUCCESS:
-      return { loading: false, success: true};
- 
+      return { loading: false, success: true };
+
     case PORTFOLIO_FAIL:
-      return { loading: false, error: true, success: false};
+      return { loading: false, error: true, success: false };
     default:
       return state;
   }
-}
+};
 
 export const bankDetailsReducer = (state = {}, action) => {
   switch (action.type) {
@@ -133,8 +137,6 @@ export const bankDetailsReducer = (state = {}, action) => {
       return state;
   }
 };
-
-
 
 export const PorfileImageReducer = (state = {}, action) => {
   switch (action.type) {

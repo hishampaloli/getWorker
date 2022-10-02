@@ -33,8 +33,6 @@ export const getEmployeeProfile = () => async (dispatch) => {
 
     const id = JSON.parse(localStorage.getItem("userInfo"));
 
-    console.log(2323);
-
     const { data } = await axios.get(`/api/employee/profile/${id._id}`);
 
     dispatch({

@@ -1,6 +1,7 @@
 import React from "react";
 
 const EmployerProfile1 = () => {
+
   return (
     <div className="employerProfile1">
       <div className="top">
@@ -32,17 +33,17 @@ const EmployerProfile1 = () => {
       <div className="bottom">
         <form>
           <div className="row">
-            <input type="text" />
+            <input type="text" placeholder="User name" />
             <input type="text" />
           </div>
 
           <div className="row">
-            <input type="text" />
-            <input type="text" />
+            <input type="text" placeholder="Old Password"  />
+            <input type="text" placeholder="New Password" />
         </div>
 
         <div className="row-l">
-            <input className="mt-3" type="file" />
+            <input style={{width:'100%'}} className="mt-3 " type="file" />
         </div>
 
         <button type="submit">Update Profile</button>

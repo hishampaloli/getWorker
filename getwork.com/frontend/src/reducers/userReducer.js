@@ -20,10 +20,13 @@ export const userLoginReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
       return { loading: true };
+
     case USER_LOGIN_SUCCESS:
       return { loading: false, userInfo: action.payload };
+
     case USER_LOGIN_FAIL:
       return { loading: false, error: action.payload };
+
     case USER_LOGOUT:
       return {};
     default:
@@ -36,10 +39,13 @@ export const userRegisterReducer = (state = { users: {} }, action) => {
   switch (action.type) {
     case USER_REGISTER_REQUEST:
       return { loading: true };
+
     case USER_REGISTER_SUCCESS:
       return { loading: false, users: action.payload };
+
     case USER_REGISTER_FAIL:
       return { loading: false, error: action.payload };
+
     default:
       return state;
   }
@@ -49,10 +55,13 @@ export const otpHelper = (state = {}, action) => {
   switch (action.type) {
     case OTP_HELPER_REQUEST:
       return { loading: true };
+
     case OTP_HELPER_SUCCESS:
       return { loading: false, status: action.payload };
+
     case OTP_HELPER_FAIL:
       return { loading: false, error: action.error };
+
     default:
       return state;
   }
@@ -62,10 +71,13 @@ export const changePasswordReducer = (state = {}, action) => {
   switch (action.type) {
     case CHANGE_PASSWORD_REQUEST:
       return { loading: true };
+      
     case CHANGE_PASSWORD_SUCCESS:
       return { loading: false, message: action.message };
+      
     case CHANGE_PASSWORD_FAIL:
-      return { loading: false, message: '' };
+      return { loading: false, message: "" };
+      
     default:
       return state;
   }

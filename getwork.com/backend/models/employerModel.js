@@ -3,11 +3,12 @@ import bcrypt from "bcryptjs";
 
 const employerSchema = mongoose.Schema({
    
-
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
     image: {
-      type: String,
-    },
-    location: {
       type: String,
     },
     totalSpend: {
