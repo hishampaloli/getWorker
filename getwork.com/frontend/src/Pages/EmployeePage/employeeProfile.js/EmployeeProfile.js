@@ -89,7 +89,7 @@ const EmployeeProfile = () => {
           flexDirection: "column",
           alignItems: "center",
         }}
-        className="emplyerProfile"
+        className="emplyeeProfile"
       >
         <div className="box1">
           <div className="top">

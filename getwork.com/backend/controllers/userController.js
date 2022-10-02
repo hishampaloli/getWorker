@@ -202,18 +202,3 @@ export const changePassword = AsyncHandler(async (req, res) => {
   }
 });
 
-export const getAllUsers = AsyncHandler(async (req, res) => {
-  
-  const { userId } = req.params;
-  try {
-    const user = await User.findById(userId);
-
-    if (user) {
-      res.json(user);
-    } else {
-      res.json("No user Found");
-    }
-  } catch (error) {
-    res.json(error);
-  }
-});

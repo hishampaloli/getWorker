@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { logout } from '../../../actions/UserAction';
 
 
 const EmployeeHome = () => {
@@ -10,6 +11,8 @@ const EmployeeHome = () => {
   const user = useSelector((state) => state.user);
   console.log(user);
 
+  
+  // dispatch(logout());
   useEffect(() => {
     if (!user?.userInfo) {
       navigate('/login')

@@ -9,6 +9,7 @@ import EmployeeHome from "./Pages/EmployeePage/EmployeeHome.js/EmployeeHome";
 import EmployerHome from "./Pages/EmployerPage/EmployerPage.js/EmployerHome";
 import EmployeeProfile from "./Pages/EmployeePage/employeeProfile.js/EmployeeProfile";
 import EmployeePublicView from "./Pages/EmployeePage/employeePublicView/employeePublicView";
+import EmployerProfile from "./Pages/EmployerPage/EmployerProfile/EmployerProfile";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route exact path="/user/publicView/:userId" element={<EmployeePublicView />} />
 
           <Route exact path="/employer/home" element={<EmployerHome />} />
+          <Route exact path="/employer/profile" element={<EmployerProfile />} />
         </Routes>
       </Router>
     </div>

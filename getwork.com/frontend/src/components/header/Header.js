@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { logout } from "../../actions/UserAction";
 import "./header.css";
 import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
 
 const Header = () => {
   const dispatch = useDispatch();

@@ -1,0 +1,140 @@
+
+.employerProfile {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px;
+}
+
+.employerProfile .left {
+    width: 30%;
+    background-color: white;
+    border-radius: 25px;
+}
+
+.employerProfile .left .left-top {
+    border-bottom: 1px solid #AAAAAA;
+    height: 200px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+}
+
+.employerProfile .left .left-top img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+
+.employerProfile .left .left-top p {
+    font-weight: 500px;
+    color: rgb(47, 47, 47);
+    margin-top: 20px;
+}
+
+.employerProfile .left .left-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 25px ;
+    
+}
+
+.employerProfile .left .left-bottom button {
+    border: 1px solid #AAAAAA;
+    border-radius: 10px;
+    background-color: white;
+    padding: 15px 30px;
+    margin: 10px;
+    width: 80%;
+}
+
+.employerProfile .right {
+    width: 65%;
+    min-height: 500px;
+    background-color: white;
+    border-radius: 25px;
+}
+
+.employerProfile .right .employerProfile1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+.employerProfile .right .employerProfile1 .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.employerProfile .right .employerProfile1 .top .min-box {
+    
+    width: 300px;
+    height: 200px;
+    background-color: #ff2b2bb6;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: white;
+}
+
+.employerProfile .right .employerProfile1 .top .min-box strong {
+    z-index: 2;
+}
+.employerProfile .right .employerProfile1 .top .min-box svg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 70px;
+
+}
+
+.employerProfile .right .employerProfile1 .bottom {
+    width: 87%;
+    display: flex;
+    justify-content: center;
+}
+
+.employerProfile .right .employerProfile1  .bottom form {
+  display: flex;
+  flex-direction: column;align-items: center;
+  width: 100%;
+
+}
+
+.employerProfile .right .employerProfile1  .bottom .row  {
+ display: flex;
+ flex-direction: row;
+ justify-content: space-between;
+ width: 100%;
+ flex-wrap: nowrap;
+ margin-top: 30px;
+}
+
+
+.employerProfile .right .employerProfile1  .bottom form input {
+    border: 1px solid #AAAAAA;
+    padding: 10px 20px;
+    width: 49%;
+    border-radius: 25px;
+}
+
+.employerProfile .right .employerProfile1  .bottom form button {
+    width: 99%;
+    border: 1px solid;
+    margin-right: 15px;
+    color: white;
+    background-color: #3CCF4E;
+    margin-top: 20px;
+}

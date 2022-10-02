@@ -1,4 +1,4 @@
-.emplyerProfile {
+.emplyeeProfile {
   width: 100%;
 }
 
@@ -8,14 +8,14 @@
   font-size: 20px;
   margin-top: 20px;
 }
-.emplyerProfile .box1 {
+.emplyeeProfile .box1 {
   width: 90%;
   background-color: rgb(255, 255, 255);
   min-height: 500px;
   margin-top: 50px;
   border-radius: 20px;
 }
-.emplyerProfile .box1 .top {
+.emplyeeProfile .box1 .top {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -23,11 +23,11 @@
   border-bottom: 1px solid #e8e8e8;
 }
 
-.emplyerProfile .box1 .top .left {
+.emplyeeProfile .box1 .top .left {
   display: flex;
   align-items: center;
 }
-.emplyerProfile .box1 .top .left .img-box {
+.emplyeeProfile .box1 .top .left .img-box {
   width: 75px;
   height: 75px;
   position: relative;
@@ -44,22 +44,22 @@
   z-index: -1;
 }
 
-.emplyerProfile .box1 .top .left .img-box:hover > .addIconHover {
+.emplyeeProfile .box1 .top .left .img-box:hover > .addIconHover {
   color: white;
   transform: scale(2);
   z-index: 1;
   transition: 0.3s all;
 }
-.emplyerProfile .box1 .top .left .addIcon {
+.emplyeeProfile .box1 .top .left .addIcon {
   transform: scale(1.9);
 }
-.emplyerProfile .box1 .top .left img {
+.emplyeeProfile .box1 .top .left img {
   width: 75px;
   height: 75px;
   border-radius: 50%;
 }
 
-.emplyerProfile .box1 .top button {
+.emplyeeProfile .box1 .top button {
   margin-left: 20px;
   padding: 10px 25px;
   border: none;
@@ -69,17 +69,17 @@
   color: white;
 }
 
-.emplyerProfile .box1 .bottom {
+.emplyeeProfile .box1 .bottom {
   width: 100%;
   display: flex;
 }
 
-.emplyerProfile .box1 .bottom .left {
+.emplyeeProfile .box1 .bottom .left {
   width: 30%;
   border-right: 1px solid #e8e8e8;
 }
 
-.emplyerProfile .box1 .bottom .left .left-top {
+.emplyeeProfile .box1 .bottom .left .left-top {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -87,20 +87,20 @@
   border-bottom: 1px solid #e8e8e8;
 }
 
-.emplyerProfile .box1 .bottom .left .left-top span {
+.emplyeeProfile .box1 .bottom .left .left-top span {
   margin-top: 15px;
   text-align: center;
 }
 
-.emplyerProfile .box1 .bottom .left .left-bottom {
+.emplyeeProfile .box1 .bottom .left .left-bottom {
   padding-left: 30px;
   padding-top: 20px;
 }
 
-.emplyerProfile .box1 .bottom .left .left-bottom span {
+.emplyeeProfile .box1 .bottom .left .left-bottom span {
   margin: 0 20px;
 }
-.emplyerProfile .box1 .bottom .left .left-bottom h5 {
+.emplyeeProfile .box1 .bottom .left .left-bottom h5 {
   font-weight: 600;
   color: #646464;
   display: flex;
@@ -108,14 +108,14 @@
   margin-bottom: 10px;
 }
 
-.emplyerProfile .box1 .bottom .left .left-bottom li {
+.emplyeeProfile .box1 .bottom .left .left-bottom li {
   list-style: none;
   color: #3a3a3a;
   font-weight: 500;
   margin-left: -30px;
 }
 
-.emplyerProfile .box1 .bottom .right {
+.emplyeeProfile .box1 .bottom .right {
   width: 70%;
   display: flex;
   flex-direction: column;
@@ -124,12 +124,12 @@
   justify-content: space-around;
 }
 
-.emplyerProfile .box1 .bottom .right p {
+.emplyeeProfile .box1 .bottom .right p {
   color: #646464;
   margin-top: 50px;
 }
 
-.emplyerProfile .box1 .bottom .right button {
+.emplyeeProfile .box1 .bottom .right button {
   margin-left: 20px;
   padding: 10px 25px;
   border: none;
@@ -139,7 +139,7 @@
   color: white;
 }
 
-.emplyerProfile .box1 .bottom .right h1 button {
+.emplyeeProfile .box1 .bottom .right h1 button {
   border: none;
   width: 30px;
   height: 50px;
@@ -150,7 +150,7 @@
   color: rgb(255, 255, 255);
 }
 
-.emplyerProfile .box2 {
+.emplyeeProfile .box2 {
   width: 90%;
   min-height: 100px;
   background-color: white;
@@ -158,28 +158,28 @@
   margin-top: 50px;
 }
 
-.emplyerProfile .box2 .top {
+.emplyeeProfile .box2 .top {
   border-bottom: 1px solid #e8e8e8;
 }
 
-.emplyerProfile .box2 .body {
+.emplyeeProfile .box2 .body {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 20px;
 }
-.emplyerProfile .box2 .body h4 {
+.emplyeeProfile .box2 .body h4 {
   color: #3ccf4e;
 }
-.emplyerProfile .box2 .body .left-text {
+.emplyeeProfile .box2 .body .left-text {
   display: flex;
 }
 
-.emplyerProfile .box2 .body p {
+.emplyeeProfile .box2 .body p {
   margin-left: 30px;
 }
 
-.emplyerProfile .box2 .body button {
+.emplyeeProfile .box2 .body button {
   border: none;
   width: 50px;
   height: 50px;
@@ -191,7 +191,7 @@
   color: white;
 }
 
-.emplyerProfile .box3 {
+.emplyeeProfile .box3 {
   width: 90%;
   min-height: 100px;
   background-color: white;
@@ -200,14 +200,14 @@
   z-index: 0;
 }
 
-.emplyerProfile .box3 .top {
+.emplyeeProfile .box3 .top {
   border-bottom: 1px solid #e8e8e8;
   display: flex;
   align-items: center;
   padding-right: 20px;
 }
 
-.emplyerProfile .box3 .bottom {
+.emplyeeProfile .box3 .bottom {
   padding: 20px;
   display: flex;
   align-items: center;
@@ -319,12 +319,12 @@
 
 @media (max-width: 950px) {
 
-  .emplyerProfile .box1 .bottom .left {
+  .emplyeeProfile .box1 .bottom .left {
     width: 40%;
     border-right: 1px solid #e8e8e8;
   }
 
-  .emplyerProfile .box1 .bottom .right {
+  .emplyeeProfile .box1 .bottom .right {
     width: 70%;
   }
  
@@ -333,7 +333,7 @@
 
 @media (max-width: 790px) {
 
-  .emplyerProfile .box1 .top {
+  .emplyeeProfile .box1 .top {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -341,7 +341,7 @@
     padding: 20px 20px;
   }
 
-  .emplyerProfile .box1 .top .left {
+  .emplyeeProfile .box1 .top .left {
     width: 100%;
     display: flex;
     padding: 20px;
@@ -352,18 +352,18 @@
     display: flex;
     width: 100%;
   }
-  .emplyerProfile .box1 .bottom {
+  .emplyeeProfile .box1 .bottom {
     width: 100%;
     display: flex;
     flex-direction: column;
   }
 
-  .emplyerProfile .box1 .bottom .left {
+  .emplyeeProfile .box1 .bottom .left {
     width: 100%;
     border-right: 1px solid #e8e8e8;
   }
 
-  .emplyerProfile .box1 .bottom .right {
+  .emplyeeProfile .box1 .bottom .right {
     width: 100%;
   }
 
@@ -376,7 +376,7 @@
 
 @media (max-width: 450px) {
 
-  .emplyerProfile .box1 .top button {
+  .emplyeeProfile .box1 .top button {
     margin-left: 20px;
     padding: 10px 10px;
     border: none;

@@ -14,6 +14,4 @@ router.route("/register").post(userRegisterRegister);
 router.route("/verify-email").post(verifyEmail);
 router.route("/login").post(userLogin);
 router.route("/resetPassword/:userId").patch(protect, isOwner, changePassword);
-router.route("/getAllUsers/:userId").get(protect, getAllUsers);
-
 export default router;

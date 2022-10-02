@@ -32,7 +32,6 @@ import BankPopup from "../../../components/BankdetailsPopup/BankDetailsPopup";
 import ChangePasswordPopup from "../../../components/changePasswordPopup/chnagePasswordPopup";
 import { CHANGE_PASSWORD_FAIL } from "../../../contants/userConstants";
 import { PORTFOLIO_FAIL } from "../../../contants/employeeConstants.js";
-import { getAllUsers } from "../../../actions/UserAction";
 
 const EmployeePublicView = () => {
   const dispatch = useDispatch();
@@ -60,7 +59,6 @@ const EmployeePublicView = () => {
     }
 
     dispatch(getEmployeeProfileView(userId));
-    dispatch(getAllUsers(userId));
   }, [user]);
 
   return (
@@ -87,7 +85,7 @@ const EmployeePublicView = () => {
             flexDirection: "column",
             alignItems: "center",
           }}
-          className="emplyerProfile"
+          className="emplyeeProfile"
         >
           <div className="box1">
             <div className="top">
