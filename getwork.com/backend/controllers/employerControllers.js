@@ -65,21 +65,39 @@ export const editEmployerProfile = AsyncHandler(async (req, res) => {
 });
 
 export const getAllEmplyees = AsyncHandler(async (req, res) => {
-  const { keyword } = req.query;
+  const { keyword, language, earn } = req.query;
 
   console.log(keyword);
+  console.log(language);
+  console.log(earn);
 
   try {
-    if (keyword) {
+    if (keyword || language || earn) {
       const allEmplyees = await Employee.find(
-        { "skills.skill": { $regex: keyword, $options: "i" } },
+        {
+          $or: [
+            {
+              "languages.language": {
+                $regex: language ? language : "null",
+                $options: "i",
+              },
+            },
+            {
+              "skills.skill": {
+                $regex: keyword ? keyword : "null",
+                $options: "i",
+              },
+            },
+            {
+              'totalEarned': { $gte: earn, $lte: 20 },
+            },
+          ],
+        },
         (err, result) => {
           if (err) {
             res.json(err);
-            console.log(err);
           } else {
             res.json(result);
-            console.log(result);
           }
         }
       );
