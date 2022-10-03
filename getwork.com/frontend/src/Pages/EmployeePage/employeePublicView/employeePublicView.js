@@ -112,6 +112,8 @@ const EmployeePublicView = () => {
                   </p>
                 </div>
               </div>
+
+              <div className="rigth"> <button>message</button> </div>
             </div>
 
             <div className="bottom">

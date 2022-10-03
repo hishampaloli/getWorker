@@ -65,14 +65,17 @@ export const editEmployerProfile = AsyncHandler(async (req, res) => {
 });
 
 export const getAllEmplyees = AsyncHandler(async (req, res) => {
-  const { keyword, language, earn } = req.query;
+  const { keyword, earnings, language, jobsDone } = req.query;
 
   console.log(keyword);
   console.log(language);
-  console.log(earn);
+  console.log(earnings+'3');
+  console.log(jobsDone);
 
   try {
-    if (keyword || language || earn) {
+    if (keyword || language || earnings || jobsDone) {
+
+
       const allEmplyees = await Employee.find(
         {
           $or: [
@@ -89,21 +92,26 @@ export const getAllEmplyees = AsyncHandler(async (req, res) => {
               },
             },
             {
-              'totalEarned': { $gte: earn, $lte: 20 },
+              totalEarned: { $lte: earnings ? earnings : "-20" },
             },
           ],
         },
-        (err, result) => {
-          if (err) {
-            res.json(err);
-          } else {
-            res.json(result);
-          }
-        }
-      );
+        // (err, result) => {
+        //   if (err) {
+        //     res.json(err);
+        //   } else {
+        //     res.json(result);
+        //   }
+        // }
+      ).populate("owner");
+
+      res.json(allEmplyees)
+
     } else {
-      const allEmplyees = await Employee.find({});
+      const allEmplyees = await Employee.find({}).populate("owner")
       res.json(allEmplyees);
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 });

@@ -1,10 +1,13 @@
 import {
-    CHANGE_E_PASSWORD_FAIL,
-    CHANGE_E_PASSWORD_REQUEST,
+  CHANGE_E_PASSWORD_FAIL,
+  CHANGE_E_PASSWORD_REQUEST,
   CHANGE_E_PASSWORD_SUCCESS,
   EMPLOYER_PROFILE_FAIL,
   EMPLOYER_PROFILE_REQUEST,
   EMPLOYER_PROFILE_SUCCESS,
+  FIND_TALENDS_FAIL,
+  FIND_TALENDS_REQUEST,
+  FIND_TALENDS_SUCCESS,
 } from "../contants/employerContants.js";
 
 export const EmpoyerProfileReducer = (state = {}, action) => {
@@ -23,20 +26,34 @@ export const EmpoyerProfileReducer = (state = {}, action) => {
   }
 };
 
-
-
 export const EmpoyerPasswordReducer = (state = {}, action) => {
-    switch (action.type) {
-      case CHANGE_E_PASSWORD_REQUEST:
-        return { loading: true,success: false };
-  
-      case CHANGE_E_PASSWORD_SUCCESS:
-        return { loading: false, success: true};
-  
-      case CHANGE_E_PASSWORD_FAIL:
-        return { loading: false, error: action.error, success: false };
-  
-      default:
-        return state;
-    }
-  };
+  switch (action.type) {
+    case CHANGE_E_PASSWORD_REQUEST:
+      return { loading: true, success: false };
+
+    case CHANGE_E_PASSWORD_SUCCESS:
+      return { loading: false, success: true };
+
+    case CHANGE_E_PASSWORD_FAIL:
+      return { loading: false, error: action.error, success: false };
+
+    default:
+      return state;
+  }
+};
+
+export const FindTalentsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case FIND_TALENDS_REQUEST:
+      return { loading: true };
+
+    case FIND_TALENDS_SUCCESS:
+      return { loading: false, data: action.payload };
+
+    case FIND_TALENDS_FAIL:
+      return { loading: false, error: action.error };
+
+    default:
+      return state;
+  }
+};

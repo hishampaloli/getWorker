@@ -17,7 +17,11 @@ import {
   PorfileImageReducer,
   employeeProfilePublicViewReducer,
 } from "./reducers/employeeReducer";
-import { EmpoyerPasswordReducer, EmpoyerProfileReducer } from "./reducers/employerReducer";
+import {
+  EmpoyerPasswordReducer,
+  EmpoyerProfileReducer,
+  FindTalentsReducer,
+} from "./reducers/employerReducer";
 
 const reducer = combineReducers({
   employee: userRegisterReducer,
@@ -36,6 +40,7 @@ const reducer = combineReducers({
 
   employerData: EmpoyerProfileReducer,
   employerChangePassword: EmpoyerPasswordReducer,
+  findTalents: FindTalentsReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

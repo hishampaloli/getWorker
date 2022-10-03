@@ -89,22 +89,31 @@
     display: flex;
     justify-content: space-between;
     padding: 15px 30px;
-    background-color: azure;
     align-items: center;
+    background-color: #f1f2f4;
+    margin-top: 10px;
+    border-radius: 10px;
 }
 
 .findTalents .right .bottom .talent-result .t-left {
     display: flex;
+    align-items: center;
 }
 
+
+
 .findTalents .right .bottom .talent-result .t-left img {
-    width: 60px;
-    height: 60px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
 }
 
-.findTalents .right .bottom .talent-result .t-left div p {
+.findTalents .right .bottom .talent-result .t-left div {
+    margin-left: 10px;
+}
 
+.findTalents .right .bottom .talent-result .t-left div h4 {
+    margin-top: -10px;
 }
 
 .findTalents .right .bottom .talent-result .t-right button {
