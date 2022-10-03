@@ -1,10 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { editEmployerProfile } from "../../../actions/EmployerActions";
 
 const EmployerProfile1 = ({ employerData }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userData = employerData?.userInfo;
   const changePass = useSelector(state => state.employerChangePassword)
 
@@ -20,7 +22,8 @@ const EmployerProfile1 = ({ employerData }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const data = new FormData();
+    if (image) {
+      const data = new FormData();
     data.append("file", image);
     data.append("folder", "GetworkerProfileImg");
     data.append("upload_preset", "getworker");
@@ -29,12 +32,15 @@ const EmployerProfile1 = ({ employerData }) => {
       data
     );
     setUrl(cloud_data);
+    }
+
+    
     dispatch(editEmployerProfile(name, oldPass, newPass, url.data?.secure_url));
   }
 
   return (
     <div className="employerProfile1">
-      <div className="top">
+      <div className="top mt-4">
         <div className="min-box">
           <h3>Total Hires</h3>
           <strong> {userData?.hires}</strong>

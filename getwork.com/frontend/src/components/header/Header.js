@@ -41,7 +41,7 @@ const Header = () => {
               </>
             ) : (
               <>
-                <Link style={{ marginRight: "45px" }} to="/findtalents ">
+                <Link style={{ marginRight: "45px" }} to="/findTalents ">
                   Find talents
                 </Link>
                 <Link to="/message ">message</Link>

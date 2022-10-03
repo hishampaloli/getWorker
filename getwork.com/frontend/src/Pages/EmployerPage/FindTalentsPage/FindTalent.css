@@ -1,0 +1,114 @@
+.findTalents {
+  display: flex;
+  padding: 20px;
+  justify-content: space-between;
+}
+
+.findTalents .left {
+  width: 30%;
+  background-color: white;
+  border-radius: 25px;
+  min-height: 400px;
+  padding: 10px 20px;
+  padding-top: 30px;
+}
+
+.findTalents .left .main-cate-div {
+  margin-bottom: 30px;
+}
+
+.findTalents .left .main-cate-div p {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.findTalents .left .cate-div {
+  display: flex;
+  align-items: center;
+  width: 70%;
+  justify-content: space-between;
+}
+
+.findTalents .left .cate-div input {
+  width: 134px;
+  height: 14px;
+  border: 2px solid #ba3434;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.findTalents .right {
+  min-height: 300px;
+  width: 65%;
+  background-color: white;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+}
+.findTalents .right .top {
+  border-bottom: 2px solid #f1f2f4;
+  width: 100%;
+  color: rgb(94, 94, 94);
+  padding: 10px 15px;
+}
+
+.findTalents .right .top button:focus {
+  color: #3ccf4e;
+}
+
+.findTalents .right .middle {
+  width: 100%;
+  padding: 20px 15px;
+  border-bottom: 2px solid #f1f2f4;
+}
+.findTalents .right .middle form {
+  display: flex;
+  justify-content: center;
+}
+
+.findTalents .right .middle form input {
+  width: 73%;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 1px solid rgb(95, 95, 95);
+}
+
+.findTalents .right .middle form button {
+  background-color: #3ccf4e;
+  border-radius: 10px;
+  color: white;
+  margin-left: 5px;
+}
+
+.findTalents .right .bottom {
+  padding: 20px 15px;
+  width: 100%;
+}
+
+.findTalents .right .bottom .talent-result {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 30px;
+    background-color: azure;
+    align-items: center;
+}
+
+.findTalents .right .bottom .talent-result .t-left {
+    display: flex;
+}
+
+.findTalents .right .bottom .talent-result .t-left img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.findTalents .right .bottom .talent-result .t-left div p {
+
+}
+
+.findTalents .right .bottom .talent-result .t-right button {
+    background-color: #3ccf4e;
+    border-radius: 35px;
+    color: white;
+}

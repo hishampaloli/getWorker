@@ -1,6 +1,7 @@
 import AsyncHandler from "express-async-handler";
 import User from "../models/userModal.js";
 import Employer from "../models/employerModel.js";
+import Employee from "../models/employeeModal.js";
 
 export const getEmployerProfile = AsyncHandler(async (req, res) => {
   const { userId } = req.params;
@@ -61,4 +62,30 @@ export const editEmployerProfile = AsyncHandler(async (req, res) => {
   } catch (error) {
     res.json(error);
   }
+});
+
+export const getAllEmplyees = AsyncHandler(async (req, res) => {
+  const { keyword } = req.query;
+
+  console.log(keyword);
+
+  try {
+    if (keyword) {
+      const allEmplyees = await Employee.find(
+        { "skills.skill": { $regex: keyword, $options: "i" } },
+        (err, result) => {
+          if (err) {
+            res.json(err);
+            console.log(err);
+          } else {
+            res.json(result);
+            console.log(result);
+          }
+        }
+      );
+    } else {
+      const allEmplyees = await Employee.find({});
+      res.json(allEmplyees);
+    }
+  } catch (error) {}
 });

@@ -10,6 +10,7 @@ import EmployerHome from "./Pages/EmployerPage/EmployerPage.js/EmployerHome";
 import EmployeeProfile from "./Pages/EmployeePage/employeeProfile.js/EmployeeProfile";
 import EmployeePublicView from "./Pages/EmployeePage/employeePublicView/employeePublicView";
 import EmployerProfile from "./Pages/EmployerPage/EmployerProfile/EmployerProfile";
+import FindTalentsPage from "./Pages/EmployerPage/FindTalentsPage/FindTalentsPage";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
 
           <Route exact path="/employer/home" element={<EmployerHome />} />
           <Route exact path="/employer/profile" element={<EmployerProfile />} />
+          <Route exact path="/findTalents" element={<FindTalentsPage />} />
         </Routes>
       </Router>
     </div>

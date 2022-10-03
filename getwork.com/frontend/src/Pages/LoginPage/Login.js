@@ -12,7 +12,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const user = useSelector(state => state.user);
-  console.log(user?.userInfo?._id);
+  
   const handleLogin = (e) => {
     e.preventDefault();
     dispatch(login(email, password));
