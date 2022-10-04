@@ -2,25 +2,25 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
 const AdminSchema = mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, "Please enter a username for your account"],
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
   },
-  email: {
-    type: String,
-    required: [true, "Please enter a proper email address"],
+  blacklistedUsers: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+  pendingWithdrawals: {
+    type: Number,
+    default: 0,
   },
-  messages: {
-    type: String,
+  soldConnect: {
+    type: Number,
+    default: 0,
   },
-  password: {
-    type: String,
-    required: [true, "Please enter a strong password"],
-  },
-  userType: {
-    type: String,
-    default: "admin",
-  },
+  
 });
 
 const Admin = mongoose.model("Admin", AdminSchema);

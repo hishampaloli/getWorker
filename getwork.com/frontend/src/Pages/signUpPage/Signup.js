@@ -55,6 +55,9 @@ const Signup = () => {
     if (userStatus?.userInfo?.userType === 'employer' && userStatus?.userInfo?.emailVerified) {
       navigate('/employer/home')
     }
+    if (user?.userInfo?.userType === "admin") {
+      navigate("/admin/profile");
+    }
   }, [Otp, user]);
 
   const handleSignIn = (e) => {

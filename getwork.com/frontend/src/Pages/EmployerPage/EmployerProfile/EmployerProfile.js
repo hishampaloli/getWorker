@@ -20,7 +20,10 @@ const EmployerProfile = () => {
       navigate("/login");
     }
     if (user?.userInfo?.userType === "employee") {
-      navigate("/employee/home");
+      navigate("/user/home");
+    }
+    if (user?.userInfo?.userType === "admin") {
+      navigate("/admin/profile");
     }
 
     dispatch(getEmployerProfile());

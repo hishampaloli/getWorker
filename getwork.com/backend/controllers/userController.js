@@ -4,7 +4,7 @@ import generateToken from "../utils/jsonwebtoken.js";
 import Employee from "../models/employeeModal.js";
 import Employer from "../models/employerModel.js";
 import User from "../models/userModal.js";
-import Admin from "../models/adminmodel.js";
+import Admin from "../models/adminModel.js";
 import VerificationToken from "../models/UserVerification.js";
 import { generateOtp } from "../utils/getOtp.js";
 import { mailTransport } from "../utils/mail.js";
@@ -33,8 +33,16 @@ export const userLogin = AsyncHandler(async (req, res) => {
         employerData: user.employerData,
         token: generateToken(user._id),
       });
-    } else {
-    }
+    } else if (user.userType === "admin") {
+      res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        userType: user.userType,
+        adminData: user.employerData,
+        token: generateToken(user._id),
+      });
+    } 
   } else {
     res.status(404);
     throw new Error("Email or Password incorrect.");
@@ -182,6 +190,7 @@ export const verifyEmail = AsyncHandler(async (req, res, next) => {
     }
   }
 });
+
 
 export const changePassword = AsyncHandler(async (req, res) => {
   const { userId } = req.params;

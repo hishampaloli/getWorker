@@ -34,6 +34,9 @@ a {
   color: white;
 }
 
+a:hover {
+  color: #3ccf4e;
+}
 
 
 .right .btn-1 {

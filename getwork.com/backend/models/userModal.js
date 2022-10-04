@@ -36,6 +36,14 @@ const userSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Admin",
     },
+    isBlocked: {
+      type: Boolean,
+      default: false,
+    },
+    reported: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,

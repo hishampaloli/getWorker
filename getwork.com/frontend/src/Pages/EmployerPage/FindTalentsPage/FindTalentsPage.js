@@ -42,6 +42,9 @@ const FindTalentsPage = () => {
     if (user?.userInfo?.userType === "employee") {
       navigate("/users/home");
     }
+    if (user?.userInfo?.userType === "admin") {
+      navigate("/admin/profile");
+    }
     console.log(786);
   }, [user]);
 

@@ -20,6 +20,9 @@ const EmployeeHome = () => {
     if (user?.userInfo?.userType === 'employer' ) {
       navigate('/employer/home')
     }
+    if (user?.userInfo?.userType === "admin") {
+      navigate("/admin/profile");
+    }
   }, [user, dispatch])
 
   return (

@@ -14,7 +14,8 @@ export const protect = asyncHandler(async (req, res, next) => {
       // console.log(token);
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.user = await User.findById(decoded.id);
-      // console.log(req.user);
+
+      // console.log(req.user + 2334443);
 
       next();
     } catch (error) {
@@ -58,6 +59,18 @@ export const isEmployer = asyncHandler(async (req, res, next) => {
   if (req.user.userType !== "employer") {
     console.log("You are not an employer");
     throw new Error("You are not an employer");
+  } else {
+    next();
+  }
+})
+
+
+export const isAdmin = asyncHandler(async (req, res, next) => {
+
+
+  if (req.user.userType !== "admin") {
+    console.log("You are not an Admin");
+    throw new Error("You are not an Admin");
   } else {
     next();
   }

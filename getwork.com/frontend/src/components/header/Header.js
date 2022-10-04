@@ -39,10 +39,23 @@ const Header = () => {
                 </Link>
                 <Link to="/message ">FindJobs</Link>
               </>
-            ) : (
+            ) : user?.userInfo?.userType === "employer" ? (
               <>
                 <Link style={{ marginRight: "45px" }} to="/findTalents ">
                   Find talents
+                </Link>
+                <Link to="/message ">message</Link>
+              </>
+            ) : (
+              <>
+                <Link style={{ marginRight: "45px" }} to="admin/users">
+                  Users
+                </Link>
+                <Link style={{ marginRight: "45px" }} to="admin/withdraw">
+                  Withdraw request
+                </Link>
+                <Link style={{ marginRight: "45px" }} to="admin/kyc">
+                  Kyc
                 </Link>
                 <Link to="/message ">message</Link>
               </>
@@ -64,7 +77,9 @@ const Header = () => {
                     to={
                       user?.userInfo?.userType === "employee"
                         ? "user/profile"
-                        : "employer/profile"
+                        : user?.userInfo?.userType === "employer"
+                        ? "employer/profile"
+                        : "admin/profile"
                     }
                     style={{ color: "#212529" }}
                   >
