@@ -4,6 +4,12 @@
   justify-content: space-between;
 }
 
+.findTalents .save-alert {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
+
 .findTalents .left {
   width: 30%;
   background-color: white;
@@ -51,6 +57,11 @@
   color: rgb(94, 94, 94);
   padding: 10px 15px;
 }
+
+.findTalents .right .top strong {
+  color: #3ccf4e;
+}
+
 
 .findTalents .right .top button:focus {
   color: #3ccf4e;

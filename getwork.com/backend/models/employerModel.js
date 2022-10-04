@@ -36,6 +36,12 @@ const employerSchema = mongoose.Schema({
       type: Boolean,
       default: false,
     },
+    savedTalents: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
   });
   
 

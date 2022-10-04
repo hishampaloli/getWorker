@@ -87,35 +87,100 @@ export const editEmployerProfile =
     }
   };
 
-export const findTalents = (keyword = '', earnings = '', language = '', jobsDone= '') => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: FIND_TALENDS_REQUEST,
-    });
+export const findTalents =
+  (keyword = "", earnings = "", language = "", jobsDone = "") =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: FIND_TALENDS_REQUEST,
+      });
 
-    const id = JSON.parse(localStorage.getItem("userInfo"));
+      const id = JSON.parse(localStorage.getItem("userInfo"));
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${id.token}`,
+        },
+      };
+
+      const { data } = await axios.get(
+        `http://localhost:3001/api/employer/allEmployees?keyword=${keyword}&earnings=${earnings}&language=${language}&jobsDone=${jobsDone}`,
+        config
+      );
+
+      dispatch({
+        type: FIND_TALENDS_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: FIND_TALENDS_FAIL,
+      });
+      console.log(error);
+    }
+  };
+
+export const saveTalents = (id) => async (dispatch, getState) => {
+  try {
+    const token_id = JSON.parse(localStorage.getItem("userInfo"));
 
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${id.token}`,
+        Authorization: `Bearer ${token_id.token}`,
       },
     };
 
-    const { data } = await axios.get(
-      `http://localhost:3001/api/employer/allEmployees?keyword=${keyword}&earnings=${earnings}&language=${language}&jobsDone=${jobsDone}`,
+    const { data } = await axios.put(
+      `http://localhost:3001/api/employer/saveTalents/${token_id._id}`,
+      {
+        id,
+      },
       config
     );
 
-    dispatch({
-      type: FIND_TALENDS_SUCCESS,
-      payload: data,
-    });
-
+    if (data) {
+      dispatch({
+        type: EMPLOYER_PROFILE_SUCCESS,
+        payload: data,
+      });
+    }
   } catch (error) {
-    dispatch({
-      type: FIND_TALENDS_FAIL,
-    });
+    console.log(error);
+  }
+};
+
+
+
+export const removeSavedTalent = (id) => async (dispatch, getState) => {
+  try {
+    const token_id = JSON.parse(localStorage.getItem("userInfo"));
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token_id.token}`,
+      },
+    };
+
+    const { data } = await axios.patch(
+      `http://localhost:3001/api/employer/saveTalents/${token_id._id}`,
+      {
+        id,
+      },
+      config
+    );
+
+    console.log(data);
+
+    if (data) {
+      dispatch({
+        type: EMPLOYER_PROFILE_SUCCESS,
+        payload: data,
+      });
+    }
+  } catch (error) {
     console.log(error);
   }
 };

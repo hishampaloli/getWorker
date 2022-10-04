@@ -6,9 +6,18 @@ import Employee from "../models/employeeModal.js";
 export const getEmployerProfile = AsyncHandler(async (req, res) => {
   const { userId } = req.params;
   try {
-    const userData = await Employer.findOne({ owner: userId }).populate(
-      "owner"
-    );
+    const userData = await Employer.findOne({ owner: userId })
+      .populate("owner")
+      .populate("savedTalents")
+      .populate({
+        path: "savedTalents",
+        populate: [
+          {
+            path: "employeeData",
+            select: "image userTitle totalEarned _id",
+          },
+        ],
+      });
     if (userData) {
       res.json(userData);
     } else {
@@ -69,49 +78,95 @@ export const getAllEmplyees = AsyncHandler(async (req, res) => {
 
   console.log(keyword);
   console.log(language);
-  console.log(earnings+'3');
+  console.log(earnings + "3");
   console.log(jobsDone);
 
   try {
     if (keyword || language || earnings || jobsDone) {
-
-
-      const allEmplyees = await Employee.find(
-        {
-          $or: [
-            {
-              "languages.language": {
-                $regex: language ? language : "null",
-                $options: "i",
-              },
+      const allEmplyees = await Employee.find({
+        $or: [
+          {
+            "languages.language": {
+              $regex: language ? language : "null",
+              $options: "i",
             },
-            {
-              "skills.skill": {
-                $regex: keyword ? keyword : "null",
-                $options: "i",
-              },
+          },
+          {
+            "skills.skill": {
+              $regex: keyword ? keyword : "null",
+              $options: "i",
             },
-            {
-              totalEarned: { $lte: earnings ? earnings : "-20" },
-            },
-          ],
-        },
-        // (err, result) => {
-        //   if (err) {
-        //     res.json(err);
-        //   } else {
-        //     res.json(result);
-        //   }
-        // }
-      ).populate("owner");
+          },
+          {
+            totalEarned: { $lt: earnings ? earnings : "-20" },
+          },
+          
+        ],
+      }).populate("owner");
 
-      res.json(allEmplyees)
-
+      res.json(allEmplyees);
     } else {
-      const allEmplyees = await Employee.find({}).populate("owner")
+      const allEmplyees = await Employee.find({}).populate("owner");
       res.json(allEmplyees);
     }
   } catch (error) {
     console.log(error);
+  }
+});
+
+export const saveJobs = AsyncHandler(async (req, res) => {
+  const { id } = req.body;
+  const { userId } = req.params;
+
+  try {
+    const emplyerData = await Employer.findOne({ owner: userId });
+
+    let a = 0;
+
+    emplyerData.savedTalents.forEach((el) => {
+      console.log(el + "2");
+      if (el + "*" === id + "*") {
+        a = 2;
+      }
+    });
+
+    if (a == 0) {
+      emplyerData.savedTalents.push(id);
+      await emplyerData.save();
+      res.json(emplyerData);
+    }
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+export const removeSavedTalent = AsyncHandler(async (req, res) => {
+  const { id } = req.body;
+  const { userId } = req.params;
+
+  try {
+    const emplyerData = await Employer.findOne({ owner: userId })
+      .populate("owner").populate("savedTalents")
+      .populate({
+        path: "savedTalents",
+        populate: [
+          {
+            path: "employeeData",
+            select: "image userTitle totalEarned _id",
+          },
+        ],
+      });
+      console.log(id);
+
+    const arr = emplyerData.savedTalents.filter((el) => {
+      return el._id + "." !== id + ".";
+    });
+
+    emplyerData.savedTalents = arr;
+    await emplyerData.save();
+
+    res.json(emplyerData);
+  } catch (error) {
+    res.json(error);
   }
 });
