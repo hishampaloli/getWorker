@@ -87,8 +87,12 @@ const AdminRejected = ({ rejectedRequest }) => {
           </div>
         </div>
       ) : (
-        ""
+        ''
       )}
+
+      {rejectedRequest.length > 0 ? '': <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
+        <img style={{width:"300px"}} src="https://cdn.dribbble.com/users/888330/screenshots/2653750/empty_data_set.png" alt="" />
+        </div>}
     </div>
   );
 };

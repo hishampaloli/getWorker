@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { adminProfile } from "../../../actions/adminActions";
+import Spinner from 'react-bootstrap/Spinner';
 import { PieChart } from "react-minimal-pie-chart";
 import "./AdminProfile.css";
+import { changePassword } from "../../../actions/UserAction";
 
 const AdminProfile = () => {
   const navigate = useNavigate();
@@ -11,8 +13,15 @@ const AdminProfile = () => {
 
   const user = useSelector((state) => state.user);
   const Profile = useSelector((state) => state.adminProfile);
+  const password = useSelector(state => state.changePasswords);
+
+  console.log(password);
+
+  const [oldPass, setOldPass] = useState('');
+  const [confirm, setConfirm] = useState('');
 
   console.log(Profile?.data?.emplyerLength);
+  console.log(user);
 
   useEffect(() => {
     if (!user?.userInfo) {
@@ -61,9 +70,30 @@ const AdminProfile = () => {
           </div>
 
           <div className="l-box">
-            <h3 style={{color: '#3ccf4e'}} >PENDING</h3>
+            <h3 style={{ color: "#3ccf4e" }}>PENDING</h3>
             <strong>$30</strong>
           </div>
+        </div>
+
+        <div className="bottom">
+          <input type="text" placeholder={user?.userInfo?.email} />
+         
+          <form onSubmit={(e) => {
+            e.preventDefault()
+            dispatch(changePassword(oldPass, confirm))
+          }} >
+          <div>
+            <input type="password" onChange={(e) => setOldPass(e.target.value)} required placeholder="Old Password" />
+{password?.loading ?  <Spinner className="mt-4" animation="border" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </Spinner> : ''}
+            <input type="password" onChange={(e) => setConfirm(e.target.value)} required placeholder="New Password" />
+          </div>
+          
+    {password?.message ?<p className="mt-3" >{ password?.message }</p> : ''}
+          <button className="ch-ps-bt" >Update Password</button>
+          </form>
+       
         </div>
       </div>
     </div>

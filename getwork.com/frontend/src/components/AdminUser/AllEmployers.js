@@ -10,11 +10,10 @@ import Spinner from "react-bootstrap/Spinner";
 const AllEmployers = () => {
   const dispatch = useDispatch();
 
-  const Employees = useSelector((state) => state.allEmployers);
+  const Employers = useSelector((state) => state.allEmployers);
   const [keyword, setKeyword] = useState("");
   const [alert, setAlert] = useState(false);
 
-  console.log(Employees);
 
   useEffect(() => {
     dispatch(getAllEmplyers(keyword));
@@ -45,8 +44,8 @@ const AllEmployers = () => {
       </div>
 
       <div className="bottom">
-        {Employees?.data ? (
-          Employees?.data?.map((dt) => {
+        {Employers?.data ? (
+          Employers?.data?.map((dt) => {
             return (
               <div key={dt?._id} className="talent-result">
                 <div className="t-left">
@@ -138,10 +137,14 @@ const AllEmployers = () => {
             );
           })
         ) : (
+          <div style={{display: 'flex', justifyContent: 'center'}} >
           <Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
           </Spinner>
+          </div>
         )}
+
+        {Employers?.data?.length > 0 ? '': <div style={{width: '100%', display: 'flex', justifyContent: 'center'}} ><img style={{width: '300px', height: '300px'}} src="https://static.vecteezy.com/system/resources/previews/005/073/071/original/user-not-found-account-not-register-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-vector.jpg" alt="" /></div>  }
       </div>
     </div>
   );

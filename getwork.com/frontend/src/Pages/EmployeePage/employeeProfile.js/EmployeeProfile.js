@@ -19,7 +19,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import EducationPopup from "../../../components/EducationPopup/educationPopup";
 import Spinner from "react-bootstrap/Spinner";
 import AddIcon from "@mui/icons-material/Add";
-
 import { EffectCoverflow, Pagination } from "swiper";
 import { Link, useNavigate } from "react-router-dom";
 import LanguagePopup from "../../../components/languagePopup/LanguagePopup";
@@ -135,9 +134,14 @@ const EmployeeProfile = () => {
                 </p>
               </div>
             </div>
-            <div className="ep-tp-btn" ><button>Buy Credits</button>
-            <button><Link to={`/user/publicView/${userData?.owner?._id}`} >Public View</Link> </button></div>
-            
+            <div className="ep-tp-btn">
+              <button>Buy Credits</button>
+              <button>
+                <Link to={`/user/publicView/${userData?.owner?._id}`}>
+                  Public View
+                </Link>{" "}
+              </button>
+            </div>
           </div>
 
           <div className="bottom">
@@ -224,20 +228,32 @@ const EmployeeProfile = () => {
                   <EditIcon />
                 </button>
               </h1>
-              <p >{userData?.userInfo}</p>
+              <p>
+                {userData?.userInfo ? (
+                  userData?.userInfo
+                ) : (
+                  <div  >
+                    <Spinner animation="border" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                  </div>
+                )}
+              </p>
 
               <div style={{ display: "flex", alignItems: "flex-end" }}>
                 {userData?.kyc ? (
                   <>
                     {" "}
-                    {userData?.kycApproved === 'accepted' ? (
+                    {userData?.kycApproved === "accepted" ? (
                       <button style={{ backgroundColor: "#3ccf4e" }}>
                         <strong>KYC STATUS :</strong> Accepted
                       </button>
-                    ) : userData?.kycApproved === 'rejected' ?   <button onClick={(e) => setEd("kycPopup")}>
+                    ) : userData?.kycApproved === "rejected" ? (
+                      <button onClick={(e) => setEd("kycPopup")}>
                         <strong>KYC STATUS :</strong> Rejected
-                      </button> : (
-                      <button style={{ backgroundColor: "#FFC062" }}  >
+                      </button>
+                    ) : (
+                      <button style={{ backgroundColor: "#FFC062" }}>
                         <strong>KYC STATUS :</strong> Pending
                       </button>
                     )}{" "}
@@ -281,7 +297,7 @@ const EmployeeProfile = () => {
               </div>
             </div>
 
-            <button>ee</button>
+            <button></button>
           </div>
         </div>
 
