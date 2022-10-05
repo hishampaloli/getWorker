@@ -17,7 +17,7 @@ export const adminProfile = AsyncHandler(async (req, res) => {
         populate: [
           {
             path: "blacklistedUsers",
-            select: "name image -_id",
+            select: " -_id",
           },
         ],
       });
@@ -131,9 +131,7 @@ export const blacklistUsers = AsyncHandler(async (req, res) => {
   try {
     const adminData = await Admin.findOne({
       owner: "633beb1b9678e114623121bc",
-    });
-
-    console.log(adminData.blacklistedUsers);
+    }).populate("blacklistedUsers");
 
     let a = 0;
 
@@ -162,7 +160,7 @@ export const removeBlacklist = AsyncHandler(async (req, res) => {
   try {
     const adminData = await Admin.findOne({
       owner: "633beb1b9678e114623121bc",
-    });
+    }).populate("blacklistedUsers");
     console.log(id);
 
     const arr = adminData.blacklistedUsers.filter((el) => {
@@ -175,5 +173,53 @@ export const removeBlacklist = AsyncHandler(async (req, res) => {
     res.json(adminData);
   } catch (error) {
     res.json(error);
+  }
+});
+
+export const getAllKyc = AsyncHandler(async (req, res) => {
+  try {
+    const { id } = req.body;
+
+    const kycData = await Kyc.find({ }).populate("owner");
+
+    res.json(kycData);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+export const acceptNrejectKyc = AsyncHandler(async (req, res) => {
+  try {
+    const { id, status } = req.body;
+
+    const kycDetail = await Kyc.findOne({ owner: id });
+    const userDetail = await Employee.findOne({ owner: id });
+
+    if (status === 'accept') {
+      if (kycDetail && userDetail) {
+        kycDetail.kycStatus = 'accepted'
+        userDetail.kycApproved = 'accepted';
+
+        await kycDetail.save();
+        await userDetail.save();
+      }
+    }else if(status === 'reject') {
+      if (kycDetail && userDetail) {
+        kycDetail.kycStatus = 'rejected'
+        userDetail.kycApproved = 'rejected';
+
+        await kycDetail.save();
+        await userDetail.save();
+      }
+    }
+
+
+    res.json({
+      kyc: kycDetail,
+      user: userDetail,
+    });
+
+  } catch (error) {
+    console.log(error);
   }
 });

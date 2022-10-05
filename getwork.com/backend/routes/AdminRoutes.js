@@ -8,7 +8,9 @@ import {
   getAllBlockedUsers,
   blacklistUsers,
   removeBlacklist,
-  blockUsers
+  blockUsers,
+  getAllKyc,
+  acceptNrejectKyc
 } from "../controllers/adminController.js";
 import { changePassword } from "../controllers/userController.js";
 import { protect, isOwner, isAdmin } from "../middlewares/authMiddleware.js";
@@ -21,5 +23,11 @@ router.route("/blockedUsers").get(protect, isAdmin, getAllBlockedUsers);
 router.route("/block/:_id").patch( blockUsers );
 router.route("/blacklist").put(protect, isAdmin, blacklistUsers);
 router.route("/removeBlacklist").put(protect, isAdmin, removeBlacklist)
+
+
+router.route("/allKyc").get(protect, isAdmin, getAllKyc)
+router.route("/acceptKyc").post(protect, isAdmin, acceptNrejectKyc);
+
+
 
 export default router;

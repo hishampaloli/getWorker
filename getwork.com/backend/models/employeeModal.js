@@ -57,8 +57,8 @@ const employeeSchema = mongoose.Schema({
     ref: "Kyc",
   },
   kycApproved: {
-    type: Boolean,
-    default: false,
+    type: String,
+    default: "pending",
   },
   isBlocked: {
     type: Boolean,

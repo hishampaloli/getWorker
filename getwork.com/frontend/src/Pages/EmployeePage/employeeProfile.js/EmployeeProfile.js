@@ -32,6 +32,7 @@ import BankPopup from "../../../components/BankdetailsPopup/BankDetailsPopup";
 import ChangePasswordPopup from "../../../components/changePasswordPopup/chnagePasswordPopup";
 import { CHANGE_PASSWORD_FAIL } from "../../../contants/userConstants";
 import { PORTFOLIO_FAIL } from "../../../contants/employeeConstants.js";
+import { logout } from "../../../actions/UserAction";
 
 const EmployeeProfile = () => {
   const dispatch = useDispatch();
@@ -52,6 +53,8 @@ const EmployeeProfile = () => {
   const [Id, setId] = useState("");
 
   const { userData } = userProfile;
+
+  // dispatch(logout())
 
   useEffect(() => {
     if (!user?.userInfo) {
@@ -227,12 +230,14 @@ const EmployeeProfile = () => {
                 {userData?.kyc ? (
                   <>
                     {" "}
-                    {userData?.kycApproved ? (
+                    {userData?.kycApproved === 'accepted' ? (
                       <button style={{ backgroundColor: "#3ccf4e" }}>
                         <strong>KYC STATUS :</strong> Accepted
                       </button>
-                    ) : (
-                      <button style={{ backgroundColor: "#3ccf4e" }}>
+                    ) : userData?.kycApproved === 'rejected' ?   <button onClick={(e) => setEd("kycPopup")}>
+                        <strong>KYC STATUS :</strong> Rejected
+                      </button> : (
+                      <button style={{ backgroundColor: "#FFC062" }}  >
                         <strong>KYC STATUS :</strong> Pending
                       </button>
                     )}{" "}

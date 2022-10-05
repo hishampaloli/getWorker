@@ -23,9 +23,12 @@ import {
   FindTalentsReducer,
 } from "./reducers/employerReducer";
 import {
+  adminProfileReducer,
   AllEmployeesREducer,
   AllEmployersREducer,
+  AllKycReducer,
   blockedUserReducer,
+  kycStatusReducer,
 } from "./reducers/adminReducer";
 
 const reducer = combineReducers({
@@ -47,9 +50,12 @@ const reducer = combineReducers({
   employerChangePassword: EmpoyerPasswordReducer,
   findTalents: FindTalentsReducer,
 
+  adminProfile: adminProfileReducer,
   allEmployees: AllEmployeesREducer,
   allEmployers: AllEmployersREducer,
-  blockedUsers: blockedUserReducer
+  blockedUsers: blockedUserReducer,
+  allKyc: AllKycReducer,
+  kycReq: kycStatusReducer
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

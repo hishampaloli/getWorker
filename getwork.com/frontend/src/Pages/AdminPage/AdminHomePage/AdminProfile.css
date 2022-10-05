@@ -1,0 +1,48 @@
+
+.adminProfile {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px;
+}
+
+.adminProfile .left {
+    width: 25%;
+    min-height: 400px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.adminProfile .left .top {
+    border-bottom: 1px solid rgb(219, 219, 219);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+}
+
+.adminProfile .left .bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+}
+.adminProfile .right  {
+    width: 70%;
+    align-items: flex-start;
+}
+.adminProfile .right .top {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.adminProfile .right .top .l-box {
+    background-color: rgb(255, 255, 255);
+    width: 40%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}

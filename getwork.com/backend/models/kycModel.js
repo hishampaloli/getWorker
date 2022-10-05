@@ -23,6 +23,10 @@ const KycSchema = mongoose.Schema({
     type: String,
     required: [true, "Please add your gst number"],
   },
+  kycStatus: {
+    type: String,
+    default: "pending"
+  }
 });
 
 const Kyc = mongoose.model("Kyc", KycSchema);

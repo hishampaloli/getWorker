@@ -149,16 +149,14 @@ export const addKyc = AsyncHandler(async (req, res) => {
   const { aathar, aatharSelfie, pan, gstNumber } = req.body;
   const { userId } = req.params;
 
-  const userData = await Employee.findOne({ owner: userId });
 
-  console.log(userData);
 
-  // if (aathar && aatharSelfie && pan && gstNumber) {
-  console.log(aathar);
-  console.log(aatharSelfie);
-  console.log(pan);
-  console.log(gstNumber);
   try {
+
+    const userData = await Employee.findOne({ owner: userId });
+    await Kyc.findOneAndDelete({owner: userId})
+
+    
     const kycData = new Kyc({
       owner: userId,
       aatharImage: aathar,
@@ -171,6 +169,7 @@ export const addKyc = AsyncHandler(async (req, res) => {
 
     console.log(kycData);
     userData.kyc = kycData._id;
+    userData.kycApproved = 'pending'
     await userData.save();
     console.log(userData);
     res.json(userData);

@@ -119,7 +119,7 @@ const KycPopup = () => {
           />
 
 {error ? <p className="mt-4" style={{color: 'red'}}>{error}</p> : ""}
-          {userData?.kyc ? (
+          {userData?.kyc && userData?.kycApproved === 'pending' ? (
             <button
               onClick={postDetails}
               disabled="disabled"
@@ -139,7 +139,7 @@ const KycPopup = () => {
         {userProfile.loading ? (
           <Spinner animation="border" role="status"></Spinner>
         ) : (
-          <>{userData?.kyc ? <h1>Kyc Updated</h1> : ""}</>
+          <>{userData?.kyc && userData?.kycApproved === 'pending' ? <h1>Kyc Updated</h1> : ""}</>
         )}
       </div>
     </div>

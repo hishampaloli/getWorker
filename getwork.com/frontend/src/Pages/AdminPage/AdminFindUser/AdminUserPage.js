@@ -1,15 +1,32 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import './AdminUser.css'
 import { getAllEmplyees } from '../../../actions/adminActions';
 import AllEmployees from '../../../components/AdminUser/AllEmployees';
 import AllEmployers from '../../../components/AdminUser/AllEmployers';
 import BlockedUsers from '../../../components/AdminUser/BlockedUsers';
+import { useNavigate } from 'react-router-dom';
 
 const AdminUserPage = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    
+  const user = useSelector((state) => state.user);
 
     const [ed, setEd] = useState('employee');
+
+    
+  useEffect(() => {
+    if (!user?.userInfo) {
+      navigate("/login");
+    }
+    if (user?.userInfo?.userType === "employer") {
+      navigate("/employer/home");
+    }
+    if (user?.userInfo?.userType === "employee") {
+      navigate("/employee/profile");
+    }
+  }, [user]);
 
     
 
@@ -17,10 +34,9 @@ const AdminUserPage = () => {
     <div className='adminUserPage' >
     <div className="adminUserPage-box">
     <div className="top">
-            <button onClick={() => setEd("employee")} >Employees</button>
-            <button onClick={() => setEd("employer")}>Employers</button>
-            <button onClick={() => setEd("block")}>Blocked Users</button>
-            <button onClick={() => setEd("black")}>Blacklisted</button>
+            <button className='bnt' onClick={() => setEd("employee")} >Employees</button>
+            <button className='bnt' onClick={() => setEd("employer")}>Employers</button>
+            <button className='bnt' onClick={() => setEd("block")}>Blocked Users</button>
         </div>
 
         <div className="bottom">

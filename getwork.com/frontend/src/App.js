@@ -11,8 +11,9 @@ import EmployeeProfile from "./Pages/EmployeePage/employeeProfile.js/EmployeePro
 import EmployeePublicView from "./Pages/EmployeePage/employeePublicView/employeePublicView";
 import EmployerProfile from "./Pages/EmployerPage/EmployerProfile/EmployerProfile";
 import FindTalentsPage from "./Pages/EmployerPage/FindTalentsPage/FindTalentsPage";
-import AdminProfile from "./Pages/AdminPage/AdminHomePage/AdminPage";
+import AdminProfile from "./Pages/AdminPage/AdminHomePage/AdminProfile";
 import AdminUserPage from "./Pages/AdminPage/AdminFindUser/AdminUserPage";
+import AdminKyc from "./Pages/AdminPage/AdminKyc/AdminKyc";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
 
           <Route exact path="/admin/profile" element={<AdminProfile />} />
           <Route exact path="/admin/users" element={<AdminUserPage />} />
+          <Route exact path="/admin/kyc" element={<AdminKyc />} />
 
         </Routes>
       </Router>

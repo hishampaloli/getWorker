@@ -24,9 +24,7 @@
     margin-left: 30px;
 }
 
-.adminUserPage-box .top button:focus {
-    color: #3ccf4e;
-}
+
 
 .adminUserPage-box .bottom {
     padding: 20px;
@@ -100,3 +98,29 @@
       border-radius: 35px;
       color: white;
   }
+
+
+  .adminUserPage-box .blacklist-main {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+
+  .adminUserPage .blacklist-main .blacklist-box {
+    width: 200px;
+    height: 300px;
+    border-radius: 5px;
+    background-color: rgb(243, 243, 243);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+  }
+
+
+
+
+
+
+
+
