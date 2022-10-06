@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { acceptOrRejectKyc, getAllKyc } from "../../actions/adminActions";
+import { acceptOrRejectKyc, getAllKyc } from "../../../actions/adminActions";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { logout } from "../../actions/UserAction";
+import { logout } from "../../../actions/UserAction";
 import { flexbox } from "@mui/system";
 import Alert from "@mui/material/Alert";
 import CancelIcon from "@mui/icons-material/Cancel";
-import CustomSpinner from "../customSpinner/CustomSpinner";
+import CustomSpinner from "../../customSpinner/CustomSpinner";
 
 const AdminAllKyc = ({ kycRequest }) => {
   const dispatch = useDispatch();

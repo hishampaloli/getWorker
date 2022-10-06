@@ -1,4 +1,4 @@
-import { json } from "express";
+import { json, Router } from "express";
 import AsyncHandler from "express-async-handler";
 import generateToken from "../utils/jsonwebtoken.js";
 import Employee from "../models/employeeModal.js";
@@ -7,6 +7,10 @@ import BankDetails from "../models/bankDetailsModel.js";
 import Kyc from "../models/kycModel.js";
 import Admin from "../models/adminModel.js";
 import Employer from "../models/employerModel.js";
+
+// @DESC gets the profile of the admin
+// @METHOD get
+// @ROUTE /admin/profile
 
 export const adminProfile = AsyncHandler(async (req, res) => {
   try {
@@ -38,6 +42,11 @@ export const adminProfile = AsyncHandler(async (req, res) => {
     console.log(error);
   }
 });
+
+
+// @DESC gets the profile of all the employees for the admin
+// @METHOD get
+// @ROUTE /admin/allEmployees
 
 export const findAllEmployees = AsyncHandler(async (req, res) => {
   const keyword = req.query.keyword

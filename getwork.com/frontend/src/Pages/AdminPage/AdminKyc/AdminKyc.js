@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllKyc } from "../../../actions/adminActions";
-import AdminAcceptedKyc from "../../../components/AdminKyc/AdminAcceptedKyc";
-import AdminAllKyc from "../../../components/AdminKyc/AdminAllKyc";
-import AdminRejected from "../../../components/AdminKyc/AdminRejected";
+import AdminAcceptedKyc from "../../../components/AdminComponents/AdminKyc/AdminAcceptedKyc";
+import AdminAllKyc from "../../../components/AdminComponents/AdminKyc/AdminAllKyc";
+import AdminRejected from "../../../components/AdminComponents/AdminKyc/AdminRejected";
 import Alert from '@mui/material/Alert';
 import "./AdminKyc.css";
 import { useNavigate } from "react-router-dom";

@@ -2,28 +2,27 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { acceptOrRejectKyc } from "../../actions/adminActions";
+import { acceptOrRejectKyc } from "../../../actions/adminActions";
 import Alert from '@mui/material/Alert';
 
-const AdminAcceptedKyc = ({ acceptedRequest }) => {
+const AdminRejected = ({ rejectedRequest }) => {
   const dispatch = useDispatch();
+  const kyc = useSelector((state) => state.allKyc);
 
   const [aathar, setAathar] = useState("");
   const [aatharSelfie, setAatharSelfie] = useState("");
   const [pan, setPan] = useState("");
   const [gst, setGst] = useState("");
   const [id, setId] = useState("");
-
   
   const kycStatus = useSelector((state) => state.kycReq);
-  //
   const [ed, setEd] = useState(false);
 
   return (
     <div>
-      {kycStatus?.loading ?  <Alert style={{}} className="m-1" severity="info">Processing !</Alert>  : ''}
-      {acceptedRequest
-        ? acceptedRequest?.map((el) => {
+     {kycStatus?.loading ?  <Alert style={{}} className="m-1" severity="info">Processing !</Alert>  : ''}
+      {rejectedRequest
+        ? rejectedRequest?.map((el) => {
             return (
               <div className="allkyc-box">
                 <div>
@@ -76,28 +75,26 @@ const AdminAcceptedKyc = ({ acceptedRequest }) => {
             style={{ display: "flex", width: "400px", flexDirection: "row" }}
             className="bfsa"
           >
-            
             <button
-              style={{ backgroundColor: "#FF5454" }}
+              style={{ backgroundColor: "#3CCF4E" }}
               onClick={() => {
-                dispatch(acceptOrRejectKyc(id, "reject"));
+                dispatch(acceptOrRejectKyc(id, "accept"));
                 setEd(false)
               }}
-              className="mx-3"
             >
-              Reject
+              Accept
             </button>
           </div>
         </div>
       ) : (
-        ""
+        ''
       )}
 
-      {acceptedRequest.length > 0 ? '': <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
+      {rejectedRequest.length > 0 ? '': <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
         <img style={{width:"300px"}} src="https://cdn.dribbble.com/users/888330/screenshots/2653750/empty_data_set.png" alt="" />
         </div>}
     </div>
   );
 };
 
-export default AdminAcceptedKyc;
+export default AdminRejected;

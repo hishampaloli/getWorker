@@ -23,7 +23,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { EffectCoverflow, Pagination } from "swiper";
 import { Link, useNavigate } from "react-router-dom";
 import LanguagePopup from "../../../components/languagePopup/LanguagePopup";
-import SkillsPopup from "../../../components/skillsPopup/SkillsPopup";
+import SkillsPopup from "../../../components/EmployeeComponents/skillsPopup/SkillsPopup";
 import InfoPopup from "../../../components/infoPopup/InfoPopup";
 import ImagePopup from "../../../components/profileImgPoprup/ProfileImgPopup";
 import KycPopup from "../../../components/kcyPopup/KycPopup";
