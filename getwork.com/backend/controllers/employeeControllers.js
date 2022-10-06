@@ -21,17 +21,21 @@ cloudinary.config({
 
 export const employeeProfile = AsyncHandler(async (req, res) => {
   const { id } = req.params;
-  console.log(34);
-  const userData = await Employee.findOne({ owner: id })
-    .populate("educations")
-    .populate("portfolios")
-    .populate("bankDetails")
-    .populate("owner");
-  if (userData) {
-    res.json(userData);
-  } else {
-    res.status(404);
-    throw new Error("No such profile found");
+
+  try {
+    const userData = await Employee.findOne({ owner: id })
+      .populate("educations")
+      .populate("portfolios")
+      .populate("bankDetails")
+      .populate("owner");
+    if (userData) {
+      res.json(userData);
+    } else {
+      res.status(404);
+      throw new Error("No such profile found");
+    }
+  } catch (error) {
+    res.json(error);
   }
 });
 
@@ -43,21 +47,25 @@ export const postEducations = AsyncHandler(async (req, res) => {
   const { userId } = req.params;
   const { education } = req.body;
 
-  const userData = await Employee.findOne({ owner: userId });
+  try {
+    const userData = await Employee.findOne({ owner: userId });
 
-  if (education) {
-    const educationData = new Education({
-      owner: userId,
-      school: education.school,
-      title: education.title,
-      period: education.period,
-    });
+    if (education) {
+      const educationData = new Education({
+        owner: userId,
+        school: education.school,
+        title: education.title,
+        period: education.period,
+      });
 
-    await educationData.save();
+      await educationData.save();
 
-    userData.educations.push(educationData._id);
-    await userData.save();
-    res.json(educationData);
+      userData.educations.push(educationData._id);
+      await userData.save();
+      res.json(educationData);
+    }
+  } catch (error) {
+    res.json(error);
   }
 });
 
@@ -68,18 +76,20 @@ export const postEducations = AsyncHandler(async (req, res) => {
 export const deleteEducation = AsyncHandler(async (req, res) => {
   const { id } = req.params;
   const { userId } = req.params;
-  console.log(id);
-  console.log(userId);
-  // const userr = await Employee.findOne({ owner: userId });
-  const user = await Employee.findOneAndUpdate(
-    { owner: userId },
-    { $pull: { educations: id } }
-  );
-  console.log(user);
-  const deletedData = await Education.findByIdAndDelete(id);
-  res.json({
-    message: "Deleted Successfully",
-  });
+
+  try {
+    const user = await Employee.findOneAndUpdate(
+      { owner: userId },
+      { $pull: { educations: id } }
+    );
+
+    const deletedData = await Education.findByIdAndDelete(id);
+    res.json({
+      message: "Deleted Successfully",
+    });
+  } catch (error) {
+    res.json(error);
+  }
 });
 
 // @DESC Employees can add language or skill there education
@@ -90,19 +100,22 @@ export const addLanguageAndSkill = AsyncHandler(async (req, res) => {
   const { userId } = req.params;
   const { skill, language } = req.body;
 
-  const userData = await Employee.findOne({ owner: userId });
-  console.log(userData);
+  try {
+    const userData = await Employee.findOne({ owner: userId });
 
-  if (skill) {
-    userData.skills.push({ skill });
-    await userData.save();
-  }
+    if (skill) {
+      userData.skills.push({ skill });
+      await userData.save();
+    }
 
-  if (language) {
-    userData.languages.push({ language: language });
-    await userData.save();
+    if (language) {
+      userData.languages.push({ language: language });
+      await userData.save();
+    }
+    res.json(userData);
+  } catch (error) {
+    res.json(error);
   }
-  res.json(userData);
 });
 
 // @DESC Employees can edit there education
@@ -113,23 +126,27 @@ export const editInfo = AsyncHandler(async (req, res) => {
   const { userId } = req.params;
   const { title, info } = req.body;
 
-  if (title) {
-    const userInfo = await Employee.findOneAndUpdate(
-      { owner: userId },
-      { userTitle: title }
-    );
-  }
+  try {
+    if (title) {
+      const userInfo = await Employee.findOneAndUpdate(
+        { owner: userId },
+        { userTitle: title }
+      );
+    }
 
-  if (info) {
-    const userInfo = await Employee.findOneAndUpdate(
-      { owner: userId },
-      { userInfo: info }
-    );
-  }
+    if (info) {
+      const userInfo = await Employee.findOneAndUpdate(
+        { owner: userId },
+        { userInfo: info }
+      );
+    }
 
-  res.json({
-    message: "Successfully updated",
-  });
+    res.json({
+      message: "Successfully updated",
+    });
+  } catch (error) {
+    res.json(error);
+  }
 });
 
 // @DESC Employees can delete language or skill there education
@@ -140,23 +157,27 @@ export const deleteLanguageOrSkill = AsyncHandler(async (req, res) => {
   const { userId } = req.params;
   const { skill, language } = req.query;
 
-  if (language) {
-    const userData = await Employee.findOneAndUpdate(
-      { owner: userId },
-      { $pull: { languages: { language: language } } }
-    );
-  }
+  try {
+    if (language) {
+      const userData = await Employee.findOneAndUpdate(
+        { owner: userId },
+        { $pull: { languages: { language: language } } }
+      );
+    }
 
-  if (skill) {
-    const userData = await Employee.findOneAndUpdate(
-      { owner: userId },
-      { $pull: { skills: { skill: skill } } }
-    );
-  }
+    if (skill) {
+      const userData = await Employee.findOneAndUpdate(
+        { owner: userId },
+        { $pull: { skills: { skill: skill } } }
+      );
+    }
 
-  res.json({
-    message: "Deleted succussfully",
-  });
+    res.json({
+      message: "Deleted succussfully",
+    });
+  } catch (error) {
+    res.json(error);
+  }
 });
 
 // @DESC Employees can add profileImage there education
@@ -166,16 +187,19 @@ export const deleteLanguageOrSkill = AsyncHandler(async (req, res) => {
 export const addProfileImage = AsyncHandler(async (req, res) => {
   const { image } = req.body;
 
-  const userData = await Employee.findOne({ owner: req.params.userId });
+  try {
+    const userData = await Employee.findOne({ owner: req.params.userId });
 
-  if (userData) {
-    userData.image = image;
-    userData.save();
+    if (userData) {
+      userData.image = image;
+      userData.save();
+    }
+
+    res.json(userData);
+  } catch (error) {
+    res.json(error);
   }
-
-  res.json(userData);
 });
-
 
 // @DESC Employees can add their kyc details
 // @METHOD post
@@ -199,18 +223,16 @@ export const addKyc = AsyncHandler(async (req, res) => {
 
     await kycData.save();
 
-    console.log(kycData);
     userData.kyc = kycData._id;
     userData.kycApproved = "pending";
     await userData.save();
-    console.log(userData);
+
     res.json(userData);
   } catch (error) {
-    // console.log(error);
+    res.json(error);
   }
   // }
 });
-
 
 // @DESC Employees can add their bank details for money withdraw
 // @METHOD post
@@ -234,19 +256,15 @@ export const addBankDetails = AsyncHandler(async (req, res) => {
         accountNumber: acNumber,
         ifsc: ifsc,
       });
-      console.log(AddBank);
       await AddBank.save();
       userData.bankDetails = AddBank._id;
       userData.save();
       res.json(AddBank);
     }
   } catch (error) {
-    console.log(error);
     res.json(error);
   }
 });
-
-
 
 // @DESC Employees can add upto 4 portfolios
 // @METHOD post
@@ -274,11 +292,9 @@ export const addPortfolio = AsyncHandler(async (req, res) => {
       res.json(portfolioData);
     }
   } catch (error) {
-    console.log(error);
     res.json(error);
   }
 });
-
 
 // @DESC Employees can delete their kyc details
 // @METHOD delete
