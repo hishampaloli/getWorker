@@ -10,7 +10,7 @@ import Employer from "../models/employerModel.js";
 
 // @DESC gets the profile of the admin
 // @METHOD get
-// @ROUTE /admin/profile
+// @PATH /admin/profile
 
 export const adminProfile = AsyncHandler(async (req, res) => {
   try {
@@ -39,14 +39,14 @@ export const adminProfile = AsyncHandler(async (req, res) => {
     }
   } catch (error) {
     res.json(error);
-    console.log(error);
+    res.json(error)
   }
 });
 
 
 // @DESC gets the profile of all the employees for the admin
 // @METHOD get
-// @ROUTE /admin/allEmployees
+// @PATH /admin/allEmployees
 
 export const findAllEmployees = AsyncHandler(async (req, res) => {
   const keyword = req.query.keyword
@@ -68,6 +68,11 @@ export const findAllEmployees = AsyncHandler(async (req, res) => {
   }
 });
 
+
+// @DESC gets the profile of all the employers for the admin
+// @METHOD get
+// @PATH /admin/allEmployers
+
 export const findAllEmployers = AsyncHandler(async (req, res) => {
   const keyword = req.query.keyword
     ? {
@@ -87,6 +92,11 @@ export const findAllEmployers = AsyncHandler(async (req, res) => {
     res.json(error);
   }
 });
+
+
+// @DESC gets the profile of all the blocked users for the admin
+// @METHOD get
+// @PATH /admin/blockedUsers
 
 export const getAllBlockedUsers = AsyncHandler(async (req, res) => {
   const keyword = req.query.keyword
@@ -115,14 +125,16 @@ export const getAllBlockedUsers = AsyncHandler(async (req, res) => {
   }
 });
 
+// @DESC admin can block the user.
+// @METHOD patch
+// @PATH /admin/block/:_id
+
 export const blockUsers = AsyncHandler(async (req, res) => {
   const { _id } = req.params;
 
-  console.log(_id + 34);
   try {
     const user = await User.findById(_id);
 
-    // console.log(user);
 
     user.isBlocked = !user.isBlocked;
 
@@ -133,6 +145,10 @@ export const blockUsers = AsyncHandler(async (req, res) => {
     res.json(error);
   }
 });
+
+// @DESC Admin can blacklist user for blocking later
+// @METHOD put
+// @PATH /admin/blacklist
 
 export const blacklistUsers = AsyncHandler(async (req, res) => {
   const { id } = req.body;
@@ -145,7 +161,6 @@ export const blacklistUsers = AsyncHandler(async (req, res) => {
     let a = 0;
 
     adminData.blacklistedUsers.forEach((el) => {
-      console.log(el + "2");
       if (el + "*" === id + "*") {
         a = 2;
       }
@@ -163,6 +178,11 @@ export const blacklistUsers = AsyncHandler(async (req, res) => {
   }
 });
 
+
+// @DESC Admin can remove the blacklisted users from the list
+// @METHOD put
+// @PATH /admin/removeBlacklist
+
 export const removeBlacklist = AsyncHandler(async (req, res) => {
   const { id } = req.body;
 
@@ -170,7 +190,6 @@ export const removeBlacklist = AsyncHandler(async (req, res) => {
     const adminData = await Admin.findOne({
       owner: "633beb1b9678e114623121bc",
     }).populate("blacklistedUsers");
-    console.log(id);
 
     const arr = adminData.blacklistedUsers.filter((el) => {
       return el + "." !== id + ".";
@@ -185,6 +204,11 @@ export const removeBlacklist = AsyncHandler(async (req, res) => {
   }
 });
 
+
+// @DESC gets all the kyc created by the employees
+// @METHOD get
+// @PATH /admin/allKyc
+
 export const getAllKyc = AsyncHandler(async (req, res) => {
   try {
     const { id } = req.body;
@@ -196,6 +220,10 @@ export const getAllKyc = AsyncHandler(async (req, res) => {
     res.json(error);
   }
 });
+
+// @DESC Admin can accept or reject kyc based on some contitions
+// @METHOD post
+// @PATH /admin/acceptKyc
 
 export const acceptNrejectKyc = AsyncHandler(async (req, res) => {
   try {
@@ -229,6 +257,6 @@ export const acceptNrejectKyc = AsyncHandler(async (req, res) => {
     });
 
   } catch (error) {
-    console.log(error);
+    res.json(error)
   }
 });
