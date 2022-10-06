@@ -6,6 +6,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import { PieChart } from "react-minimal-pie-chart";
 import "./AdminProfile.css";
 import { changePassword } from "../../../actions/UserAction";
+import CustomSpinner from "../../../components/customSpinner/CustomSpinner";
 
 const AdminProfile = () => {
   const navigate = useNavigate();
@@ -76,7 +77,7 @@ const AdminProfile = () => {
         </div>
 
         <div className="bottom">
-          <input type="text" placeholder={user?.userInfo?.email} />
+          <input type="text" disabled placeholder={user?.userInfo?.email} />
          
           <form onSubmit={(e) => {
             e.preventDefault()
@@ -84,9 +85,7 @@ const AdminProfile = () => {
           }} >
           <div>
             <input type="password" onChange={(e) => setOldPass(e.target.value)} required placeholder="Old Password" />
-{password?.loading ?  <Spinner className="mt-4" animation="border" role="status">
-      <span className="visually-hidden">Loading...</span>
-    </Spinner> : ''}
+{password?.loading ?  <CustomSpinner /> : ''}
             <input type="password" onChange={(e) => setConfirm(e.target.value)} required placeholder="New Password" />
           </div>
           

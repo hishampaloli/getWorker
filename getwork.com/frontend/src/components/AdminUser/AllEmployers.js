@@ -6,6 +6,7 @@ import Alert from "@mui/material/Alert";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import Spinner from "react-bootstrap/Spinner";
+import CustomSpinner from "../customSpinner/CustomSpinner";
 
 const AllEmployers = () => {
   const dispatch = useDispatch();
@@ -138,9 +139,9 @@ const AllEmployers = () => {
           })
         ) : (
           <div style={{display: 'flex', justifyContent: 'center'}} >
-          <Spinner animation="border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </Spinner>
+        
+              <CustomSpinner />
+            
           </div>
         )}
 

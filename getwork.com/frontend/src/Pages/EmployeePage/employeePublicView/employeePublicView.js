@@ -7,6 +7,7 @@ import {
   getEmployeeProfile,
   getEmployeeProfileView,
 } from "../../../actions/EmplyeeActions";
+import "../employeeProfile.js/employeeProfile.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import DoNotDisturbOnIcon from "@mui/icons-material/DoNotDisturbOn";
@@ -63,7 +64,7 @@ const EmployeePublicView = () => {
 
   return (
     <div>
-      {userProfile?.error  ? (
+      {userProfile?.error ? (
         <div
           style={{
             width: "100%",
@@ -91,7 +92,14 @@ const EmployeePublicView = () => {
             <div className="top">
               <div className="left">
                 <div className="img-box">
-                  {userData?.image ? <img src={userData?.image} alt="" /> : ""}
+                  {userData?.image ? (
+                    <img src={userData?.image} alt="" />
+                  ) : (
+                    <img
+                      src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+                      alt=""
+                    />
+                  )}
                 </div>
 
                 <div>
@@ -113,7 +121,10 @@ const EmployeePublicView = () => {
                 </div>
               </div>
 
-              <div className="rigth"> <button>message</button> </div>
+              <div className="rigth">
+                {" "}
+                <button>message</button>{" "}
+              </div>
             </div>
 
             <div className="bottom">
@@ -174,9 +185,7 @@ const EmployeePublicView = () => {
                 <h1 style={{ display: "flex", marginTop: "-100px" }}>
                   {userData?.userTitle}
                 </h1>
-                <p style={{ marginTop: "-100px" }}>
-                  {userData?.userInfo}
-                </p>
+                <p style={{ marginTop: "-100px" }}>{userData?.userInfo}</p>
               </div>
             </div>
           </div>
@@ -364,15 +373,15 @@ const EmployeePublicView = () => {
 
       {showPortfolio === "portfolio" ? (
         <div className="port-show">
-          <div>
+          {/* <div> */}
             {" "}
             <CloseIcon
-              className="portClose"
-              onClick={() => {
-                setShowPortfolio("");
-              }}
-            />
-          </div>
+            className="portClose"
+            onClick={() => {
+              setShowPortfolio("");
+            }}
+          />
+          {/* </div> */}
 
           <img src={imgUlr} alt="" />
           <div style={{ display: "flex", alignItems: "center" }}>

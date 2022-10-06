@@ -33,56 +33,63 @@ function App() {
   }, []);
   return (
     <div className="App">
-      {loading ? <LoadingPage /> : ""}
-      <Router>
-        <Header />
-        <Routes>
-          <Route
-            exact
-            path="/"
-            element={
-              <React.Suspense fallback={<LoadingPage />}>
-                <Landing />
-              </React.Suspense>
-            }
-          />
-          <Route exact path="/signup" element={<Signup />} />
-          <Route
-            exact
-            path="/login"
-            element={
-              <React.Suspense fallback={<LoadingPage />}>
-                <Login />
-              </React.Suspense>
-            }
-          />
+      {loading ? (
+        <LoadingPage />
+      ) : (
+        <Router>
+          <Header />
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <React.Suspense fallback={<LoadingPage />}>
+                  <Landing />
+                </React.Suspense>
+              }
+            />
+            <Route exact path="/signup" element={<Signup />} />
+            <Route
+              exact
+              path="/login"
+              element={
+                <React.Suspense fallback={<LoadingPage />}>
+                  <Login />
+                </React.Suspense>
+              }
+            />
 
-          <Route exact path="/user/home" element={<EmployeeHome />} />
-          <Route
-            exact
-            path="/user/profile"
-            element={
-              <React.Suspense fallback={<LoadingPage />}>
-                <EmployeeProfile />
-              </React.Suspense>
-            }
-          />
+            <Route exact path="/user/home" element={<EmployeeHome />} />
+            <Route
+              exact
+              path="/user/profile"
+              element={
+                <React.Suspense fallback={<LoadingPage />}>
+                  <EmployeeProfile />
+                </React.Suspense>
+              }
+            />
 
-          <Route
-            exact
-            path="/user/publicView/:userId"
-            element={<EmployeePublicView />}
-          />
+            <Route
+              exact
+              path="/user/publicView/:userId"
+              element={<EmployeePublicView />}
+            />
 
-          <Route exact path="/employer/home" element={<EmployerHome />} />
-          <Route exact path="/employer/profile" element={<EmployerProfile />} />
-          <Route exact path="/findTalents" element={<FindTalentsPage />} />
+            <Route exact path="/employer/home" element={<EmployerHome />} />
+            <Route
+              exact
+              path="/employer/profile"
+              element={<EmployerProfile />}
+            />
+            <Route exact path="/findTalents" element={<FindTalentsPage />} />
 
-          <Route exact path="/admin/profile" element={<AdminProfile />} />
-          <Route exact path="/admin/users" element={<AdminUserPage />} />
-          <Route exact path="/admin/kyc" element={<AdminKyc />} />
-        </Routes>
-      </Router>
+            <Route exact path="/admin/profile" element={<AdminProfile />} />
+            <Route exact path="/admin/users" element={<AdminUserPage />} />
+            <Route exact path="/admin/kyc" element={<AdminKyc />} />
+          </Routes>
+        </Router>
+      )}
     </div>
   );
 }

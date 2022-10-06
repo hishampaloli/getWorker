@@ -3,40 +3,40 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { editEmployerProfile } from "../../../actions/EmployerActions";
+import CustomSpinner from "../../customSpinner/CustomSpinner";
 
 const EmployerProfile1 = ({ employerData }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = employerData?.userInfo;
-  const changePass = useSelector(state => state.employerChangePassword)
-
+  const changePass = useSelector((state) => state.employerChangePassword);
 
   const [name, setName] = useState("");
   const [oldPass, setOldPass] = useState("");
   const [newPass, setNewPass] = useState("");
-  const [image, setImage] = useState("")
+  const [image, setImage] = useState("");
   const [url, setUrl] = useState("");
-
-  
+  const [load, setload] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (image) {
+      setload(true);
       const data = new FormData();
-    data.append("file", image);
-    data.append("folder", "GetworkerProfileImg");
-    data.append("upload_preset", "getworker");
-    const cloud_data = await axios.post(
-      "https://api.cloudinary.com/v1_1/dpiah7oyh/image/upload",
-      data
-    );
-    setUrl(cloud_data);
+      data.append("file", image);
+      data.append("folder", "GetworkerProfileImg");
+      data.append("upload_preset", "getworker");
+      const cloud_data = await axios.post(
+        "https://api.cloudinary.com/v1_1/dpiah7oyh/image/upload",
+        data
+      );
+      setUrl(cloud_data);
     }
 
-    
+    setload(false);
     dispatch(editEmployerProfile(name, oldPass, newPass, url.data?.secure_url));
-  }
+  };
 
   return (
     <div className="employerProfile1">
@@ -67,28 +67,65 @@ const EmployerProfile1 = ({ employerData }) => {
       </div>
 
       <div className="bottom">
-        <form
-          onSubmit={handleSubmit}
-        >
+        <form onSubmit={handleSubmit}>
           <div className="row">
-            <input type="text" onChange={(e) => setName(e.target.value)} placeholder={userData?.owner?.name} />
+            <input
+              type="text"
+              onChange={(e) => setName(e.target.value)}
+              placeholder={userData?.owner?.name}
+            />
             <input type="text" placeholder={userData?.owner?.email} />
           </div>
 
           <div className="row">
-            <input type="text" onChange={(e) => setOldPass(e.target.value)}  placeholder="Old Password" />
-            <input type="text" onChange={(e) => setNewPass(e.target.value)}  placeholder="New Password" />
+            <input
+              type="text"
+              onChange={(e) => setOldPass(e.target.value)}
+              placeholder="Old Password"
+            />
+            <input
+              type="text"
+              onChange={(e) => setNewPass(e.target.value)}
+              placeholder="New Password"
+            />
           </div>
 
-          <div className="row-l">
-            <input style={{ width: "100%" }} onChange={(e) => setImage(e.target.files[0])} className="mt-3 " type="file" />
+          <div style={{ width: "100%" }} className="row-l">
+            <input
+              style={{ width: "100%" }}
+              onChange={(e) => setImage(e.target.files[0])}
+              className="mt-4"
+              type="file"
+            />
           </div>
 
-          {changePass?.loading ? 'loading' : ''}
-          {changePass?.error ? changePass?.error : ''}
-          {changePass?.success ? <p className="mt-3" style={{color: '#3CCF4E'}} >Succussfully Updated</p>: ''}
+          {changePass?.loading || load ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                height: "40px",
+                width: "40px",
+                marginTop:"10px"
+              }}
+            >
+              <CustomSpinner  />
+            </div>
+          ) : (
+            ""
+          )}
+          {changePass?.error ? changePass?.error : ""}
+          {changePass?.success && !load ? (
+            <p className="mt-3" style={{ color: "#3CCF4E" }}>
+              Succussfully Updated
+            </p>
+          ) : (
+            ""
+          )}
 
-          <button className="mb-5" type="submit" >Update Profile</button>
+          <button className="mb-5" type="submit">
+            Update Profile
+          </button>
         </form>
       </div>
     </div>

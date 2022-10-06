@@ -127,13 +127,21 @@
     border: 1px solid #AAAAAA;
     padding: 10px 20px;
     width: 49%;
-    border-radius: 25px;
+    border-radius: 5px;
+    transition: .3s all;
+}
+
+.employerProfile .right .employerProfile1  .bottom form input:focus {
+    outline: none;
+    border-radius: 15px;
+    border:  1px solid #3CCF4E;
 }
 
 .employerProfile .right .employerProfile1  .bottom form button {
     width: 99%;
     border: 1px solid;
     margin-right: 15px;
+    border-radius: 5px;
     color: white;
     background-color: #3CCF4E;
     margin-top: 20px;

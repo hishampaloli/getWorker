@@ -227,6 +227,10 @@
 height: 250px;
 }
 
+.swp-cls {
+  position: relative;
+}
+
 .editIcon {
   border: none;
   padding: 5px;

@@ -6,6 +6,7 @@ import { logout } from "../../actions/UserAction";
 import { flexbox } from "@mui/system";
 import Alert from "@mui/material/Alert";
 import CancelIcon from "@mui/icons-material/Cancel";
+import CustomSpinner from "../customSpinner/CustomSpinner";
 
 const AdminAllKyc = ({ kycRequest }) => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const AdminAllKyc = ({ kycRequest }) => {
   const [id, setId] = useState("");
   const kycStatus = useSelector((state) => state.kycReq);
 
-  console.log(id);
+  console.log();
   const [ed, setEd] = useState(false);
 
   return (
@@ -31,34 +32,56 @@ const AdminAllKyc = ({ kycRequest }) => {
         ""
       )}
 
-      {kycRequest
-        ? kycRequest?.map((el) => {
-            return (
-              <div className="allkyc-box">
-                <div>
-                  <p>{el?.owner?.name}</p>
-                  <p style={{ marginTop: "-20px" }}>
-                    {" "}
-                    <strong>{el?.owner?.email}</strong>
-                  </p>
-                </div>
-
-                <button
-                  onClick={() => {
-                    setEd(true);
-                    setAathar(el?.aatharImage);
-                    setAatharSelfie(el?.aatharSelfie);
-                    setPan(el?.panImage);
-                    setGst(el?.gstNumber);
-                    setId(el?.owner?._id);
-                  }}
-                >
-                  <VisibilityIcon />
-                </button>
+      {kycRequest ? (
+        kycRequest?.map((el) => {
+          return (
+            <div className="allkyc-box">
+              <div>
+                <p>{el?.owner?.name}</p>
+                <p style={{ marginTop: "-20px" }}>
+                  {" "}
+                  <strong>{el?.owner?.email}</strong>
+                </p>
               </div>
-            );
-          })
-        : ""}
+
+              <button
+                onClick={() => {
+                  setEd(true);
+                  setAathar(el?.aatharImage);
+                  setAatharSelfie(el?.aatharSelfie);
+                  setPan(el?.panImage);
+                  setGst(el?.gstNumber);
+                  setId(el?.owner?._id);
+                }}
+              >
+                <VisibilityIcon />
+              </button>
+            </div>
+          );
+        })
+      ) : (
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {kyc?.loading ? (
+            <div>
+              <CustomSpinner />
+            </div>
+          ) : (
+            <img
+              style={{ width: "300px" }}
+              src="https://cdn.dribbble.com/users/888330/screenshots/2653750/empty_data_set.png"
+              alt=""
+            />
+          )}
+        </div>
+      )}
 
       {ed ? (
         <div className="admin-kyc-show">
@@ -91,7 +114,7 @@ const AdminAllKyc = ({ kycRequest }) => {
               style={{ backgroundColor: "#3CCF4E" }}
               onClick={() => {
                 dispatch(acceptOrRejectKyc(id, "accept"));
-                setEd(false)
+                setEd(false);
               }}
             >
               Accept
@@ -100,7 +123,7 @@ const AdminAllKyc = ({ kycRequest }) => {
               style={{ backgroundColor: "#FF5454" }}
               onClick={() => {
                 dispatch(acceptOrRejectKyc(id, "reject"));
-                setEd(false)
+                setEd(false);
               }}
               className="mx-3"
             >
@@ -109,10 +132,7 @@ const AdminAllKyc = ({ kycRequest }) => {
           </div>
         </div>
       ) : (
-        <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
-        <img style={{width:"300px"}} src="https://cdn.dribbble.com/users/888330/screenshots/2653750/empty_data_set.png" alt="" />
-        </div>
-        
+        ""
       )}
     </div>
   );

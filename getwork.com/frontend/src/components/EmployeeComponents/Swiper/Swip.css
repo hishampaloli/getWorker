@@ -1,17 +1,31 @@
 
-
+.mySwipe {
+    display: none;
+}
 
 
   @media (max-width: 790px) {
   
-    
+    .mySwipe {
+        display: flex;
+        flex-direction: column;
+    }
 
 .swiper {
     width: 240px;
     height: 250px;
     margin-bottom: 30px;
+    position: relative;
+  }
+
+  .swiper button {
+    position: absolute;
+    z-index: -10px;
   }
   
+  .swiper button:hover {
+    z-index: 10;
+  }
   .swiper-slide {
     display: flex;
     align-items: center;

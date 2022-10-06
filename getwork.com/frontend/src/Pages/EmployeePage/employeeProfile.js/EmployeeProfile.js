@@ -434,24 +434,116 @@ const EmployeeProfile = () => {
               )}
             </Swiper>
           </div>
-           <div>
-      
-        <>
-      <Swiper
-        effect={"cards"}
-        grabCursor={true}
-        modules={[EffectCards]}
-        className="mySwipe"
-      >
-      {userData?.portfolios[0]?.Image ? <SwiperSlide><img className="swp-img" src={userData?.portfolios[0]?.Image} alt="" /></SwiperSlide> : ''} 
-      {userData?.portfolios[1]?.Image ? <SwiperSlide><img className="swp-img"  src={userData?.portfolios[1]?.Image} alt="" /></SwiperSlide> : ''} 
-      {userData?.portfolios[2]?.Image ? <SwiperSlide><img className="swp-img"  src={userData?.portfolios[2]?.Image} alt="" /></SwiperSlide> : ''} 
-      {userData?.portfolios[3]?.Image ? <SwiperSlide><img className="swp-img"  src={userData?.portfolios[3]?.Image} alt="" /></SwiperSlide> : ''} 
-        <p style={{marginLeft: '100px'}}>swip ></p>
-        
-      </Swiper>
-    </>
-      </div>
+          <div>
+            <>
+              <Swiper
+                effect={"cards"}
+                grabCursor={true}
+                modules={[EffectCards]}
+                className="mySwipe"
+              >
+                {userData?.portfolios[0]?.Image ? (
+                  <SwiperSlide>
+                    <img
+                      className="swp-img"
+                      src={userData?.portfolios[0]?.Image}
+                      alt=""
+                    />{" "}
+                    <button
+                      onClick={() => {
+                        setTitle(userData?.portfolios[0]?.title);
+                        setDescription(userData?.portfolios[0]?.description);
+                        setShowPortfolio("portfolio");
+                        setImgUrl(userData?.portfolios[0]?.Image);
+                        setId(userData?.portfolios[0]?._id);
+                      }}
+                      style={{ marginLeft: "0px" }}
+                      className="editIco mt-2 mb-2"
+                    >
+                      <RemoveRedEyeIcon />
+                    </button>
+                  </SwiperSlide>
+                ) : (
+                  ""
+                )}
+                {userData?.portfolios[0]?.Image ? (
+                  <SwiperSlide className="swp-cls">
+                    <img
+                      className="swp-img"
+                      src={userData?.portfolios[1]?.Image}
+                      alt=""
+                    />{" "}
+                    <button
+                      onClick={() => {
+                        setTitle(userData?.portfolios[1]?.title);
+                        setDescription(userData?.portfolios[1]?.description);
+                        setShowPortfolio("portfolio");
+                        setImgUrl(userData?.portfolios[1]?.Image);
+                        setId(userData?.portfolios[1]?._id);
+                      }}
+                      style={{ marginLeft: "0px" }}
+                      className="editIco mt-2 mb-2"
+                    >
+                      <RemoveRedEyeIcon />
+                    </button>
+                  </SwiperSlide>
+                ) : (
+                  ""
+                )}
+                {userData?.portfolios[0]?.Image ? (
+                  <SwiperSlide>
+                    <img
+                      className="swp-img"
+                      src={userData?.portfolios[2]?.Image}
+                      alt=""
+                    />{" "}
+                    <button
+                      onClick={() => {
+                        setTitle(userData?.portfolios[2]?.title);
+                        setDescription(userData?.portfolios[2]?.description);
+                        setShowPortfolio("portfolio");
+                        setImgUrl(userData?.portfolios[2]?.Image);
+                        setId(userData?.portfolios[2]?._id);
+                      }}
+                      style={{ marginLeft: "0px" }}
+                      className="editIco mt-2 mb-2"
+                    >
+                      <RemoveRedEyeIcon />
+                    </button>
+                  </SwiperSlide>
+                ) : (
+                  ""
+                )}
+                {userData?.portfolios[0]?.Image ? (
+                  <SwiperSlide>
+                    <img
+                      className="swp-img"
+                      src={userData?.portfolios[3]?.Image}
+                      alt=""
+                    />{" "}
+                    <button
+                      onClick={() => {
+                        setTitle(userData?.portfolios[3]?.title);
+                        setDescription(userData?.portfolios[3]?.description);
+                        setShowPortfolio("portfolio");
+                        setImgUrl(userData?.portfolios[3]?.Image);
+                        setId(userData?.portfolios[3]?._id);
+                      }}
+                      style={{ marginLeft: "0px" }}
+                      className="editIco mt-2 mb-2"
+                    >
+                      <RemoveRedEyeIcon />
+                    </button>
+                  </SwiperSlide>
+                ) : (
+                  ""
+                )}
+                <p style={{ marginLeft: "100px", color: "#75E6FF" }}>
+                  {"swip >"}
+                </p>
+              </Swiper>
+            </>
+          </div>
         </div>
       </div>
 
@@ -484,9 +576,7 @@ const EmployeeProfile = () => {
             className="portClose"
             onClick={() => {
               setShowPortfolio("");
-              dispatch({
-                type: PORTFOLIO_FAIL,
-              });
+           
             }}
           />
           <img src={imgUlr} alt="" />

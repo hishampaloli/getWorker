@@ -29,6 +29,7 @@ const FindTalentsPage = () => {
   const [savedJobs, setSavedJobs] = useState("");
   const [showSavedJobs, setShowSavedJobs] = useState("");
   const [alert, setAlret] = useState(false);
+  const [alertR, setAlretR] = useState(false);
 
   console.log(employerData);
   console.log(talents);
@@ -39,6 +40,9 @@ const FindTalentsPage = () => {
   };
 
   useEffect(() => {
+    if (!user?.userInfo) {
+      navigate("/login");
+    }
     if (user?.userInfo?.userType === "employee") {
       navigate("/users/home");
     }
@@ -53,6 +57,14 @@ const FindTalentsPage = () => {
       {alert ? (
         <Alert className="save-alert" severity="success">
           Job saved 
+        </Alert>
+      ) : (
+        ""
+      )}
+
+      {alertR ? (
+        <Alert className="save-alert" severity="success">
+          Removing from saved jobs
         </Alert>
       ) : (
         ""
@@ -173,6 +185,7 @@ const FindTalentsPage = () => {
                 <input
                   type="text"
                   onChange={(e) => setKeyword(e.target.value)}
+                  placeholder="Search Talents based on Skills"
                 />
                 <button type="submit">Search</button>
                 <button type="submit">Filter</button>
@@ -227,8 +240,9 @@ const FindTalentsPage = () => {
                       </div>
                     );
                   })
-                : ""}
+                : '' }
             </div>
+            {talents?.data  ? '' : <img style={{width: '200px'}} src="https://img.freepik.com/free-vector/illustration-search-box_53876-37578.jpg?w=2000" alt="" /> }
           </>
         ) : (
           <div className="bottom">
@@ -257,7 +271,10 @@ const FindTalentsPage = () => {
                         <BookmarkRemoveIcon
                           onClick={() => {
                             dispatch(removeSavedTalent(talent?._id));
-                            console.log(343424);
+                            setAlretR(true);
+                              setTimeout(() => {
+                                setAlretR(false);
+                              }, 1500);
                           }}
                           style={{ color: "#3ccf4e" }}
                         />
@@ -272,7 +289,7 @@ const FindTalentsPage = () => {
                     </div>
                   );
                 })
-              : ""}
+              : "oij"}
           </div>
         )}
       </div>

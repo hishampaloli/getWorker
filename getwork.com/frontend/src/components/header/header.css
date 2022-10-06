@@ -54,6 +54,44 @@ a:hover {
   color: white;
 }
 
+.drop-div {
+  position: absolute;
+  top: 100px;
+  right: 0px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+.drop-div ul {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  padding-top: 30px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+}
+.drop-div ul .cln {
+  position: absolute;
+  right: 10px;
+  top: 2px;
+  transition: .3s ease;
+  color: #1d4354;
+}
+
+.drop-div ul .cln:hover {
+  transform: rotate(280deg);
+}
+.drop-div ul a {
+  background-color: #1d4354;
+  color: white;
+  margin-top: 0px;
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  border-top: 1px solid;
+}
+
 @media (max-width: 650px) {
   .right {
     display: none;

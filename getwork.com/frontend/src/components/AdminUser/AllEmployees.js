@@ -12,6 +12,7 @@ import Switch from "@mui/material/Switch";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import Spinner from "react-bootstrap/Spinner";
+import CustomSpinner from "../customSpinner/CustomSpinner";
 
 const AllEmployees = () => {
   const dispatch = useDispatch();
@@ -156,9 +157,11 @@ const AllEmployees = () => {
               );
             })
           : <div style={{display: 'flex', justifyContent: 'center'}} >
-          <Spinner animation="border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </Spinner>
+          <div style={{display: 'flex', justifyContent: 'center'}} >
+        
+              <CustomSpinner />
+            
+          </div>
           </div> }
 
           {Employees?.data?.length > 0 ? '': <div style={{width: '100%', display: 'flex', justifyContent: 'center'}} ><img style={{width: '300px', height: '300px'}} src="https://static.vecteezy.com/system/resources/previews/005/073/071/original/user-not-found-account-not-register-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-vector.jpg" alt="" /></div>  }

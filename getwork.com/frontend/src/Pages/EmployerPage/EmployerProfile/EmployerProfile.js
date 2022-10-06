@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getEmployerProfile } from "../../../actions/EmployerActions";
@@ -11,8 +11,9 @@ const EmployerProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const employerData = useSelector(state => state.employerData);
+  const employerData = useSelector((state) => state.employerData);
 
+  const [ed, setEd] = useState("profile");
 
   console.log(employerData);
   useEffect(() => {
@@ -35,23 +36,30 @@ const EmployerProfile = () => {
     <div className="employerProfile">
       <div className="left">
         <div className="left-top">
-        {employerData?.userInfo?.image ? (
-                  <img src={employerData?.userInfo?.image} alt="" />
-                ) : (
-                  <img src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" alt="" />
-                )}
+          {employerData?.userInfo?.image ? (
+            <img src={employerData?.userInfo?.image} alt="" />
+          ) : (
+            <img
+              src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+              alt=""
+            />
+          )}
           <p>{employerData?.userInfo?.owner?.name}</p>
         </div>
 
         <div className="left-bottom">
-          <button>My profile</button>
-          <button>My profile</button>
-          <button>My profile</button>
+          <button onClick={(e) => setEd("profile")}>My profile</button>
+          <button onClick={(e) => setEd("jobs")}>My jobs</button>
+          <button>Thinking</button>
         </div>
       </div>
 
       <div className="right">
-        <EmployerProfile1 employerData={employerData} />
+        {ed === "profile" ? (
+          <EmployerProfile1 employerData={employerData} />
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

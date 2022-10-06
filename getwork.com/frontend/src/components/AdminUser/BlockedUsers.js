@@ -12,6 +12,7 @@ import { FormControlLabel } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import Spinner from "react-bootstrap/Spinner";
+import CustomSpinner from "../customSpinner/CustomSpinner";
 
 const BlockedUsers = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,6 @@ const BlockedUsers = () => {
   const blockedUsers = useSelector((state) => state.blockedUsers);
   const [keyword, setKeyword] = useState("");
   const [alert, setAlert] = useState(false);
-
 
   useEffect(() => {
     dispatch(allblockedUsers());
@@ -149,14 +149,25 @@ const BlockedUsers = () => {
           })
         ) : (
           <div style={{ display: "flex", justifyContent: "center" }}>
-            <Spinner animation="border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <CustomSpinner />
+            </div>
           </div>
         )}
 
-        {blockedUsers?.data?.length > 0 ? '': <div style={{width: '100%', display: 'flex', justifyContent: 'center'}} ><img style={{width: '300px', height: '300px'}} src="https://static.vecteezy.com/system/resources/previews/005/073/071/original/user-not-found-account-not-register-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-vector.jpg" alt="" /></div>  }
-        
+        {blockedUsers?.data?.length > 0 ? (
+          ""
+        ) : (
+          <div
+            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          >
+            <img
+              style={{ width: "300px", height: "300px" }}
+              src="https://static.vecteezy.com/system/resources/previews/005/073/071/original/user-not-found-account-not-register-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-vector.jpg"
+              alt=""
+            />
+          </div>
+        )}
       </div>
     </div>
   );
