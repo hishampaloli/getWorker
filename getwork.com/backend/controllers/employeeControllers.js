@@ -15,14 +15,18 @@ cloudinary.config({
   api_secret: process.env.CLOUD_SECRET,
 });
 
+// @DESC Gets all the details of the employee
+// @METHOD get
+// @PATH /employee/profile/:id
+
 export const employeeProfile = AsyncHandler(async (req, res) => {
   const { id } = req.params;
-console.log(34);
+  console.log(34);
   const userData = await Employee.findOne({ owner: id })
     .populate("educations")
     .populate("portfolios")
     .populate("bankDetails")
-    .populate("owner")
+    .populate("owner");
   if (userData) {
     res.json(userData);
   } else {
@@ -30,6 +34,10 @@ console.log(34);
     throw new Error("No such profile found");
   }
 });
+
+// @DESC Employees can add there education
+// @METHOD post
+// @PATH /employee/education/:userId
 
 export const postEducations = AsyncHandler(async (req, res) => {
   const { userId } = req.params;
@@ -53,6 +61,10 @@ export const postEducations = AsyncHandler(async (req, res) => {
   }
 });
 
+// @DESC Employees can delete there education
+// @METHOD delete
+// @PATH /employee/education/:userId/:id
+
 export const deleteEducation = AsyncHandler(async (req, res) => {
   const { id } = req.params;
   const { userId } = req.params;
@@ -69,6 +81,10 @@ export const deleteEducation = AsyncHandler(async (req, res) => {
     message: "Deleted Successfully",
   });
 });
+
+// @DESC Employees can add language or skill there education
+// @METHOD post
+// @PATH /employee/editProfile/:userId
 
 export const addLanguageAndSkill = AsyncHandler(async (req, res) => {
   const { userId } = req.params;
@@ -88,6 +104,10 @@ export const addLanguageAndSkill = AsyncHandler(async (req, res) => {
   }
   res.json(userData);
 });
+
+// @DESC Employees can edit there education
+// @METHOD patch
+// @PATH /employee/editInfo/:userId
 
 export const editInfo = AsyncHandler(async (req, res) => {
   const { userId } = req.params;
@@ -112,6 +132,10 @@ export const editInfo = AsyncHandler(async (req, res) => {
   });
 });
 
+// @DESC Employees can delete language or skill there education
+// @METHOD delete
+// @PATH /employee/editProfile/:userId/:id
+
 export const deleteLanguageOrSkill = AsyncHandler(async (req, res) => {
   const { userId } = req.params;
   const { skill, language } = req.query;
@@ -135,6 +159,10 @@ export const deleteLanguageOrSkill = AsyncHandler(async (req, res) => {
   });
 });
 
+// @DESC Employees can add profileImage there education
+// @METHOD patch
+// @PATH /employee/profileImg/:userId
+
 export const addProfileImage = AsyncHandler(async (req, res) => {
   const { image } = req.body;
 
@@ -148,18 +176,19 @@ export const addProfileImage = AsyncHandler(async (req, res) => {
   res.json(userData);
 });
 
+
+// @DESC Employees can add their kyc details
+// @METHOD post
+// @PATH /employee/kyc/:userId
+
 export const addKyc = AsyncHandler(async (req, res) => {
   const { aathar, aatharSelfie, pan, gstNumber } = req.body;
   const { userId } = req.params;
 
-
-
   try {
-
     const userData = await Employee.findOne({ owner: userId });
-    await Kyc.findOneAndDelete({owner: userId})
+    await Kyc.findOneAndDelete({ owner: userId });
 
-    
     const kycData = new Kyc({
       owner: userId,
       aatharImage: aathar,
@@ -172,7 +201,7 @@ export const addKyc = AsyncHandler(async (req, res) => {
 
     console.log(kycData);
     userData.kyc = kycData._id;
-    userData.kycApproved = 'pending'
+    userData.kycApproved = "pending";
     await userData.save();
     console.log(userData);
     res.json(userData);
@@ -181,6 +210,11 @@ export const addKyc = AsyncHandler(async (req, res) => {
   }
   // }
 });
+
+
+// @DESC Employees can add their bank details for money withdraw
+// @METHOD post
+// @PATH /employee/addBank/:userId
 
 export const addBankDetails = AsyncHandler(async (req, res) => {
   const { ifsc, acNumber, acName } = req.body;
@@ -212,6 +246,12 @@ export const addBankDetails = AsyncHandler(async (req, res) => {
   }
 });
 
+
+
+// @DESC Employees can add upto 4 portfolios
+// @METHOD post
+// @PATH /employee/addPortfolio/:userId
+
 export const addPortfolio = AsyncHandler(async (req, res) => {
   const { image, title, description } = req.body;
   const { userId } = req.params;
@@ -239,6 +279,11 @@ export const addPortfolio = AsyncHandler(async (req, res) => {
   }
 });
 
+
+// @DESC Employees can delete their kyc details
+// @METHOD delete
+// @PATH /employee/deletePortfolio/:userId
+
 export const deletePortFolio = AsyncHandler(async (req, res) => {
   const { id } = req.params;
   const { userId } = req.params;
@@ -252,6 +297,3 @@ export const deletePortFolio = AsyncHandler(async (req, res) => {
     message: "Deleted Successfully",
   });
 });
-
-
-
