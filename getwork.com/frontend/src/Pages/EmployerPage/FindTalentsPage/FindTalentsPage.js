@@ -13,6 +13,7 @@ import {
 } from "../../../actions/EmployerActions";
 import { Link } from "react-router-dom";
 import "./FindTalent.css";
+import CustomSpinner from "../../../components/customSpinner/CustomSpinner";
 
 const FindTalentsPage = () => {
   const navigate = useNavigate();
@@ -161,10 +162,11 @@ const FindTalentsPage = () => {
       </div>
       <div className="right">
         <div className="top">
-          <button onClick={(e) => setShowSavedJobs("")}>
+          <button className={showSavedJobs === '' ? 'btn' : 'btn-k'} onClick={(e) => setShowSavedJobs("")}>
             Search <strong>{talents?.data?.length}</strong>
           </button>
           <button
+          className={showSavedJobs === 'saved' ? 'btn' : 'btn-k'}
             onClick={(e) => {
               dispatch(getEmployerProfile());
               setShowSavedJobs("saved");
@@ -193,7 +195,7 @@ const FindTalentsPage = () => {
             </div>
 
             <div className="bottom">
-              {talents
+              {talents?.data
                 ? talents?.data?.map((talent) => {
                     return (
                       <div key={talent?.owner?._id} className="talent-result">
@@ -240,13 +242,14 @@ const FindTalentsPage = () => {
                       </div>
                     );
                   })
-                : '' }
+                : <div style={{width: '100%', display: 'flex', justifyContent: 'center'}} >{talents?.loading? <CustomSpinner /> : 's'} </div> }
+                {talents?.data?.length === 0 ? <img style={{width: '300px', height: '300px'}} src="https://static.vecteezy.com/system/resources/previews/005/073/071/original/user-not-found-account-not-register-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-vector.jpg" alt="" /> : ''} 
             </div>
             {talents?.data  ? '' : <img style={{width: '200px'}} src="https://img.freepik.com/free-vector/illustration-search-box_53876-37578.jpg?w=2000" alt="" /> }
           </>
         ) : (
           <div className="bottom">
-            {employerData
+            {employerData?.userInfo?.savedTalents
               ? employerData?.userInfo?.savedTalents.map((talent) => {
                   return (
                     <div key={talent?._id} className="talent-result">
@@ -289,7 +292,7 @@ const FindTalentsPage = () => {
                     </div>
                   );
                 })
-              : "oij"}
+              : <div style={{width: '100%', display: 'flex', justifyContent: 'center'}} ><CustomSpinner /></div> }
           </div>
         )}
       </div>

@@ -22,8 +22,18 @@
   background-color: white;
   padding: 10px;
   margin-left: 30px;
+  transition: .3s all;
+  color: #1d201d;
 }
 
+.btn {
+  color: #000000;
+  font-weight: bold;
+}
+
+.hbtn {
+  color:  #3ccf4e;
+}
 .adminUserPage-box .bottom {
   padding: 20px;
 }
@@ -67,8 +77,18 @@
   background-color: #f1f2f4;
   margin-top: 10px;
   border-radius: 10px;
+  transition: 0.3s ease;
 }
 
+.adminUserPage-box .bottom .talent-result:hover {
+  background-color: #1d4354;
+  border-radius: 23px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.adminUserPage-box .bottom .talent-result:hover > .esr{
+  color: white;
+}
 .adminUserPage-box .bottom .talent-result .t-left {
   display: flex;
   align-items: center;
@@ -109,4 +129,32 @@
   flex-direction: column;
   align-items: center;
   justify-items: center;
+}
+
+@media (max-width: 820px) {
+  .adminUserPage .adminUserPage-box {
+    width: 90%;
+  }
+}
+
+@media (max-width: 630px) {
+  .adminUserPage-box .bottom .talent-result {
+    flex-direction: column;
+  }
+
+  .adminUserPage-box .bottom .talent-result .t-left {
+    flex-direction: column;
+    align-items: center;
+  }
+  .adminUserPage-box .bottom .talent-result .t-left div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .adminUserPage-box .bottom .talent-result .t-right {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
 }

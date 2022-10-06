@@ -19,6 +19,7 @@
   background-color: white;
   padding: 10px;
   margin-left: 30px;
+  transition: 0.3s ease;
 }
 
 .kyc .kyc-box .bottom {
@@ -75,4 +76,12 @@
   border-radius: 10px;
   margin-top: 10px;
   color: white;
+}
+
+.bnt {
+  color: #3ccf4e;
+}
+
+.bnt-k {
+  color: #2b2b2b;
 }

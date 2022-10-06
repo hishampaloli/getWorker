@@ -44,7 +44,7 @@ const BlockedUsers = () => {
         ) : (
           ""
         )}
-        {blockedUsers ? (
+        {blockedUsers?.data ? (
           blockedUsers?.data?.map((dt) => {
             return (
               <div key={dt?._id} className="talent-result">

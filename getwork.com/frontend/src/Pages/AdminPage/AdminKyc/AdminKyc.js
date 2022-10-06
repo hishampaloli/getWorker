@@ -58,13 +58,13 @@ const AdminKyc = () => {
      
         {" "}
         <div className="top">
-          <button className="bnt" onClick={() => setEd("kycReq")}>
+          <button  className={ed === 'kycReq' ? 'bnt' : 'bnt-k'} onClick={() => setEd("kycReq")}>
             Kyc request
           </button>
-          <button className="bnt" onClick={() => setEd("acceptedKyc")}>
+          <button className={ed === 'acceptedKyc' ? 'bnt' : 'bnt-k'} onClick={() => setEd("acceptedKyc")}>
             Accepted Kyc
           </button>
-          <button className="bnt" onClick={() => setEd("block")}>
+          <button className={ed === 'block' ? 'bnt' : 'bnt-k'} onClick={() => setEd("block")}>
             Rejected Kyc
           </button>
         </div>
