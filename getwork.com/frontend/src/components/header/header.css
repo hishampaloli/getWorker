@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&family=Secular+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Peralta&display=swap");
 
 header {
   width: 100%;
@@ -13,6 +14,12 @@ header {
 
 .left h2 {
   color: #3ccf4e;
+  font-family: "Secular One", sans-serif;
+}
+
+.logo-text {
+  color: #3ccf4e;
+  font-family: "Secular One", sans-serif;
 }
 
 .right button {
@@ -25,8 +32,8 @@ header {
 }
 
 .right {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 a {
@@ -38,7 +45,6 @@ a:hover {
   color: #3ccf4e;
 }
 
-
 .right .btn-1 {
   color: #3ccf4e;
 }
@@ -49,7 +55,7 @@ a:hover {
 }
 
 @media (max-width: 650px) {
-  .right  {
+  .right {
     display: none;
   }
 }

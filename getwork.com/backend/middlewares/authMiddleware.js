@@ -37,6 +37,8 @@ export const isOwner = asyncHandler(async (req, res, next) => {
   
   // console.log(req.user);
   if (req.user._id + "1" !== req.params.userId + "1") {
+    console.log(req.user._id);
+    console.log(req.params.userId);
     // console.log(req.user);
     console.log("not owner");
     throw new Error("Only the owner of this account can edit this");

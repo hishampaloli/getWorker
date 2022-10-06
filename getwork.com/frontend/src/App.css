@@ -17,4 +17,7 @@ body {
   display: none;
 }
 
-
+.logo-text {
+  color: #3ccf4e;
+  font-family: "Secular One", sans-serif;
+}

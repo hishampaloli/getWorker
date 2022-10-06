@@ -10,6 +10,7 @@ import {
   editInfo,
   getEmployeeProfile,
 } from "../../actions/EmplyeeActions";
+import CustomSpinner from "../customSpinner/CustomSpinner";
 const InfoPopup = () => {
   const dispatch = useDispatch();
 
@@ -53,20 +54,34 @@ const InfoPopup = () => {
           <button type="submit">Add</button>
         </form>
 
-        <ul
+<span>
+       
         
-        >
+        
           {userData ? (
             <>
-            {userInfo?.loading ?  <div style={{display:'flex', justifyContent: 'center', marginBottom: '40px'}}><Spinner animation="border" role="status"></Spinner></div>  : ''}
-            
+            {userInfo?.loading ?   <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    height: "40px",
+                    width: "40px",
+                  }}
+                >
+                  <CustomSpinner />
+                </div> : ''}
+                <div>
+                <ul>
               <h3>{userData?.userTitle}</h3>
               <p>{userData?.userInfo}</p>
+              </ul>
+              </div>
             </>
           ) : (
             <Spinner animation="border" role="status"></Spinner>
           )}
-        </ul>
+        
+        </span>
       </div>
     </div>
   );

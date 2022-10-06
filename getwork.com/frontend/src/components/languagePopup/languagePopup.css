@@ -32,7 +32,7 @@
     border: none;
     border-radius: 5px;
     padding: 10px 15px;
-    width: 100%;
+    width: 80%;
     margin-top: 20px;
 }
 
@@ -52,6 +52,15 @@
     width: 100%;
     margin-bottom: 100px;
     margin-left: -30px;
+}
+
+.educationPopup span div {
+  width: 80%;
+}
+
+.educationPopup span div ul {
+  display: flex;
+  justify-content: space-between;
 }
 
 .educationPopup .bank-info-div {
@@ -85,30 +94,32 @@
       width: 90%;
     }
   
-    .educationPopup ul {
-      width: 420px;
+    .educationPopup span div {
+      width: 80%;
       margin-bottom: 40px;
     }
+
+
   }
   
   
   @media (max-width: 490px) {
   
     
-      .educationPopup ul {
-        width: 300px;
-        margin-bottom: 40px;
-      }
+    .educationPopup span div {
+      width: 80%;
+      margin-bottom: 40px;
+    }
     }
   
     
   @media (max-width: 390px) {
   
     
-      .educationPopup ul {
-        width: 250px;
-        margin-bottom: 40px;
-      }
+    .educationPopup span div {
+      width: 80%;
+      margin-bottom: 40px;
+    }
     }
     
     

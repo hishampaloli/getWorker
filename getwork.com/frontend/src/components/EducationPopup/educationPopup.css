@@ -6,6 +6,7 @@
   top: 140px;
   left: 50%;
   min-height: 400px;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   z-index: 1;
@@ -46,8 +47,19 @@ textarea {
   margin-top: 40px;
 }
 
+
+.educationPopUp span {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.educationPopUp span div {
+  width: 80%;
+}
+
 .educationPopUp ul {
-  width: 490px;
+  width: 100%;
   margin-bottom: 40px;
 }
 

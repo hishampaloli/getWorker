@@ -14,6 +14,7 @@ import {
   deleteLanguageOrSkill,
   getEmployeeProfile,
 } from "../../actions/EmplyeeActions";
+import CustomSpinner from "../customSpinner/CustomSpinner";
 const KycPopup = () => {
   const dispatch = useDispatch();
 
@@ -28,10 +29,11 @@ const KycPopup = () => {
   const [gst, setGstNumber] = useState("");
 
   const [error, setError] = useState("");
+  const [load, setLoad] = useState(false);
 
   const postDetails = async (e) => {
     e.preventDefault();
-
+    setLoad(true);
     if (gst.match(gstinformat)) {
       const athr = new FormData();
       athr.append("file", aathar);
@@ -60,6 +62,7 @@ const KycPopup = () => {
         panD
       );
 
+      setLoad(false);
       dispatch(
         addkyc(
           Aathar_data?.data?.secure_url,
@@ -69,6 +72,7 @@ const KycPopup = () => {
         )
       );
     } else {
+      setLoad(false);
       setError("Invalid gst number");
       return true;
     }
@@ -118,13 +122,15 @@ const KycPopup = () => {
             placeholder="name of your degree"
           />
 
-{error ? <p className="mt-4" style={{color: 'red'}}>{error}</p> : ""}
-          {userData?.kyc && userData?.kycApproved === 'pending' ? (
-            <button
-              onClick={postDetails}
-              disabled="disabled"
-              
-            >
+          {error ? (
+            <p className="mt-4" style={{ color: "red" }}>
+              {error}
+            </p>
+          ) : (
+            ""
+          )}
+          {userData?.kyc && userData?.kycApproved === "pending" ? (
+            <button onClick={postDetails} disabled="disabled">
               Add
             </button>
           ) : (
@@ -134,12 +140,40 @@ const KycPopup = () => {
           )}
         </form>
 
-        
+        {load ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              height: "40px",
+              width: "40px",
+            }}
+          >
+            <CustomSpinner />
+          </div>
+        ) : (
+          ""
+        )}
 
         {userProfile.loading ? (
-          <Spinner animation="border" role="status"></Spinner>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              height: "40px",
+              width: "40px",
+            }}
+          >
+            <CustomSpinner />
+          </div>
         ) : (
-          <>{userData?.kyc && userData?.kycApproved === 'pending' ? <h1>Kyc Updated</h1> : ""}</>
+          <>
+            {userData?.kyc && userData?.kycApproved === "pending" ? (
+              <h1>Kyc Updated</h1>
+            ) : (
+              ""
+            )}
+          </>
         )}
       </div>
     </div>

@@ -14,6 +14,7 @@ import {
   deleteLanguageOrSkill,
   getEmployeeProfile,
 } from "../../actions/EmplyeeActions";
+import CustomSpinner from "../customSpinner/CustomSpinner";
 
 const ImagePopup = () => {
   const dispatch = useDispatch();
@@ -25,11 +26,13 @@ const ImagePopup = () => {
   const { userData } = userProfile;
 
   const [image, setImage] = useState("");
+  const [load, setLoad] = useState(false);
 
   const [url, setUrl] = useState("");
 
   const postDetails = async (e) => {
     e.preventDefault();
+    setLoad(true)
     const data = new FormData();
     data.append("file", image);
     data.append("folder", "GetworkerProfileImg");
@@ -40,6 +43,7 @@ const ImagePopup = () => {
     );
     setUrl(cloud_data);
     dispatch(addProfileImage(cloud_data?.data?.secure_url));
+    setLoad(false)
   };
 
   return (
@@ -62,11 +66,12 @@ const ImagePopup = () => {
             Add
           </button>
         </form>
-        {profileImage?.loading ?  <div style={{display:'flex', justifyContent: 'center', marginBottom: '40px'}}><Spinner animation="border" role="status"></Spinner></div>  : ''}
+        {load ? <CustomSpinner /> : ''}
+        {profileImage?.loading ?  <div style={{display:'flex', justifyContent: 'center', marginBottom: '40px'}}><CustomSpinner /> </div>  : ''}
         {userData?.image ? (
           <img className="mb-5" src={userData?.image} style={{ width: "80%", borderRadius: '25px', maxHeight: '500px' }} alt="" />
         ) : (
-          <Spinner animation="border" role="status"></Spinner>
+          <CustomSpinner /> 
         )}
       </div>
     </div>

@@ -1,6 +1,6 @@
 import "./App.css";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./components/header/Header";
 import Signup from "./Pages/signUpPage/Signup";
 
@@ -15,23 +15,58 @@ import FindTalentsPage from "./Pages/EmployerPage/FindTalentsPage/FindTalentsPag
 import AdminProfile from "./Pages/AdminPage/AdminHomePage/AdminProfile";
 import AdminUserPage from "./Pages/AdminPage/AdminFindUser/AdminUserPage";
 import AdminKyc from "./Pages/AdminPage/AdminKyc/AdminKyc";
+import LoadingPage from "./components/LoadingPage/LoadingPage";
 
-const Landing = React.lazy(() => import("./Pages/AdminPage/AdminKyc/AdminKyc"));
+const Landing = React.lazy(() => import("./Pages/LandingPage.js/Landing"));
 const Login = React.lazy(() => import("./Pages/LoginPage/Login"));
-const EmployeeProfile = React.lazy(() => import("./Pages/EmployeePage/employeeProfile.js/EmployeeProfile"));
+const EmployeeProfile = React.lazy(() =>
+  import("./Pages/EmployeePage/employeeProfile.js/EmployeeProfile")
+);
 
 function App() {
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+  }, []);
   return (
     <div className="App">
+      {loading ? <LoadingPage /> : ""}
       <Router>
         <Header />
         <Routes>
-          <Route exact path="/"  element={ <React.Suspense fallback='Loading...' ><Landing /></React.Suspense>} />
+          <Route
+            exact
+            path="/"
+            element={
+              <React.Suspense fallback={<LoadingPage />}>
+                <Landing />
+              </React.Suspense>
+            }
+          />
           <Route exact path="/signup" element={<Signup />} />
-          <Route exact path="/login" element={ <React.Suspense fallback='Loading...' ><Login /></React.Suspense>} />
+          <Route
+            exact
+            path="/login"
+            element={
+              <React.Suspense fallback={<LoadingPage />}>
+                <Login />
+              </React.Suspense>
+            }
+          />
 
           <Route exact path="/user/home" element={<EmployeeHome />} />
-          <Route exact path="/user/profile" element={ <React.Suspense fallback='Loading...' ><EmployeeProfile /></React.Suspense>} />
+          <Route
+            exact
+            path="/user/profile"
+            element={
+              <React.Suspense fallback={<LoadingPage />}>
+                <EmployeeProfile />
+              </React.Suspense>
+            }
+          />
 
           <Route
             exact

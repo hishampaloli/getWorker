@@ -223,6 +223,10 @@
   color: white;
 }
 
+.swp-img {
+height: 250px;
+}
+
 .editIcon {
   border: none;
   padding: 5px;
@@ -243,7 +247,7 @@
 }
 .closebtnIcon {
   position: absolute;
-  right: 26%;
+  right: 11%;
   z-index: 10;
   top: 150px;
   color: rgb(255, 255, 255);
@@ -252,27 +256,46 @@
   cursor: pointer;
 }
 
+.mySwiper {
+  width: 1000px;
+}
 
 .swiperImg {
   position: relative;
+  height: 350px;
+  width: 200px;
+  display: flex;
+  flexdirection: column;
+  alignitems: center;
+  justifycontent: center;
+}
+
+.swiperImg img {
+  width: 200px;
+  height: 200px;
+  cursor: pointer;
 }
 
 .swiperImg button {
   z-index: -20;
   position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: translateX(-50%) translateY(-50%);
 }
 
 .swiperImg:hover > button {
-  transition: .3s ease;
+  transition: 0.3s ease;
   z-index: 20;
 }
 
 .swiperImg:hover > img {
   transform: scale(1.1);
-  transition: .3s ease;
+  transition: 0.3s ease;
 }
+
 .port-show {
-  background-color: #1D4354;
+  background-color: #1d4354;
   min-height: 200px;
   width: 80%;
   border-radius: 20px;
@@ -302,7 +325,7 @@
 
 .portClose {
   position: absolute;
-  right: 0px;
+  right: 10px;
   top: 10px;
   background-color: #ff5151;
   border-radius: 50%;
@@ -316,9 +339,7 @@
   border: none;
 }
 
-
 @media (max-width: 950px) {
-
   .emplyeeProfile .box1 .bottom .left {
     width: 40%;
     border-right: 1px solid #e8e8e8;
@@ -327,12 +348,9 @@
   .emplyeeProfile .box1 .bottom .right {
     width: 70%;
   }
- 
 }
 
-
 @media (max-width: 790px) {
-
   .emplyeeProfile .box1 .top {
     display: flex;
     flex-direction: column;
@@ -367,15 +385,26 @@
     width: 100%;
   }
 
-
-
+  .mySwiper {
+    display: none;
+  }
  
 }
 
+@media (max-width: 550px) {
 
+
+  .kyc-btn-div {
+    display: flex;
+    flex-direction: column;
+  }
+  .kyc-btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
 
 @media (max-width: 450px) {
-
   .emplyeeProfile .box1 .top button {
     margin-left: 20px;
     padding: 10px 10px;
@@ -385,6 +414,4 @@
     background-color: #3ccf4e;
     color: white;
   }
-  
- 
 }

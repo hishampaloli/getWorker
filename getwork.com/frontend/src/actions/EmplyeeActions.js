@@ -81,10 +81,12 @@ export const addEducation = (education) => async (dispatch, getState) => {
   });
 };
 
-export const deleteEducation = (id, userId) => async (dispatch, getState) => {
+export const deleteEducation = (userId, id) => async (dispatch, getState) => {
   dispatch({
     type: EDUCATION_REQUEST,
   });
+
+  console.log(userId?._id);
 
   const tokenId = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -95,7 +97,7 @@ export const deleteEducation = (id, userId) => async (dispatch, getState) => {
     },
   };
 
-  const { datad } = await axios.delete(
+  const { data } = await axios.delete(
     `/api/employee/education/${userId}/${id}/`,
     config
   );
@@ -382,6 +384,8 @@ export const deletePortfolio = (id) => async (dispatch, getState) => {
     dispatch({
       type: PORTFOLIO_REQUEST,
     });
+
+    console.log(id);
 
     const tokenId = JSON.parse(localStorage.getItem("userInfo"));
 

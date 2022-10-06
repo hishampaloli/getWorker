@@ -69,6 +69,7 @@ const KycPopup = () => {
             <label htmlFor="">Image of Portfolio</label>
             <input
               className="inp-img"
+              required
               type="file"
               onChange={(e) => setImage(e.target.files[0])}
             />
@@ -77,6 +78,7 @@ const KycPopup = () => {
           <div>
             <input
               type="text"
+              required
               onChange={(e) => setTitle(e.target.value)}
               placeholder="name of your degree"
               style={{ marginTop: "20px" }}
@@ -86,6 +88,7 @@ const KycPopup = () => {
           <div>
             <textarea
               type="text"
+              required
               onChange={(e) => setdescription(e.target.value)}
               placeholder="name of your degree"
             />

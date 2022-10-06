@@ -8,6 +8,7 @@ import {
   getEmployeeProfile,
 } from "../../../actions/EmplyeeActions";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectCards } from "swiper";
 import "swiper/css";
 import DoNotDisturbOnIcon from "@mui/icons-material/DoNotDisturbOn";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
@@ -32,6 +33,8 @@ import ChangePasswordPopup from "../../../components/changePasswordPopup/chnageP
 import { CHANGE_PASSWORD_FAIL } from "../../../contants/userConstants";
 import { PORTFOLIO_FAIL } from "../../../contants/employeeConstants.js";
 import { logout } from "../../../actions/UserAction";
+import CustomSpinner from "../../../components/customSpinner/CustomSpinner";
+import SwipPage from "../../../components/EmployeeComponents/Swiper/SwipPage";
 
 const EmployeeProfile = () => {
   const dispatch = useDispatch();
@@ -70,6 +73,7 @@ const EmployeeProfile = () => {
 
   return (
     <div>
+      {userData?.image ? "" : ""}
       {ed ? (
         <CloseIcon
           className="closebtnIcon"
@@ -232,34 +236,47 @@ const EmployeeProfile = () => {
                 {userData?.userInfo ? (
                   userData?.userInfo
                 ) : (
-                  <div  >
-                    <Spinner animation="border" role="status">
-                      <span className="visually-hidden">Loading...</span>
-                    </Spinner>
+                  <div>
+                    <CustomSpinner />
                   </div>
                 )}
               </p>
 
-              <div style={{ display: "flex", alignItems: "flex-end" }}>
+              <div
+                className="kyc-btn-div"
+                style={{ display: "flex", alignItems: "flex-end" }}
+              >
                 {userData?.kyc ? (
                   <>
                     {" "}
                     {userData?.kycApproved === "accepted" ? (
-                      <button style={{ backgroundColor: "#3ccf4e" }}>
+                      <button
+                        className="kyc-btn"
+                        style={{ backgroundColor: "#3ccf4e" }}
+                      >
                         <strong>KYC STATUS :</strong> Accepted
                       </button>
                     ) : userData?.kycApproved === "rejected" ? (
-                      <button onClick={(e) => setEd("kycPopup")}>
+                      <button
+                        className="kyc-btn"
+                        onClick={(e) => setEd("kycPopup")}
+                      >
                         <strong>KYC STATUS :</strong> Rejected
                       </button>
                     ) : (
-                      <button style={{ backgroundColor: "#FFC062" }}>
+                      <button
+                        className="kyc-btn"
+                        style={{ backgroundColor: "#FFC062" }}
+                      >
                         <strong>KYC STATUS :</strong> Pending
                       </button>
                     )}{" "}
                   </>
                 ) : (
-                  <button onClick={(e) => setEd("kycPopup")}>
+                  <button
+                    className="kyc-btn"
+                    onClick={(e) => setEd("kycPopup")}
+                  >
                     Complete Kyc
                   </button>
                 )}
@@ -267,6 +284,7 @@ const EmployeeProfile = () => {
                 {userData?.bankDetails ? (
                   <>
                     <button
+                      className="kyc-btn"
                       onClick={() => setEd("bankPopup")}
                       style={{ backgroundColor: "#3ccf4e" }}
                     >
@@ -274,7 +292,10 @@ const EmployeeProfile = () => {
                     </button>
                   </>
                 ) : (
-                  <button onClick={() => setEd("bankPopup")}>
+                  <button
+                    className="kyc-btn"
+                    onClick={() => setEd("bankPopup")}
+                  >
                     Add payment method
                   </button>
                 )}
@@ -319,7 +340,7 @@ const EmployeeProfile = () => {
               slidesPerView={"4"}
               coverflowEffect={{
                 rotate: 80,
-                stretch: 0,
+                stretch: 10,
                 depth: 10,
                 modifier: 1,
                 slideShadows: false,
@@ -327,24 +348,10 @@ const EmployeeProfile = () => {
               pagination={true}
               modules={[EffectCoverflow, Pagination]}
               className="mySwiper"
-              style={{ width: "1000px" }}
             >
               {userData?.portfolios[0]?.Image ? (
-                <SwiperSlide
-                  style={{
-                    height: "350px",
-                    width: "200px",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  className="swiperImg"
-                >
-                  <img
-                    style={{ height: "200px", width: "200px" }}
-                    src={userData?.portfolios[0]?.Image}
-                  />
+                <SwiperSlide className="swiperImg">
+                  <img src={userData?.portfolios[0]?.Image} />
                   <button
                     onClick={() => {
                       setTitle(userData?.portfolios[0]?.title);
@@ -364,21 +371,8 @@ const EmployeeProfile = () => {
               )}
 
               {userData?.portfolios[1]?.Image ? (
-                <SwiperSlide
-                  style={{
-                    height: "350px",
-                    width: "200px",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  className="swiperImg"
-                >
-                  <img
-                    style={{ height: "200px", width: "200px" }}
-                    src={userData?.portfolios[1]?.Image}
-                  />
+                <SwiperSlide className="swiperImg">
+                  <img src={userData?.portfolios[1]?.Image} />
                   <button
                     onClick={() => {
                       setTitle(userData?.portfolios[1]?.title);
@@ -398,21 +392,8 @@ const EmployeeProfile = () => {
               )}
 
               {userData?.portfolios[2]?.Image ? (
-                <SwiperSlide
-                  style={{
-                    height: "350px",
-                    width: "200px",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  className="swiperImg"
-                >
-                  <img
-                    style={{ height: "200px", width: "200px" }}
-                    src={userData?.portfolios[2]?.Image}
-                  />
+                <SwiperSlide className="swiperImg">
+                  <img src={userData?.portfolios[2]?.Image} />
                   <button
                     onClick={() => {
                       setTitle(userData?.portfolios[2]?.title);
@@ -432,21 +413,8 @@ const EmployeeProfile = () => {
               )}
 
               {userData?.portfolios[3]?.Image ? (
-                <SwiperSlide
-                  style={{
-                    height: "350px",
-                    width: "200px",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  className="swiperImg"
-                >
-                  <img
-                    style={{ height: "200px", width: "200px" }}
-                    src={userData?.portfolios[3]?.Image}
-                  />
+                <SwiperSlide className="swiperImg">
+                  <img src={userData?.portfolios[3]?.Image} />
                   <button
                     onClick={() => {
                       setTitle(userData?.portfolios[3]?.title);
@@ -466,6 +434,24 @@ const EmployeeProfile = () => {
               )}
             </Swiper>
           </div>
+           <div>
+      
+        <>
+      <Swiper
+        effect={"cards"}
+        grabCursor={true}
+        modules={[EffectCards]}
+        className="mySwipe"
+      >
+      {userData?.portfolios[0]?.Image ? <SwiperSlide><img className="swp-img" src={userData?.portfolios[0]?.Image} alt="" /></SwiperSlide> : ''} 
+      {userData?.portfolios[1]?.Image ? <SwiperSlide><img className="swp-img"  src={userData?.portfolios[1]?.Image} alt="" /></SwiperSlide> : ''} 
+      {userData?.portfolios[2]?.Image ? <SwiperSlide><img className="swp-img"  src={userData?.portfolios[2]?.Image} alt="" /></SwiperSlide> : ''} 
+      {userData?.portfolios[3]?.Image ? <SwiperSlide><img className="swp-img"  src={userData?.portfolios[3]?.Image} alt="" /></SwiperSlide> : ''} 
+        <p style={{marginLeft: '100px'}}>swip ></p>
+        
+      </Swiper>
+    </>
+      </div>
         </div>
       </div>
 
@@ -493,19 +479,16 @@ const EmployeeProfile = () => {
 
       {showPortfolio === "portfolio" ? (
         <div className="port-show">
-          <div>
-            {" "}
-            <CloseIcon
-              className="portClose"
-              onClick={() => {
-                setShowPortfolio("");
-                dispatch({
-                  type: PORTFOLIO_FAIL,
-                });
-              }}
-            />
-          </div>
-
+          {" "}
+          <CloseIcon
+            className="portClose"
+            onClick={() => {
+              setShowPortfolio("");
+              dispatch({
+                type: PORTFOLIO_FAIL,
+              });
+            }}
+          />
           <img src={imgUlr} alt="" />
           <div style={{ display: "flex", alignItems: "center" }}>
             <div>

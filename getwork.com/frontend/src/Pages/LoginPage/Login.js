@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../actions/UserAction";
 import Spinner from "react-bootstrap/Spinner";
+import CustomSpinner from "../../components/customSpinner/CustomSpinner";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -51,7 +52,7 @@ const Login = () => {
             required
           />
           
-          {user?.loading ? <Spinner animation="border" role="status"></Spinner> : ''}
+          {user?.loading ? <CustomSpinner /> : ''}
           {user?.error ? <p>{user?.error}</p> : ''}
           <button className="vt-inp">Continue with email</button>
 
@@ -62,7 +63,7 @@ const Login = () => {
           </div>
 
           <button type="submit" className="btn-1">
-            <img src="https://blog.hubspot.com/hubfs/image8-2.jpg" alt="" />
+            <img src="https://banner2.cleanpng.com/20180521/ers/kisspng-google-logo-5b02bbe1d5c6e0.2384399715269058258756.jpg" alt="" />
             <p>Continue with Google</p>
           </button>
 

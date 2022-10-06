@@ -56,11 +56,14 @@ export const postEducations = AsyncHandler(async (req, res) => {
 export const deleteEducation = AsyncHandler(async (req, res) => {
   const { id } = req.params;
   const { userId } = req.params;
-  const userr = await Employee.findOne({ owner: userId });
+  console.log(id);
+  console.log(userId);
+  // const userr = await Employee.findOne({ owner: userId });
   const user = await Employee.findOneAndUpdate(
     { owner: userId },
     { $pull: { educations: id } }
   );
+  console.log(user);
   const deletedData = await Education.findByIdAndDelete(id);
   res.json({
     message: "Deleted Successfully",

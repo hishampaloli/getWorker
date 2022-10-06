@@ -6,7 +6,7 @@ import { userRegister, verifyEmail } from "../../actions/UserAction";
 import Spinner from "react-bootstrap/Spinner";
 import {
   OTP_HELPER_REQUEST,
- USER_REGISTER_SUCCESS,
+  USER_REGISTER_SUCCESS,
   OTP_HELPER_FAIL,
 } from "../../contants/userConstants.js";
 
@@ -32,8 +32,6 @@ const Signup = () => {
   console.log(user);
   console.log(Otp);
 
-  
-
   useEffect(() => {
     if (Otp?.error) {
       console.log(333);
@@ -49,11 +47,17 @@ const Signup = () => {
       }, 2000);
     }
 
-    if (userStatus?.userInfo?.userType === 'employee' && userStatus?.userInfo?.emailVerified) {
-      navigate('/users/home')
+    if (
+      userStatus?.userInfo?.userType === "employee" &&
+      userStatus?.userInfo?.emailVerified
+    ) {
+      navigate("/users/home");
     }
-    if (userStatus?.userInfo?.userType === 'employer' && userStatus?.userInfo?.emailVerified) {
-      navigate('/employer/home')
+    if (
+      userStatus?.userInfo?.userType === "employer" &&
+      userStatus?.userInfo?.emailVerified
+    ) {
+      navigate("/employer/home");
     }
     if (user?.userInfo?.userType === "admin") {
       navigate("/admin/profile");
@@ -93,58 +97,58 @@ const Signup = () => {
             {!user?.users?._id ? (
               <form onSubmit={handleSignIn}>
                 <div className="box">
-                  <h1>Sign IN to getworker.com</h1>
+                  <h1 style={{ marginBottom: "-10px" }}>
+                    Sign IN to <span className="logo-text">getworker.com</span>
+                  </h1>
 
-                  <button className="btn-1">
+                  {/* <button className="btn-1">
                     <img
                       src="https://blog.hubspot.com/hubfs/image8-2.jpg"
                       alt=""
                       srcSet=""
                     />
-                    <p>Continue with Google</p>
+                    <p  >Continue with Google</p>
                   </button>
 
                   <div className="line-wrapper mt-5">
                     <div className="line"></div>
                     <p>or</p>
                     <div className="line"></div>
-                  </div>
+                  </div> */}
 
                   <div className="row">
+                    <label htmlFor="">User Name</label>
                     <input
                       onChange={(e) => setName(e.target.value)}
                       type="text"
                       required
                       placeholder="Username"
                     />
+                    <label htmlFor="">Email</label>
                     <input
                       onChange={(e) => setEmail(e.target.value)}
                       type="email"
                       required
                       placeholder="Email"
                     />
-                  </div>
 
-                  <div
-                    className="row1"
-                  >
+                    <label htmlFor="">Password</label>
                     <input
                       onChange={(e) => setPassword(e.target.value)}
-                      type="text"
+                      type="password"
                       required
                       placeholder="Password"
                       className=" mt-2"
                     />
 
+                    <label htmlFor="">Confirm Password</label>
                     <input
                       onChange={(e) => setCPassword(e.target.value)}
-                      type="text"
+                      type="password"
                       placeholder="ConfirmPassword"
                       className=" mt-2"
                     />
                   </div>
-
-                 
 
                   {user?.loading ? (
                     <Spinner animation="border" role="status"></Spinner>
@@ -155,11 +159,9 @@ const Signup = () => {
                   {errMsg ? <p className="p-er mt-2">{errMsg}</p> : ""}
 
                   <div className="row">
-                    <button type="submit" className="btn-2">
+                    <button type="submit" className="btn-2-sg">
                       Create my Account
                     </button>
-
-                    
                   </div>
                 </div>
               </form>
@@ -180,6 +182,7 @@ const Signup = () => {
                       alignItems: "center",
                       justifyContent: "center",
                       flexDirection: "column",
+                      width: "100%",
                     }}
                   >
                     <div className="row">
@@ -201,7 +204,7 @@ const Signup = () => {
                       <button
                         onClick={handleOtp}
                         type="submit"
-                        className="btn-2"
+                        className="btn-2 btn-otp"
                       >
                         Verify Otp
                       </button>
@@ -213,7 +216,12 @@ const Signup = () => {
           </div>
         ) : (
           <div className="box">
-            <h1>Join as a Employer or Freelancer</h1>
+            <h1 style={{ color: "#3ccf4e" }} className="logo-text">
+              GETWORKER
+            </h1>
+            <h1 style={{ marginTop: "-10px", marginBottom: "-20px" }}>
+              Join as a Employer or Freelancer
+            </h1>
 
             <div className="mini-box-wrapper">
               <div

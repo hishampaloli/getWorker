@@ -12,6 +12,7 @@ import {
   deleteLanguageOrSkill,
   getEmployeeProfile,
 } from "../../actions/EmplyeeActions";
+import CustomSpinner from "../customSpinner/CustomSpinner";
 const SkillsPopup = () => {
   const dispatch = useDispatch();
 
@@ -22,7 +23,7 @@ const SkillsPopup = () => {
   const { userData } = userProfile;
 
   return (
-    <div>
+    <div style={{width: '100%'}}>
       <div className="educationPopup">
         <p
           className="common-heading"
@@ -34,15 +35,15 @@ const SkillsPopup = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            dispatch(addLanguageOrSkill('', skill));
+            dispatch(addLanguageOrSkill("", skill));
           }}
-          style={{ marginLeft: "50px", marginTop: "50px" }}
+          style={{ marginTop: "50px" }}
         >
-
           <input
             type="text"
+            required
             onChange={(e) => setSkill(e.target.value)}
-            placeholder="name of your degree"
+            placeholder="Enter skill in which you are good at !"
           />
           <button type="submit">Add</button>
         </form>
@@ -53,40 +54,58 @@ const SkillsPopup = () => {
             flexDirection: "column",
             alignItems: "center",
             marginTop: "40px",
+
           }}
         >
           {userData ? (
             <>
-            {SkillR?.loading ?  <div style={{display:'flex', justifyContent: 'center', marginBottom: '40px'}}><Spinner animation="border" role="status"></Spinner></div>  : ''}
+              {SkillR?.loading ? (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    height: "40px",
+                    width: "40px",
+                  }}
+                >
+                  <CustomSpinner />{" "}
+                </div>
+              ) : (
+                ""
+              )}
 
               {userData?.skills.map((skill) => {
                 return (
-                  <>
+                  <div key={skill?.skill}>
                     <ul style={{ listStyle: "none" }}>
-                      <li
-                        style={{
-                          width: "430px",
-                          display: "flex",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                      {skill?.skill}
-                        <button
+                      <li>
+                        {skill?.skill}
+                       
+                      </li>
+                      <button
                           onClick={() => {
-                           dispatch(deleteLanguageOrSkill('', skill?.skill))
+                            dispatch(deleteLanguageOrSkill("", skill?.skill));
                           }}
                           className="deleteIcon"
                         >
                           <DeleteIcon />{" "}
                         </button>{" "}
-                      </li>
                     </ul>
-                  </>
+                  </div>
                 );
               })}
             </>
           ) : (
-            <Spinner animation="border" role="status"></Spinner>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                height: "40px",
+                width: "40px",
+              }}
+            >
+              <CustomSpinner />
+            </div>
           )}
         </span>
       </div>

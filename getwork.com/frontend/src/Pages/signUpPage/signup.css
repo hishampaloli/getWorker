@@ -9,7 +9,6 @@
 .box {
   width: 700px;
   margin-top: 50px;
-  height: 590px;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -56,7 +55,7 @@
   background-color: #050505;
   border: none;
   border-radius: 35px;
-  padding: 15px 25px;
+  padding: 15px 15px;
   margin-top: 20px;
   width: 300px;
   color: white;
@@ -70,8 +69,8 @@
   background-color: #4285f4;
   border: none;
   border-radius: 35px;
-  padding: 10px 25px;
   margin-top: 30px;
+  height: 60px;
   width: 300px;
   color: white;
   display: flex;
@@ -80,15 +79,31 @@
   width: 350px;
 }
 
+.row .btn-2-sg {
+  background-color: #050505;
+  border: none;
+  border-radius: 10px;
+  padding: 15px 15px;
+  width: 80%;
+  color: white;
+  margin-top: -30px;
+  transition: 0.3s ease;
+}
+
+.row .btn-2-sg:hover {
+  background-color: #3ccf4e;
+  border-radius: 0px;
+}
+
 .btn-1 img {
-  width: 45px;
-  margin-left: 4px;
-  height: 45px;
+  width: 50px;
+  height: 100%;
+  position: absolute;
+  left: -1px;
   border-radius: 50%;
 }
 
 .btn-1 p {
-  margin-left: 20px;
   margin-top: 10px;
   font-size: medium;
 }
@@ -110,34 +125,34 @@
 
 .box .row {
   display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 40px;
+  width: 100%;
   overflow-y: hidden;
 }
 
-.box .row1 {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow-y: hidden;
-  margin-top: 0px;
-}
 .box .row input {
   padding: 10px 15px;
-  width: 100%;
+  width: 80%;
   margin: 5px;
   background: #ffffff;
   border: 1px solid #b7b7b7;
+  border-radius: 5px;
+  transition: 0.4s ease;
+}
+
+.box .row input:focus {
+  outline: none;
+  border: 1px solid #3ccf4e;
   border-radius: 15px;
 }
 
-.box .row1 input {
-  padding: 10px 15px;
-  width: 50%;
-  margin: 7px;
-  background: #ffffff;
-  border: 1px solid #b7b7b7;
-  margin-bottom: 10px;
-  border-radius: 15px;
+.box .row label {
+  margin-top: 10px;
+  width: 80%;
+  margin-bottom: -2px;
+  margin-left: -15px;
 }
 
 .box .row .vt-inp {
@@ -149,12 +164,24 @@
   color: white;
 }
 .box .row .btn-2 {
-  width: 400px;
+  width: 80%;
+  border-radius: 5px;
 }
 .box .row .otpInp {
-  width: 400px;
+  width: 80%;
+  margin-top: 10px;
+  padding: 15px 15px;
 }
 
+.box .row .btn-otp {
+  margin-top: -40px;
+  transition: .4s all;
+}
+
+.box .row .btn-otp:hover {
+  background-color: #3ccf4e;
+  border-radius: 0px;
+}
 @media (max-width: 650px) {
   .box {
     width: 500px;
@@ -198,15 +225,13 @@
     width: 300px;
   }
 
-  .box  .btn-1 {
+  .box .btn-1 {
     width: 300px;
   }
 
-  
-.box .p-er {
-  width: 250px;
-}
-
+  .box .p-er {
+    width: 250px;
+  }
 
   .mini-box-1 {
     padding: 10px;

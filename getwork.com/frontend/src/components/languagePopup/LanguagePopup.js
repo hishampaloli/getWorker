@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import './languagePopup.css'
+import "./languagePopup.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import DoNotDisturbOnIcon from "@mui/icons-material/DoNotDisturbOn";
@@ -12,6 +12,7 @@ import {
   deleteLanguageOrSkill,
   getEmployeeProfile,
 } from "../../actions/EmplyeeActions";
+import CustomSpinner from "../customSpinner/CustomSpinner";
 const LanguagePopup = () => {
   const dispatch = useDispatch();
 
@@ -22,7 +23,7 @@ const LanguagePopup = () => {
   const { userData } = userProfile;
 
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <div className="educationPopup">
         <p
           className="common-heading"
@@ -34,15 +35,14 @@ const LanguagePopup = () => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            dispatch(addLanguageOrSkill(language, ''));
+            dispatch(addLanguageOrSkill(language, ""));
           }}
-          style={{ marginLeft: "50px", marginTop: "50px" }}
         >
-
           <input
             type="text"
+            required
             onChange={(e) => setLanguage(e.target.value)}
-            placeholder="name of your degree"
+            placeholder="Please enter a language you speak"
           />
           <button type="submit">Add</button>
         </form>
@@ -56,37 +56,43 @@ const LanguagePopup = () => {
           }}
         >
           {userData ? (
-            
             <>
-            {LangR?.loading ?  <div style={{display:'flex', justifyContent: 'center', marginBottom: '40px'}}><Spinner animation="border" role="status"></Spinner></div>  : ''}
+              {LangR?.loading ? (
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    height: '40px',
+                    width:  '40px',
+                  }}
+                >
+                  <CustomSpinner /> 
+                </div>
+              ) : (
+                ""
+              )}
               {userData?.languages.map((language) => {
                 return (
-                  <>
-                    <ul key={language?.language} style={{ listStyle: "none" }}>
-                      <li
-                        style={{
-                          width: "430px",
-                          display: "flex",
-                          justifyContent: "space-between",
+                  <div key={language?.language}>
+                    <ul style={{ listStyle: "none" }}>
+                      <li>{language.language}</li>
+                      <button
+                        onClick={() => {
+                          dispatch(
+                            deleteLanguageOrSkill(language.language, "")
+                          );
                         }}
+                        className="deleteIcon"
                       >
-                      {language.language}
-                        <button
-                          onClick={() => {
-                           dispatch(deleteLanguageOrSkill(language.language, ''))
-                          }}
-                          className="deleteIcon"
-                        >
-                          <DeleteIcon />{" "}
-                        </button>{" "}
-                      </li>
+                        <DeleteIcon />{" "}
+                      </button>{" "}
                     </ul>
-                  </>
+                  </div>
                 );
               })}
             </>
           ) : (
-            ''
+            ""
           )}
         </span>
       </div>
