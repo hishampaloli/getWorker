@@ -3,6 +3,10 @@ import User from "../models/userModal.js";
 import Employer from "../models/employerModel.js";
 import Employee from "../models/employeeModal.js";
 
+// @DESC Gets all the employer data
+// @METHOD get
+// @PATH /employer/profile/:userId
+
 export const getEmployerProfile = AsyncHandler(async (req, res) => {
   const { userId } = req.params;
   try {
@@ -26,10 +30,13 @@ export const getEmployerProfile = AsyncHandler(async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     return new Error("no such user found");
   }
 });
+
+// @DESC Employers can edit their profile
+// @METHOD patch
+// @PATH /employer/profile/:userId
 
 export const editEmployerProfile = AsyncHandler(async (req, res) => {
   const { userId } = req.params;
@@ -55,9 +62,7 @@ export const editEmployerProfile = AsyncHandler(async (req, res) => {
       }
 
       if (image) {
-        console.log(image + "323332");
         userData.image = image;
-        console.log(userData);
         await userData.save();
       }
 
@@ -73,13 +78,12 @@ export const editEmployerProfile = AsyncHandler(async (req, res) => {
   }
 });
 
+// @DESC Employers can search all the employees
+// @METHOD get
+// @PATH /employer/allEmployees
+
 export const getAllEmplyees = AsyncHandler(async (req, res) => {
   const { keyword, earnings, language, jobsDone } = req.query;
-
-  console.log(keyword);
-  console.log(language);
-  console.log(earnings + "3");
-  console.log(jobsDone);
 
   try {
     if (keyword || language || earnings || jobsDone) {
@@ -100,7 +104,6 @@ export const getAllEmplyees = AsyncHandler(async (req, res) => {
           {
             totalEarned: { $lt: earnings ? earnings : "-20" },
           },
-          
         ],
       }).populate("owner");
 
@@ -110,9 +113,13 @@ export const getAllEmplyees = AsyncHandler(async (req, res) => {
       res.json(allEmplyees);
     }
   } catch (error) {
-    console.log(error);
+    res.json(error);
   }
 });
+
+// @DESC Employers can save good employees for later use
+// @METHOD put
+// @PATH /employer/saveTalents/:userId
 
 export const saveJobs = AsyncHandler(async (req, res) => {
   const { id } = req.body;
@@ -124,7 +131,6 @@ export const saveJobs = AsyncHandler(async (req, res) => {
     let a = 0;
 
     emplyerData.savedTalents.forEach((el) => {
-      console.log(el + "2");
       if (el + "*" === id + "*") {
         a = 2;
       }
@@ -140,13 +146,18 @@ export const saveJobs = AsyncHandler(async (req, res) => {
   }
 });
 
+// @DESC Employers can remove good employees from saved list
+// @METHOD delete
+// @PATH /employer/saveTalents/:userId
+
 export const removeSavedTalent = AsyncHandler(async (req, res) => {
   const { id } = req.body;
   const { userId } = req.params;
 
   try {
     const emplyerData = await Employer.findOne({ owner: userId })
-      .populate("owner").populate("savedTalents")
+      .populate("owner")
+      .populate("savedTalents")
       .populate({
         path: "savedTalents",
         populate: [
@@ -156,7 +167,6 @@ export const removeSavedTalent = AsyncHandler(async (req, res) => {
           },
         ],
       });
-      console.log(id);
 
     const arr = emplyerData.savedTalents.filter((el) => {
       return el._id + "." !== id + ".";
