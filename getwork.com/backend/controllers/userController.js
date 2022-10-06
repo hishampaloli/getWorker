@@ -10,6 +10,10 @@ import { generateOtp } from "../utils/getOtp.js";
 import { mailTransport } from "../utils/mail.js";
 import { isValidObjectId } from "mongoose";
 
+// @DESC users can login to the website by validation
+// @METHOD  post
+// @PATH /login
+
 export const userLogin = AsyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
@@ -42,12 +46,16 @@ export const userLogin = AsyncHandler(async (req, res) => {
         adminData: user.employerData,
         token: generateToken(user._id),
       });
-    } 
+    }
   } else {
     res.status(404);
     throw new Error("Email or Password incorrect.");
   }
 });
+
+// @DESC users can register to the website by validation
+// @METHOD  post
+// @PATH /register
 
 export const userRegisterRegister = AsyncHandler(async (req, res) => {
   const { name, email, password, userType } = req.body;
@@ -64,7 +72,6 @@ export const userRegisterRegister = AsyncHandler(async (req, res) => {
 
       const OTP = generateOtp();
 
-      console.log(user._id + ">>>>>>>>>>>>>>>>>");
       const verificationToken = new VerificationToken({
         owner: user._id,
         token: OTP,
@@ -93,12 +100,10 @@ export const userRegisterRegister = AsyncHandler(async (req, res) => {
     });
 
     const OTP = generateOtp();
-    console.log(OTP);
     const verificationToken = new VerificationToken({
       owner: newUser._id,
       token: OTP,
     });
-    console.log(verificationToken);
 
     await verificationToken.save();
     await newUser.save();
@@ -113,9 +118,12 @@ export const userRegisterRegister = AsyncHandler(async (req, res) => {
   }
 });
 
+// @DESC users can verify otp after register to the website by validation
+// @METHOD  post
+// @PATH /verify-email
+
 export const verifyEmail = AsyncHandler(async (req, res, next) => {
   const { userId, otp, userType } = req.body;
-  console.log(userId, userType);
 
   if (!userId || !otp.trim()) {
     throw new Error("Invalid request, missing paramaters");
@@ -135,14 +143,11 @@ export const verifyEmail = AsyncHandler(async (req, res, next) => {
     const token = await VerificationToken.findOne({ owner: userId });
     if (!token) {
       throw new Error("No tokon");
-    } else {
-      console.log("ds");
     }
-    console.log(user.userType);
+
     const isMatch = await token.matchPassword(otp);
     if (!isMatch) {
       throw new Error("Invalid otp");
-      console.log(isMatch);
     } else {
       user.emailVerified = true;
       await VerificationToken.findOne({ owner: userId });
@@ -191,6 +196,9 @@ export const verifyEmail = AsyncHandler(async (req, res, next) => {
   }
 });
 
+// @DESC users can reset password to the website by validation
+// @METHOD  post
+// @PATH /resetPassword/:userId
 
 export const changePassword = AsyncHandler(async (req, res) => {
   const { userId } = req.params;
@@ -210,4 +218,3 @@ export const changePassword = AsyncHandler(async (req, res) => {
     res.json(error);
   }
 });
-
