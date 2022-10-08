@@ -45,14 +45,26 @@ a:hover {
   color: #3ccf4e;
 }
 
-.right .btn-1 {
+.right .btn-1sdf {
   color: #3ccf4e;
+  transition: .3s ease;
 }
 
-.right .btn-2 {
+.right .btn-1sdf:hover {
   background-color: #3ccf4e;
   color: white;
 }
+
+.right .btn-2ad {
+  background-color: #3ccf4e;
+  color: white;
+  transition: .3s ease;
+}
+
+/* .right .btn-2ad:hover {
+  background-color: white;
+  color: #3ccf4e;
+} */
 
 .drop-div {
   position: absolute;

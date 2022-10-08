@@ -12,7 +12,7 @@ import {
   deleteEducation,
   deleteLanguageOrSkill,
   getEmployeeProfile,
-} from "../../actions/EmplyeeActions";
+} from "../../../actions/EmplyeeActions";
 
 const BankPopup = ({ bankData }) => {
   const dispatch = useDispatch();

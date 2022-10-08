@@ -3,12 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import "./signup.css";
 import { userRegister, verifyEmail } from "../../actions/UserAction";
-import Spinner from "react-bootstrap/Spinner";
 import {
-  OTP_HELPER_REQUEST,
   USER_REGISTER_SUCCESS,
   OTP_HELPER_FAIL,
 } from "../../contants/userConstants.js";
+import CustomSpinner from "../../components/customSpinner/CustomSpinner";
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -28,13 +27,11 @@ const Signup = () => {
   const user = useSelector((state) => state.employee);
   const userStatus = useSelector((state) => state.user);
   const Otp = useSelector((state) => state.otp);
-  // console.log(Otp?.error + ">>>>>>>>>>>>>>>..");
-  console.log(user);
-  console.log(Otp);
+
+
 
   useEffect(() => {
     if (Otp?.error) {
-      console.log(333);
 
       setTimeout(() => {
         dispatch({
@@ -62,7 +59,7 @@ const Signup = () => {
     if (user?.userInfo?.userType === "admin") {
       navigate("/admin/profile");
     }
-  }, [Otp, user]);
+  }, [Otp,user]);
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -147,11 +144,12 @@ const Signup = () => {
                       type="password"
                       placeholder="ConfirmPassword"
                       className=" mt-2"
+                      required
                     />
                   </div>
 
                   {user?.loading ? (
-                    <Spinner animation="border" role="status"></Spinner>
+                    <CustomSpinner />
                   ) : (
                     ""
                   )}
@@ -195,7 +193,7 @@ const Signup = () => {
                       />
                     </div>
                     {Otp?.loading ? (
-                      <Spinner animation="border" role="status"></Spinner>
+                      <CustomSpinner />
                     ) : (
                       ""
                     )}

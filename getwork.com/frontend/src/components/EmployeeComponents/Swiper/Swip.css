@@ -37,19 +37,19 @@
   }
   
   .swiper-slide:nth-child(1n) {
-    background-color: rgb(206, 17, 17);
+    background-color: rgba(206, 17, 17, 0);
   }
   
   .swiper-slide:nth-child(2n) {
-    background-color: rgb(0, 140, 255);
+    background-color: rgba(0, 140, 255, 0);
   }
   
   .swiper-slide:nth-child(3n) {
-    background-color: rgb(10, 184, 111);
+    background-color: rgba(10, 184, 112, 0);
   }
   
   .swiper-slide:nth-child(4n) {
-    background-color: rgb(211, 122, 7);
+    background-color: rgba(211, 123, 7, 0);
   }
   
   .swiper-slide:nth-child(5n) {

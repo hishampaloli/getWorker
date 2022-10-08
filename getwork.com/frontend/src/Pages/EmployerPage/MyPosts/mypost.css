@@ -1,0 +1,36 @@
+.jobs-search {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.jobs-search input {
+    border: 1px solid rgb(176, 176, 176);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.jobs-search input:focus {
+    outline: none;
+    border-color: #3ccf4e;
+}
+
+.jobs-search button {
+    background-color: #3ccf4e;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: white;
+    margin-left: 5px;    
+    transition: .3s ease;
+}
+
+.jobs-search button:hover {
+    background-color: #1d4354;
+}
+
+.post-box button {
+    transition: .3s ease;
+    margin-right: 5px;
+}

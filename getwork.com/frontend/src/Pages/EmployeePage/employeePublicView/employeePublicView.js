@@ -1,49 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addEducation,
-  deleteEducation,
-  deletePortfolio,
-  getEmployeeProfile,
+
   getEmployeeProfileView,
 } from "../../../actions/EmplyeeActions";
 import "../employeeProfile.js/employeeProfile.css";
+import { EffectCards } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import DoNotDisturbOnIcon from "@mui/icons-material/DoNotDisturbOn";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import "swiper/css/effect-coverflow";
+import CloseIcon from '@mui/icons-material/Close';
 import "swiper/css/pagination";
-import DeleteIcon from "@mui/icons-material/Delete";
-import CloseIcon from "@mui/icons-material/Close";
-import EditIcon from "@mui/icons-material/Edit";
-import EducationPopup from "../../../components/EducationPopup/educationPopup";
-import Spinner from "react-bootstrap/Spinner";
-import AddIcon from "@mui/icons-material/Add";
-
 import { EffectCoverflow, Pagination } from "swiper";
 import { useNavigate, useParams } from "react-router-dom";
-import LanguagePopup from "../../../components/languagePopup/LanguagePopup";
-import SkillsPopup from "../../../components/EmployeeComponents/skillsPopup/SkillsPopup";
-import InfoPopup from "../../../components/infoPopup/InfoPopup";
-import ImagePopup from "../../../components/profileImgPoprup/ProfileImgPopup";
-import KycPopup from "../../../components/kcyPopup/KycPopup";
-import PortfoilioPopup from "../../../components/PortfolioPopUp.js/PortfoilioPopup";
-import BankPopup from "../../../components/BankdetailsPopup/BankDetailsPopup";
-import ChangePasswordPopup from "../../../components/changePasswordPopup/chnagePasswordPopup";
-import { CHANGE_PASSWORD_FAIL } from "../../../contants/userConstants";
-import { PORTFOLIO_FAIL } from "../../../contants/employeeConstants.js";
+import SwipPage from '../../../components/EmployeeComponents/Swiper/SwipPage'
 
 const EmployeePublicView = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let { userId } = useParams();
-  console.log(userId);
-  const userProfile = useSelector((state) => state.emplyeePublicData);
-  const portfolio = useSelector((state) => state.portfolio);
-  const User = useSelector((state) => state.user);
 
-  console.log(userProfile);
+  const userProfile = useSelector((state) => state.emplyeePublicData);
 
   const user = useSelector((state) => state.user);
   const [title, setTitle] = useState("");
@@ -146,7 +124,7 @@ const EmployeePublicView = () => {
                     <h5>Language </h5>
                     {userData?.languages.map((language) => {
                       return (
-                        <p style={{ marginLeft: "0px" }}>
+                        <p key={language?.language} style={{ marginLeft: "0px" }}>
                           {language?.language}
                         </p>
                       );
@@ -158,7 +136,7 @@ const EmployeePublicView = () => {
 
                     {userData?.skills.map((education) => {
                       return (
-                        <li style={{ marginLeft: "0px" }}>
+                        <li key={education?.skill} style={{ marginLeft: "0px" }}>
                           {education?.skill}
                         </li>
                       );
@@ -182,10 +160,10 @@ const EmployeePublicView = () => {
               </div>
 
               <div className="right">
-                <h1 style={{ display: "flex", marginTop: "-100px" }}>
+                <h1 >
                   {userData?.userTitle}
                 </h1>
-                <p style={{ marginTop: "-100px" }}>{userData?.userInfo}</p>
+                <p >{userData?.userInfo}</p>
               </div>
             </div>
           </div>
@@ -367,7 +345,115 @@ const EmployeePublicView = () => {
                 )}
               </Swiper>
             </div>
+            <Swiper
+                effect={"cards"}
+                grabCursor={true}
+                // modules={[EffectCards]}
+                className="mySwipe"
+              >
+                {userData?.portfolios[0]?.Image ? (
+                  <SwiperSlide>
+                    <img
+                      className="swp-img"
+                      src={userData?.portfolios[0]?.Image}
+                      alt=""
+                    />{" "}
+                    <button
+                      onClick={() => {
+                        setTitle(userData?.portfolios[0]?.title);
+                        setDescription(userData?.portfolios[0]?.description);
+                        setShowPortfolio("portfolio");
+                        setImgUrl(userData?.portfolios[0]?.Image);
+                        setId(userData?.portfolios[0]?._id);
+                      }}
+                      style={{ marginLeft: "0px" }}
+                      className="editIco mt-2 mb-2"
+                    >
+                      <RemoveRedEyeIcon />
+                    </button>
+                  </SwiperSlide>
+                ) : (
+                  ""
+                )}
+                {userData?.portfolios[1]?.Image ? (
+                  <SwiperSlide className="swp-cls">
+                    <img
+                      className="swp-img"
+                      src={userData?.portfolios[1]?.Image}
+                      alt=""
+                    />{" "}
+                    <button
+                      onClick={() => {
+                        setTitle(userData?.portfolios[1]?.title);
+                        setDescription(userData?.portfolios[1]?.description);
+                        setShowPortfolio("portfolio");
+                        setImgUrl(userData?.portfolios[1]?.Image);
+                        setId(userData?.portfolios[1]?._id);
+                      }}
+                      style={{ marginLeft: "0px" }}
+                      className="editIco mt-2 mb-2"
+                    >
+                      <RemoveRedEyeIcon />
+                    </button>
+                  </SwiperSlide>
+                ) : (
+                  ""
+                )}
+                {userData?.portfolios[2]?.Image ? (
+                  <SwiperSlide>
+                    <img
+                      className="swp-img"
+                      src={userData?.portfolios[2]?.Image}
+                      alt=""
+                    />{" "}
+                    <button
+                      onClick={() => {
+                        setTitle(userData?.portfolios[2]?.title);
+                        setDescription(userData?.portfolios[2]?.description);
+                        setShowPortfolio("portfolio");
+                        setImgUrl(userData?.portfolios[2]?.Image);
+                        setId(userData?.portfolios[2]?._id);
+                      }}
+                      style={{ marginLeft: "0px" }}
+                      className="editIco mt-2 mb-2"
+                    >
+                      <RemoveRedEyeIcon />
+                    </button>
+                  </SwiperSlide>
+                ) : (
+                  ""
+                )}
+                {userData?.portfolios[3]?.Image ? (
+                  <SwiperSlide>
+                    <img
+                      className="swp-img"
+                      src={userData?.portfolios[3]?.Image}
+                      alt=""
+                    />{" "}
+                    <button
+                      onClick={() => {
+                        setTitle(userData?.portfolios[3]?.title);
+                        setDescription(userData?.portfolios[3]?.description);
+                        setShowPortfolio("portfolio");
+                        setImgUrl(userData?.portfolios[3]?.Image);
+                        setId(userData?.portfolios[3]?._id);
+                      }}
+                      style={{ marginLeft: "0px" }}
+                      className="editIco mt-2 mb-2"
+                    >
+                      <RemoveRedEyeIcon />
+                    </button>
+                  </SwiperSlide>
+                ) : (
+                  ""
+                )}
+                <p style={{ marginLeft: "100px", color: "#75E6FF" }}>
+                  {"swip >"}
+                </p>
+              </Swiper>
           </div>
+
+          
         </div>
       )}
 

@@ -9,7 +9,7 @@ import {
   FIND_TALENDS_REQUEST,
   FIND_TALENDS_SUCCESS,
 } from "../contants/employerContants";
-import axios from "axios";
+import { axiosEmployerInstance } from "../contants/axios";
 
 export const getEmployerProfile = () => async (dispatch) => {
   try {
@@ -26,7 +26,7 @@ export const getEmployerProfile = () => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get(`/api/employer/profile/${id._id}`, config);
+    const { data } = await axiosEmployerInstance.get(`/profile/${id._id}`, config);
 
     console.log(data);
 
@@ -48,6 +48,7 @@ export const editEmployerProfile =
       dispatch({
         type: CHANGE_E_PASSWORD_REQUEST,
       });
+      console.log(image);
 
       const id = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -58,8 +59,8 @@ export const editEmployerProfile =
         },
       };
 
-      const { data } = await axios.patch(
-        `/api/employer/profile/${id._id}`,
+      const { data } = await axiosEmployerInstance.patch(
+        `/profile/${id._id}`,
         { name, oldPass, newPass, image },
         config
       );
@@ -104,8 +105,8 @@ export const findTalents =
         },
       };
 
-      const { data } = await axios.get(
-        `http://localhost:3001/api/employer/allEmployees?keyword=${keyword}&earnings=${earnings}&language=${language}&jobsDone=${jobsDone}`,
+      const { data } = await axiosEmployerInstance.get(
+        `/allEmployees?keyword=${keyword}&earnings=${earnings}&language=${language}&jobsDone=${jobsDone}`,
         config
       );
 
@@ -132,8 +133,8 @@ export const saveTalents = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.put(
-      `http://localhost:3001/api/employer/saveTalents/${token_id._id}`,
+    const { data } = await axiosEmployerInstance.put(
+      `/saveTalents/${token_id._id}`,
       {
         id,
       },
@@ -151,8 +152,6 @@ export const saveTalents = (id) => async (dispatch, getState) => {
   }
 };
 
-
-
 export const removeSavedTalent = (id) => async (dispatch, getState) => {
   try {
     const token_id = JSON.parse(localStorage.getItem("userInfo"));
@@ -164,8 +163,8 @@ export const removeSavedTalent = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.patch(
-      `http://localhost:3001/api/employer/saveTalents/${token_id._id}`,
+    const { data } = await axiosEmployerInstance.patch(
+      `/saveTalents/${token_id._id}`,
       {
         id,
       },

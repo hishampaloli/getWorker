@@ -9,8 +9,8 @@ import {
   deleteEducation,
   editInfo,
   getEmployeeProfile,
-} from "../../actions/EmplyeeActions";
-import CustomSpinner from "../customSpinner/CustomSpinner";
+} from "../../../actions/EmplyeeActions";
+import CustomSpinner from "../../customSpinner/CustomSpinner";
 const InfoPopup = () => {
   const dispatch = useDispatch();
 

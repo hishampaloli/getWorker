@@ -16,6 +16,9 @@ import AdminProfile from "./Pages/AdminPage/AdminHomePage/AdminProfile";
 import AdminUserPage from "./Pages/AdminPage/AdminFindUser/AdminUserPage";
 import AdminKyc from "./Pages/AdminPage/AdminKyc/AdminKyc";
 import LoadingPage from "./components/LoadingPage/LoadingPage";
+import PostJobs from "./Pages/EmployerPage/PostJobs/PostJobs";
+import MyPosts from "./Pages/EmployerPage/MyPosts/MyPosts";
+import JobView from "./Pages/EmployerPage/JobsView/JobView";
 
 const Landing = React.lazy(() => import("./Pages/LandingPage.js/Landing"));
 const Login = React.lazy(() => import("./Pages/LoginPage/Login"));
@@ -26,10 +29,10 @@ const EmployeeProfile = React.lazy(() =>
 function App() {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1500);
+    // setLoading(true);
+    // setTimeout(() => {
+    //   setLoading(false);
+    // }, 1500);
   }, []);
   return (
     <div className="App">
@@ -59,7 +62,7 @@ function App() {
               }
             />
 
-            <Route exact path="/user/home" element={<EmployeeHome />} />
+            <Route exact path="/users/home" element={<EmployeeHome />} />
             <Route
               exact
               path="/user/profile"
@@ -83,6 +86,9 @@ function App() {
               element={<EmployerProfile />}
             />
             <Route exact path="/findTalents" element={<FindTalentsPage />} />
+            <Route exact path="/employer/postjob" element={<PostJobs />} />
+            <Route exact path="/employer/myposts" element={<MyPosts />} />
+            <Route exact path="/jobs/:id" element={<JobView />} />
 
             <Route exact path="/admin/profile" element={<AdminProfile />} />
             <Route exact path="/admin/users" element={<AdminUserPage />} />

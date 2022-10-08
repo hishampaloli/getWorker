@@ -10,8 +10,8 @@ import {
   addEducation,
   deleteEducation,
   getEmployeeProfile,
-} from "../../actions/EmplyeeActions";
-import CustomSpinner from "../customSpinner/CustomSpinner";
+} from "../../../actions/EmplyeeActions";
+import CustomSpinner from "../../customSpinner/CustomSpinner";
 
 const EducationPopup = () => {
   const dispatch = useDispatch();

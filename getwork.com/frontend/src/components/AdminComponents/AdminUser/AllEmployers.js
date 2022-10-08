@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { blockUser, getAllEmplyers } from "../../actions/adminActions";
+import { blockUser, getAllEmplyers } from "../../../actions/adminActions";
 import Alert from "@mui/material/Alert";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import Spinner from "react-bootstrap/Spinner";
-import CustomSpinner from "../customSpinner/CustomSpinner";
+import CustomSpinner from "../../customSpinner/CustomSpinner";
 
 const AllEmployers = () => {
   const dispatch = useDispatch();

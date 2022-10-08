@@ -13,6 +13,7 @@ import {
   addBankDetails,
   addPortfolio,
   deletePortFolio,
+  saveJobs,
 } from "../controllers/employeeControllers.js";
 import { protect, isOwner, isEmployee } from "../middlewares/authMiddleware.js";
 
@@ -28,5 +29,9 @@ router.route("/kyc/:userId").post(protect, isOwner, addKyc);
 router.route("/addBank/:userId").post(protect, isEmployee, addBankDetails);
 router.route("/addPortfolio/:userId").post(protect, isEmployee, addPortfolio);
 router.route("/deletePortfolio/:userId/:id").delete(protect, isEmployee, deletePortFolio);
+
+
+router.route("/saveJobs/:userId/:id").get(protect,isOwner, isEmployee, saveJobs);
+
 
 export default router;

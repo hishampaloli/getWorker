@@ -24,6 +24,7 @@ import {
   SKILL_N_LANGUAGE_REQUEST,
   SKILL_N_LANGUAGE_SUCCESS,
 } from "../contants/employeeConstants.js";
+import { axiosEmployeeInstance } from "../contants/axios";
 
 export const getEmployeeProfile = () => async (dispatch) => {
   try {
@@ -33,7 +34,7 @@ export const getEmployeeProfile = () => async (dispatch) => {
 
     const id = JSON.parse(localStorage.getItem("userInfo"));
 
-    const { data } = await axios.get(`/api/employee/profile/${id._id}`);
+    const { data } = await axiosEmployeeInstance.get(`/profile/${id._id}`);
 
     dispatch({
       type: EMPLOYEE_PROFILE_SUCCESS,
@@ -61,8 +62,8 @@ export const addEducation = (education) => async (dispatch, getState) => {
     },
   };
 
-  const { data } = await axios.post(
-    `/api/employee/education/${id._id}`,
+  const { data } = await axiosEmployeeInstance.post(
+    `/education/${id._id}`,
     { education },
     config
   );
@@ -86,7 +87,6 @@ export const deleteEducation = (userId, id) => async (dispatch, getState) => {
     type: EDUCATION_REQUEST,
   });
 
-  console.log(userId?._id);
 
   const tokenId = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -97,8 +97,8 @@ export const deleteEducation = (userId, id) => async (dispatch, getState) => {
     },
   };
 
-  const { data } = await axios.delete(
-    `/api/employee/education/${userId}/${id}/`,
+  const { data } = await axiosEmployeeInstance.delete(
+    `/education/${userId}/${id}/`,
     config
   );
 
@@ -129,8 +129,8 @@ export const addLanguageOrSkill =
         },
       };
 
-      const { data } = await axios.post(
-        `/api/employee/editProfile/${tokenId._id}`,
+      const { data } = await axiosEmployeeInstance.post(
+        `/editProfile/${tokenId._id}`,
         { language, skill },
         config
       );
@@ -171,8 +171,8 @@ export const deleteLanguageOrSkill =
       },
     };
 
-    const { data } = await axios.delete(
-      `/api/employee/editProfile/${tokenId._id}?language=${language}&skill=${skill}`,
+    const { data } = await axiosEmployeeInstance.delete(
+      `/editProfile/${tokenId._id}?language=${language}&skill=${skill}`,
       config
     );
 
@@ -212,8 +212,8 @@ export const editInfo = (title, info) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.patch(
-      `/api/employee/editInfo/${tokenId._id}`,
+    const { data } = await axiosEmployeeInstance.patch(
+      `/editInfo/${tokenId._id}`,
       { title, info },
       config
     );
@@ -252,8 +252,8 @@ export const addProfileImage = (image) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.patch(
-      `/api/employee/profileImg/${tokenId._id}`,
+    const { data } = await axiosEmployeeInstance.patch(
+      `/profileImg/${tokenId._id}`,
       { image },
       config
     );
@@ -287,8 +287,8 @@ export const addkyc =
       },
     };
 
-    const { datad } = await axios.post(
-      `/api/employee/kyc/${tokenId._id}`,
+    const { datad } = await axiosEmployeeInstance.post(
+      `/kyc/${tokenId._id}`,
       { aathar, aatharSelfie, pan, gstNumber },
       config
     );
@@ -318,8 +318,8 @@ export const addBankDetails = (ifsc, acNumber, acName) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.post(
-      `/api/employee/addBank/${tokenId._id}`,
+    const { data } = await axiosEmployeeInstance.post(
+      `/addBank/${tokenId._id}`,
       { ifsc, acNumber, acName },
       config
     );
@@ -353,8 +353,8 @@ export const addPortfolio =
         },
       };
 
-      const { data } = await axios.post(
-        `/api/employee/addPortfolio/${tokenId._id}`,
+      const { data } = await axiosEmployeeInstance.post(
+        `/addPortfolio/${tokenId._id}`,
         { image, title, description },
         config
       );
@@ -396,8 +396,8 @@ export const deletePortfolio = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.delete(
-      `/api/employee/deletePortfolio/${tokenId._id}/${id}`,
+    const { data } = await axiosEmployeeInstance.delete(
+      `/deletePortfolio/${tokenId._id}/${id}`,
       config
     );
 
@@ -422,26 +422,21 @@ export const deletePortfolio = (id) => async (dispatch, getState) => {
   }
 };
 
-
-
 export const getEmployeeProfileView = (id) => async (dispatch) => {
   try {
     dispatch({
       type: EMPLOYEE_PROFILE_PUBLIC_REQUEST,
     });
 
- 
-
-    const { data } = await axios.get(`/api/employee/profile/${id}`);
+    const { data } = await axiosEmployeeInstance.get(`/profile/${id}`);
 
     dispatch({
       type: EMPLOYEE_PROFILE_PUBLIC_SUCCESS,
       payload: data,
     });
   } catch (error) {
-    console.log(error);
     dispatch({
-      type:  EMPLOYEE_PROFILE_PUBLIC_FAIL,
+      type: EMPLOYEE_PROFILE_PUBLIC_FAIL,
       error: error,
     });
   }

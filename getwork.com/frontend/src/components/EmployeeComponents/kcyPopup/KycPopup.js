@@ -13,8 +13,8 @@ import {
   deleteEducation,
   deleteLanguageOrSkill,
   getEmployeeProfile,
-} from "../../actions/EmplyeeActions";
-import CustomSpinner from "../customSpinner/CustomSpinner";
+} from "../../../actions/EmplyeeActions";
+import CustomSpinner from "../../customSpinner/CustomSpinner";
 const KycPopup = () => {
   const dispatch = useDispatch();
 

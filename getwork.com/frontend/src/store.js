@@ -30,6 +30,12 @@ import {
   blockedUserReducer,
   kycStatusReducer,
 } from "./reducers/adminReducer";
+import {
+  allJobsReducer,
+  jobsDetailsReducer,
+  MyJobsReducer,
+} from "./reducers/jobsReducer";
+import { JobsDetails } from "./actions/jobsActions";
 
 const reducer = combineReducers({
   employee: userRegisterReducer,
@@ -55,7 +61,11 @@ const reducer = combineReducers({
   allEmployers: AllEmployersREducer,
   blockedUsers: blockedUserReducer,
   allKyc: AllKycReducer,
-  kycReq: kycStatusReducer
+  kycReq: kycStatusReducer,
+
+  myJobs: MyJobsReducer,
+  jobsDetail: jobsDetailsReducer,
+  allJobs: allJobsReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

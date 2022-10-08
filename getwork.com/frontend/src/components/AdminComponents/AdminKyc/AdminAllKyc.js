@@ -35,7 +35,7 @@ const AdminAllKyc = ({ kycRequest }) => {
       {kycRequest ? (
         kycRequest?.map((el) => {
           return (
-            <div className="allkyc-box">
+            <div key={el?.owner?._id} className="allkyc-box">
               <div>
                 <p>{el?.owner?.name}</p>
                 <p style={{ marginTop: "-20px" }}>

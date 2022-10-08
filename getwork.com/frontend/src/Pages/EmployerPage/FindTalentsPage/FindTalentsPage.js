@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
 import Alert from "@mui/material/Alert";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import {
   findTalents,
   getEmployerProfile,
@@ -27,13 +26,11 @@ const FindTalentsPage = () => {
   const [earnings, setEarnings] = useState("");
   const [language, setLanguage] = useState("");
   const [jobsDone, setJobsDone] = useState("");
-  const [savedJobs, setSavedJobs] = useState("");
+
   const [showSavedJobs, setShowSavedJobs] = useState("");
   const [alert, setAlret] = useState(false);
   const [alertR, setAlretR] = useState(false);
 
-  console.log(employerData);
-  console.log(talents);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,8 +47,10 @@ const FindTalentsPage = () => {
     if (user?.userInfo?.userType === "admin") {
       navigate("/admin/profile");
     }
-    console.log(786);
-  }, [user]);
+    console.log(user);
+  });
+
+  console.log(456789);
 
   return (
     <div className="findTalents">
@@ -279,7 +278,7 @@ const FindTalentsPage = () => {
                                 setAlretR(false);
                               }, 1500);
                           }}
-                          style={{ color: "#3ccf4e" }}
+                          className='hb-btn'
                         />
                         <button>
                           {" "}

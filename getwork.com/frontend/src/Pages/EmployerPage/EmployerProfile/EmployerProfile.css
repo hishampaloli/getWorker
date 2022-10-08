@@ -9,10 +9,11 @@
     width: 30%;
     background-color: white;
     border-radius: 25px;
+    max-height: 600px;
 }
 
 .employerProfile .left .left-top {
-    border-bottom: 1px solid #AAAAAA;
+    border-bottom: 1px solid #ebebeb;
     height: 200px;
     width: 100%;
     display: flex;
@@ -45,11 +46,22 @@
 .employerProfile .left .left-bottom button {
     border: 1px solid #AAAAAA;
     border-radius: 10px;
-    background-color: white;
     padding: 15px 30px;
     margin: 10px;
     width: 80%;
+    transition: .3s ease;
 }
+
+.employerProfile .left .left-bottom .btn {
+
+    background-color: white;
+}
+
+.employerProfile .left .left-bottom .btn-a {
+    background-color: #1d4354;
+    color: white;
+}
+
 
 .employerProfile .right {
     width: 65%;
@@ -70,16 +82,16 @@
 .employerProfile .right .employerProfile1 .top {
     display: flex;
     align-items: center;
-    justify-content: space-around;
-    width: 100%;
+    justify-content: space-between;
+    width: 87%;
 }
 
 .employerProfile .right .employerProfile1 .top .min-box {
     
-    width: 300px;
+    width: 48%;
     height: 200px;
-    background-color: #ff2b2bb6;
-    border-radius: 25px;
+    background-color: #1d4354;
+    border-radius: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -134,7 +146,9 @@
 .employerProfile .right .employerProfile1  .bottom form input:focus {
     outline: none;
     border-radius: 15px;
-    border:  1px solid #3CCF4E;
+    border:  1px solid #1d4354;
+    background-color: #1d4354;
+    color: white;
 }
 
 .employerProfile .right .employerProfile1  .bottom form button {

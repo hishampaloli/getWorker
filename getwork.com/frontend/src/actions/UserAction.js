@@ -14,6 +14,7 @@ import {
   CHANGE_PASSWORD_SUCCESS,
   CHANGE_PASSWORD_FAIL,
 } from "../contants/userConstants";
+import { axiosUserInstance } from "../contants/axios";
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -27,8 +28,8 @@ export const login = (email, password) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.post(
-      "/api/login",
+    const { data } = await axiosUserInstance.post(
+      "/login",
       { email, password },
       config
     );
@@ -65,8 +66,8 @@ export const userRegister =
         },
       };
 
-      const { data } = await axios.post(
-        "/api/register",
+      const { data } = await axiosUserInstance.post(
+        "/register",
         { name, email, password, userType },
         config
       );
@@ -98,8 +99,8 @@ export const verifyEmail = (userId, otp, userType) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.post(
-      "/api/verify-email",
+    const { data } = await axiosUserInstance.post(
+      "/verify-email",
       { userId, otp, userType },
       config
     );
@@ -156,8 +157,8 @@ export const changePassword = (oldPass, newPass) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.patch(
-      `/api/resetPassword/${tokenId._id}`,
+    const { data } = await axiosUserInstance.patch(
+      `/resetPassword/${tokenId._id}`,
       { oldPass, newPass },
       config
     );

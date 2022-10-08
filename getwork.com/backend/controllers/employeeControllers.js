@@ -27,7 +27,8 @@ export const employeeProfile = AsyncHandler(async (req, res) => {
       .populate("educations")
       .populate("portfolios")
       .populate("bankDetails")
-      .populate("owner");
+      .populate("owner")
+      .populate("savedJobs")
     if (userData) {
       res.json(userData);
     } else {
@@ -312,4 +313,33 @@ export const deletePortFolio = AsyncHandler(async (req, res) => {
   res.json({
     message: "Deleted Successfully",
   });
+});
+
+
+
+
+export const saveJobs = AsyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { userId } = req.params;
+
+  try {
+    const emplyeeData = await Employee.findOne({ owner: userId });
+    let a = 0;
+
+    emplyeeData.savedJobs.forEach((el) => {
+      if (el + "*" === id + "*") {
+        a = 2;
+      }
+    });
+
+    if (a == 0) {
+      emplyeeData.savedJobs.push(id);
+      await emplyeeData.save();
+
+      res.json(emplyeeData);
+    }
+
+  } catch (error) {
+    res.json(error);
+  }
 });

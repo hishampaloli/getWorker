@@ -19,6 +19,7 @@ import {
   KYC_STATUS_REQUEST,
   KYC_STATUS_SUCCESS,
 } from "../contants/adminConstants";
+import { axiosAdminInstance } from "../contants/axios";
 
 export const adminProfile = () => async (dispatch) => {
   try {
@@ -35,9 +36,7 @@ export const adminProfile = () => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get(`/api/admin/profile`, config);
-
-    console.log(data);
+    const { data } = await axiosAdminInstance.get(`/profile`, config);
 
     dispatch({
       type: ADMIN_PROFILE_SUCCESS,
@@ -68,12 +67,11 @@ export const getAllEmplyees =
         },
       };
 
-      const { data } = await axios.get(
-        `/api/admin/allEmployees?keyword=${keyword}`,
+      const { data } = await axiosAdminInstance.get(
+        `/allEmployees?keyword=${keyword}`,
         config
       );
 
-      console.log(data);
 
       dispatch({
         type: ALL_EMPLYEES_SUCCESS,
@@ -109,8 +107,6 @@ export const getAllEmplyers =
         config
       );
 
-      console.log(data);
-
       dispatch({
         type: ALL_EMPLYERS_SUCCESS,
         payload: data,
@@ -126,7 +122,6 @@ export const getAllEmplyers =
 export const blockUser = (_id, key, type) => async (dispatch, getState) => {
   try {
     const tokenId = JSON.parse(localStorage.getItem("userInfo"));
-    console.log(type);
 
     const config = {
       headers: {
@@ -135,14 +130,11 @@ export const blockUser = (_id, key, type) => async (dispatch, getState) => {
       },
     };
 
-    const { datad } = await axios.patch(
-      `http://localhost:3001/api/admin/block/${_id}`,
-      config
-    );
+    const { datad } = await axiosAdminInstance.patch(`/block/${_id}`, config);
 
     if (type === "employee") {
-      const { data } = await axios.get(
-        `/api/admin/allEmployees?keyword=${key}`,
+      const { data } = await axiosAdminInstance.get(
+        `/allEmployees?keyword=${key}`,
         config
       );
 
@@ -151,18 +143,15 @@ export const blockUser = (_id, key, type) => async (dispatch, getState) => {
         payload: data,
       });
     } else if (type === "other") {
-      const { data } = await axios.get(
-        `http://localhost:3001/api/admin//blockedUsers`,
-        config
-      );
+      const { data } = await axiosAdminInstance.get(`/blockedUsers`, config);
 
       dispatch({
         type: BLOCKED_USERS_SUCCESS,
         payload: data,
       });
     } else {
-      const { data } = await axios.get(
-        `/api/admin/allEmployers?keyword=${key}`,
+      const { data } = await axiosAdminInstance.get(
+        `/allEmployers?keyword=${key}`,
         config
       );
 
@@ -187,7 +176,6 @@ export const allblockedUsers =
       });
 
       const tokenId = JSON.parse(localStorage.getItem("userInfo"));
-      console.log(type);
 
       const config = {
         headers: {
@@ -196,12 +184,11 @@ export const allblockedUsers =
         },
       };
 
-      const { data } = await axios.get(
-        `http://localhost:3001/api/admin//blockedUsers`,
+      const { data } = await axiosAdminInstance.get(
+        `/blockedUsers`,
         config
       );
 
-      console.log(data);
       // const { data } = await axios.get(
       //   `/api/admin/allEmployees?keyword=${key}`,
       //   config
@@ -230,8 +217,8 @@ export const blacklistUsers = (_id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.put(
-      `http://localhost:3001/api/admin/blacklist`,
+    const { data } = await axiosAdminInstance.put(
+      `/blacklist`,
       { _id },
       config
     );
@@ -241,7 +228,6 @@ export const blacklistUsers = (_id) => async (dispatch, getState) => {
       payload: data,
     });
 
-    console.log(data);
   } catch (error) {
     dispatch({
       type: BLOCKED_USERS_FAIL,
@@ -261,8 +247,8 @@ export const removeBlacklist = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.put(
-      `http://localhost:3001/api/admin/removeBlacklist`,
+    const { data } = await axiosAdminInstance.put(
+      `/removeBlacklist`,
       { id },
       config
     );
@@ -272,7 +258,6 @@ export const removeBlacklist = (id) => async (dispatch, getState) => {
       payload: data,
     });
 
-    console.log(data);
   } catch (error) {
     dispatch({
       type: ADMIN_PROFILE_FAIL,
@@ -296,8 +281,8 @@ export const getAllKyc = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(
-      `http://localhost:3001/api/admin/allKyc`,
+    const { data } = await axiosAdminInstance.get(
+      `/allKyc`,
       config
     );
 
@@ -315,11 +300,9 @@ export const getAllKyc = (id) => async (dispatch, getState) => {
 
 export const acceptOrRejectKyc = (id, status) => async (dispatch, getState) => {
   try {
-
-
     dispatch({
-      type: KYC_STATUS_REQUEST
-    })
+      type: KYC_STATUS_REQUEST,
+    });
     const tokenId = JSON.parse(localStorage.getItem("userInfo"));
 
     const config = {
@@ -329,34 +312,30 @@ export const acceptOrRejectKyc = (id, status) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.post(
-      `http://localhost:3001/api/admin/acceptKyc`,
+    const { data } = await axiosAdminInstance.post(
+      `/acceptKyc`,
       { id, status },
       config
     );
 
     dispatch({
-      type: KYC_STATUS_SUCCESS
-    })
+      type: KYC_STATUS_SUCCESS,
+    });
 
-    if (status === 'accept') {
-      getState().allKyc.data.forEach(el => {
+    if (status === "accept") {
+      getState().allKyc.data.forEach((el) => {
         if (el.owner._id === id) {
-          el.kycStatus = 'accepted'
+          el.kycStatus = "accepted";
         }
-        }) 
-    }else {
-      getState().allKyc.data.forEach(el => {
+      });
+    } else {
+      getState().allKyc.data.forEach((el) => {
         if (el.owner._id === id) {
-          el.kycStatus = 'rejected'
+          el.kycStatus = "rejected";
         }
-        })
+      });
     }
 
-  
-
-    console.log(data);
-    
   } catch (error) {
     dispatch({
       type: KYC_STATUS_FAIL,

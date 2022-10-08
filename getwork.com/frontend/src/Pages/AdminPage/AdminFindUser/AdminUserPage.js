@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./AdminUser.css";
-import { getAllEmplyees } from "../../../actions/adminActions";
-import AllEmployees from "../../../components/AdminUser/AllEmployees";
-import AllEmployers from "../../../components/AdminUser/AllEmployers";
-import BlockedUsers from "../../../components/AdminUser/BlockedUsers";
+import AllEmployees from "../../../components/AdminComponents/AdminUser/AllEmployees";
+import AllEmployers from "../../../components/AdminComponents/AdminUser/AllEmployers";
+import BlockedUsers from "../../../components/AdminComponents/AdminUser/BlockedUsers";
 import { useNavigate } from "react-router-dom";
 
 const AdminUserPage = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.user);

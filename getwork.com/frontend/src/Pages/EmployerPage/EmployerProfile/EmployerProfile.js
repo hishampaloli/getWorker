@@ -1,11 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getEmployerProfile } from "../../../actions/EmployerActions";
-import { logout } from "../../../actions/UserAction";
 import EmployerProfile1 from "../../../components/EmployerComponents/EmployerProfile-1/EmployerProfile1";
 import "./EmployerProfile.css";
-import AddIcon from "@mui/icons-material/Add";
 
 const EmployerProfile = () => {
   const navigate = useNavigate();
@@ -14,6 +12,8 @@ const EmployerProfile = () => {
   const employerData = useSelector((state) => state.employerData);
 
   const [ed, setEd] = useState("profile");
+
+  console.log(employerData);
 
   console.log(employerData);
   useEffect(() => {
@@ -27,10 +27,9 @@ const EmployerProfile = () => {
       navigate("/admin/profile");
     }
 
-    dispatch(getEmployerProfile());
+    // dispatch(getEmployerProfile());
   }, [user]);
 
-  // dispatch(logout())
 
   return (
     <div className="employerProfile">
@@ -48,9 +47,9 @@ const EmployerProfile = () => {
         </div>
 
         <div className="left-bottom">
-          <button onClick={(e) => setEd("profile")}>My profile</button>
-          <button onClick={(e) => setEd("jobs")}>My jobs</button>
-          <button>Thinking</button>
+          <button className={ed === 'profile' ? 'btn-a' : 'btn'} onClick={(e) => setEd("profile")}>My profile</button>
+          <button className={ed === 'jobs' ? 'btn-a' : 'btn'} onClick={(e) => setEd("jobs")}>My jobs</button>
+          <button className={ed === '' ? 'btn-a' : 'btn'} onClick={(e) => setEd("")}>Thinking</button>
         </div>
       </div>
 

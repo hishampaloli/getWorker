@@ -11,6 +11,7 @@ export const getEmployerProfile = AsyncHandler(async (req, res) => {
   const { userId } = req.params;
   try {
     const userData = await Employer.findOne({ owner: userId })
+      // .populate("contractsPosted")
       .populate("owner")
       .populate("savedTalents")
       .populate({
@@ -22,6 +23,7 @@ export const getEmployerProfile = AsyncHandler(async (req, res) => {
           },
         ],
       });
+
     if (userData) {
       res.json(userData);
     } else {

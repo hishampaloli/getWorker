@@ -6,6 +6,7 @@ import swaggerJSDoc from "swagger-jsdoc";
 import UserRouter from "./routes/UserRouter.js";
 import EmployeeRouter from "./routes/EmployeeRoutes.js";
 import EmployerRouter from "./routes/EmplyerRoutes.js";
+import JobsRouter from "./routes/jobsRoute.js";
 import AdminRouter from "./routes/AdminRoutes.js";
 import { notFound, errorHandler } from "./middlewares/errorMiddleware.js";
 import cors from "cors";
@@ -33,6 +34,7 @@ app.use("/api", UserRouter);
 app.use("/api/employee", EmployeeRouter);
 app.use("/api/employer", EmployerRouter);
 app.use("/api/admin", AdminRouter);
+app.use("/api", JobsRouter);
 
 app.use(notFound);
 app.use(errorHandler);

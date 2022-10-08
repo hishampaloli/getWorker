@@ -26,7 +26,7 @@ const Header = () => {
             <h2>GETWORKER</h2>
           </Link>
         </div>
-
+        
         {user?.userInfo?._id ? (
           <div className="right big-nav">
             {user?.userInfo?.userType === "employee" ? (
@@ -97,7 +97,7 @@ const Header = () => {
           </div>
         ) : (
           <div className="right">
-            <button className="btn-1">
+            <button className="btn-1sdf">
               <Link
                 style={{ color: "black", textDecoration: "none" }}
                 to="/signup"
@@ -105,7 +105,7 @@ const Header = () => {
                 SignUp
               </Link>
             </button>
-            <button className="btn-2">
+            <button className="btn-2ad">
               <Link
                 style={{ color: "white", textDecoration: "none" }}
                 to="/login"

@@ -4,7 +4,7 @@ import {
   blacklistUsers,
   blockUser,
   getAllEmplyees,
-} from "../../actions/adminActions";
+} from "../../../actions/adminActions";
 import { Link } from "react-router-dom";
 import Alert from "@mui/material/Alert";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -12,7 +12,7 @@ import Switch from "@mui/material/Switch";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import Spinner from "react-bootstrap/Spinner";
-import CustomSpinner from "../customSpinner/CustomSpinner";
+import CustomSpinner from "../../customSpinner/CustomSpinner";
 
 const AllEmployees = () => {
   const dispatch = useDispatch();

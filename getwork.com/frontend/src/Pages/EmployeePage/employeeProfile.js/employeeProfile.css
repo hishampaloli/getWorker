@@ -264,6 +264,7 @@ height: 250px;
   width: 1000px;
 }
 
+
 .swiperImg {
   position: relative;
   height: 350px;
@@ -283,8 +284,8 @@ height: 250px;
 .swiperImg button {
   z-index: -20;
   position: absolute;
-  left: 50%;
-  top: 30%;
+  left: 45%;
+  top: 45%;
   transform: translateX(-50%) translateY(-50%);
 }
 
@@ -392,6 +393,7 @@ height: 250px;
   .mySwiper {
     display: none;
   }
+
  
 }
 

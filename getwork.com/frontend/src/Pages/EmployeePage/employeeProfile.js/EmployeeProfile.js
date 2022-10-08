@@ -2,39 +2,34 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./employeeProfile.css";
 import {
-  addEducation,
-  deleteEducation,
   deletePortfolio,
   getEmployeeProfile,
 } from "../../../actions/EmplyeeActions";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCards } from "swiper";
 import "swiper/css";
-import DoNotDisturbOnIcon from "@mui/icons-material/DoNotDisturbOn";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
-import EducationPopup from "../../../components/EducationPopup/educationPopup";
-import Spinner from "react-bootstrap/Spinner";
+import EducationPopup from "../../../components/EmployeeComponents/EducationPopup/educationPopup";
 import AddIcon from "@mui/icons-material/Add";
 import { EffectCoverflow, Pagination } from "swiper";
 import { Link, useNavigate } from "react-router-dom";
-import LanguagePopup from "../../../components/languagePopup/LanguagePopup";
+import LanguagePopup from "../../../components/EmployeeComponents/languagePopup/LanguagePopup";
 import SkillsPopup from "../../../components/EmployeeComponents/skillsPopup/SkillsPopup";
-import InfoPopup from "../../../components/infoPopup/InfoPopup";
-import ImagePopup from "../../../components/profileImgPoprup/ProfileImgPopup";
-import KycPopup from "../../../components/kcyPopup/KycPopup";
-import PortfoilioPopup from "../../../components/PortfolioPopUp.js/PortfoilioPopup";
-import BankPopup from "../../../components/BankdetailsPopup/BankDetailsPopup";
-import ChangePasswordPopup from "../../../components/changePasswordPopup/chnagePasswordPopup";
+import InfoPopup from "../../../components/EmployeeComponents/infoPopup/InfoPopup";
+import ImagePopup from "../../../components/EmployeeComponents/profileImgPoprup/ProfileImgPopup";
+import KycPopup from "../../../components/EmployeeComponents/kcyPopup/KycPopup";
+import PortfoilioPopup from "../../../components/EmployeeComponents/PortfolioPopUp.js/PortfoilioPopup"
+import BankPopup from "../../../components/EmployeeComponents/BankdetailsPopup/BankDetailsPopup";
+import ChangePasswordPopup from "../../../components/EmployeeComponents/changePasswordPopup/chnagePasswordPopup";
 import { CHANGE_PASSWORD_FAIL } from "../../../contants/userConstants";
 import { PORTFOLIO_FAIL } from "../../../contants/employeeConstants.js";
-import { logout } from "../../../actions/UserAction";
 import CustomSpinner from "../../../components/customSpinner/CustomSpinner";
-import SwipPage from "../../../components/EmployeeComponents/Swiper/SwipPage";
+import SwipPage from '../../../components/EmployeeComponents/Swiper/SwipPage'
 
 const EmployeeProfile = () => {
   const dispatch = useDispatch();
@@ -44,7 +39,6 @@ const EmployeeProfile = () => {
   const portfolio = useSelector((state) => state.portfolio);
   const User = useSelector((state) => state.user);
 
-  console.log(User?.userInfo?.name);
 
   const user = useSelector((state) => state.user);
   const [ed, setEd] = useState(false);
@@ -56,7 +50,6 @@ const EmployeeProfile = () => {
 
   const { userData } = userProfile;
 
-  // dispatch(logout())
 
   useEffect(() => {
     if (!user?.userInfo) {
@@ -173,9 +166,9 @@ const EmployeeProfile = () => {
                       <EditIcon />
                     </button>
                   </h5>
-                  {userData?.languages.map((language) => {
+                  {userData?.languages?.map((language) => {
                     return (
-                      <p style={{ marginLeft: "0px" }}>{language?.language}</p>
+                      <p key={language?.language} style={{ marginLeft: "0px" }}>{language?.language}</p>
                     );
                   })}
                 </span>
@@ -191,9 +184,9 @@ const EmployeeProfile = () => {
                     </button>
                   </h5>
 
-                  {userData?.skills.map((education) => {
+                  {userData?.skills?.map((education) => {
                     return (
-                      <li style={{ marginLeft: "0px" }}>{education?.skill}</li>
+                      <li key={education?.skill} style={{ marginLeft: "0px" }}>{education?.skill}</li>
                     );
                   })}
                 </span>
@@ -208,7 +201,7 @@ const EmployeeProfile = () => {
                       <EditIcon />
                     </button>
                   </h5>
-                  {userData?.educations.map((education) => {
+                  {userData?.educations?.map((education) => {
                     return (
                       <ul key={education?._id}>
                         <li>

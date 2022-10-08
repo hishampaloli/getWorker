@@ -15,7 +15,7 @@ import {
   deleteEducation,
   deleteLanguageOrSkill,
   getEmployeeProfile,
-} from "../../actions/EmplyeeActions";
+} from "../../../actions/EmplyeeActions";
 
 const KycPopup = () => {
   const dispatch = useDispatch();

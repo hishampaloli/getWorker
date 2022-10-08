@@ -5,14 +5,14 @@ import {
   allblockedUsers,
   blockUser,
   getAllEmplyers,
-} from "../../actions/adminActions";
+} from "../../../actions/adminActions";
 import Switch from "@mui/material/Switch";
 import Alert from "@mui/material/Alert";
 import { FormControlLabel } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import Spinner from "react-bootstrap/Spinner";
-import CustomSpinner from "../customSpinner/CustomSpinner";
+import CustomSpinner from "../../customSpinner/CustomSpinner";
 
 const BlockedUsers = () => {
   const dispatch = useDispatch();
