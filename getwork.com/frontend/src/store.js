@@ -37,6 +37,7 @@ import {
   saveJobsReducer,
 } from "./reducers/jobsReducer";
 import { JobsDetails } from "./actions/jobsActions";
+import { postProposalReducer } from "./reducers/proposalReducer";
 
 const reducer = combineReducers({
   employee: userRegisterReducer,
@@ -68,6 +69,8 @@ const reducer = combineReducers({
   jobsDetail: jobsDetailsReducer,
   allJobs: allJobsReducer,
   saveStatus: saveJobsReducer,
+
+  postProposalStatus: postProposalReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

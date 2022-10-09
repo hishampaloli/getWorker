@@ -51,7 +51,7 @@ export const myJobs = AsyncHandler(async (req, res) => {
 
     console.log(userId);
 
-    const jobs = await Jobs.find(keyword);
+    const job = await Jobs.find(keyword);
 
     if (jobs) {
       res.json(jobs);
@@ -63,28 +63,12 @@ export const myJobs = AsyncHandler(async (req, res) => {
 
 export const getAllJobs = AsyncHandler(async (req, res) => {
   try {
-   
-
-    const allJobs = await Jobs.find({
-        // $or: [
-        //   {
-        //     title: {
-        //       $regex: req.params.keyword,
-        //       $options: "i",
-        //     },
-        //   },
-        //   {
-        //     searchTag: {
-        //       $regex: req.params.keyword,
-        //       $options: "i",
-        //     },
-        //   },
-         
-        // ],
-      });
-
+    const allJobs = await Jobs.find({ status: 'active'});
+console.log(allJobs + "sfd");
     if (allJobs) {
       res.json(allJobs);
+    }else {
+      throw new Error("No jobs found")
     }
   } catch (error) {
     res.json(error);
@@ -96,7 +80,7 @@ export const jobView = AsyncHandler(async (req, res) => {
   try {
     const { id } = req.params;
 
-    const jobs = await Jobs.findById(id);
+    const jobs = await Jobs.findById(id).populate("proposals");
 
     if (jobs) {
       res.json(jobs);

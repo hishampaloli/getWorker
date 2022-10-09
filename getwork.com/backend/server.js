@@ -8,6 +8,7 @@ import EmployeeRouter from "./routes/EmployeeRoutes.js";
 import EmployerRouter from "./routes/EmplyerRoutes.js";
 import JobsRouter from "./routes/jobsRoute.js";
 import AdminRouter from "./routes/AdminRoutes.js";
+import ProposalRouter from "./routes/ProposalRoutes.js";
 import { notFound, errorHandler } from "./middlewares/errorMiddleware.js";
 import cors from "cors";
 
@@ -35,6 +36,7 @@ app.use("/api/employee", EmployeeRouter);
 app.use("/api/employer", EmployerRouter);
 app.use("/api/admin", AdminRouter);
 app.use("/api", JobsRouter);
+app.use("/api", ProposalRouter);
 
 app.use(notFound);
 app.use(errorHandler);

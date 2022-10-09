@@ -26,19 +26,19 @@ const Header = () => {
             <h2>GETWORKER</h2>
           </Link>
         </div>
-        
+
         {user?.userInfo?._id ? (
           <div className="right big-nav">
             {user?.userInfo?.userType === "employee" ? (
               <>
-                <Link style={{ marginRight: "45px" }} to="/myjobs ">
+                <Link style={{ marginRight: "45px" }} to="/user/myjobs ">
                   My Jobs
                 </Link>
-                <Link style={{ marginRight: "45px" }} to="/earnings ">
+                <Link style={{ marginRight: "45px" }} to="/user/earnings ">
                   Earnings
                 </Link>
-                <Link style={{ marginRight: "45px" }} to="/findJobs ">
-                  Find talents
+                <Link style={{ marginRight: "45px" }} to="/user/proposals">
+                  Proposals
                 </Link>
                 <Link to="/message ">FindJobs</Link>
               </>
@@ -74,9 +74,9 @@ const Header = () => {
             </button>
 
             {drop ? (
-              <div  onClick={() => setDrop(false)} className="drop-div">
+              <div onClick={() => setDrop(false)} className="drop-div">
                 <ul>
-                <CancelIcon className="cln" />
+                  <CancelIcon className="cln" />
                   <Link
                     to={
                       user?.userInfo?.userType === "employee"

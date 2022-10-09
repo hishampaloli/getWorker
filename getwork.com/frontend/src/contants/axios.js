@@ -22,3 +22,8 @@ export const axiosJobsInstance = axios.create({
 });
 
 
+export const axiosProposalInstance = axios.create({
+  baseURL: "http://localhost:3001/api/",
+});
+
+
