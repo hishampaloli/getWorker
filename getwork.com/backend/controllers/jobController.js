@@ -39,6 +39,8 @@ export const postJobs = AsyncHandler(async (req, res) => {
 export const myJobs = AsyncHandler(async (req, res) => {
   try {
     const { userId } = req.params;
+
+    console.log(userId);
     const keyword = req.query.keyword
       ? {
           owner: userId,
@@ -49,12 +51,14 @@ export const myJobs = AsyncHandler(async (req, res) => {
         }
       : { owner: userId };
 
-    console.log(userId);
 
-    const job = await Jobs.find(keyword);
+    const jobs = await Jobs.find(keyword);
+
 
     if (jobs) {
       res.json(jobs);
+    }else {
+      throw new Error("No jobs found")
     }
   } catch (error) {
     throw new Error("Oops something gone wrong");

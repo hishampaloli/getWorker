@@ -22,9 +22,9 @@ router.route("/viewProposal/:id").get(protect, viewProposal);
 router
   .route("/updateProposal/:userId/:id")
   .patch(protect, isOwner, isEmployer, updateProposal);
-  
+
 router
   .route("/myProposals/:userId")
-  .patch(protect, isOwner, isEmployee, myProposals);
+  .get(protect, isOwner, isEmployee, myProposals);
 
 export default router;

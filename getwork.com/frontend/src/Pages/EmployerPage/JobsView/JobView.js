@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./JobsView.css";
 import { JobsDetails } from "../../../actions/jobsActions";
+import AllProposal from "../../EmployeePage/AllProposal/AllProposal";
+import ProposalComponent from "../../../components/EmployeeComponents/ProposalComponents/ProposalComponent";
 
 const JobView = () => {
   const navigate = useNavigate();
@@ -10,6 +12,23 @@ const JobView = () => {
   let { id } = useParams();
 
   const jobsInfo = useSelector((state) => state.jobsDetail?.jobDetails);
+  const myProposalData = useSelector((state) => state.myProposalsData);
+  const [ed, setEd] = useState("active");
+
+  const activeProposals = jobsInfo?.proposals?.filter((el) => {
+    return el.status === "active";
+  });
+
+  const rejectedProposals = jobsInfo?.proposals?.filter((el) => {
+    return el.status === "rejected";
+  });
+
+  const shortLitedProposals = jobsInfo?.proposals?.filter((el) => {
+    return el.status === "shortlisted";
+  });
+
+  console.log(jobsInfo);
+
 
   useEffect(() => {
     console.log(id);
@@ -50,6 +69,65 @@ const JobView = () => {
           </Link>
         </div>
       </div>
+
+      <div style={{width: '100%'}}>
+      <div className="postJobs">
+      <div className="post-box">
+        <div className="header">
+          <button
+            style={
+              ed === "active"
+                ? { backgroundColor: "#1d4354", color: "white" }
+                : {}
+            }
+            onClick={() => setEd("active")}
+          >
+            Active Proposals
+          </button>
+          <button
+            style={
+              ed === "rejected"
+                ? { backgroundColor: "#1d4354", color: "white" }
+                : {}
+            }
+            onClick={() => setEd("rejected")}
+          >
+            Rejected Proposals
+          </button>
+          <button
+            style={
+              ed === "shortlisted"
+                ? { backgroundColor: "#1d4354", color: "white" }
+                : {}
+            }
+            onClick={() => setEd("shortlisted")}
+          >
+            ShortListed Proposals
+          </button>
+        </div>
+        {/* <form  className="jobs-search">
+          <input
+            style={{ width: "81%" }}
+            type="text"
+            onChange={(e) => setKeyword(e.target.value)}
+          />
+          <button type="submit">Search</button>
+        </form> */}
+
+        <div className="main-body">
+          {ed === "active" ? (
+            <ProposalComponent proposals={activeProposals} />
+          ) : ed === "rejected" ? (
+            <ProposalComponent proposals={rejectedProposals} />
+          ) : ed === "shortlisted" ? (
+            <ProposalComponent proposals={shortLitedProposals} />
+          ) : (
+            ""
+          )}
+        </div>
+      </div>
+    </div>
+    </div>
     </div>
   );
 };
