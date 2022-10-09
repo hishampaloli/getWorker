@@ -2,10 +2,17 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import './emplJobscom.css'
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarkRemoveIcon from '@mui/icons-material/BookmarkRemove';
+import { useDispatch } from 'react-redux';
+import { removeSaveJobs, saveJobs } from '../../../actions/EmplyeeActions';
 
-const EmpJobsComponents = ({jobs}) => {
+import Alert from '@mui/material/Alert';
 
-  console.log(jobs);
+const EmpJobsComponents = ({jobs, sv}) => {
+  const dispatch = useDispatch();
+
+console.log(jobs);
   return (
     <div
       style={{
@@ -46,6 +53,18 @@ const EmpJobsComponents = ({jobs}) => {
                     <VisibilityIcon />
                   </button>
                 </Link>
+
+                {sv ?  <Link >
+                  <button onClick={() => dispatch(removeSaveJobs(job?._id))} style={{ marginLeft: "auto" }} className="savedbtnnn">
+                    <BookmarkRemoveIcon />
+                  </button>
+                </Link> : <Link >
+                  <button onClick={() => dispatch(saveJobs(job?._id))} style={{ marginLeft: "auto" }} className="savedbtnnn">
+                    <BookmarkBorderIcon />
+                  </button>
+                </Link> }
+
+               
               </div>
             );
           })

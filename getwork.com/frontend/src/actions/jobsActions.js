@@ -12,6 +12,9 @@ import {
   MYJOBS_FAIL,
   MYJOBS_REQUEST,
   MYJOBS_SUCCES,
+  SAVE_JOBS_FAIL,
+  SAVE_JOBS_REQUEST,
+  SAVE_JOBS_SUCCES,
 } from "../contants/jobsContants.js";
 
 export const myJobs =
@@ -158,3 +161,4 @@ export const JobsDetails = (id) => async (dispatch) => {
     });
   }
 };
+

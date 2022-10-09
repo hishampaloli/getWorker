@@ -11,6 +11,9 @@ import {
   MYJOBS_FAIL,
   MYJOBS_REQUEST,
   MYJOBS_SUCCES,
+  SAVE_JOBS_FAIL,
+  SAVE_JOBS_REQUEST,
+  SAVE_JOBS_SUCCES,
 } from "../contants/jobsContants";
 
 export const MyJobsReducer = (state = {}, action) => {
@@ -75,6 +78,22 @@ export const allJobsReducer = (state = {}, action) => {
         return { loading: false, jobs: action.payload };
   
       case ALL_JOBS_FAIL:
+        return { loading: false, error: action.error };
+  
+      default:
+        return state;
+    }
+  };
+
+  export const saveJobsReducer = (state = {}, action) => {
+    switch (action.type) {
+      case SAVE_JOBS_REQUEST:
+        return { loading: true};
+  
+      case SAVE_JOBS_SUCCES:
+        return { loading: false };
+  
+      case SAVE_JOBS_FAIL:
         return { loading: false, error: action.error };
   
       default:

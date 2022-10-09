@@ -69,6 +69,11 @@
     border-radius: 10px;
   }
   
+  .sv-pp {
+    position: fixed;
+    top: 100px;
+    right: 0;
+  }
   
   
   .job-box-emp .top h4 {

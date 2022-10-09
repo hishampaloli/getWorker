@@ -14,6 +14,7 @@ import {
   addPortfolio,
   deletePortFolio,
   saveJobs,
+  removeSavedJobs,
 } from "../controllers/employeeControllers.js";
 import { protect, isOwner, isEmployee } from "../middlewares/authMiddleware.js";
 
@@ -32,6 +33,7 @@ router.route("/deletePortfolio/:userId/:id").delete(protect, isEmployee, deleteP
 
 
 router.route("/saveJobs/:userId/:id").get(protect,isOwner, isEmployee, saveJobs);
+router.route("/saveJobs/:userId/:id").delete(protect,isOwner, isEmployee, removeSavedJobs);
 
 
 export default router;

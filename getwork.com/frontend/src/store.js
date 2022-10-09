@@ -34,6 +34,7 @@ import {
   allJobsReducer,
   jobsDetailsReducer,
   MyJobsReducer,
+  saveJobsReducer,
 } from "./reducers/jobsReducer";
 import { JobsDetails } from "./actions/jobsActions";
 
@@ -66,6 +67,7 @@ const reducer = combineReducers({
   myJobs: MyJobsReducer,
   jobsDetail: jobsDetailsReducer,
   allJobs: allJobsReducer,
+  saveStatus: saveJobsReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

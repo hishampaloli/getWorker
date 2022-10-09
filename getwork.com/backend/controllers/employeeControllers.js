@@ -28,7 +28,7 @@ export const employeeProfile = AsyncHandler(async (req, res) => {
       .populate("portfolios")
       .populate("bankDetails")
       .populate("owner")
-      .populate("savedJobs")
+      .populate("savedJobs");
     if (userData) {
       res.json(userData);
     } else {
@@ -315,17 +315,13 @@ export const deletePortFolio = AsyncHandler(async (req, res) => {
   });
 });
 
-
-
-
 export const saveJobs = AsyncHandler(async (req, res) => {
   const { id } = req.params;
   const { userId } = req.params;
-
+  console.log(id + "SSS");
   try {
     const emplyeeData = await Employee.findOne({ owner: userId });
     let a = 0;
-
     emplyeeData.savedJobs.forEach((el) => {
       if (el + "*" === id + "*") {
         a = 2;
@@ -335,11 +331,41 @@ export const saveJobs = AsyncHandler(async (req, res) => {
     if (a == 0) {
       emplyeeData.savedJobs.push(id);
       await emplyeeData.save();
-
-      res.json(emplyeeData);
     }
-
+    res.json(emplyeeData);
   } catch (error) {
-    res.json(error);
+    console.log(error);
+    throw new Error("something went wrong");
+  }
+});
+
+export const removeSavedJobs = AsyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { userId } = req.params;
+
+  try {
+    const emplyeeData = await Employee.findOne({ owner: userId })
+      .populate("owner")
+      .populate("savedJobs")
+      .populate({
+        path: "savedJobs",
+        // populate: [
+        //   {
+        //     path: "employeeData",
+        //     select: "image userTitle totalEarned _id",
+        //   },
+        // ],
+      });
+    const arr = emplyeeData.savedJobs.filter((el) => {
+      return el._id + "." !== id + ".";
+    });
+
+    emplyeeData.savedJobs = arr;
+    await emplyeeData.save();
+
+    res.json(arr);
+  } catch (error) {
+    console.log(error);
+    throw new Error("Something went wrong");
   }
 });

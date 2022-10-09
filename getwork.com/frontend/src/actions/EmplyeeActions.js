@@ -25,6 +25,7 @@ import {
   SKILL_N_LANGUAGE_SUCCESS,
 } from "../contants/employeeConstants.js";
 import { axiosEmployeeInstance } from "../contants/axios";
+import { SAVE_JOBS_FAIL, SAVE_JOBS_REQUEST, SAVE_JOBS_SUCCES } from "../contants/jobsContants.js";
 
 export const getEmployeeProfile = () => async (dispatch) => {
   try {
@@ -437,6 +438,75 @@ export const getEmployeeProfileView = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: EMPLOYEE_PROFILE_PUBLIC_FAIL,
+      error: error,
+    });
+  }
+};
+
+
+
+
+export const saveJobs = (id) => async (dispatch) => {
+
+  
+  try {
+    dispatch({
+      type: SAVE_JOBS_REQUEST,
+    });
+
+    const tokenId = JSON.parse(localStorage.getItem("userInfo"));
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenId.token}`,
+      },
+    };
+
+    const { data } = await axiosEmployeeInstance.get(`/saveJobs/${tokenId._id}/${id}`, config);
+console.log(data);
+    dispatch({
+      type: SAVE_JOBS_SUCCES,
+    });
+  } catch (error) {
+    dispatch({
+      type: SAVE_JOBS_FAIL,
+      error: error,
+    });
+  }
+};
+
+
+
+export const removeSaveJobs = (id) => async (dispatch, getState) => {
+console.log(id);
+  try {
+    dispatch({
+      type: SAVE_JOBS_REQUEST,
+    });
+
+    const tokenId = JSON.parse(localStorage.getItem("userInfo"));
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenId.token}`,
+      },
+    };
+
+    const { data } = await axiosEmployeeInstance.delete(`/saveJobs/${tokenId._id}/${id}`, config);
+console.log(data);
+    if (data) {
+       getState().employeeData.userData.savedJobs = data
+    } 
+    
+
+    dispatch({
+      type: SAVE_JOBS_SUCCES,
+    });
+  } catch (error) {
+    dispatch({
+      type: SAVE_JOBS_FAIL,
       error: error,
     });
   }
