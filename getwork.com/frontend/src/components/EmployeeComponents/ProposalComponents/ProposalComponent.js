@@ -6,10 +6,17 @@ import { useDispatch } from "react-redux";
 import { removeSaveJobs, saveJobs } from "../../../actions/EmplyeeActions";
 import { Link } from "react-router-dom";
 
-const ProposalComponent = ({ proposals }) => {
+const ProposalComponent = ({ proposals, sort }) => {
   const dispatch = useDispatch();
 
-  console.log(proposals);
+
+  if (sort) {
+    proposals?.sort((a, b) => {
+      return a.bid - b.bid;
+  })
+  }
+
+
   return (
     <div
       style={{
@@ -37,7 +44,7 @@ const ProposalComponent = ({ proposals }) => {
                   </div>
                 </div>
 
-                <Link to={`/jobs/${proposal?._id}`}>
+                <Link to={`/user/proposal/${proposal?._id}`}>
                   <button style={{ marginLeft: "auto" }} className="eyebtnnn">
                     <VisibilityIcon />
                   </button>

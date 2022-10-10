@@ -51,7 +51,7 @@ export const submitProposal = AsyncHandler(async (req, res) => {
 export const viewProposal = AsyncHandler(async (req, res) => {
   try {
     const { id } = req.params;
-    const proposal = await Proposals.findById(id);
+    const proposal = await Proposals.findById(id).populate("owner");
     if (proposal) {
       res.json(proposal);
     } else {

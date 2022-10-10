@@ -13,22 +13,24 @@ const JobView = () => {
 
   const jobsInfo = useSelector((state) => state.jobsDetail?.jobDetails);
   const myProposalData = useSelector((state) => state.myProposalsData);
+  const user = useSelector((state) => state.user);
+
   const [ed, setEd] = useState("active");
+  const [filter, setFilter] = useState(false);
 
-  const activeProposals = jobsInfo?.proposals?.filter((el) => {
-    return el.status === "active";
-  });
 
-  const rejectedProposals = jobsInfo?.proposals?.filter((el) => {
-    return el.status === "rejected";
-  });
 
-  const shortLitedProposals = jobsInfo?.proposals?.filter((el) => {
-    return el.status === "shortlisted";
-  });
-
-  console.log(jobsInfo);
-
+    const activeProposals = jobsInfo?.proposals?.filter((el) => {
+      return el.status === "active" || el.status === "rejected" || el.status === "shortlisted";
+    });
+  
+    const rejectedProposals = jobsInfo?.proposals?.filter((el) => {
+      return el.status === "rejected";
+    });
+  
+    const shortLitedProposals = jobsInfo?.proposals?.filter((el) => {
+      return el.status === "shortlisted";
+    });
 
   useEffect(() => {
     console.log(id);
@@ -63,49 +65,64 @@ const JobView = () => {
               </strong>{" "}
             </p>
           </div>
-
-          <Link to={`/jobs/${jobsInfo?._id}/proposal`}>
+{ user?.userInfo?.userType === "employer" ? <Link to={`/jobs/${jobsInfo?._id}/proposal`}>
+            <button style={{backgroundColor: '#FF5454'}} >Cancel Job</button>
+          </Link>  : <Link to={`/jobs/${jobsInfo?._id}/proposal`}>
             <button>Submit Proposal</button>
-          </Link>
+          </Link> }
+          
         </div>
       </div>
 
-      <div style={{width: '100%'}}>
-      <div className="postJobs">
-      <div className="post-box">
-        <div className="header">
-          <button
-            style={
-              ed === "active"
-                ? { backgroundColor: "#1d4354", color: "white" }
-                : {}
-            }
-            onClick={() => setEd("active")}
-          >
-            Active Proposals
-          </button>
-          <button
-            style={
-              ed === "rejected"
-                ? { backgroundColor: "#1d4354", color: "white" }
-                : {}
-            }
-            onClick={() => setEd("rejected")}
-          >
-            Rejected Proposals
-          </button>
-          <button
-            style={
-              ed === "shortlisted"
-                ? { backgroundColor: "#1d4354", color: "white" }
-                : {}
-            }
-            onClick={() => setEd("shortlisted")}
-          >
-            ShortListed Proposals
-          </button>
-        </div>
-        {/* <form  className="jobs-search">
+      {user?.userInfo?.userType === "employer" ? (
+        <div style={{ width: "100%" }}>
+          <div className="postJobs">
+            <div className="post-box">
+              <div
+                className="header"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div>
+                  <button
+                    style={
+                      ed === "active"
+                        ? { backgroundColor: "#1d4354", color: "white" }
+                        : {}
+                    }
+                    onClick={() => setEd("active")}
+                  >
+                    Active Proposals
+                  </button>
+                  <button
+                    style={
+                      ed === "rejected"
+                        ? { backgroundColor: "#1d4354", color: "white" }
+                        : {}
+                    }
+                    onClick={() => setEd("rejected")}
+                  >
+                    Rejected Proposals
+                  </button>
+                  <button
+                    style={
+                      ed === "shortlisted"
+                        ? { backgroundColor: "#1d4354", color: "white" }
+                        : {}
+                    }
+                    onClick={() => setEd("shortlisted")}
+                  >
+                    ShortListed Proposals
+                  </button>
+                </div>
+                <div style={{ display: "flex" }}>
+                  <button onClick={() =>  setFilter(!filter)} >Sort by Bids</button>
+                </div>
+              </div>
+              {/* <form  className="jobs-search">
           <input
             style={{ width: "81%" }}
             type="text"
@@ -114,20 +131,23 @@ const JobView = () => {
           <button type="submit">Search</button>
         </form> */}
 
-        <div className="main-body">
-          {ed === "active" ? (
-            <ProposalComponent proposals={activeProposals} />
-          ) : ed === "rejected" ? (
-            <ProposalComponent proposals={rejectedProposals} />
-          ) : ed === "shortlisted" ? (
-            <ProposalComponent proposals={shortLitedProposals} />
-          ) : (
-            ""
-          )}
+              <div className="main-body">
+                {ed === "active" ? (
+                  <ProposalComponent proposals={activeProposals} sort={filter} />
+                ) : ed === "rejected" ? (
+                  <ProposalComponent proposals={rejectedProposals} sort={filter} />
+                ) : ed === "shortlisted" ? (
+                  <ProposalComponent proposals={shortLitedProposals} sort={filter} />
+                ) : (
+                  ""
+                )}
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

@@ -14,7 +14,9 @@ const EmployerHome = () => {
   const userName = employerData?.userInfo?.owner?.name;
   const myJobsData = useSelector((state) => state.myJobs);
 
-  console.log(myJobsData?.myJobs?.length);
+  
+
+  console.log(myJobsData);
 
   const activeJobs = myJobsData?.myJobs?.filter((el) => {
     return el.status === "active";

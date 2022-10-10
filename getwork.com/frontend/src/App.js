@@ -21,6 +21,7 @@ import MyPosts from "./Pages/EmployerPage/MyPosts/MyPosts";
 import JobView from "./Pages/EmployerPage/JobsView/JobView";
 import ProposalPage from "./Pages/EmployeePage/ProposalPage/ProposalPage";
 import AllProposal from "./Pages/EmployeePage/AllProposal/AllProposal";
+import ViewProposal from "./components/EmployeeComponents/ViewProposal/ViewProposal";
 
 const Landing = React.lazy(() => import("./Pages/LandingPage.js/Landing"));
 const Login = React.lazy(() => import("./Pages/LoginPage/Login"));
@@ -85,6 +86,11 @@ function App() {
               exact
               path="/user/proposals"
               element={<AllProposal />}
+            />
+             <Route
+              exact
+              path="/user/proposal/:id"
+              element={<ViewProposal />}
             />
 
             <Route exact path="/employer/home" element={<EmployerHome />} />

@@ -31,7 +31,7 @@ const ProposalPage = () => {
 
     setTimeout(() => {
       setAler(false);
-      navigate(`/user/proposalview/${user?._id}`);
+      navigate(`/user/proposals`);
     }, 1000);
   };
 

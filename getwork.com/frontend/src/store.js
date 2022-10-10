@@ -40,6 +40,7 @@ import { JobsDetails } from "./actions/jobsActions";
 import {
   MyProposalReducer,
   postProposalReducer,
+  viewProposalReducer,
 } from "./reducers/proposalReducer";
 
 const reducer = combineReducers({
@@ -75,6 +76,7 @@ const reducer = combineReducers({
 
   postProposalStatus: postProposalReducer,
   myProposalsData: MyProposalReducer,
+  viewProposal: viewProposalReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
