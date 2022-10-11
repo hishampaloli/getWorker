@@ -27,7 +27,7 @@ const EmployerProfile = () => {
       navigate("/admin/profile");
     }
 
-    // dispatch(getEmployerProfile());
+    dispatch(getEmployerProfile());
   }, [user]);
 
 

@@ -26,7 +26,7 @@
 }
 
 .employeePage .bottom .left {
-  width: 95%;
+  width: 100%;
   background-color: white;
   border-radius: 15px;
   padding-bottom: 30px;
@@ -46,10 +46,3 @@ display: flex;
 flex-direction: column;
 align-items: center;
 }
-
-.employeePage .bottom .right {
-  width: 24%;
-  background-color: white;
-  border-radius: 15px;
-}
-

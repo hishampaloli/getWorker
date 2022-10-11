@@ -23,6 +23,7 @@ import ProposalPage from "./Pages/EmployeePage/ProposalPage/ProposalPage";
 import AllProposal from "./Pages/EmployeePage/AllProposal/AllProposal";
 import ViewProposal from "./components/EmployeeComponents/ViewProposal/ViewProposal";
 import EmployerPublicView from "./Pages/EmployerPage/EmployerPublicView/EmployerPublicView";
+import EmployeeJobsPage from "./Pages/EmployeePage/JobsPage/EmployeeJobsPage";
 
 const Landing = React.lazy(() => import("./Pages/LandingPage.js/Landing"));
 const Login = React.lazy(() => import("./Pages/LoginPage/Login"));
@@ -83,16 +84,10 @@ function App() {
               element={<EmployeePublicView />}
             />
 
-            <Route
-              exact
-              path="/user/proposals"
-              element={<AllProposal />}
-            />
-             <Route
-              exact
-              path="/user/proposal/:id"
-              element={<ViewProposal />}
-            />
+            <Route exact path="/user/proposals" element={<AllProposal />} />
+
+            <Route exact path="/user/myjobs" element={<EmployeeJobsPage />} />
+            <Route exact path="/user/proposal/:id" element={<ViewProposal />} />
 
             <Route exact path="/employer/home" element={<EmployerHome />} />
             <Route
@@ -103,8 +98,12 @@ function App() {
             <Route exact path="/findTalents" element={<FindTalentsPage />} />
             <Route exact path="/employer/postjob" element={<PostJobs />} />
             <Route exact path="/employer/myposts" element={<MyPosts />} />
-            <Route exact path="/employer/publicview/:id" element={<EmployerPublicView/>} />
-            
+            <Route
+              exact
+              path="/employer/publicview/:id"
+              element={<EmployerPublicView />}
+            />
+
             <Route exact path="/jobs/:id" element={<JobView />} />
             <Route exact path="/jobs/:id/proposal" element={<ProposalPage />} />
 

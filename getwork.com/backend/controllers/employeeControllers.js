@@ -28,6 +28,7 @@ export const employeeProfile = AsyncHandler(async (req, res) => {
       .populate("portfolios")
       .populate("bankDetails")
       .populate("owner")
+      // .populate("activeContracts")
       .populate("savedJobs")
       .populate("completedJobs");
     if (userData) {
