@@ -20,7 +20,23 @@ const AdminSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
-  
+  balance: {
+    type: Number,
+    default: 0,
+  },
+  inEscrow: [
+    {
+      employer: {
+        type: mongoose.Schema.Types.ObjectId,
+      },
+      employee: {
+        type: mongoose.Schema.Types.ObjectId,
+      },
+      inEscrow: {
+        type: Number
+      },
+    },
+  ],
 });
 
 const Admin = mongoose.model("Admin", AdminSchema);

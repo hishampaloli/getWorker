@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./JobsView.css";
-import { JobsDetails } from "../../../actions/jobsActions";
+import { cancelJob, JobsDetails } from "../../../actions/jobsActions";
 import AllProposal from "../../EmployeePage/AllProposal/AllProposal";
 import ProposalComponent from "../../../components/EmployeeComponents/ProposalComponents/ProposalComponent";
 
@@ -18,19 +18,21 @@ const JobView = () => {
   const [ed, setEd] = useState("active");
   const [filter, setFilter] = useState(false);
 
+  const activeProposals = jobsInfo?.proposals?.filter((el) => {
+    return (
+      el.status === "active" ||
+      el.status === "rejected" ||
+      el.status === "shortlisted"
+    );
+  });
 
+  const rejectedProposals = jobsInfo?.proposals?.filter((el) => {
+    return el.status === "rejected";
+  });
 
-    const activeProposals = jobsInfo?.proposals?.filter((el) => {
-      return el.status === "active" || el.status === "rejected" || el.status === "shortlisted";
-    });
-  
-    const rejectedProposals = jobsInfo?.proposals?.filter((el) => {
-      return el.status === "rejected";
-    });
-  
-    const shortLitedProposals = jobsInfo?.proposals?.filter((el) => {
-      return el.status === "shortlisted";
-    });
+  const shortLitedProposals = jobsInfo?.proposals?.filter((el) => {
+    return el.status === "shortlisted";
+  });
 
   useEffect(() => {
     console.log(id);
@@ -65,16 +67,42 @@ const JobView = () => {
               </strong>{" "}
             </p>
           </div>
-{ user?.userInfo?.userType === "employer" ? <Link to={`/jobs/${jobsInfo?._id}/proposal`}>
-            <button style={{backgroundColor: '#FF5454'}} >Cancel Job</button>
-          </Link>  : <Link to={`/jobs/${jobsInfo?._id}/proposal`}>
-            <button>Submit Proposal</button>
-          </Link> }
-          
+          {user?.userInfo?.userType === "employer" ? (
+            <>
+              {jobsInfo?.status === "running" ? (
+                <Link to={`/jobs/${jobsInfo?._id}/proposal`}>
+                  <button
+                    onClick={() => dispatch()}
+                    style={{ backgroundColor: "#3ccf4e" }}
+                  >
+                    Approve Job
+                  </button>
+                </Link>
+              ) : jobsInfo?.status === "active" ? (
+                <Link to={`/employer/myposts`}>
+                  <button
+                    onClick={() => dispatch(cancelJob(jobsInfo?._id))}
+                    style={{ backgroundColor: "#FF6C6C" }}
+                  >
+                    Cancel Job
+                  </button>
+                </Link>
+              ) : (
+                ""
+              )}
+            </>
+          ) : (
+            <Link to={`/jobs/${jobsInfo?._id}/proposal`}>
+              <button>Submit Proposal</button>
+            </Link>
+          )}
         </div>
       </div>
 
-      {user?.userInfo?.userType === "employer" ? (
+      {user?.userInfo?.userType === "employer" &&
+      jobsInfo?.status !== "cancelled" &&
+      jobsInfo?.status !== "completed" &&
+      jobsInfo?.status !== "running" ? (
         <div style={{ width: "100%" }}>
           <div className="postJobs">
             <div className="post-box">
@@ -119,7 +147,9 @@ const JobView = () => {
                   </button>
                 </div>
                 <div style={{ display: "flex" }}>
-                  <button onClick={() =>  setFilter(!filter)} >Sort by Bids</button>
+                  <button onClick={() => setFilter(!filter)}>
+                    Sort by Bids
+                  </button>
                 </div>
               </div>
               {/* <form  className="jobs-search">
@@ -133,11 +163,20 @@ const JobView = () => {
 
               <div className="main-body">
                 {ed === "active" ? (
-                  <ProposalComponent proposals={activeProposals} sort={filter} />
+                  <ProposalComponent
+                    proposals={activeProposals}
+                    sort={filter}
+                  />
                 ) : ed === "rejected" ? (
-                  <ProposalComponent proposals={rejectedProposals} sort={filter} />
+                  <ProposalComponent
+                    proposals={rejectedProposals}
+                    sort={filter}
+                  />
                 ) : ed === "shortlisted" ? (
-                  <ProposalComponent proposals={shortLitedProposals} sort={filter} />
+                  <ProposalComponent
+                    proposals={shortLitedProposals}
+                    sort={filter}
+                  />
                 ) : (
                   ""
                 )}

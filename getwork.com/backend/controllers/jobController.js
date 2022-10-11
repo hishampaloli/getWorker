@@ -51,14 +51,12 @@ export const myJobs = AsyncHandler(async (req, res) => {
         }
       : { owner: userId };
 
-
     const jobs = await Jobs.find(keyword);
-
 
     if (jobs) {
       res.json(jobs);
-    }else {
-      throw new Error("No jobs found")
+    } else {
+      throw new Error("No jobs found");
     }
   } catch (error) {
     throw new Error("Oops something gone wrong");
@@ -67,16 +65,32 @@ export const myJobs = AsyncHandler(async (req, res) => {
 
 export const getAllJobs = AsyncHandler(async (req, res) => {
   try {
-    const allJobs = await Jobs.find({ status: 'active'});
-console.log(allJobs + "sfd");
+    const allJobs = await Jobs.find({ status: "active" });
+    console.log(allJobs + "sfd");
     if (allJobs) {
       res.json(allJobs);
-    }else {
-      throw new Error("No jobs found")
+    } else {
+      throw new Error("No jobs found");
     }
   } catch (error) {
     res.json(error);
     throw new Error("Something went wrong");
+  }
+});
+
+export const endJob = AsyncHandler(async (req, res) => {
+  try {
+    const { userId, id } = req.params;
+
+    const jobs = await Jobs.findById(id);
+
+    jobs.status = "cancelled";
+    await jobs.save();
+    res.json({
+      message: "Success"
+    })
+  } catch (error) {
+    throw new Error(error);
   }
 });
 
@@ -86,6 +100,7 @@ export const jobView = AsyncHandler(async (req, res) => {
 
     const jobs = await Jobs.findById(id).populate("proposals");
 
+
     if (jobs) {
       res.json(jobs);
     } else {
@@ -93,6 +108,7 @@ export const jobView = AsyncHandler(async (req, res) => {
         message: "no jobs found",
       });
     }
+    
   } catch (error) {
     throw new Error("No such jobs found");
   }

@@ -22,7 +22,11 @@ const EmployerHome = () => {
     return el.status === "active";
   });
 
+  const running = myJobsData?.myJobs?.filter((el) => {
+    return el.status === "running";
+  });
 
+  console.log(running);
 
   useEffect(() => {
     if (!user?.userInfo) {
@@ -56,6 +60,7 @@ const EmployerHome = () => {
       </div>
 
       <div className="bottom">
+      <div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
         <div className="left">
           <div className="homeJobs-top">
             <h3>Your Active Posts</h3>
@@ -88,6 +93,38 @@ const EmployerHome = () => {
           </div>
         </div>
 
+        <div className="left mt-5">
+          <div className="homeJobs-top">
+            <h3>Your On going jobs</h3>
+            <p>
+              {" "}
+              <Link to="/employer/myposts" style={{ color: "#3ccf4e" }}>
+                {" "}
+                view all posts
+              </Link>
+            </p>
+          </div>
+
+          <div className="homeJobs-bottom">
+            {running?.length !== 0   ? (
+              <MyjobsComponents jobs={running} />
+              
+            ) : (
+              <div>
+                {" "}
+                <img
+                  style={{ width: "200px" }}
+                  src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/folder-green-512.png"
+                  alt=""
+                />
+                <h4 style={{ color: "#aaad" }} className="mt-3">
+                  No Active jobs
+                </h4>
+              </div>
+            )}
+          </div>
+        </div>
+</div>
         <div className="right"></div>
       </div>
     </div>

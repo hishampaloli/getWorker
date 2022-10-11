@@ -7,6 +7,7 @@ import EmpJobsComponents from "../../../components/EmployeeComponents/JobsCompon
 import SavedJobs from "../../../components/EmployeeComponents/SavedJobs/SavedJobs";
 import "./EmployeeHome.css";
 import Alert from '@mui/material/Alert';
+import { getEmployeeProfile } from "../../../actions/EmplyeeActions";
 
 const EmployeeHome = () => {
   const dispatch = useDispatch();
@@ -36,6 +37,8 @@ const EmployeeHome = () => {
     if (user?.userInfo?.userType === "admin") {
       navigate("/admin/profile");
     }
+    
+    dispatch(getEmployeeProfile());
     dispatch(getAllJobs());
   }, [user, dispatch]);
 

@@ -149,3 +149,43 @@ export const proposalState = (id, status) => async (dispatch) => {
     });
   }
 };
+
+
+
+
+export const acceptProposal = (id, totalAmount ) => async (dispatch) => {
+  try {
+
+    // dispatch({
+    //   type: VIEW_PROPOSAL_REQUEST,
+    // });
+
+    const tokenId = JSON.parse(localStorage.getItem("userInfo"));
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenId.token}`,
+      },
+    };
+
+    console.log(id);
+    const { data } = await axiosProposalInstance.post(
+      `/acceptProposal/${tokenId._id}/${id}`,
+      {totalAmount },
+      config
+    );
+
+    console.log(data);
+
+    // dispatch({
+    //   type: VIEW_PROPOSAL_SUCCUSS,
+    //   payload: data,
+    // });
+  } catch (error) {
+    dispatch({
+      type: VIEW_PROPOSAL_REQUEST,
+      error: error,
+    });
+  }
+};

@@ -163,3 +163,38 @@ export const JobsDetails = (id) => async (dispatch) => {
   }
 };
 
+
+
+export const cancelJob = (id) => async (dispatch) => {
+  console.log(32453535);
+  console.log(id);
+  try {
+
+    // dispatch({
+    //   type: JOBS_DETAILS_REQUEST,
+    // });
+
+    const tokenId = JSON.parse(localStorage.getItem("userInfo"));
+    console.log(tokenId._id);
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenId.token}`,
+      },
+    };
+
+    const { data } = await axiosJobsInstance.get(`/jobsStatus/${tokenId._id}/${id}`);
+
+  } catch (error) {
+    dispatch({
+      type: JOBS_DETAILS_FAIL,
+      error: error,
+    });
+  }
+};
+
+
+
+
+

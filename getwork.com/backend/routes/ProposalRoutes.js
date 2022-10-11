@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  acceptProposal,
   myProposals,
   submitProposal,
   updateProposal,
@@ -26,5 +27,9 @@ router
 router
   .route("/myProposals/:userId")
   .get(protect, isOwner, isEmployee, myProposals);
+
+  router
+  .route("/acceptProposal/:userId/:id")
+  .post(protect, acceptProposal);
 
 export default router;

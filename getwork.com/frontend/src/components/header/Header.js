@@ -1,18 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../../actions/UserAction";
 import "./header.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import CancelIcon from "@mui/icons-material/Cancel";
+import { getEmployeeProfile } from "../../actions/EmplyeeActions";
 
 const Header = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
   const [drop, setDrop] = useState(false);
-  console.log(user?.userInfo?.userType);
-  console.log(drop);
+
+  const userProfile = useSelector((state) => state.employeeData);
+  const employerProfile = useSelector((state) => state.employerData);
+
+  useEffect(() => {
+    dispatch(getEmployeeProfile());
+  }, [dispatch]);
+
+  console.log(employerProfile);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -40,13 +48,15 @@ const Header = () => {
                 <Link style={{ marginRight: "45px" }} to="/user/proposals">
                   Proposals
                 </Link>
-                <Link to="/message ">FindJobs</Link>
+                <Link>{userProfile?.userData?.connects} Credits</Link>
+
               </>
             ) : user?.userInfo?.userType === "employer" ? (
               <>
                 <Link style={{ marginRight: "45px" }} to="/findTalents ">
                   Find talents
                 </Link>
+                <Link style={{marginRight: '30px'}}>Balance : {employerProfile?.userInfo?.balance}</Link>
                 <Link to="/message ">message</Link>
               </>
             ) : (
@@ -60,6 +70,7 @@ const Header = () => {
                 <Link style={{ marginRight: "45px" }} to="admin/kyc">
                   Kyc
                 </Link>
+                <p>s</p>
                 <Link to="/message ">message</Link>
               </>
             )}

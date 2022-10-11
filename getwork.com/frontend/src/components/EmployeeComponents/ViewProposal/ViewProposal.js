@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { JobsDetails } from "../../../actions/jobsActions";
-import { proposalState, viewProposals } from "../../../actions/proposalActions";
+import { acceptProposal, proposalState, viewProposals } from "../../../actions/proposalActions";
 import "./ViewProposal.css";
 
 const ViewProposal = () => {
@@ -33,7 +33,7 @@ const ViewProposal = () => {
             justifyContent: "space-between",
           }}
         >
-          <h4>Proposa;</h4>
+          <h4>Proposal</h4>
 
           <Link style={{ color: "#3ccf4e" }} to={`/jobs/${viewProposal?.jobs}`}>
             <p>View Job posting</p>
@@ -106,7 +106,7 @@ const ViewProposal = () => {
                 </>
               )}
 
-              <button>Accept Proposal</button>
+              <button onClick={() => dispatch(acceptProposal(viewProposal?._id,viewProposal?.bid))}>Accept Proposal</button>
             </div>
           ) : (
             ""

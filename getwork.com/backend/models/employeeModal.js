@@ -51,7 +51,12 @@ const employeeSchema = mongoose.Schema({
     type: String,
     default: "PLease add your Info",
   },
-  workHistory: [],
+  completedJobs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Jobs",
+    },
+  ],
   kyc: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Kyc",
@@ -71,7 +76,7 @@ const employeeSchema = mongoose.Schema({
   activeContracts: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Job",
+      ref: "Jobs",
     },
   ],
   myProposals: [
