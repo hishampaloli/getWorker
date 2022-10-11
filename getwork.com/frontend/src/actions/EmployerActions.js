@@ -42,6 +42,40 @@ export const getEmployerProfile = () => async (dispatch) => {
   }
 };
 
+
+
+export const getEmployerProfileData = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: EMPLOYER_PROFILE_REQUEST,
+    });
+
+    const tokenId = JSON.parse(localStorage.getItem("userInfo"));
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenId.token}`,
+      },
+    };
+
+    const { data } = await axiosEmployerInstance.get(`/profile/${tokenId._id}/${id}`, config);
+    
+
+    console.log(data);
+
+    dispatch({
+      type: EMPLOYER_PROFILE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: EMPLOYER_PROFILE_FAIL,
+      error: error,
+    });
+  }
+};
+
 export const editEmployerProfile =
   (name, oldPass, newPass, image) => async (dispatch, getState) => {
     try {

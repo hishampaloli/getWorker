@@ -11,7 +11,6 @@
 .emplyeeProfile .box1 {
   width: 90%;
   background-color: rgb(255, 255, 255);
-  min-height: 500px;
   margin-top: 50px;
   border-radius: 20px;
 }
@@ -289,6 +288,11 @@ height: 250px;
   transform: translateX(-50%) translateY(-50%);
 }
 
+.work-div-box {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
 .swiperImg:hover > button {
   transition: 0.3s ease;
   z-index: 20;

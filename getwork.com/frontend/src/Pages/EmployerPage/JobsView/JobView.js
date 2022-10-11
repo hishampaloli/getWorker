@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./JobsView.css";
-import { cancelJob, JobsDetails } from "../../../actions/jobsActions";
+import { approveJob, cancelJob, JobsDetails } from "../../../actions/jobsActions";
 import AllProposal from "../../EmployeePage/AllProposal/AllProposal";
 import ProposalComponent from "../../../components/EmployeeComponents/ProposalComponents/ProposalComponent";
 
@@ -42,8 +42,9 @@ const JobView = () => {
   return (
     <div className="jobsDetails-view">
       <div className="job-details-box">
-        <div className="top">
+        <div style={{display:'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center'}} className="top">
           <h4>{jobsInfo?.title}</h4>
+          <Link  to={`/employer/publicview/${jobsInfo?.owner}`} style={{color: '#3ccf4e', textDecoration: 'underLine'}}>Employer</Link>
         </div>
 
         <div className="bottom">
@@ -70,9 +71,9 @@ const JobView = () => {
           {user?.userInfo?.userType === "employer" ? (
             <>
               {jobsInfo?.status === "running" ? (
-                <Link to={`/jobs/${jobsInfo?._id}/proposal`}>
+                <Link >
                   <button
-                    onClick={() => dispatch()}
+                    onClick={() => dispatch(approveJob(jobsInfo?._id))}
                     style={{ backgroundColor: "#3ccf4e" }}
                   >
                     Approve Job
@@ -92,12 +93,14 @@ const JobView = () => {
               )}
             </>
           ) : (
-            <Link to={`/jobs/${jobsInfo?._id}/proposal`}>
+            <>{jobsInfo?.status === "active" ?  <Link to={`/jobs/${jobsInfo?._id}/proposal`}>
               <button>Submit Proposal</button>
-            </Link>
+            </Link>: '' }</>
+           
           )}
         </div>
       </div>
+
 
       {user?.userInfo?.userType === "employer" &&
       jobsInfo?.status !== "cancelled" &&

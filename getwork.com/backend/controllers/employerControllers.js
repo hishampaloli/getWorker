@@ -36,6 +36,37 @@ export const getEmployerProfile = AsyncHandler(async (req, res) => {
   }
 });
 
+
+export const getEmployerProfileData = AsyncHandler(async (req, res) => {
+  const { userId, id } = req.params;
+  try {
+    const userData = await Employer.findOne({ owner: id })
+      // .populate("contractsPosted")
+      .populate("owner")
+      .populate("savedTalents")
+      .populate("completedJobs")
+      .populate({
+        path: "savedTalents",
+        populate: [
+          {
+            path: "employeeData",
+            select: "image userTitle totalEarned _id",
+          },
+        ],
+      });
+
+    if (userData) {
+      res.json(userData);
+    } else {
+      res.json({
+        message: "No such user",
+      });
+    }
+  } catch (error) {
+    return new Error("no such user found");
+  }
+});
+
 // @DESC Employers can edit their profile
 // @METHOD patch
 // @PATH /employer/profile/:userId

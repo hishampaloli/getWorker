@@ -30,6 +30,7 @@ import { CHANGE_PASSWORD_FAIL } from "../../../contants/userConstants";
 import { PORTFOLIO_FAIL } from "../../../contants/employeeConstants.js";
 import CustomSpinner from "../../../components/customSpinner/CustomSpinner";
 import SwipPage from '../../../components/EmployeeComponents/Swiper/SwipPage'
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const EmployeeProfile = () => {
   const dispatch = useDispatch();
@@ -145,13 +146,13 @@ const EmployeeProfile = () => {
             <div className="left">
               <div className="left-top">
                 <span>
-                  <strong>$2434</strong>
+                  <strong>${userData?.totalEarned}</strong>
                   <p>Total Earnings</p>
                 </span>
 
                 <span>
-                  <strong>$2434</strong>
-                  <p>Total Earnings</p>
+                  <strong>${userData?.pendingWithdraw}</strong>
+                  <p>Pending withdraw</p>
                 </span>
               </div>
 
@@ -303,15 +304,24 @@ const EmployeeProfile = () => {
           </div>
 
           <div className="body">
-            <div className="left">
-              <h4>Make a website</h4>
+            <div  style={{width: '100%'}}   className="left">
+            {userData?.completedJobs?.map(job => {
+              return  <div className="work-div-box">
+            <div>
+              <h4>{job?.title}</h4>
               <div className="left-text">
-                <strong>$25.00</strong>
+                <strong>${job?.budget}</strong>
                 <p>Successfully Completed</p>
               </div>
-            </div>
+              </div>
+              <Link to={`/jobs/${job?._id}`}> <button style={{color: 'white'}}> <VisibilityIcon /> </button></Link>
+            
 
-            <button></button>
+            </div>
+            })}
+           
+
+            </div>
           </div>
         </div>
 

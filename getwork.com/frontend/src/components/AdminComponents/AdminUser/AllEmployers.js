@@ -128,7 +128,7 @@ const AllEmployers = () => {
                     }}
                   >
                     {" "}
-                    <Link to={`/user/publicView/${dt?._id}`}>
+                    <Link to={`/employer/publicView/${dt?._id}`}>
                       {" "}
                       <VisibilityIcon style={{ color: "white" }} />{" "}
                     </Link>

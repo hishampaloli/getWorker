@@ -13,8 +13,10 @@ import "swiper/css/effect-coverflow";
 import CloseIcon from '@mui/icons-material/Close';
 import "swiper/css/pagination";
 import { EffectCoverflow, Pagination } from "swiper";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import SwipPage from '../../../components/EmployeeComponents/Swiper/SwipPage'
+import VisibilityIcon from '@mui/icons-material/Visibility';
+
 
 const EmployeePublicView = () => {
   const dispatch = useDispatch();
@@ -174,15 +176,25 @@ const EmployeePublicView = () => {
             </div>
 
             <div className="body">
-              <div className="left">
-                <h4>Make a website</h4>
-                <div className="left-text">
-                  <strong>$25.00</strong>
-                  <p>Successfully Completed</p>
-                </div>
+            <div  style={{width: '100%'}}   className="left">
+            {userData?.completedJobs?.map(job => {
+              return  <div className="work-div-box">
+            <div>
+              <h4>{job?.title}</h4>
+              <div className="left-text">
+                <strong>${job?.budget}</strong>
+                <p>Successfully Completed</p>
               </div>
+              </div>
+              <Link to={`/jobs/${job?._id}`}> <button style={{color: 'white'}}> <VisibilityIcon /> </button></Link>
+            
 
-              <button></button>
+            </div>
+            })}
+           
+
+            </div>
+
             </div>
           </div>
 

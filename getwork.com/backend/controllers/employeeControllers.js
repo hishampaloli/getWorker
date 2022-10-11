@@ -28,7 +28,8 @@ export const employeeProfile = AsyncHandler(async (req, res) => {
       .populate("portfolios")
       .populate("bankDetails")
       .populate("owner")
-      .populate("savedJobs");
+      .populate("savedJobs")
+      .populate("completedJobs");
     if (userData) {
       res.json(userData);
     } else {

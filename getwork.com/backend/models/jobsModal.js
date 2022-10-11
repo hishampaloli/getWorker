@@ -36,6 +36,10 @@ const JobsSchema = new mongoose.Schema({
       ref: "Proposal",
     },
   ],
+  acceptedProposal: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Proposal",
+  },
   status: {
     type: String,
     enum: ["active", "completed", "cancelled", "running"],

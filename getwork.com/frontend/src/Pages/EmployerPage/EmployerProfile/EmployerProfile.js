@@ -48,8 +48,8 @@ const EmployerProfile = () => {
 
         <div className="left-bottom">
           <button className={ed === 'profile' ? 'btn-a' : 'btn'} onClick={(e) => setEd("profile")}>My profile</button>
-          <button className={ed === 'jobs' ? 'btn-a' : 'btn'} onClick={(e) => setEd("jobs")}>My jobs</button>
-          <button className={ed === '' ? 'btn-a' : 'btn'} onClick={(e) => setEd("")}>Thinking</button>
+          <button className={ed === 'jobs' ? 'btn-a' : 'btn'} onClick={(e) => setEd("jobs")}>Jobs History</button>
+          <button className={ed === '' ? 'btn-a' : 'btn'} onClick={(e) => setEd("")}>Parchase History</button>
         </div>
       </div>
 

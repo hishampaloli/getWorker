@@ -119,11 +119,12 @@ export const acceptProposal = AsyncHandler(async (req, res) => {
         admin.inEscrow.push({
           employer: employer.owner,
           employee: employee.owner,
+          proposal: proposal._id,
           inEscrow: totalAmount
         }) 
-        employee.activeContracts.push(job);
         employer.activeJobs.push(job);
         job.status = "running";
+        job.acceptedProposal = proposal._id;
 
         await employer.save();
         await employee.save();

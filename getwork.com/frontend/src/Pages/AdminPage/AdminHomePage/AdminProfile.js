@@ -21,8 +21,16 @@ const AdminProfile = () => {
   const [oldPass, setOldPass] = useState('');
   const [confirm, setConfirm] = useState('');
 
-  console.log(Profile?.data?.emplyerLength);
+  console.log(Profile?.data);
   console.log(user);
+  let escrowSum = 0
+
+  const inEscrow = Profile?.data?.adminData?.adminData?.inEscrow?.map((el) => {
+    return escrowSum = escrowSum + el?.inEscrow
+  })
+  
+  console.log(escrowSum);
+
 
   useEffect(() => {
     if (!user?.userInfo) {
@@ -59,7 +67,12 @@ const AdminProfile = () => {
               {Profile?.data?.emplyerLength ? Profile?.data?.emplyerLength : ""}
             </strong>{" "}
           </p>
-          <p>Jobs Posted: 34</p>
+          <p>
+          Total jobs: 
+            <strong>
+            {Profile?.data?.jobsLength ? Profile?.data?.jobsLength : ""}
+            </strong>
+          </p>
         </div>
       </div>
 
@@ -67,12 +80,12 @@ const AdminProfile = () => {
         <div className="top">
           <div className="l-box">
             <h3>TOTAL EARNING</h3>
-            <strong>$3094</strong>
+            <strong>₹  { Profile?.data?.adminData?.adminData?.balance}</strong>
           </div>
 
           <div className="l-box">
-            <h3 style={{ color: "#3ccf4e" }}>PENDING</h3>
-            <strong>$30</strong>
+            <h3 style={{ color: "#3ccf4e" }}>In Escrow</h3>
+            <strong>₹ {escrowSum}</strong>
           </div>
         </div>
 

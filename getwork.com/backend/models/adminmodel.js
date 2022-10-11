@@ -35,6 +35,9 @@ const AdminSchema = mongoose.Schema({
       inEscrow: {
         type: Number
       },
+       proposal: {
+        type: mongoose.Schema.Types.ObjectId,
+      },
     },
   ],
 });

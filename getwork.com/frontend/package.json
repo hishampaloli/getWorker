@@ -15,6 +15,7 @@
     "fs": "^0.0.1-security",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
+    "react-date-object": "^2.1.5",
     "react-dom": "^18.2.0",
     "react-minimal-pie-chart": "^8.3.0",
     "react-redux": "^8.0.4",

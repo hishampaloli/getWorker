@@ -102,8 +102,8 @@ export const getAllEmplyers =
         },
       };
 
-      const { data } = await axios.get(
-        `/api/admin/allEmployers?keyword=${keyword}`,
+      const { data } = await axiosAdminInstance.get(
+        `/allEmployers?keyword=${keyword}`,
         config
       );
 

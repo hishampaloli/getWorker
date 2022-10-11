@@ -1,7 +1,7 @@
 import { axiosJobsInstance } from "../contants/axios";
 import {
-    ALL_JOBS_FAIL,
-    ALL_JOBS_REQUEST,
+  ALL_JOBS_FAIL,
+  ALL_JOBS_REQUEST,
   ALL_JOBS_SUCCES,
   JOBS_DETAILS_FAIL,
   JOBS_DETAILS_REQUEST,
@@ -35,7 +35,6 @@ export const myJobs =
           Authorization: `Bearer ${tokenId.token}`,
         },
       };
-
 
       const { data } = await axiosJobsInstance.get(
         `/mypost/${tokenId._id}?keyword=${keyword}`,
@@ -104,34 +103,39 @@ export const postJobs =
     }
   };
 
-export const getAllJobs = (keyword='') => async (dispatch) => {
-  try {
-    dispatch({
-      type: ALL_JOBS_REQUEST,
-    });
+export const getAllJobs =
+  (keyword = "") =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: ALL_JOBS_REQUEST,
+      });
 
-    const tokenId = JSON.parse(localStorage.getItem("userInfo"));
+      const tokenId = JSON.parse(localStorage.getItem("userInfo"));
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${tokenId.token}`,
-      },
-    };
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenId.token}`,
+        },
+      };
 
-    const { data } = await axiosJobsInstance.get(`/getAllJobs?keyword=${keyword}`, config);
+      const { data } = await axiosJobsInstance.get(
+        `/getAllJobs?keyword=${keyword}`,
+        config
+      );
 
-    dispatch({
-      type: ALL_JOBS_SUCCES,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: ALL_JOBS_FAIL,
-      error: error,
-    });
-  }
-};
+      dispatch({
+        type: ALL_JOBS_SUCCES,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ALL_JOBS_FAIL,
+        error: error,
+      });
+    }
+  };
 
 export const JobsDetails = (id) => async (dispatch) => {
   console.log(32453535);
@@ -163,13 +167,10 @@ export const JobsDetails = (id) => async (dispatch) => {
   }
 };
 
-
-
 export const cancelJob = (id) => async (dispatch) => {
   console.log(32453535);
   console.log(id);
   try {
-
     // dispatch({
     //   type: JOBS_DETAILS_REQUEST,
     // });
@@ -184,8 +185,10 @@ export const cancelJob = (id) => async (dispatch) => {
       },
     };
 
-    const { data } = await axiosJobsInstance.get(`/jobsStatus/${tokenId._id}/${id}`);
-
+    const { data } = await axiosJobsInstance.get(
+      `/jobsStatus/${tokenId._id}/${id}`,
+      config
+    );
   } catch (error) {
     dispatch({
       type: JOBS_DETAILS_FAIL,
@@ -194,7 +197,35 @@ export const cancelJob = (id) => async (dispatch) => {
   }
 };
 
+export const approveJob = (id) => async (dispatch) => {
+  console.log(32453535);
+  console.log(id);
+  try {
+    // dispatch({
+    //   type: JOBS_DETAILS_REQUEST,
+    // });
 
+    const tokenId = JSON.parse(localStorage.getItem("userInfo"));
+    console.log(tokenId._id);
 
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenId.token}`,
+      },
+    };
 
+    const { data } = await axiosJobsInstance.get(
+      `/approveJob/${tokenId._id}/${id}`,
+      config
+    );
 
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+    // dispatch({
+    //   type: JOBS_DETAILS_FAIL,
+    //   error: error,
+    // });
+  }
+};

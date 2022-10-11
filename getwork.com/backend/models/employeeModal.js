@@ -54,7 +54,7 @@ const employeeSchema = mongoose.Schema({
   completedJobs: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Jobs",
+      ref: "Job",
     },
   ],
   kyc: {

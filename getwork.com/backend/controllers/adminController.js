@@ -7,6 +7,7 @@ import BankDetails from "../models/bankDetailsModel.js";
 import Kyc from "../models/kycModel.js";
 import Admin from "../models/adminModel.js";
 import Employer from "../models/employerModel.js";
+import Jobs from "../models/jobsModal.js";
 
 // @DESC gets the profile of the admin
 // @METHOD get
@@ -28,13 +29,14 @@ export const adminProfile = AsyncHandler(async (req, res) => {
 
     const employee = await Employee.find({});
     const employer = await Employer.find({});
+    const jobs = await Jobs.find();
 
     if (user) {
       res.json({
         adminData: user,
         emplyeeLength: employee.length,
         emplyerLength: employer.length,
-        jobsLength: 23,
+        jobsLength: jobs.length,
       });
     }
   } catch (error) {
@@ -61,6 +63,7 @@ export const findAllEmployees = AsyncHandler(async (req, res) => {
     const allEmployees = await User.find({
       ...keyword,
       userType: "employee",
+      emailVerified: true
     }).populate("employeeData");
     res.json(allEmployees);
   } catch (error) {
@@ -83,11 +86,15 @@ export const findAllEmployers = AsyncHandler(async (req, res) => {
       }
     : {};
   try {
-    const allEmployees = await User.find({
+    console.log(786);
+    const allEmployers = await User.find({
       ...keyword,
       userType: "employer",
+      emailVerified: true
     }).populate("employerData");
-    res.json(allEmployees);
+
+    console.log(allEmployers);
+    res.json(allEmployers);
   } catch (error) {
     res.json(error);
   }

@@ -3,6 +3,8 @@ import User from "../models/userModal.js";
 import Employee from "../models/employeeModal.js";
 import Jobs from "../models/jobsModal.js";
 import Employer from "../models/employerModel.js";
+import Proposals from "../models/proposalModal.js";
+import Admin from "../models/adminModel.js";
 
 export const postJobs = AsyncHandler(async (req, res) => {
   const { title, description, budget, deadline, level, searchTag } = req.body;
@@ -87,8 +89,8 @@ export const endJob = AsyncHandler(async (req, res) => {
     jobs.status = "cancelled";
     await jobs.save();
     res.json({
-      message: "Success"
-    })
+      message: "Success",
+    });
   } catch (error) {
     throw new Error(error);
   }
@@ -100,7 +102,6 @@ export const jobView = AsyncHandler(async (req, res) => {
 
     const jobs = await Jobs.findById(id).populate("proposals");
 
-
     if (jobs) {
       res.json(jobs);
     } else {
@@ -108,8 +109,65 @@ export const jobView = AsyncHandler(async (req, res) => {
         message: "no jobs found",
       });
     }
-    
   } catch (error) {
     throw new Error("No such jobs found");
+  }
+});
+
+export const approveJob = AsyncHandler(async (req, res) => {
+  try {
+    const { userId, id } = req.params;
+    console.log(userId);
+
+    const job = await Jobs.findById(id);
+
+    const proposal = await Proposals.findById(job.acceptedProposal);
+
+    const employer = await Employer.findOne({ owner: userId });
+    const employee = await Employee.findOne({ owner: proposal.owner });
+    const admin = await Admin.findById("633be9b307ec8a154a57bc9e");
+
+    const activeContract = employee.activeContracts.filter((el) => {
+      return el + "*" !== job._id + "*";
+    });
+
+    const activeJob = employer.activeJobs.filter((el) => {
+      return el + "*" !== job._id + "*";
+    });
+
+    const escrow = admin.inEscrow.filter((el) => {
+      return el.proposal+"*" !== proposal._id+"*"
+    })
+
+
+    employee.totalEarned =
+      employee.totalEarned + (proposal.bid - (proposal.bid * 20) / 100);
+
+    employee.pendingWithdraw =
+      employee.pendingWithdraw + (proposal.bid - (proposal.bid * 20) / 100);
+
+    employee.completedJobs.push(job._id);
+    employee.activeContracts = activeContract;
+
+    employer.activeJobs = activeJob;
+    employer.completedJobs.push(job._id);
+    employer.hires = employer.hires + 1;
+    employer.totalSpend = employer.totalSpend + proposal.bid;
+
+    admin.balance = proposal.bid - (proposal.bid * 20) / 100;
+    admin.inEscrow = escrow
+
+    job.status = 'completed'
+    await admin.save();
+    await employee.save();
+    await employer.save()
+    await job.save()
+
+
+    res.json({
+     message: 'Success'
+    });
+  } catch (error) {
+    throw new Error(error);
   }
 });
