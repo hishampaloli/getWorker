@@ -26,6 +26,7 @@ export const userLogin = AsyncHandler(async (req, res) => {
         email: user.email,
         userType: user.userType,
         employeeData: user.employeeData,
+        isBlocked: user.isBlocked,
         token: generateToken(user._id),
       });
     } else if (user.userType === "employer") {
@@ -35,6 +36,7 @@ export const userLogin = AsyncHandler(async (req, res) => {
         email: user.email,
         userType: user.userType,
         employerData: user.employerData,
+        isBlocked: user.isBlocked,
         token: generateToken(user._id),
       });
     } else if (user.userType === "admin") {
@@ -216,5 +218,67 @@ export const changePassword = AsyncHandler(async (req, res) => {
     }
   } catch (error) {
     res.json(error);
+  }
+});
+
+export const forgotPassword = AsyncHandler(async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const user = await User.findOne({ $and: [ {email: email}, {emailVerified: true }]});
+    if (user) {
+      const token = await VerificationToken.findOneAndDelete({
+        owner: user._id + "*",
+      });
+
+      const OTP = generateOtp();
+      const verificationToken = new VerificationToken({
+        owner: user._id + "*",
+        token: OTP,
+      });
+
+      mailTransport().sendMail({
+        from: "getworkverification@email.com",
+        to: user.email,
+        subject: "Verify your email account",
+        html: `<div>
+        <h1>OTP for reset password</h1>
+        <p>${OTP}</p>
+        <strong>Do not share your otp</strong>
+        </div>`,
+      });
+
+      await verificationToken.save();
+      await user.save();
+      res.json("Success");
+    } else {
+      res.json("No such user found");
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+export const forgotPasswordVerify = AsyncHandler(async (req, res) => {
+  const { email, otp, password } = req.body;
+
+  const user = await User.findOne({ email: email });
+  const id = user?._id + "*";
+  console.log(id);
+  const token = await VerificationToken.findOne({ owner: id });
+  if (!token) {
+    throw new Error("No tokon");
+  }
+
+  const isMatch = await token.matchPassword(otp);
+
+  if (user && isMatch) {
+    user.password = password;
+    await user.save();
+    await VerificationToken.findOneAndDelete({ owner: id });
+    res.json("success");
+  } else {
+    await VerificationToken.findOneAndDelete({ owner: id });
+    res.json("failed");
   }
 });

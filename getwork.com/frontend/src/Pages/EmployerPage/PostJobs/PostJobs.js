@@ -7,6 +7,10 @@ import "./PostJobs.css";
 const PostJobs = () => {
 
     const dispatch = useDispatch()
+    const user = useSelector(state => state.user)
+
+    console.log(user);
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [budget, setBudget] = useState("");
@@ -104,7 +108,8 @@ const PostJobs = () => {
               <option value="advanced">Advanced</option>
             </select>
           </div>
-          <button type="submit">Post Jobs</button>
+          {user.userInfo?.isBlocked ? <button style={{backgroundColor: '#FF6C6C', width: '230px'}} disabled >Your accound is Blocked</button> : <button type="submit">Post Jobs</button>}
+          
           </form>
         </div>
       </div>

@@ -105,8 +105,8 @@ const ViewProposal = () => {
                   </button>{" "}
                 </>
               )}
-
-              <button onClick={() => dispatch(acceptProposal(viewProposal?._id,viewProposal?.bid))}>Accept Proposal</button>
+              {user.userInfo?.isBlocked ? <button style={{backgroundColor: '#FF6C6C'}} >Your account is Blocked</button> : <button onClick={() => dispatch(acceptProposal(viewProposal?._id,viewProposal?.bid))}>Accept Proposal</button>}
+              
             </div>
           ) : (
             ""

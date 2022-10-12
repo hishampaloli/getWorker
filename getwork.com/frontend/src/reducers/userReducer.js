@@ -12,6 +12,9 @@ import {
   CHANGE_PASSWORD_REQUEST,
   CHANGE_PASSWORD_SUCCESS,
   CHANGE_PASSWORD_FAIL,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAIL,
 } from "../contants/userConstants.js";
 
 // export const userRegister = ()
@@ -82,3 +85,21 @@ export const changePasswordReducer = (state = {}, action) => {
       return state;
   }
 };
+
+
+export const ForgotPasswordReducer = (state = {}, action) => {
+  switch (action.type) {
+    case RESET_PASSWORD_REQUEST:
+      return { loading: true };
+      
+    case RESET_PASSWORD_SUCCESS:
+      return { loading: false, message: action.message };
+      
+    case RESET_PASSWORD_FAIL:
+      return { loading: false, error: action.error };
+      
+    default:
+      return state;
+  }
+};
+

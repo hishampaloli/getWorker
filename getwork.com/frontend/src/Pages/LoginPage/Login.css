@@ -29,12 +29,18 @@
 .login .vt-inp {
     width: 80%;
     margin: 10px;
+    margin-top: 0px;
     padding: 10px 15px;
     height: 50px;
     border: 1px solid #b7b7b7;
     border-radius: 15px;;
     color: white;
     background-color: #2C322B;
+}
+
+.login .fg-p {
+    font-size: 12px;
+    color: #0000ff;
 }
 
 .login .btn-1 {

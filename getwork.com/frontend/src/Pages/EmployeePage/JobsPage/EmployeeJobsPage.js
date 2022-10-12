@@ -13,7 +13,7 @@ const EmployeeJobsPage = () => {
   const employeeData = useSelector((state) => state.employeeData);
 
 
-  const [ed, setEd] = useState("");
+  const [ed, setEd] = useState("active");
   const [keyword, setKeyword] = useState("");
 
   useEffect(() => {

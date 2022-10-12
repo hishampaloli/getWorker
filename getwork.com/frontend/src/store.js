@@ -6,6 +6,7 @@ import {
   otpHelper,
   userLoginReducer,
   changePasswordReducer,
+  ForgotPasswordReducer,
 } from "./reducers/userReducer";
 import {
   employeeProfileReducer,
@@ -18,6 +19,7 @@ import {
   employeeProfilePublicViewReducer,
 } from "./reducers/employeeReducer";
 import {
+  deleteMessageReducer,
   EmpoyerPasswordReducer,
   EmpoyerProfileReducer,
   FindTalentsReducer,
@@ -57,6 +59,7 @@ const reducer = combineReducers({
   portfolio: portfolioReducer,
   profileImage: PorfileImageReducer,
   changePasswords: changePasswordReducer,
+  forgotPassword: ForgotPasswordReducer,
 
   employerData: EmpoyerProfileReducer,
   employerChangePassword: EmpoyerPasswordReducer,
@@ -77,6 +80,9 @@ const reducer = combineReducers({
   postProposalStatus: postProposalReducer,
   myProposalsData: MyProposalReducer,
   viewProposal: viewProposalReducer,
+
+  deleteMessage: deleteMessageReducer,
+
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

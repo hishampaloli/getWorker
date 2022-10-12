@@ -25,7 +25,16 @@ import {
   SKILL_N_LANGUAGE_SUCCESS,
 } from "../contants/employeeConstants.js";
 import { axiosEmployeeInstance } from "../contants/axios";
-import { SAVE_JOBS_FAIL, SAVE_JOBS_REQUEST, SAVE_JOBS_SUCCES } from "../contants/jobsContants.js";
+import {
+  SAVE_JOBS_FAIL,
+  SAVE_JOBS_REQUEST,
+  SAVE_JOBS_SUCCES,
+} from "../contants/jobsContants.js";
+import {
+  DELETE_MESSAGE_FAIL,
+  DELETE_MESSAGE_REQUEST,
+  DELETE_MESSAGE_SUCCESS,
+} from "../contants/employerContants.js";
 
 export const getEmployeeProfile = () => async (dispatch) => {
   try {
@@ -87,7 +96,6 @@ export const deleteEducation = (userId, id) => async (dispatch, getState) => {
   dispatch({
     type: EDUCATION_REQUEST,
   });
-
 
   const tokenId = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -443,12 +451,7 @@ export const getEmployeeProfileView = (id) => async (dispatch) => {
   }
 };
 
-
-
-
 export const saveJobs = (id) => async (dispatch) => {
-
-  
   try {
     dispatch({
       type: SAVE_JOBS_REQUEST,
@@ -463,8 +466,11 @@ export const saveJobs = (id) => async (dispatch) => {
       },
     };
 
-    const { data } = await axiosEmployeeInstance.get(`/saveJobs/${tokenId._id}/${id}`, config);
-console.log(data);
+    const { data } = await axiosEmployeeInstance.get(
+      `/saveJobs/${tokenId._id}/${id}`,
+      config
+    );
+    console.log(data);
     dispatch({
       type: SAVE_JOBS_SUCCES,
     });
@@ -476,10 +482,8 @@ console.log(data);
   }
 };
 
-
-
 export const removeSaveJobs = (id) => async (dispatch, getState) => {
-console.log(id);
+  console.log(id);
   try {
     dispatch({
       type: SAVE_JOBS_REQUEST,
@@ -494,12 +498,14 @@ console.log(id);
       },
     };
 
-    const { data } = await axiosEmployeeInstance.delete(`/saveJobs/${tokenId._id}/${id}`, config);
-console.log(data);
+    const { data } = await axiosEmployeeInstance.delete(
+      `/saveJobs/${tokenId._id}/${id}`,
+      config
+    );
+    console.log(data);
     if (data) {
-       getState().employeeData.userData.savedJobs = data
-    } 
-    
+      getState().employeeData.userData.savedJobs = data;
+    }
 
     dispatch({
       type: SAVE_JOBS_SUCCES,
@@ -508,6 +514,47 @@ console.log(data);
     dispatch({
       type: SAVE_JOBS_FAIL,
       error: error,
+    });
+  }
+};
+
+export const deleteMessageEmployee = (id) => async (dispatch, getState) => {
+
+  try {
+    dispatch({
+      type: DELETE_MESSAGE_REQUEST,
+    });
+
+    const token_id = JSON.parse(localStorage.getItem("userInfo"));
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token_id.token}`,
+      },
+    };
+
+    const { data } = await axiosEmployeeInstance.delete(
+      `/deleteMessage/${token_id._id}/${id}`,
+      config
+    );
+
+    if (data) {
+      const noti = getState().employeeData.userData.notification.filter(
+        (el) => {
+          return el._id + "*" !== id + "*";
+        }
+      );
+
+      getState().employeeData.userData.notification = noti;
+    }
+
+    dispatch({
+      type: DELETE_MESSAGE_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: DELETE_MESSAGE_FAIL,
     });
   }
 };

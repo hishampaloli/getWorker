@@ -76,7 +76,7 @@ const employeeSchema = mongoose.Schema({
   activeContracts: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Jobs",
+      ref: "Job",
     },
   ],
   myProposals: [
@@ -101,6 +101,12 @@ const employeeSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "BankDetail",
   },
+  notification: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Notification",
+    },
+  ],
 });
 
 const Employee = mongoose.model("Employee", employeeSchema);

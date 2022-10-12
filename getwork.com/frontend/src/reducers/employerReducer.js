@@ -2,6 +2,9 @@ import {
   CHANGE_E_PASSWORD_FAIL,
   CHANGE_E_PASSWORD_REQUEST,
   CHANGE_E_PASSWORD_SUCCESS,
+  DELETE_MESSAGE_FAIL,
+  DELETE_MESSAGE_REQUEST,
+  DELETE_MESSAGE_SUCCESS,
   EMPLOYER_PROFILE_FAIL,
   EMPLOYER_PROFILE_REQUEST,
   EMPLOYER_PROFILE_SUCCESS,
@@ -51,6 +54,22 @@ export const FindTalentsReducer = (state = {}, action) => {
       return { loading: false, data: action.payload };
 
     case FIND_TALENDS_FAIL:
+      return { loading: false, error: action.error };
+
+    default:
+      return state;
+  }
+};
+
+export const deleteMessageReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_MESSAGE_REQUEST:
+      return { loading: true };
+
+    case DELETE_MESSAGE_SUCCESS:
+      return { loading: false };
+
+    case DELETE_MESSAGE_FAIL:
       return { loading: false, error: action.error };
 
     default:

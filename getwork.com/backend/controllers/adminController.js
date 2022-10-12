@@ -8,6 +8,8 @@ import Kyc from "../models/kycModel.js";
 import Admin from "../models/adminModel.js";
 import Employer from "../models/employerModel.js";
 import Jobs from "../models/jobsModal.js";
+import Notification from "../models/messageModal.js";
+import { mailTransport } from "../utils/mail.js";
 
 // @DESC gets the profile of the admin
 // @METHOD get
@@ -41,10 +43,9 @@ export const adminProfile = AsyncHandler(async (req, res) => {
     }
   } catch (error) {
     res.json(error);
-    res.json(error)
+    res.json(error);
   }
 });
-
 
 // @DESC gets the profile of all the employees for the admin
 // @METHOD get
@@ -63,14 +64,13 @@ export const findAllEmployees = AsyncHandler(async (req, res) => {
     const allEmployees = await User.find({
       ...keyword,
       userType: "employee",
-      emailVerified: true
+      emailVerified: true,
     }).populate("employeeData");
     res.json(allEmployees);
   } catch (error) {
     res.json(error);
   }
 });
-
 
 // @DESC gets the profile of all the employers for the admin
 // @METHOD get
@@ -86,20 +86,17 @@ export const findAllEmployers = AsyncHandler(async (req, res) => {
       }
     : {};
   try {
-    console.log(786);
     const allEmployers = await User.find({
       ...keyword,
       userType: "employer",
-      emailVerified: true
+      emailVerified: true,
     }).populate("employerData");
 
-    console.log(allEmployers);
     res.json(allEmployers);
   } catch (error) {
     res.json(error);
   }
 });
-
 
 // @DESC gets the profile of all the blocked users for the admin
 // @METHOD get
@@ -141,13 +138,52 @@ export const blockUsers = AsyncHandler(async (req, res) => {
 
   try {
     const user = await User.findById(_id);
+    if (user.userType === "employee") {
+      const employee = await Employee.findOne({ owner: _id });
 
+      const noti = new Notification({
+        owner: employee._id,
+        message:
+          "Your account have been blocked, please contact the admin to know more",
+      });
+      employee.notification.push(noti._id);
+      await noti.save();
+      await employee.save();
+
+    } else if (user.userType === "employer") {
+
+      const employer = await Employer.findOne({ owner: _id });
+      const noti = new Notification({
+        owner: employer._id,
+        message:
+          "Your accounts blocked, please contact the admin to know more",
+      });
+      employer.notification.push(noti._id);
+      await noti.save();
+      await employer.save();
+
+    }
+
+    
+   
 
     user.isBlocked = !user.isBlocked;
-
     await user.save();
 
+    console.log(user.email + "3e45678");
+
+    mailTransport().sendMail({
+      from: "getworkverification@email.com",
+      to: `${user.email}`,
+      subject: "Verify your email account",
+      html: `<div>
+      <h1>User Update</h1>
+      <p>Your accounts blocked, please contact the admin to know more</p>
+      </div>`,
+    });
+
     res.json(user);
+
   } catch (error) {
     res.json(error);
   }
@@ -185,7 +221,6 @@ export const blacklistUsers = AsyncHandler(async (req, res) => {
   }
 });
 
-
 // @DESC Admin can remove the blacklisted users from the list
 // @METHOD put
 // @PATH /admin/removeBlacklist
@@ -211,7 +246,6 @@ export const removeBlacklist = AsyncHandler(async (req, res) => {
   }
 });
 
-
 // @DESC gets all the kyc created by the employees
 // @METHOD get
 // @PATH /admin/allKyc
@@ -220,7 +254,7 @@ export const getAllKyc = AsyncHandler(async (req, res) => {
   try {
     const { id } = req.body;
 
-    const kycData = await Kyc.find({ }).populate("owner");
+    const kycData = await Kyc.find({}).populate("owner");
 
     res.json(kycData);
   } catch (error) {
@@ -234,36 +268,71 @@ export const getAllKyc = AsyncHandler(async (req, res) => {
 
 export const acceptNrejectKyc = AsyncHandler(async (req, res) => {
   try {
-    const { id, status } = req.body;
+    const { id, status, msg } = req.body;
 
     const kycDetail = await Kyc.findOne({ owner: id });
-    const userDetail = await Employee.findOne({ owner: id });
+    const userDetail = await Employee.findOne({ owner: id }).populate('owner');
 
-    if (status === 'accept') {
+    if (status === "accept") {
       if (kycDetail && userDetail) {
-        kycDetail.kycStatus = 'accepted'
-        userDetail.kycApproved = 'accepted';
+
+        const noti = new Notification({
+          owner: id,
+          message: "Your kyc have been accepted"
+        })
+
+        kycDetail.kycStatus = "accepted";
+        userDetail.kycApproved = "accepted";
+        userDetail.notification.push(noti._id);
 
         await kycDetail.save();
+        await noti.save();
         await userDetail.save();
+
+        mailTransport().sendMail({
+          from: "getworkverification@email.com",
+          to: userDetail.owner.email,
+          subject: "Verify your email account",
+          html: `<div>
+          <h1>Kyc Status</h1>
+          <p>Your kyc have been Accepted</p>
+          </div>`,
+        });
       }
-    }else if(status === 'reject') {
+    } else if (status === "reject") {
+      
       if (kycDetail && userDetail) {
-        kycDetail.kycStatus = 'rejected'
-        userDetail.kycApproved = 'rejected';
+
+        const noti = new Notification({
+          owner: id,
+          message: "Your kyc have been Rejected :- " + msg
+        })
+        
+        kycDetail.kycStatus = "rejected";
+        userDetail.kycApproved = "rejected";
+        userDetail.notification.push(noti._id);
 
         await kycDetail.save();
         await userDetail.save();
+        await noti.save();
+
+    mailTransport().sendMail({
+      from: "getworkverification@email.com",
+      to: userDetail.owner.email,
+      subject: "Verify your email account",
+      html: `<div>
+      <h1>Kyc Status</h1>
+      <p>Your kyc have been Rejected</p>
+      </div>`,
+    });
       }
     }
-
 
     res.json({
       kyc: kycDetail,
       user: userDetail,
     });
-
   } catch (error) {
-    res.json(error)
+    res.json(error);
   }
 });

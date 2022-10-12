@@ -2,6 +2,9 @@ import {
   CHANGE_E_PASSWORD_FAIL,
   CHANGE_E_PASSWORD_REQUEST,
   CHANGE_E_PASSWORD_SUCCESS,
+  DELETE_MESSAGE_FAIL,
+  DELETE_MESSAGE_REQUEST,
+  DELETE_MESSAGE_SUCCESS,
   EMPLOYER_PROFILE_FAIL,
   EMPLOYER_PROFILE_REQUEST,
   EMPLOYER_PROFILE_SUCCESS,
@@ -26,7 +29,10 @@ export const getEmployerProfile = () => async (dispatch) => {
       },
     };
 
-    const { data } = await axiosEmployerInstance.get(`/profile/${id._id}`, config);
+    const { data } = await axiosEmployerInstance.get(
+      `/profile/${id._id}`,
+      config
+    );
 
     console.log(data);
 
@@ -41,8 +47,6 @@ export const getEmployerProfile = () => async (dispatch) => {
     });
   }
 };
-
-
 
 export const getEmployerProfileData = (id) => async (dispatch) => {
   try {
@@ -59,8 +63,10 @@ export const getEmployerProfileData = (id) => async (dispatch) => {
       },
     };
 
-    const { data } = await axiosEmployerInstance.get(`/profile/${tokenId._id}/${id}`, config);
-    
+    const { data } = await axiosEmployerInstance.get(
+      `/profile/${tokenId._id}/${id}`,
+      config
+    );
 
     console.log(data);
 
@@ -215,5 +221,48 @@ export const removeSavedTalent = (id) => async (dispatch, getState) => {
     }
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const deleteMessageEmployer = (id) => async (dispatch, getState) => {
+  try {
+
+    dispatch({
+      type: DELETE_MESSAGE_REQUEST
+    })
+
+    const token_id = JSON.parse(localStorage.getItem("userInfo"));
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token_id.token}`,
+      },
+    };
+
+
+    const { data } = await axiosEmployerInstance.delete(
+      `/deleteMessage/${token_id._id}/${id}`,
+      config
+    );
+
+
+    if (data) {
+      const noti = getState().employerData.userInfo.notification.filter((el) => {
+        return el._id + "*" !== id + "*";
+      });
+
+      getState().employerData.userInfo.notification = noti
+
+    }
+
+    dispatch({
+      type: DELETE_MESSAGE_SUCCESS
+    })
+
+  } catch (error) {
+    dispatch({
+      type: DELETE_MESSAGE_FAIL
+    })
   }
 };

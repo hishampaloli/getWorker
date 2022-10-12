@@ -5,22 +5,28 @@ import { logout } from "../../actions/UserAction";
 import "./header.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { getEmployeeProfile } from "../../actions/EmplyeeActions";
+import { deleteMessageEmployee, getEmployeeProfile } from "../../actions/EmplyeeActions";
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+import CloseIcon from "@mui/icons-material/Close";
+import CustomSpinner from "../customSpinner/CustomSpinner";
+import { deleteMessageEmployer } from "../../actions/EmployerActions";
+import Alert from "@mui/material/Alert";
 
 const Header = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
   const [drop, setDrop] = useState(false);
-
+  const [noti, setNoti] = useState(false);
   const userProfile = useSelector((state) => state.employeeData);
   const employerProfile = useSelector((state) => state.employerData);
+  const deleteMessage = useSelector((state) => state.deleteMessage);
+
+  console.log(deleteMessage);
 
   useEffect(() => {
     dispatch(getEmployeeProfile());
   }, [dispatch]);
-
-  console.log(employerProfile);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -48,15 +54,33 @@ const Header = () => {
                 <Link style={{ marginRight: "45px" }} to="/user/proposals">
                   Proposals
                 </Link>
+                <Link
+                  onClick={() => setNoti(!noti)}
+                  style={{ marginRight: "45px", position: 'relative' }}
+                >
+                {userProfile?.userData?.notification.length ? <div className="not-ball"></div> : ''}
+                
+                  <NotificationsActiveIcon />
+                </Link>
                 <Link>{userProfile?.userData?.connects} Credits</Link>
-
               </>
             ) : user?.userInfo?.userType === "employer" ? (
               <>
                 <Link style={{ marginRight: "45px" }} to="/findTalents ">
                   Find talents
                 </Link>
-                <Link style={{marginRight: '30px'}}>Balance : {employerProfile?.userInfo?.balance}</Link>
+                <Link style={{ marginRight: "30px" }}>
+                  Balance : {employerProfile?.userInfo?.balance}
+                </Link>
+                <Link
+                  onClick={() => setNoti(!noti)}
+                  style={{ marginRight: "45px", position: 'relative' }}
+                >
+                {employerProfile?.userInfo?.notification.length ? <div className="not-ball"></div> : ''}
+                
+                  <NotificationsActiveIcon />
+                </Link>
+
                 <Link to="/message ">message</Link>
               </>
             ) : (
@@ -88,6 +112,7 @@ const Header = () => {
               <div onClick={() => setDrop(false)} className="drop-div">
                 <ul>
                   <CancelIcon className="cln" />
+
                   <Link
                     to={
                       user?.userInfo?.userType === "employee"
@@ -127,6 +152,94 @@ const Header = () => {
           </div>
         )}
       </header>
+
+      {noti === true ? (
+        <div>
+          <div className="drop-div-mgs">
+            {user.userInfo?.userType === "employee" ? (
+              <ul>
+                <CancelIcon onClick={() => setNoti(false)} className="cln" />
+                {userProfile.userData
+                  ? userProfile?.userData?.notification?.map((message) => {
+                      return (
+                        <Link>
+                          {message?.message}{" "}
+                          <CloseIcon
+                            onClick={(e) => {
+                              dispatch(deleteMessageEmployee(message?._id));
+                            }}
+                            style={{ cursor: "pointer" }}
+                          />
+                        </Link>
+                      );
+                    })
+                  : ""}
+                {deleteMessage?.loading ? (
+                  <div
+                    className="m-2"
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {" "}
+                    <CustomSpinner />{" "}
+                  </div>
+                ) : (
+                  ""
+                )}
+                {userProfile?.userData?.notification.length == 0 ? (
+                  <Alert severity="info">Oops — no notifications found !</Alert>
+                ) : (
+                  ""
+                )}
+              </ul>
+            ) : (
+              <ul>
+                <CancelIcon onClick={() => setNoti(false)} className="cln" />
+                {employerProfile.userInfo
+                  ? employerProfile?.userInfo?.notification?.map((message) => {
+                      return (
+                        <Link>
+                          {message?.message}{" "}
+                          <CloseIcon
+                            onClick={(e) => {
+                              dispatch(deleteMessageEmployer(message?._id));
+                            }}
+                            style={{ cursor: "pointer" }}
+                          />
+                        </Link>
+                      );
+                    })
+                  : ""}
+                {deleteMessage?.loading ? (
+                  <div
+                    className="m-2"
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {" "}
+                    <CustomSpinner />{" "}
+                  </div>
+                ) : (
+                  ""
+                )}
+                {employerProfile?.userInfo?.notification.length == 0 ? (
+                  <Alert severity="info">Oops — no notifications found !</Alert>
+                ) : (
+                  ""
+                )}
+              </ul>
+            )}
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

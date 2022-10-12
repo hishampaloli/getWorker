@@ -38,6 +38,12 @@ const employerSchema = mongoose.Schema({
       ref: "Job",
     },
   ],
+  notification: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Notification",
+    },
+  ],
   hires: {
     type: Number,
     default: 0,

@@ -20,7 +20,7 @@ router.route("/changePassword/:userId").post(protect, isOwner, changePassword);
 router.route("/allEmployees").get(protect, isAdmin, findAllEmployees);
 router.route("/allEmployers").get(protect, isAdmin, findAllEmployers);
 router.route("/blockedUsers").get(protect, isAdmin, getAllBlockedUsers);
-router.route("/block/:_id").patch( blockUsers );
+router.route("/block/:_id").patch(blockUsers );
 router.route("/blacklist").put(protect, isAdmin, blacklistUsers);
 router.route("/removeBlacklist").put(protect, isAdmin, removeBlacklist)
 

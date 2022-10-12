@@ -13,6 +13,9 @@ import {
   CHANGE_PASSWORD_REQUEST,
   CHANGE_PASSWORD_SUCCESS,
   CHANGE_PASSWORD_FAIL,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAIL,
 } from "../contants/userConstants";
 import { axiosUserInstance } from "../contants/axios";
 
@@ -168,7 +171,7 @@ export const changePassword = (oldPass, newPass) => async (dispatch) => {
         type: CHANGE_PASSWORD_SUCCESS,
         message: "Incorrect Old Password!",
       });
-      console.log('sdsdfdfsdfsdfdsf');
+      console.log("sdsdfdfsdfsdfdsf");
     } else {
       dispatch({
         type: CHANGE_PASSWORD_SUCCESS,
@@ -185,4 +188,70 @@ export const changePassword = (oldPass, newPass) => async (dispatch) => {
   }
 };
 
+export const forgotPassword = (email) => async (dispatch) => {
+  try {
+    dispatch({
+      type: RESET_PASSWORD_REQUEST,
+    });
 
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const { data } = await axiosUserInstance.patch(
+      `/forgotPassword`,
+      { email },
+      config
+    );
+
+    console.log(data);
+
+    dispatch({
+      type: RESET_PASSWORD_SUCCESS,
+      message: data,
+    });
+    console.log(data);
+  } catch (error) {
+    dispatch({
+      type: RESET_PASSWORD_FAIL,
+      error: error,
+    });
+  }
+};
+
+export const forgotPasswordVerify =
+  (email, otp, password) => async (dispatch) => {
+    console.log(23);
+    try {
+      dispatch({
+        type: RESET_PASSWORD_REQUEST,
+      });
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const { data } = await axiosUserInstance.patch(
+        `/forgotPasswordVerify`,
+        { email, otp, password },
+        config
+      );
+
+      console.log(data);
+
+      dispatch({
+        type: RESET_PASSWORD_SUCCESS,
+        message: data,
+      });
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: RESET_PASSWORD_FAIL,
+        error: error,
+      });
+    }
+  };

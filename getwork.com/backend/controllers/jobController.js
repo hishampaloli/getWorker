@@ -5,6 +5,7 @@ import Jobs from "../models/jobsModal.js";
 import Employer from "../models/employerModel.js";
 import Proposals from "../models/proposalModal.js";
 import Admin from "../models/adminModel.js";
+import Notification from "../models/messageModal.js";
 
 export const postJobs = AsyncHandler(async (req, res) => {
   const { title, description, budget, deadline, level, searchTag } = req.body;
@@ -136,12 +137,22 @@ export const approveJob = AsyncHandler(async (req, res) => {
     });
 
     const escrow = admin.inEscrow.filter((el) => {
-      return el.proposal+"*" !== proposal._id+"*"
-    })
+      return el.proposal + "*" !== proposal._id + "*";
+    });
 
+    const noti = new Notification({
+      owner: employee.owner,
+      message:
+        "Congratulations for compliting your job, RS." +
+        proposal.bid -
+        (proposal.bid * 20) / 100 +
+        " have been added to your balance",
+    });
 
     employee.totalEarned =
       employee.totalEarned + (proposal.bid - (proposal.bid * 20) / 100);
+
+    employee.notification.push(noti._id);
 
     employee.pendingWithdraw =
       employee.pendingWithdraw + (proposal.bid - (proposal.bid * 20) / 100);
@@ -155,17 +166,17 @@ export const approveJob = AsyncHandler(async (req, res) => {
     employer.totalSpend = employer.totalSpend + proposal.bid;
 
     admin.balance = proposal.bid - (proposal.bid * 20) / 100;
-    admin.inEscrow = escrow
+    admin.inEscrow = escrow;
 
-    job.status = 'completed'
+    job.status = "completed";
     await admin.save();
     await employee.save();
-    await employer.save()
-    await job.save()
-
+    await employer.save();
+    await job.save();
+    await noti.save();
 
     res.json({
-     message: 'Success'
+      message: "Success",
     });
   } catch (error) {
     throw new Error(error);

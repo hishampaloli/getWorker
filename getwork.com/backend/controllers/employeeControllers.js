@@ -8,6 +8,7 @@ import cloudinary from "cloudinary";
 import BankDetails from "../models/bankDetailsModel.js";
 import Kyc from "../models/kycModel.js";
 import Portfolio from "../models/portfolioModel.js";
+import Notification from "../models/messageModal.js";
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -28,7 +29,8 @@ export const employeeProfile = AsyncHandler(async (req, res) => {
       .populate("portfolios")
       .populate("bankDetails")
       .populate("owner")
-      // .populate("activeContracts")
+      .populate("activeContracts")
+      .populate("notification")
       .populate("savedJobs")
       .populate("completedJobs");
     if (userData) {
@@ -369,5 +371,26 @@ export const removeSavedJobs = AsyncHandler(async (req, res) => {
   } catch (error) {
     console.log(error);
     throw new Error("Something went wrong");
+  }
+});
+
+export const deleteMessage = AsyncHandler(async (req, res) => {
+  try {
+    const { userId, id } = req.params;
+
+    const user = await Employee.findOne({ owner: userId });
+    const message = await Notification.findByIdAndDelete(id);
+
+    const noti = user.notification.filter((el) => {
+      console.log(el);
+      return el._id + "*" !== id + "*";
+    });
+
+    user.notification = noti;
+    await user.save();
+
+    res.json(noti);
+  } catch (error) {
+    throw new Error(error);
   }
 });

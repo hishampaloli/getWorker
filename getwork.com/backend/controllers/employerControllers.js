@@ -2,6 +2,7 @@ import AsyncHandler from "express-async-handler";
 import User from "../models/userModal.js";
 import Employer from "../models/employerModel.js";
 import Employee from "../models/employeeModal.js";
+import Notification from "../models/messageModal.js";
 
 // @DESC Gets all the employer data
 // @METHOD get
@@ -14,6 +15,7 @@ export const getEmployerProfile = AsyncHandler(async (req, res) => {
       // .populate("contractsPosted")
       .populate("owner")
       .populate("savedTalents")
+      .populate("notification")
       .populate({
         path: "savedTalents",
         populate: [
@@ -213,3 +215,27 @@ export const removeSavedTalent = AsyncHandler(async (req, res) => {
     res.json(error);
   }
 });
+
+
+
+export const deleteMessageEmployer = AsyncHandler(async (req, res) => {
+  try {
+    const { userId, id } = req.params;
+
+    const user = await Employer.findOne({ owner: userId });
+    const message = await Notification.findByIdAndDelete(id);
+
+    const noti = user.notification.filter((el) => {
+      console.log(el);
+      return el._id + "*" !== id + "*";
+    });
+
+    user.notification = noti;
+    await user.save();
+
+    res.json(noti);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+

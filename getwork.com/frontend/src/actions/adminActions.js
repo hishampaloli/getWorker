@@ -298,7 +298,7 @@ export const getAllKyc = (id) => async (dispatch, getState) => {
   }
 };
 
-export const acceptOrRejectKyc = (id, status) => async (dispatch, getState) => {
+export const acceptOrRejectKyc = (id, status, msg) => async (dispatch, getState) => {
   try {
     dispatch({
       type: KYC_STATUS_REQUEST,
@@ -314,9 +314,11 @@ export const acceptOrRejectKyc = (id, status) => async (dispatch, getState) => {
 
     const { data } = await axiosAdminInstance.post(
       `/acceptKyc`,
-      { id, status },
+      { id, status, msg },
       config
     );
+
+    console.log(data);
 
     dispatch({
       type: KYC_STATUS_SUCCESS,
