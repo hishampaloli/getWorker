@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import "./signup.css";
+import "./signup.scss";
 import { userRegister, verifyEmail } from "../../actions/UserAction";
 import {
   USER_REGISTER_SUCCESS,
