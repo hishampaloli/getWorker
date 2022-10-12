@@ -24,6 +24,7 @@
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
+    "sass": "^1.55.0",
     "swiper": "^8.4.2",
     "util": "^0.12.4",
     "web-vitals": "^2.1.4"

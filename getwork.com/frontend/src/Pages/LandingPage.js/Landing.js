@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import "./landing.css";
+import "./landing.scss";
 
 const Landing = () => {
   const navigate = useNavigate();

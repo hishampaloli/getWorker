@@ -15,7 +15,7 @@ const ProposalPage = () => {
   const jobsInfo = useSelector((state) => state.jobsDetail?.jobDetails);
   const user = useSelector((state) => state.user);
   const postProposalStatus = useSelector((state) => state.postProposalStatus);
-  
+
   const userProfile = useSelector((state) => state.employeeData);
 
   console.log(userProfile.userData?.connects);
@@ -25,28 +25,24 @@ const ProposalPage = () => {
   const [bid, setBid] = useState("");
   const [days, setDays] = useState("");
   const [alert, setAler] = useState(false);
-  const [msg, setMsg] = useState(false)
-
+  const [msg, setMsg] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (bid > jobsInfo?.budget || bid < 20 || days <= 0) {
-      
-    }else {
+    } else {
       if (userProfile.userData?.connects >= 5) {
         dispatch(postProposal(id, 5, cover, bid, days));
         setAler(true);
-    
+
         setTimeout(() => {
           setAler(false);
           navigate(`/user/proposals`);
         }, 1000);
-      }else {
-        setMsg(true)
+      } else {
+        setMsg(true);
       }
-     
     }
-   
   };
 
   return (
@@ -77,7 +73,9 @@ const ProposalPage = () => {
             </div>
 
             <div className="inp-div mt-3">
-              <label htmlFor="">Your Bid ({`₹20.00 - ₹${jobsInfo.budget}.00`})</label>
+              <label htmlFor="">
+                Your Bid ({`₹20.00 - ₹${jobsInfo.budget}.00`})
+              </label>
               <InputGroup className="mb-3 in">
                 <InputGroup.Text>$</InputGroup.Text>
                 <Form.Control
@@ -88,8 +86,19 @@ const ProposalPage = () => {
                 />
                 <InputGroup.Text>.00</InputGroup.Text>
               </InputGroup>
-              {(bid > jobsInfo?.budget || bid < 20) && bid !== '' ? <p style={{color: '#FF5454', fontSize: '12px', marginTop: '-10px'}}>Enter a amount between {`₹20.00 - ₹${jobsInfo?.budget}.00`}</p> : '' }
-              
+              {(bid > jobsInfo?.budget || bid < 20) && bid !== "" ? (
+                <p
+                  style={{
+                    color: "#FF5454",
+                    fontSize: "12px",
+                    marginTop: "-10px",
+                  }}
+                >
+                  Enter a amount between {`₹20.00 - ₹${jobsInfo?.budget}.00`}
+                </p>
+              ) : (
+                ""
+              )}
             </div>
             <div className="inp-div mt-3">
               <label htmlFor="">Days need to finish</label>
@@ -102,7 +111,19 @@ const ProposalPage = () => {
                 />
                 <InputGroup.Text>days</InputGroup.Text>
               </InputGroup>
-              {days <= 0 && days !== '' ? <p style={{color: '#FF5454', fontSize: '12px', marginTop: '-10px'}}>Days cannot be negative</p> : ''}
+              {days <= 0 && days !== "" ? (
+                <p
+                  style={{
+                    color: "#FF5454",
+                    fontSize: "12px",
+                    marginTop: "-10px",
+                  }}
+                >
+                  Days cannot be negative
+                </p>
+              ) : (
+                ""
+              )}
             </div>
             <button className="pp-btn" type="submit">
               Submit a proposal for 5 credits
@@ -120,7 +141,13 @@ const ProposalPage = () => {
               ""
             )}
 
-            {msg ? <Alert severity="error">No Credit available for sending the Proposal!</Alert>  : ''}
+            {msg ? (
+              <Alert severity="error">
+                No Credit available for sending the Proposal!
+              </Alert>
+            ) : (
+              ""
+            )}
           </div>
         </form>
       </div>
