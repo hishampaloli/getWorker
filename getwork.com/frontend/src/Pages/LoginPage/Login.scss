@@ -1,50 +1,50 @@
 .login {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    margin-bottom: 100px;
-}
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 100px;
 
-.login form {
+  form {
     width: 80%;
     max-width: 600px;
-}
+  }
 
-.login  .box {
+  .box {
     width: 100%;
-}
+  }
 
-.login h1 {
+  h1 {
     margin-bottom: 20px;
-}
-.login input {
+  }
+
+  input {
     width: 80%;
     margin: 10px;
     padding: 10px 15px;
     border: 1px solid #b7b7b7;
-    border-radius: 5px;;
+    border-radius: 5px;
     color: rgb(45, 45, 45);
-}
+  }
 
-.login .vt-inp {
+  .vt-inp {
     width: 80%;
     margin: 10px;
     margin-top: 0px;
     padding: 10px 15px;
     height: 50px;
     border: 1px solid #b7b7b7;
-    border-radius: 15px;;
+    border-radius: 15px;
     color: white;
-    background-color: #2C322B;
-}
+    background-color: #2c322b;
+  }
 
-.login .fg-p {
+  .fg-p {
     font-size: 12px;
     color: #0000ff;
-}
+  }
 
-.login .btn-1 {
-    background-color: #2C322B;
+  .btn-1 {
+    background-color: #2c322b;
     border: none;
     border-radius: 29px;
     height: 50px;
@@ -54,4 +54,5 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
 }
