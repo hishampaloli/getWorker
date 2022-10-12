@@ -37,7 +37,7 @@ const JobView = () => {
   useEffect(() => {
     console.log(id);
     dispatch(JobsDetails(id));
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="jobsDetails-view">
@@ -73,7 +73,10 @@ const JobView = () => {
               {jobsInfo?.status === "running" ? (
                 <Link >
                   <button
-                    onClick={() => dispatch(approveJob(jobsInfo?._id))}
+                    onClick={() => {
+                      dispatch(approveJob(jobsInfo?._id))
+                      navigate('/employer/jobs')
+                    }}
                     style={{ backgroundColor: "#3ccf4e" }}
                   >
                     Approve Job

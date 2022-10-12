@@ -62,12 +62,7 @@ export const postJobs =
       dispatch({
         type: JOBS_POST_REQUEST,
       });
-      console.log(title);
-      console.log(description);
-      console.log(budget);
-      console.log(deadline);
-      console.log(searchTag);
-      console.log(level);
+     
 
       const tokenId = JSON.parse(localStorage.getItem("userInfo"));
 

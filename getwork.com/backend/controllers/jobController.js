@@ -142,11 +142,7 @@ export const approveJob = AsyncHandler(async (req, res) => {
 
     const noti = new Notification({
       owner: employee.owner,
-      message:
-        "Congratulations for compliting your job, RS." +
-        proposal.bid -
-        (proposal.bid * 20) / 100 +
-        " have been added to your balance",
+      message: `Congratulations for compliting your job, RS.${proposal.bid - (proposal.bid * 20) / 100} have been added to your balance`,
     });
 
     employee.totalEarned =

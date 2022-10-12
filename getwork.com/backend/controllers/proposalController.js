@@ -6,6 +6,7 @@ import Employer from "../models/employerModel.js";
 import Proposals from "../models/proposalModal.js";
 import Notification from "../models/messageModal.js";
 import Admin from "../models/adminModel.js";
+import { mailTransport } from "../utils/mail.js";
 
 export const submitProposal = AsyncHandler(async (req, res) => {
   try {

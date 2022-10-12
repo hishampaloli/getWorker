@@ -35,15 +35,18 @@ import {
 import {
   allJobsReducer,
   jobsDetailsReducer,
+  jobsPostReducer,
   MyJobsReducer,
   saveJobsReducer,
 } from "./reducers/jobsReducer";
 import { JobsDetails } from "./actions/jobsActions";
 import {
+  acceptProposalReducer,
   MyProposalReducer,
   postProposalReducer,
   viewProposalReducer,
 } from "./reducers/proposalReducer";
+import { acceptProposal } from "./actions/proposalActions";
 
 const reducer = combineReducers({
   employee: userRegisterReducer,
@@ -76,13 +79,14 @@ const reducer = combineReducers({
   jobsDetail: jobsDetailsReducer,
   allJobs: allJobsReducer,
   saveStatus: saveJobsReducer,
+  jobPost: jobsPostReducer,
 
   postProposalStatus: postProposalReducer,
   myProposalsData: MyProposalReducer,
   viewProposal: viewProposalReducer,
+  acceptProposal: acceptProposalReducer,
 
   deleteMessage: deleteMessageReducer,
-
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

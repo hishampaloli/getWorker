@@ -2,25 +2,36 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { JobsDetails } from "../../../actions/jobsActions";
-import { acceptProposal, proposalState, viewProposals } from "../../../actions/proposalActions";
+import {
+  acceptProposal,
+  proposalState,
+  viewProposals,
+} from "../../../actions/proposalActions";
+import CustomSpinner from "../../customSpinner/CustomSpinner";
 import "./ViewProposal.css";
+import Alert from "@mui/material/Alert";
 
 const ViewProposal = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const viewProposal = useSelector((state) => state.viewProposal?.data);
   const user = useSelector((state) => state.user);
+  const acceptProposalData = useSelector((state) => state.acceptProposal);
+
+  console.log(acceptProposalData);
 
   const { id } = useParams();
   useEffect(() => {
     dispatch(viewProposals(id));
+    setMsg(false)
+    if(acceptProposalData.data) {
+      navigate('/employer/myposts')
+    }
   }, []);
 
   console.log(viewProposal);
 
-  const jobsInfo = [];
-
-  const [ed, setEd] = useState("");
+  const [msg, setMsg] = useState(false);
 
   return (
     <div className="jobsDetails-view">
@@ -64,7 +75,6 @@ const ViewProposal = () => {
                   onClick={(e) => {
                     dispatch(proposalState(viewProposal?._id, "rejected"));
                     navigate(`/jobs/${viewProposal?.jobs}`);
-                    dispatch(JobsDetails(viewProposal?.jobs));
                   }}
                 >
                   Reject
@@ -105,13 +115,50 @@ const ViewProposal = () => {
                   </button>{" "}
                 </>
               )}
-              {user.userInfo?.isBlocked ? <button style={{backgroundColor: '#FF6C6C'}} >Your account is Blocked</button> : <button onClick={() => dispatch(acceptProposal(viewProposal?._id,viewProposal?.bid))}>Accept Proposal</button>}
-              
+              {user.userInfo?.isBlocked ? (
+                <button style={{ backgroundColor: "#FF6C6C" }}>
+                  Your account is Blocked
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    dispatch(
+                      acceptProposal(viewProposal?._id, viewProposal?.bid)
+                    );
+                    setTimeout(() => {
+
+                    },1000)
+                    setMsg(true)
+                  }}
+                >
+                  Accept Proposal
+                </button>
+              )}
             </div>
           ) : (
             ""
           )}
         </div>
+
+        {acceptProposalData.loading ? (
+          <div
+            style={{ width: "90%", display: "flex", justifyContent: "center" }}
+          >
+            <CustomSpinner />
+          </div>
+        ) : (
+          ""
+        )}
+
+        {acceptProposalData.data && msg ? (
+          <Alert severity="success">Contract started succussfully</Alert>
+        ) : msg ? (
+          <Alert severity="error">
+            No balance to start the Contract, please recharge
+          </Alert>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

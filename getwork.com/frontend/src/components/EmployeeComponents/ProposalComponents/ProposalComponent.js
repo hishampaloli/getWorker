@@ -22,7 +22,7 @@ const ProposalComponent = ({ proposals, sort }) => {
       style={{
         width: "100%",
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "column-reverse",
         justifyContent: "center",
         alignItems: "center",
       }}

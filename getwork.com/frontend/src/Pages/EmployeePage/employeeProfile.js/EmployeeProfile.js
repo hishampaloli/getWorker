@@ -146,12 +146,12 @@ const EmployeeProfile = () => {
             <div className="left">
               <div className="left-top">
                 <span>
-                  <strong>${userData?.totalEarned}</strong>
+                  <strong>${userData?.totalEarned?.toString().slice(0, 6)}</strong>
                   <p>Total Earnings</p>
                 </span>
 
                 <span>
-                  <strong>${userData?.pendingWithdraw}</strong>
+                  <strong>${userData?.pendingWithdraw?.toString().slice(0, 6)}</strong>
                   <p>Pending withdraw</p>
                 </span>
               </div>

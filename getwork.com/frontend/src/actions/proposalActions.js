@@ -1,6 +1,9 @@
 import { axiosProposalInstance } from "../contants/axios";
 
 import {
+  ACCEPT_PROPOSAL_FAIL,
+  ACCEPT_PROPOSAL_REQUEST,
+  ACCEPT_PROPOSAL_SUCCUSS,
   MY_PROPOSAL_FAIL,
   MY_PROPOSAL_REQUEST,
   MY_PROPOSAL_SUCCUSS,
@@ -113,8 +116,6 @@ export const viewProposals = (id) => async (dispatch) => {
   }
 };
 
-
-
 export const proposalState = (id, status) => async (dispatch) => {
   try {
     // dispatch({
@@ -132,7 +133,7 @@ export const proposalState = (id, status) => async (dispatch) => {
 
     const { data } = await axiosProposalInstance.patch(
       `updateProposal/${tokenId?._id}/${id}`,
-      {status},
+      { status },
       config
     );
 
@@ -150,15 +151,11 @@ export const proposalState = (id, status) => async (dispatch) => {
   }
 };
 
-
-
-
-export const acceptProposal = (id, totalAmount ) => async (dispatch) => {
+export const acceptProposal = (id, totalAmount) => async (dispatch) => {
   try {
-
-    // dispatch({
-    //   type: VIEW_PROPOSAL_REQUEST,
-    // });
+    dispatch({
+      type: ACCEPT_PROPOSAL_REQUEST,
+    });
 
     const tokenId = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -172,19 +169,19 @@ export const acceptProposal = (id, totalAmount ) => async (dispatch) => {
     console.log(id);
     const { data } = await axiosProposalInstance.post(
       `/acceptProposal/${tokenId._id}/${id}`,
-      {totalAmount },
+      { totalAmount },
       config
     );
 
     console.log(data);
 
-    // dispatch({
-    //   type: VIEW_PROPOSAL_SUCCUSS,
-    //   payload: data,
-    // });
+    dispatch({
+      type: ACCEPT_PROPOSAL_SUCCUSS,
+      payload: data,
+    });
   } catch (error) {
     dispatch({
-      type: VIEW_PROPOSAL_REQUEST,
+      type: ACCEPT_PROPOSAL_FAIL,
       error: error,
     });
   }
