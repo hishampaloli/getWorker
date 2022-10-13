@@ -157,7 +157,7 @@ const Login = () => {
       ) : (
         <form onSubmit={handleLogin}>
           <div className="box">
-            <h1>Login to Getwork</h1>
+            <h1>Login to <span style={{color: '#3ccf4e'}}>Getwork</span> </h1>
 
             <input
               onChange={(e) => setEmail(e.target.value)}
