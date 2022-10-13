@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { adminProfile } from "../../../actions/adminActions";
 import Spinner from 'react-bootstrap/Spinner';
 import { PieChart } from "react-minimal-pie-chart";
-import "./AdminProfile.css";
+import "./AdminProfile.scss";
 import { changePassword } from "../../../actions/UserAction";
 import CustomSpinner from "../../../components/customSpinner/CustomSpinner";
 
@@ -48,7 +48,7 @@ const AdminProfile = () => {
 
   return (
     <div className="adminProfile">
-      <div className="left">
+      <div className="leftt">
         <div className="top">
           <h3>Welcome back</h3>
         </div>

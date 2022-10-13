@@ -40,6 +40,10 @@ export const getEmployerProfile = AsyncHandler(async (req, res) => {
 });
 
 
+// @DESC Gets all the employer data 
+// @METHOD get
+// @PATH /employer/profile/:userId/:id
+
 export const getEmployerProfileData = AsyncHandler(async (req, res) => {
   const { userId, id } = req.params;
   try {
@@ -217,6 +221,11 @@ export const removeSavedTalent = AsyncHandler(async (req, res) => {
   }
 });
 
+
+
+// @DESC Delete employer notification
+// @METHOD delete
+// @PATH employer/deleteMessage/:userId/:id
 
 
 export const deleteMessageEmployer = AsyncHandler(async (req, res) => {

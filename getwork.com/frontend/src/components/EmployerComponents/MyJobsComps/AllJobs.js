@@ -6,7 +6,7 @@ import Alert from "@mui/material/Alert";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import Spinner from "react-bootstrap/Spinner";
-import "./jobss.css";
+import "./jobss.scss";
 import CustomSpinner from "../../customSpinner/CustomSpinner";
 import MyjobsComponents from "../EmployerProfile-1/MyjobsComponents";
 

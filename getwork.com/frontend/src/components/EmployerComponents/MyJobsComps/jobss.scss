@@ -1,0 +1,163 @@
+.jobPostPage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.jobPost-box {
+  width: 100%;
+  background-color: white;
+  border-radius: 5px;
+  margin-bottom: 20px;
+
+  .top {
+    padding: 10px 20px;
+    border-bottom: 2px solid rgba(211, 211, 211, 0.737);
+    button {
+      border: none;
+      background-color: white;
+      padding: 10px;
+      margin-left: 30px;
+      transition: 0.3s all;
+      color: #1d201d;
+    }
+    
+  }
+
+  .bottom {
+    padding: 20px;
+  }
+
+  .middle {
+    width: 100%;
+    padding: 20px 15px;
+    border-bottom: 2px solid #f1f2f4;
+
+    form {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
+
+.btn {
+  color: #000000;
+  font-weight: bold;
+}
+
+.hbtn {
+  color: #3ccf4e;
+}
+
+
+
+
+.jobPost-box .middle form input {
+  width: 73%;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 1px solid rgb(95, 95, 95);
+}
+
+.jobPost-box .middle form button {
+  background-color: #3ccf4e;
+  border-radius: 10px;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  margin-left: 5px;
+}
+
+.jobPost-box .bottom {
+  padding: 20px 15px;
+  width: 100%;
+}
+
+.jobPost-box .bottom .talent-result {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 30px;
+  align-items: center;
+  background-color: #f1f2f4;
+  margin-top: 10px;
+  border-radius: 10px;
+  transition: 0.3s ease;
+}
+
+.ajobPost-box .bottom .talent-result:hover {
+  background-color: #1d4354;
+  border-radius: 23px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.jobPost-box .bottom .talent-result:hover > .esr {
+  color: white;
+}
+.jobPost-box .bottom .talent-result .t-left {
+  display: flex;
+  align-items: center;
+}
+
+.jobPost-box .bottom .talent-result .t-left img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.jobPost-box .bottom .talent-result .t-left div {
+  margin-left: 10px;
+}
+
+.jobPost-box .bottom .talent-result .t-left div h4 {
+  margin-top: -10px;
+}
+
+.jobPost-box .bottom .talent-result .t-right button {
+  background-color: #3ccf4e;
+  border-radius: 35px;
+  color: white;
+}
+
+.jobPost-box .blacklist-main {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+
+.adminUserPage .blacklist-main .blacklist-box {
+  width: 200px;
+  height: 300px;
+  border-radius: 5px;
+  background-color: rgb(243, 243, 243);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+}
+
+@media (max-width: 820px) {
+  .adminUserPage .adminUserPage-box {
+    width: 90%;
+  }
+}
+
+@media (max-width: 630px) {
+  .adminUserPage-box .bottom .talent-result {
+    flex-direction: column;
+  }
+
+  .adminUserPage-box .bottom .talent-result .t-left {
+    flex-direction: column;
+    align-items: center;
+  }
+  .adminUserPage-box .bottom .talent-result .t-left div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .adminUserPage-box .bottom .talent-result .t-right {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+}

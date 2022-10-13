@@ -7,6 +7,13 @@ import Proposals from "../models/proposalModal.js";
 import Admin from "../models/adminModel.js";
 import Notification from "../models/messageModal.js";
 
+
+
+// @DESC employers can post jobs
+// @METHOD post
+// @PATH employer/postJob/:userId
+
+
 export const postJobs = AsyncHandler(async (req, res) => {
   const { title, description, budget, deadline, level, searchTag } = req.body;
   const { userId } = req.params;
@@ -39,6 +46,13 @@ export const postJobs = AsyncHandler(async (req, res) => {
   }
 });
 
+
+
+// @DESC employers can see the jobs posted by them
+// @METHOD get
+// @PATH employer/mypost/:userId
+
+
 export const myJobs = AsyncHandler(async (req, res) => {
   try {
     const { userId } = req.params;
@@ -66,6 +80,13 @@ export const myJobs = AsyncHandler(async (req, res) => {
   }
 });
 
+
+
+// @DESC get the data of all the jobs in the data base
+// @METHOD get
+// @PATH employer/getAllJobs
+
+
 export const getAllJobs = AsyncHandler(async (req, res) => {
   try {
     const allJobs = await Jobs.find({ status: "active" });
@@ -80,6 +101,12 @@ export const getAllJobs = AsyncHandler(async (req, res) => {
     throw new Error("Something went wrong");
   }
 });
+
+
+// @DESC employers can change the status of the job to cancel
+// @METHOD get
+// @PATH employer/jobsStatus/:userId/:id
+
 
 export const endJob = AsyncHandler(async (req, res) => {
   try {
@@ -96,6 +123,13 @@ export const endJob = AsyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+
+
+// @DESC gets the data of a particular job post
+// @METHOD get
+// @PATH employer/jobs/:id
+
 
 export const jobView = AsyncHandler(async (req, res) => {
   try {
@@ -142,7 +176,9 @@ export const approveJob = AsyncHandler(async (req, res) => {
 
     const noti = new Notification({
       owner: employee.owner,
-      message: `Congratulations for compliting your job, RS.${proposal.bid - (proposal.bid * 20) / 100} have been added to your balance`,
+      message: `Congratulations for compliting your job, RS.${
+        proposal.bid - (proposal.bid * 20) / 100
+      } have been added to your balance`,
     });
 
     employee.totalEarned =
@@ -161,7 +197,7 @@ export const approveJob = AsyncHandler(async (req, res) => {
     employer.hires = employer.hires + 1;
     employer.totalSpend = employer.totalSpend + proposal.bid;
 
-    admin.balance = proposal.bid - (proposal.bid * 20) / 100;
+    admin.balance = admin.balance + (proposal.bid - (proposal.bid * 20) / 100);
     admin.inEscrow = escrow;
 
     job.status = "completed";

@@ -319,6 +319,11 @@ export const deletePortFolio = AsyncHandler(async (req, res) => {
   });
 });
 
+
+// @DESC Employees can save jobs 
+// @METHOD get
+// @PATH /employee/saveJobs/:userId/:id
+
 export const saveJobs = AsyncHandler(async (req, res) => {
   const { id } = req.params;
   const { userId } = req.params;
@@ -342,6 +347,10 @@ export const saveJobs = AsyncHandler(async (req, res) => {
     throw new Error("something went wrong");
   }
 });
+
+// @DESC Employees can unsave jobs 
+// @METHOD delete
+// @PATH /employee/saveJobs/:userId/:id
 
 export const removeSavedJobs = AsyncHandler(async (req, res) => {
   const { id } = req.params;
@@ -373,6 +382,10 @@ export const removeSavedJobs = AsyncHandler(async (req, res) => {
     throw new Error("Something went wrong");
   }
 });
+
+// @DESC Employees can deleteNotifications
+// @METHOD delete
+// @PATH /employee/deleteMessage/:userId/:id
 
 export const deleteMessage = AsyncHandler(async (req, res) => {
   try {
