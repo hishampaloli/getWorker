@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./employeeProfile.css";
+import "./employeeProfile.scss";
 import {
   deletePortfolio,
   getEmployeeProfile,

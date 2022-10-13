@@ -4,7 +4,7 @@ import {
 
   getEmployeeProfileView,
 } from "../../../actions/EmplyeeActions";
-import "../employeeProfile.js/employeeProfile.css";
+import "../employeeProfile.js/employeeProfile.scss";
 import { EffectCards } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
