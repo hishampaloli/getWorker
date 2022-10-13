@@ -17,11 +17,9 @@ const MyPosts = () => {
   const user = useSelector((state) => state.user);
   const myJobsData = useSelector((state) => state.myJobs);
 
-  
   const activeJobs = myJobsData?.myJobs?.filter((el) => {
     return el.status === "active";
   });
-
 
   const completedJobs = myJobsData?.myJobs?.filter((el) => {
     return el.status === "completed";
@@ -59,12 +57,49 @@ const MyPosts = () => {
     <div className="postJobs">
       <div className="post-box">
         <div className="header">
-          <button style={  ed === 'active' ? { backgroundColor: '#1d4354', color: 'white'} : {} }    onClick={() => setEd("active")}>Active Jobs</button>
-          <button style={  ed === 'completed' ?  { backgroundColor: '#1d4354', color: 'white'} : {} } onClick={() => setEd("completed")}>Completed Jobs</button>
-          <button style={  ed === 'running' ?  { backgroundColor: '#1d4354', color: 'white'} : {} } onClick={() => setEd("running")}>On going Jobs</button>
-          <button style={  ed === 'archive' ?  { backgroundColor: '#1d4354', color: 'white'} : {} } onClick={() => setEd("archive")}>Archived Jobs</button>
+          <button
+            style={
+              ed === "active"
+                ? { backgroundColor: "#1d4354", color: "white" }
+                : {}
+            }
+            onClick={() => setEd("active")}
+          >
+            Active Jobs
+          </button>
+
+          <button
+            style={
+              ed === "running"
+                ? { backgroundColor: "#1d4354", color: "white" }
+                : {}
+            }
+            onClick={() => setEd("running")}
+          >
+            On going Jobs
+          </button>
+          <button
+            style={
+              ed === "completed"
+                ? { backgroundColor: "#1d4354", color: "white" }
+                : {}
+            }
+            onClick={() => setEd("completed")}
+          >
+            Completed Jobs
+          </button>
+          <button
+            style={
+              ed === "archive"
+                ? { backgroundColor: "#1d4354", color: "white" }
+                : {}
+            }
+            onClick={() => setEd("archive")}
+          >
+            Archived Jobs
+          </button>
         </div>
-        <form onSubmit={handleSubmit} className="jobs-search">
+        <form style={{padding: '0px 20px'}} onSubmit={handleSubmit} className="jobs-search">
           <input
             style={{ width: "81%" }}
             type="text"

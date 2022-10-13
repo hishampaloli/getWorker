@@ -2,7 +2,18 @@
   display: flex;
   padding: 20px;
   justify-content: space-between;
+  button {
+    border:  none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    a {
+      text-decoration: none;
+      color: white;
+    }
+  }
 }
+
+
 
 .findTalents .save-alert {
   position: fixed;
@@ -19,6 +30,10 @@
   padding-top: 30px;
 }
 
+.findTalents .left .lef-close-icn {
+  display: none;
+}
+
 .findTalents .left .main-cate-div {
   margin-bottom: 30px;
 }
@@ -28,10 +43,12 @@
   font-weight: 500;
 }
 
+
+
 .findTalents .left .cate-div {
   display: flex;
   align-items: center;
-  width: 70%;
+  width: 100%;
   justify-content: space-between;
 }
 
@@ -62,11 +79,17 @@
   color: #3ccf4e;
 }
 
+.findTalents .right .top .set-icn {
+  display: none;
+}
+
 .findTalents .right .top .btn {
-  color: #3ccf4e;
+  color: #ffffff;
+  background-color: #1d4354;
 }
 
 .findTalents .right .top .btn-k {
+  background-color: #ffffff;
   color: #4a4a4a;
 }
 
@@ -75,6 +98,7 @@
   padding: 20px 15px;
   border-bottom: 2px solid #f1f2f4;
 }
+
 .findTalents .right .middle form {
   display: flex;
   justify-content: center;
@@ -117,8 +141,10 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
+
 .findTalents .right .bottom .talent-result .t-left {
   display: flex;
+  width: 70%;
   align-items: center;
   color: rgb(125, 125, 125);
 }
@@ -141,6 +167,7 @@
   background-color: #3ccf4e;
   border-radius: 35px;
   color: white;
+  margin-right: 10px;
   transition: .3s ease;
 }
 
@@ -151,4 +178,76 @@
 
 .findTalents .right .bottom .talent-result .t-right .hb-btn {
   color: #3ccf4e;
+}
+
+
+
+
+@media (max-width: 850px) {
+  .findTalents {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .findTalents .right {
+    width: 90%;
+  }
+
+  .findTalents .left  {
+    width: 270px;
+    transform: translateX(200%);
+    margin-top: 40px;
+    position: relative;
+  }
+
+  .findTalents .left.show {
+    position: fixed;
+    transform: translateX(0);
+    top: 80px;
+    right: 0px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+  .findTalents .right .top .set-icn {
+    display: inline;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+
+  .findTalents .left .lef-close-icn {
+    display: inline;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    padding: 5px;
+    background-color:#FF6C6C;
+    color: white;
+    border-radius: 50%;
+  }
+}
+
+
+@media (max-width: 850px) {
+  .findTalents .right .bottom .talent-result .t-left {
+    width: 50%;
+  }
+}
+
+
+@media (max-width:630px) {
+  .findTalents .right .bottom .talent-result .t-left {
+    width: 100%;
+  }
+
+  .findTalents .right .bottom .talent-result .t-right {
+    width: 90%;
+    margin-top: 20px;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+  } 
+  .findTalents .right .bottom .talent-result {
+    flex-direction: column;
+  }
+
 }
