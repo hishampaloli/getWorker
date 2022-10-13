@@ -49,7 +49,7 @@ const EmployeeJobsPage = () => {
           
           
         </div>
-        <form className="jobs-search">
+        <form className="jobs-search" style={{padding: '0px 20px'}}>
           <input
             style={{ width: "81%" }}
             type="text"

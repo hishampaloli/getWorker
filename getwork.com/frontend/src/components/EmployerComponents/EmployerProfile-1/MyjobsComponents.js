@@ -1,6 +1,6 @@
 import React from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import "./myjobs.css";
+import "./myjobs.scss";
 import { Link } from "react-router-dom";
 
 const MyjobsComponents = ({ jobs }) => {
