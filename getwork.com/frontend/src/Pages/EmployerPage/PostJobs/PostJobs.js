@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { postJobs } from "../../../actions/jobsActions";
 import CustomSpinner from "../../../components/customSpinner/CustomSpinner";
 import Alert from "@mui/material/Alert";
-import "./PostJobs.css";
+import "./PostJobs.scss";
 import { useNavigate } from "react-router-dom";
 
 const PostJobs = () => {

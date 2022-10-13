@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../../actions/UserAction";
-import "./header.css";
+import "./header.scss";
 import Dropdown from "react-bootstrap/Dropdown";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { deleteMessageEmployee, getEmployeeProfile } from "../../actions/EmplyeeActions";
@@ -33,7 +33,7 @@ const Header = () => {
   };
 
   return (
-    <div style={{ width: "100%" }}>
+    <div className="main-header" style={{ width: "100%" }}>
       <header>
         <div className="left">
           <Link style={{ color: "white", textDecoration: "none" }} to="/">

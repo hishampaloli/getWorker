@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { getEmployerProfile } from "../../../actions/EmployerActions";
 import { myJobs } from "../../../actions/jobsActions";
 import MyjobsComponents from "../../../components/EmployerComponents/EmployerProfile-1/MyjobsComponents";
-import "./EmployerPage.css";
+import "./EmployerPage.scss";
 
 const EmployerHome = () => {
   const dispatch = useDispatch();
