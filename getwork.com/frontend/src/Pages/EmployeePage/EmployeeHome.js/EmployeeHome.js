@@ -5,7 +5,7 @@ import { getAllJobs } from "../../../actions/jobsActions";
 import { logout } from "../../../actions/UserAction";
 import EmpJobsComponents from "../../../components/EmployeeComponents/JobsComponent/EmpJobsComponents";
 import SavedJobs from "../../../components/EmployeeComponents/SavedJobs/SavedJobs";
-import "./EmployeeHome.css";
+import "./EmployeeHome.scss";
 import Alert from "@mui/material/Alert";
 import { getEmployeeProfile } from "../../../actions/EmplyeeActions";
 import DateObject from "react-date-object";
