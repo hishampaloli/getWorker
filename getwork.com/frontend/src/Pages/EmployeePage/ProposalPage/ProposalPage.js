@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./PropodalPage.css";
+import "./PropodalPage.scss";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { useDispatch, useSelector } from "react-redux";

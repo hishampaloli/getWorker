@@ -80,9 +80,9 @@ const EmployeeHome = () => {
                   saved Jobs
                 </button>
               </div>
-              <form onSubmit={handleSubmit} className="jobs-search">
+              <form onSubmit={handleSubmit} style={{width: '100%'}} className="jobs-search">
                 <input
-                  style={{ width: "81%" }}
+                  style={{ width: "80%" }}
                   type="text"
                   onChange={(e) => setKeyword(e.target.value)}
                 />
