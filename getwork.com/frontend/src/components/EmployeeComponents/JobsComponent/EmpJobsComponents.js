@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./emplJobscom.css";
+import "./emplJobscom.scss";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
@@ -53,6 +53,8 @@ const EmpJobsComponents = ({ jobs, sv }) => {
                  
                 </div>
 
+                <div className="btn-group">
+
                 <Link to={`/jobs/${job?._id}`}>
                   <button style={{ marginLeft: "auto" }} className="eyebtnnn">
                     <VisibilityIcon />
@@ -80,10 +82,12 @@ const EmpJobsComponents = ({ jobs, sv }) => {
                     </button>
                   </Link>
                 )}
+                </div>
               </div>
             );
           })
         : ""}
+        
     </div>
   );
 };
