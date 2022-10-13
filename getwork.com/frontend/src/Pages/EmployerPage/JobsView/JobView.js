@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import "./JobsView.css";
+import "./JobsView.scss";
 import { approveJob, cancelJob, JobsDetails } from "../../../actions/jobsActions";
 import AllProposal from "../../EmployeePage/AllProposal/AllProposal";
 import ProposalComponent from "../../../components/EmployeeComponents/ProposalComponents/ProposalComponent";
