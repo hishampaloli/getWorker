@@ -1,0 +1,225 @@
+.employerProfile {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px;
+
+  .opn-chev {
+    display: none;
+  }
+
+  .left {
+    width: 30%;
+    background-color: white;
+    border-radius: 25px;
+    max-height: 600px;
+
+    .left-top {
+      border-bottom: 1px solid #ebebeb;
+      height: 200px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 25px;
+
+      img {
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+      }
+      p {
+        font-weight: 500px;
+        color: rgb(47, 47, 47);
+        margin-top: 20px;
+      }
+    }
+  }
+
+  .left.show {
+    display: none;
+  }
+
+}
+
+.employerProfile .left .left-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 25px;
+  button {
+    border: 1px solid #aaaaaa;
+    border-radius: 10px;
+    padding: 15px 30px;
+    margin: 10px;
+    width: 100%;
+    transition: 0.3s ease;
+  }
+
+  .btn {
+    background-color: white;
+  }
+
+  .btn-a {
+    background-color: #1d4354;
+    color: white;
+  }
+}
+
+.employerProfile .right {
+  width: 65%;
+  min-height: 500px;
+  background-color: white;
+  border-radius: 25px;
+
+  .employerProfile1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: relative;
+
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 87%;
+
+      .min-box {
+        width: 48%;
+        height: 200px;
+        background-color: #1d4354;
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        color: white;
+
+        strong {
+          z-index: 2;
+        }
+      }
+    }
+
+    .bottom {
+      width: 87%;
+      display: flex;
+      justify-content: center;
+
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        button {
+          width: 100%;
+          border: 1px solid;
+          border-radius: 5px;
+          padding: 10px 15px;
+          color: white;
+          background-color: #3ccf4e;
+          margin-top: 20px;
+        }
+      }
+
+      .row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        flex-wrap: nowrap;
+        margin-top: 30px;
+      }
+    }
+  }
+}
+
+.employerProfile .right .employerProfile1 .bottom form input {
+  border: 1px solid #aaaaaa;
+  padding: 10px 20px;
+  width: 49%;
+  border-radius: 5px;
+  transition: 0.3s all;
+}
+
+.employerProfile .right .employerProfile1 .bottom form input:focus {
+  outline: none;
+  border-radius: 15px;
+  border: 1px solid #1d4354;
+  background-color: #1d4354;
+  color: white;
+}
+
+.sdf {
+    text-align: center;
+    margin-top: 2px;
+    margin-left: 20px;
+    position: absolute;
+}
+
+@media (max-width: 800px) {
+  .employerProfile {
+
+    flex-direction: column-reverse;
+    .opn-chev {
+      display: inline;
+      position: absolute;
+      top: 105px;
+      background-color: #1d4354;
+      color: white;
+      left: 5px;
+      border-radius: 3px;
+    }
+
+    .left {
+      display: none;
+    }
+
+    .left.show {
+        width: 300px;
+        z-index: 40;
+        position: absolute;
+        top: 130px;
+        display: inline;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      }
+
+    .right {
+      width: 100%;
+      z-index: -1;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .left {
+    display: none;
+  }
+
+  .employerProfile .right {
+    .employerProfile1 {
+      .top {
+        flex-direction: column;
+        width: 90%;
+        .min-box {
+          width: 100%;
+          margin-top: 10px;
+        }
+      }
+
+      .bottom {
+        .row {
+          flex-direction: column;
+        }
+      }
+    }
+  }
+
+  .employerProfile .right .employerProfile1 .bottom form input {
+    width: 100%;
+    margin-top: 5px;
+  }
+}

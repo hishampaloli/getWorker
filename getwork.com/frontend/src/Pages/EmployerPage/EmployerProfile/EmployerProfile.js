@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getEmployerProfile } from "../../../actions/EmployerActions";
 import EmployerProfile1 from "../../../components/EmployerComponents/EmployerProfile-1/EmployerProfile1";
-import "./EmployerProfile.css";
+import "./EmployerProfile.scss";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import AllJobs from "../../../components/EmployerComponents/MyJobsComps/AllJobs";
 
 const EmployerProfile = () => {
   const navigate = useNavigate();
@@ -11,11 +14,11 @@ const EmployerProfile = () => {
   const user = useSelector((state) => state.user);
   const employerData = useSelector((state) => state.employerData);
 
+  console.log(employerData.userInfo?.completedJobs);
+
   const [ed, setEd] = useState("profile");
+  const [show, setShow] = useState(false);
 
-  console.log(employerData);
-
-  console.log(employerData);
   useEffect(() => {
     if (!user?.userInfo) {
       navigate("/login");
@@ -30,10 +33,15 @@ const EmployerProfile = () => {
     dispatch(getEmployerProfile());
   }, [user]);
 
-
   return (
     <div className="employerProfile">
-      <div className="left">
+      {show ? (
+        <ChevronLeftIcon onClick={() => setShow(!show)} className="opn-chev" />
+      ) : (
+        <ChevronRightIcon onClick={() => setShow(!show)} className="opn-chev" />
+      )}
+
+      <div className={show ? "left show" : "left"}>
         <div className="left-top">
           {employerData?.userInfo?.image ? (
             <img src={employerData?.userInfo?.image} alt="" />
@@ -47,15 +55,35 @@ const EmployerProfile = () => {
         </div>
 
         <div className="left-bottom">
-          <button className={ed === 'profile' ? 'btn-a' : 'btn'} onClick={(e) => setEd("profile")}>My profile</button>
-          <button className={ed === 'jobs' ? 'btn-a' : 'btn'} onClick={(e) => setEd("jobs")}>Jobs History</button>
-          <button className={ed === '' ? 'btn-a' : 'btn'} onClick={(e) => setEd("")}>Parchase History</button>
+          <button
+            className={ed === "profile" ? "btn-a" : "btn"}
+            onClick={(e) => setEd("profile")}
+          >
+            My profile
+          </button>
+          <button
+            className={ed === "jobs" ? "btn-a" : "btn"}
+            onClick={(e) => setEd("jobs")}
+          >
+            Jobs History
+          </button>
+          <button
+            className={ed === "" ? "btn-a" : "btn"}
+            onClick={(e) => setEd("")}
+          >
+            Parchase History
+          </button>
         </div>
       </div>
 
       <div className="right">
         {ed === "profile" ? (
           <EmployerProfile1 employerData={employerData} />
+        ) : ed === "jobs" ? (
+          <>
+          <h3 className="sdf">Completed Jobs</h3>
+            <AllJobs jobs={employerData.userInfo?.completedJobs} />
+          </>
         ) : (
           ""
         )}

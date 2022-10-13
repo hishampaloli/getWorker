@@ -16,6 +16,7 @@ export const getEmployerProfile = AsyncHandler(async (req, res) => {
       .populate("owner")
       .populate("savedTalents")
       .populate("notification")
+      .populate("completedJobs")
       .populate({
         path: "savedTalents",
         populate: [
