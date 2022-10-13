@@ -94,7 +94,7 @@ const PostJobs = () => {
               ))}
             </div>
 
-            <div className="row">
+            <div className="row-2">
               <input
                 onChange={(e) => setBudget(e.target.value)}
                 type="number"
@@ -125,9 +125,11 @@ const PostJobs = () => {
                 <option value="advanced">Advanced</option>
               </select>
             </div>
+
+            <div className="btn-div-">
             {user.userInfo?.isBlocked ? (
-              <button
-                style={{ backgroundColor: "#FF6C6C", width: "230px" }}
+              <button className="blk-btn"
+                style={{ backgroundColor: "#FF6C6C"}}
                 disabled
               >
                 Your accound is Blocked
@@ -136,6 +138,8 @@ const PostJobs = () => {
               <button type="submit">Post Jobs</button>
               
             )}
+            </div>
+            
             {jobPost?.loading ? <CustomSpinner /> : ""}
             {jobPost?.message && msg ? (
               <Alert style={{width: '90%'}} className='mb-3' severity="info">
