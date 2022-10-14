@@ -34,7 +34,7 @@ export const adminProfile = AsyncHandler(async (req, res) => {
     const jobs = await Jobs.find();
 
     if (user) {
-      res.json({
+      res.status(200).json({
         adminData: user,
         emplyeeLength: employee.length,
         emplyerLength: employer.length,
@@ -42,8 +42,8 @@ export const adminProfile = AsyncHandler(async (req, res) => {
       });
     }
   } catch (error) {
-    res.json(error);
-    res.json(error);
+    res.status(403)
+    throw new Error(error)
   }
 });
 
@@ -66,9 +66,10 @@ export const findAllEmployees = AsyncHandler(async (req, res) => {
       userType: "employee",
       emailVerified: true,
     }).populate("employeeData");
-    res.json(allEmployees);
+    res.status(200).json(allEmployees);
   } catch (error) {
-    res.json(error);
+    res.status(403)
+    throw new Error(error);
   }
 });
 
@@ -92,9 +93,10 @@ export const findAllEmployers = AsyncHandler(async (req, res) => {
       emailVerified: true,
     }).populate("employerData");
 
-    res.json(allEmployers);
+    res.status(200).json(allEmployers);
   } catch (error) {
-    res.json(error);
+    res.status(403)
+    throw new Error(error)
   }
 });
 
@@ -118,14 +120,15 @@ export const getAllBlockedUsers = AsyncHandler(async (req, res) => {
       .populate("employerData")
       .populate("employeeData");
     if (blockedUsers) {
-      res.json(blockedUsers);
+      res.status(201).json(blockedUsers);
     } else {
-      res.json({
+      res.status(200).json({
         messaged: "no blocked users",
       });
     }
   } catch (error) {
-    res.json(error);
+    res.status(403)
+    throw new Error(error)
   }
 });
 
@@ -170,8 +173,6 @@ export const blockUsers = AsyncHandler(async (req, res) => {
     user.isBlocked = !user.isBlocked;
     await user.save();
 
-    console.log(user.email + "3e45678");
-
     mailTransport().sendMail({
       from: "getworkverification@email.com",
       to: `${user.email}`,
@@ -182,10 +183,11 @@ export const blockUsers = AsyncHandler(async (req, res) => {
       </div>`,
     });
 
-    res.json(user);
+    res.status(200).json(user);
 
   } catch (error) {
-    res.json(error);
+    res.status(403)
+    throw new Error(error)
   }
 });
 
@@ -212,12 +214,13 @@ export const blacklistUsers = AsyncHandler(async (req, res) => {
     if (a == 0) {
       adminData.blacklistedUsers.push(id);
       await adminData.save();
-      res.json(adminData);
+      res.status(201).json(adminData);
     } else {
-      res.json("");
+      res.status(403).json("");
     }
   } catch (error) {
-    res.json(error);
+    res.status(403)
+    throw new Error(error)
   }
 });
 
@@ -240,9 +243,10 @@ export const removeBlacklist = AsyncHandler(async (req, res) => {
     adminData.blacklistedUsers = arr;
     await adminData.save();
 
-    res.json(adminData);
+    res.status(201).json(adminData);
   } catch (error) {
-    res.json(error);
+    res.status(403)
+    throw new Error(error)
   }
 });
 
@@ -256,9 +260,10 @@ export const getAllKyc = AsyncHandler(async (req, res) => {
 
     const kycData = await Kyc.find({}).populate("owner");
 
-    res.json(kycData);
+    res.status(200).json(kycData);
   } catch (error) {
-    res.json(error);
+    res.status(403)
+    throw new Error(error)
   }
 });
 
@@ -328,11 +333,11 @@ export const acceptNrejectKyc = AsyncHandler(async (req, res) => {
       }
     }
 
-    res.json({
+    res.status(200).json({
       kyc: kycDetail,
       user: userDetail,
     });
   } catch (error) {
-    res.json(error);
+    res.status(403)
   }
 });

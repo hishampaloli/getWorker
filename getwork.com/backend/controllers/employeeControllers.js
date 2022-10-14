@@ -34,13 +34,14 @@ export const employeeProfile = AsyncHandler(async (req, res) => {
       .populate("savedJobs")
       .populate("completedJobs");
     if (userData) {
-      res.json(userData);
+      res.status(200).json(userData);
     } else {
       res.status(404);
       throw new Error("No such profile found");
     }
   } catch (error) {
-    res.json(error);
+    res.status(404)
+    throw new Error(error)
   }
 });
 
@@ -67,10 +68,11 @@ export const postEducations = AsyncHandler(async (req, res) => {
 
       userData.educations.push(educationData._id);
       await userData.save();
-      res.json(educationData);
+      res.status(200).json(educationData);
     }
   } catch (error) {
-    res.json(error);
+    res.status(404)
+    throw new Error(error)
   }
 });
 
@@ -89,11 +91,12 @@ export const deleteEducation = AsyncHandler(async (req, res) => {
     );
 
     const deletedData = await Education.findByIdAndDelete(id);
-    res.json({
+    res.status(201).json({
       message: "Deleted Successfully",
     });
   } catch (error) {
-    res.json(error);
+    res.status(404);
+    throw new Error(error)
   }
 });
 
@@ -117,9 +120,10 @@ export const addLanguageAndSkill = AsyncHandler(async (req, res) => {
       userData.languages.push({ language: language });
       await userData.save();
     }
-    res.json(userData);
+    res.status(201).json(userData);
   } catch (error) {
-    res.json(error);
+    res.status(404);
+    throw new Error(error)
   }
 });
 
@@ -146,11 +150,12 @@ export const editInfo = AsyncHandler(async (req, res) => {
       );
     }
 
-    res.json({
+    res.status(201).json({
       message: "Successfully updated",
     });
   } catch (error) {
-    res.json(error);
+    res.status(404);
+    throw new Error(error)
   }
 });
 
@@ -177,11 +182,12 @@ export const deleteLanguageOrSkill = AsyncHandler(async (req, res) => {
       );
     }
 
-    res.json({
+    res.status(201).json({
       message: "Deleted succussfully",
     });
   } catch (error) {
-    res.json(error);
+    res.status(404);
+    throw new Error(error)
   }
 });
 
@@ -200,9 +206,10 @@ export const addProfileImage = AsyncHandler(async (req, res) => {
       userData.save();
     }
 
-    res.json(userData);
+    res.status(201).json(userData);
   } catch (error) {
-    res.json(error);
+    res.status(404);
+    throw new Error(error)
   }
 });
 
@@ -232,9 +239,10 @@ export const addKyc = AsyncHandler(async (req, res) => {
     userData.kycApproved = "pending";
     await userData.save();
 
-    res.json(userData);
+    res.status(201).json(userData);
   } catch (error) {
-    res.json(error);
+    res.status(404);
+    throw new Error(error)
   }
   // }
 });
@@ -264,10 +272,11 @@ export const addBankDetails = AsyncHandler(async (req, res) => {
       await AddBank.save();
       userData.bankDetails = AddBank._id;
       userData.save();
-      res.json(AddBank);
+      res.status(201).json(AddBank);
     }
   } catch (error) {
-    res.json(error);
+    res.status(404);
+    throw new Error(error)
   }
 });
 
@@ -294,10 +303,11 @@ export const addPortfolio = AsyncHandler(async (req, res) => {
 
       userData.portfolios.push(portfolioData._id);
       await userData.save();
-      res.json(portfolioData);
+      res.status(201).json(portfolioData);
     }
   } catch (error) {
-    res.json(error);
+    res.status(404);
+    throw new Error(error)
   }
 });
 
@@ -308,15 +318,21 @@ export const addPortfolio = AsyncHandler(async (req, res) => {
 export const deletePortFolio = AsyncHandler(async (req, res) => {
   const { id } = req.params;
   const { userId } = req.params;
+  try {
+    
   const userr = await Employee.findOne({ owner: userId });
   const user = await Employee.findOneAndUpdate(
     { owner: userId },
     { $pull: { portfolios: id } }
   );
   const deletedData = await Portfolio.findByIdAndDelete(id);
-  res.json({
+  res.status(201).json({
     message: "Deleted Successfully",
   });
+  } catch (error) {
+    res.status(404);
+    throw new Error(error)
+  }
 });
 
 
@@ -327,7 +343,6 @@ export const deletePortFolio = AsyncHandler(async (req, res) => {
 export const saveJobs = AsyncHandler(async (req, res) => {
   const { id } = req.params;
   const { userId } = req.params;
-  console.log(id + "SSS");
   try {
     const emplyeeData = await Employee.findOne({ owner: userId });
     let a = 0;
@@ -343,8 +358,8 @@ export const saveJobs = AsyncHandler(async (req, res) => {
     }
     res.json(emplyeeData);
   } catch (error) {
-    console.log(error);
-    throw new Error("something went wrong");
+    res.status(404);
+    throw new Error(error)
   }
 });
 
@@ -362,12 +377,6 @@ export const removeSavedJobs = AsyncHandler(async (req, res) => {
       .populate("savedJobs")
       .populate({
         path: "savedJobs",
-        // populate: [
-        //   {
-        //     path: "employeeData",
-        //     select: "image userTitle totalEarned _id",
-        //   },
-        // ],
       });
     const arr = emplyeeData.savedJobs.filter((el) => {
       return el._id + "." !== id + ".";
@@ -376,10 +385,10 @@ export const removeSavedJobs = AsyncHandler(async (req, res) => {
     emplyeeData.savedJobs = arr;
     await emplyeeData.save();
 
-    res.json(arr);
+    res.status(201).json(arr);
   } catch (error) {
-    console.log(error);
-    throw new Error("Something went wrong");
+    res.status(404);
+    throw new Error(error)
   }
 });
 
@@ -402,8 +411,9 @@ export const deleteMessage = AsyncHandler(async (req, res) => {
     user.notification = noti;
     await user.save();
 
-    res.json(noti);
+    res.status(201).json(noti);
   } catch (error) {
-    throw new Error(error);
+    res.status(404);
+    throw new Error(error)
   }
 });

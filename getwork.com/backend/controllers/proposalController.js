@@ -51,7 +51,7 @@ export const submitProposal = AsyncHandler(async (req, res) => {
       await jobs.save();
       await noti.save();
 
-      res.json({
+      res.status(200).json({
         proposal: proposal,
         job: jobs,
         emplyee: emplyeeData,
@@ -60,7 +60,8 @@ export const submitProposal = AsyncHandler(async (req, res) => {
       throw new Error("No user or job found");
     }
   } catch (error) {
-    throw new Error(error);
+    res.status(404);
+    throw new Error(error)
   }
 });
 
@@ -74,12 +75,13 @@ export const viewProposal = AsyncHandler(async (req, res) => {
     const { id } = req.params;
     const proposal = await Proposals.findById(id).populate("owner");
     if (proposal) {
-      res.json(proposal);
+      res.status(200).json(proposal);
     } else {
       throw new Error("No such proposal found");
     }
   } catch (error) {
-    throw new Error(error);
+    res.status(404);
+    throw new Error(error)
   }
 });
 
@@ -118,12 +120,13 @@ export const updateProposal = AsyncHandler(async (req, res) => {
         await noti.save();
       }
       await proposal.save();
-      res.json(proposal);
+      res.status(201).json(proposal);
     } else {
       throw new Error("no such proposal found");
     }
   } catch (error) {
-    throw new Error(error);
+    res.status(404);
+    throw new Error(error)
   }
 });
 
@@ -138,12 +141,13 @@ export const myProposals = AsyncHandler(async (req, res) => {
     const proposals = await Proposals.find({ owner: userId });
 
     if (proposals) {
-      res.json(proposals);
+      res.status(200).json(proposals);
     } else {
       throw new Error("no proposals found");
     }
   } catch (error) {
-    throw new Error(error);
+    res.status(404);
+    throw new Error(error)
   }
 });
 
@@ -162,7 +166,7 @@ export const acceptProposal = AsyncHandler(async (req, res) => {
     const employee = await Employee.findOne({ owner: proposal.owner }).populate("owner");
     const admin = await Admin.findById("633be9b307ec8a154a57bc9e");
 
-    console.log(employee);
+    
     if (proposal && employer && employee && admin && job) {
       if (employer.balance >= totalAmount) {
         const noti = new Notification({
@@ -203,7 +207,7 @@ export const acceptProposal = AsyncHandler(async (req, res) => {
         </div>`,
       });
 
-        res.json({
+        res.status.json({
           message: "Success",
         });
       } else {
@@ -211,7 +215,7 @@ export const acceptProposal = AsyncHandler(async (req, res) => {
       }
     }
   } catch (error) {
-    console.log(error);
-    throw new Error(error);
+    res.status(404);
+    throw new Error(error)
   }
 });

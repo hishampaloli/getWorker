@@ -95,7 +95,7 @@ export const editEmployerProfile = AsyncHandler(async (req, res) => {
         if (await user.matchPassword(oldPass)) {
           user.password = newPass;
         } else {
-          res.json({
+          res.status(404).json({
             message: "incorrect old passowrd",
           });
         }
@@ -107,14 +107,15 @@ export const editEmployerProfile = AsyncHandler(async (req, res) => {
       }
 
       await user.save();
-      res.json(user);
+      res.status(200).json(user);
     } else {
-      res.json({
+      res.status(404).json({
         message: "No such user",
       });
     }
   } catch (error) {
-    res.json(error);
+    res.status(404);
+    throw new Error(error)
   }
 });
 
@@ -150,10 +151,11 @@ export const getAllEmplyees = AsyncHandler(async (req, res) => {
       res.json(allEmplyees);
     } else {
       const allEmplyees = await Employee.find({}).populate("owner");
-      res.json(allEmplyees);
+      res.status(200).json(allEmplyees);
     }
   } catch (error) {
-    res.json(error);
+    res.status(404);
+    throw new Error(error)
   }
 });
 
@@ -179,10 +181,11 @@ export const saveJobs = AsyncHandler(async (req, res) => {
     if (a == 0) {
       emplyerData.savedTalents.push(id);
       await emplyerData.save();
-      res.json(emplyerData);
+      res.status(201).json(emplyerData);
     }
   } catch (error) {
-    res.json(error);
+    res.status(404);
+    throw new Error(error)
   }
 });
 
@@ -215,9 +218,10 @@ export const removeSavedTalent = AsyncHandler(async (req, res) => {
     emplyerData.savedTalents = arr;
     await emplyerData.save();
 
-    res.json(emplyerData);
+    res.status(201).json(emplyerData);
   } catch (error) {
-    res.json(error);
+    res.status(404);
+    throw new Error(error)
   }
 });
 
@@ -243,9 +247,10 @@ export const deleteMessageEmployer = AsyncHandler(async (req, res) => {
     user.notification = noti;
     await user.save();
 
-    res.json(noti);
+    res.status(201).json(noti);
   } catch (error) {
-    throw new Error(error);
+    res.status(404);
+    throw new Error(error)
   }
 });
 

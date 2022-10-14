@@ -33,7 +33,7 @@ export const postJobs = AsyncHandler(async (req, res) => {
       userData.contractsPosted.push(job._id);
       await userData.save();
 
-      res.json({
+      res.status(201).json({
         job: job,
         user: userData,
       });
@@ -83,13 +83,13 @@ export const getAllJobs = AsyncHandler(async (req, res) => {
     const allJobs = await Jobs.find({ status: "active" });
     console.log(allJobs + "sfd");
     if (allJobs) {
-      res.json(allJobs);
+      res.status(200).json(allJobs);
     } else {
       throw new Error("No jobs found");
     }
   } catch (error) {
-    res.json(error);
-    throw new Error("Something went wrong");
+    res.status(404);
+    throw new Error(error)
   }
 });
 
@@ -105,11 +105,12 @@ export const endJob = AsyncHandler(async (req, res) => {
 
     jobs.status = "cancelled";
     await jobs.save();
-    res.json({
+    res.status(201).json({
       message: "Success",
     });
   } catch (error) {
-    throw new Error(error);
+    res.status(404);
+    throw new Error(error)
   }
 });
 
@@ -124,14 +125,15 @@ export const jobView = AsyncHandler(async (req, res) => {
     const jobs = await Jobs.findById(id).populate("proposals");
 
     if (jobs) {
-      res.json(jobs);
+      res.status(200).json(jobs);
     } else {
       res.json({
         message: "no jobs found",
       });
     }
   } catch (error) {
-    throw new Error("No such jobs found");
+    res.status(404);
+    throw new Error(error)
   }
 });
 
@@ -197,10 +199,11 @@ export const approveJob = AsyncHandler(async (req, res) => {
     await job.save();
     await noti.save();
 
-    res.json({
+    res.status(200).json({
       message: "Success",
     });
   } catch (error) {
-    throw new Error(error);
+    res.status(404);
+    throw new Error(error)
   }
 });

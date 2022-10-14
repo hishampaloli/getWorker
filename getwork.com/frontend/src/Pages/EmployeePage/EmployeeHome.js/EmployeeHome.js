@@ -129,7 +129,7 @@ const EmployeeHome = () => {
                   alt=""
                 />
               )}
-              <Link style={{ color: "black" }} to="/user/profile">
+              <Link style={{ color: "black", textDecoration: 'none' }} to="/user/profile">
                 <p>{user?.userInfo?.name}</p>
               </Link>
             </div>
@@ -137,11 +137,11 @@ const EmployeeHome = () => {
             <div>
               <Link to="/user/connects">
                 {" "}
-                <button>Buy Connects</button>
+                <button style={{padding: '10px 15px', border: 'none'}} >Buy Connects</button>
               </Link>
               <Link to="/user/proposals">
                 {" "}
-                <button>View Proposals</button>
+                <button style={{padding: '10px 15px', border: 'none'}}>View Proposals</button>
               </Link>
             </div>
           </div>
