@@ -4,7 +4,8 @@ import React, { useEffect, useState } from "react";
 import Header from "./components/header/Header";
 import Signup from "./Pages/signUpPage/Signup";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
 
 import EmployeeHome from "./Pages/EmployeePage/EmployeeHome.js/EmployeeHome";
 import EmployerHome from "./Pages/EmployerPage/EmployerPage.js/EmployerHome";
@@ -24,6 +25,7 @@ import AllProposal from "./Pages/EmployeePage/AllProposal/AllProposal";
 import ViewProposal from "./components/EmployeeComponents/ViewProposal/ViewProposal";
 import EmployerPublicView from "./Pages/EmployerPage/EmployerPublicView/EmployerPublicView";
 import EmployeeJobsPage from "./Pages/EmployeePage/JobsPage/EmployeeJobsPage";
+import { useDispatch, useSelector } from "react-redux";
 
 const Landing = React.lazy(() => import("./Pages/LandingPage.js/Landing"));
 const Login = React.lazy(() => import("./Pages/LoginPage/Login"));
@@ -32,13 +34,17 @@ const EmployeeProfile = React.lazy(() =>
 );
 
 function App() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);  
+
+
   useEffect(() => {
-    // setLoading(true);
-    // setTimeout(() => {
-    //   setLoading(false);
-    // }, 1500);
+  
+setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
   }, []);
+  
   return (
     <div className="App">
       {loading ? (

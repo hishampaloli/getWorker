@@ -20,8 +20,7 @@ export const userLogin = AsyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
   if (user && (await user.matchPassword(password))) {
     if (user.userType === "employee") {
-    
-      res.status(200).json({
+      res.json({
         _id: user._id,
         name: user.name,
         email: user.email,
@@ -31,7 +30,7 @@ export const userLogin = AsyncHandler(async (req, res) => {
         token: generateToken(user._id),
       });
     } else if (user.userType === "employer") {
-      res.status(200).json({
+      res.json({
         _id: user._id,
         name: user.name,
         email: user.email,
@@ -41,7 +40,7 @@ export const userLogin = AsyncHandler(async (req, res) => {
         token: generateToken(user._id),
       });
     } else if (user.userType === "admin") {
-      res.status(200).json({
+      res.json({
         _id: user._id,
         name: user.name,
         email: user.email,
@@ -51,7 +50,7 @@ export const userLogin = AsyncHandler(async (req, res) => {
       });
     }
   } else {
-    res.status(401);
+    res.status(404);
     throw new Error("Email or Password incorrect.");
   }
 });
@@ -89,9 +88,9 @@ export const userRegisterRegister = AsyncHandler(async (req, res) => {
         subject: "Verify your email account",
         html: `<h1>${OTP}</h1>`,
       });
-      res.status(201).json(user);
+      res.json(user);
     } else {
-      res.status(401);
+      res.status(404);
       throw new Error("Email already in use !");
     }
   } else {
@@ -117,7 +116,7 @@ export const userRegisterRegister = AsyncHandler(async (req, res) => {
       subject: "Verify your email account",
       html: `<h1>${OTP}</h1>`,
     });
-    res.status(201).json(newUser);
+    res.json(newUser);
   }
 });
 
@@ -164,7 +163,7 @@ export const verifyEmail = AsyncHandler(async (req, res, next) => {
         await userData.save();
         await user.save();
 
-        res.status(201).json({
+        res.json({
           _id: user._id,
           name: user.name,
           email: user.email,
@@ -185,7 +184,7 @@ export const verifyEmail = AsyncHandler(async (req, res, next) => {
 
         await user.save();
 
-        res.status(201).json({
+        res.json({
           _id: user._id,
           name: user.name,
           email: user.email,
@@ -213,13 +212,12 @@ export const changePassword = AsyncHandler(async (req, res) => {
     if (user && (await user.matchPassword(oldPass))) {
       user.password = newPass;
       await user.save();
-      res.status(201).json(user);
+      res.json(user);
     } else {
       res.json("Incorrect Old Password!");
     }
   } catch (error) {
-    res.status(404);
-    throw new Error(error)
+    res.json(error);
   }
 });
 
@@ -252,13 +250,12 @@ export const forgotPassword = AsyncHandler(async (req, res) => {
 
       await verificationToken.save();
       await user.save();
-      res.status(201).json("Success");
+      res.json("Success");
     } else {
-      res.status(401).json("No such user found");
+      res.json("No such user found");
     }
   } catch (error) {
-    res.status(404);
-    throw new Error(error)
+    throw new Error(error);
   }
 });
 
@@ -279,9 +276,9 @@ export const forgotPasswordVerify = AsyncHandler(async (req, res) => {
     user.password = password;
     await user.save();
     await VerificationToken.findOneAndDelete({ owner: id });
-    res.status(201).json("success");
+    res.json("success");
   } else {
     await VerificationToken.findOneAndDelete({ owner: id });
-    res.status(401).json("failed");
+    res.json("failed");
   }
 });

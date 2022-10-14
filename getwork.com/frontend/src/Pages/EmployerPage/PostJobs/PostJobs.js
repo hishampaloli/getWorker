@@ -12,7 +12,6 @@ const PostJobs = () => {
   const user = useSelector((state) => state.user);
   const jobPost = useSelector((state) => state.jobPost);
 
-  console.log(jobPost);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -23,7 +22,6 @@ const PostJobs = () => {
   const [tags, setTags] = useState("");
   const [msg, setMgs] = useState(false);
 
-  console.log();
 
   const handlePost = (e) => {
     e.preventDefault();

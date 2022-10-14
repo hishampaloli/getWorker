@@ -90,6 +90,10 @@ const BlockedUsers = () => {
                     >
                       {" "}
                       <Link
+                      style={{
+                          textDecoration: "none",
+                          color: "white"
+                        }}
                         onClick={(e) => {
                           dispatch(blockUser(dt?._id, keyword, "other"));
                           setAlert(true);
@@ -113,6 +117,11 @@ const BlockedUsers = () => {
                     >
                       {" "}
                       <Link
+                      style={{
+                          textDecoration: "none",
+                          color: "white"
+                        }}
+                        
                         onClick={(e) => {
                           dispatch(blockUser(dt?._id, keyword, "other"));
                           setAlert(true);

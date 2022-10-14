@@ -80,6 +80,10 @@ const AllEmployers = () => {
                     >
                       {" "}
                       <Link
+                      style={{
+                          textDecoration: "none",
+                          color: "white"
+                        }}
                         onClick={(e) => {
                           dispatch(blockUser(dt?._id, keyword, dt?.userType));
                           setAlert(true);
@@ -103,6 +107,10 @@ const AllEmployers = () => {
                     >
                       {" "}
                       <Link
+                      style={{
+                          textDecoration: "none",
+                          color: "white"
+                        }}
                         onClick={(e) => {
                           dispatch(blockUser(dt?._id, keyword, dt?.userType));
                           setAlert(true);

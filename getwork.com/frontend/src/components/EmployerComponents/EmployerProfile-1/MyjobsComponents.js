@@ -18,7 +18,7 @@ const MyjobsComponents = ({ jobs }) => {
       {jobs
         ? jobs?.map((job) => {
             return (
-              <div className="my-jobs-div">
+              <div key={job?._id} className="my-jobs-div">
                 <div className="s">
                   <h4>{job?.title}</h4>
                   <p>
