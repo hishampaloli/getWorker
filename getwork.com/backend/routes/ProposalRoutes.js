@@ -28,8 +28,6 @@ router
   .route("/myProposals/:userId")
   .get(protect, isOwner, isEmployee, myProposals);
 
-  router
-  .route("/acceptProposal/:userId/:id")
-  .post(protect, acceptProposal);
+router.route("/acceptProposal/:userId/:id").post(protect, acceptProposal);
 
 export default router;

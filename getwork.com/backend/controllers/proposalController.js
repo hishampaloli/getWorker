@@ -8,13 +8,19 @@ import Notification from "../models/messageModal.js";
 import Admin from "../models/adminModel.js";
 import { mailTransport } from "../utils/mail.js";
 
+
+
+
+// @DESC employees can post proposal to the job posts
+// @METHOD post
+// @PATH /proposal/:userId/:id
+
+
 export const submitProposal = AsyncHandler(async (req, res) => {
   try {
     const { userId, id } = req.params;
     const { credit, cover, bid, deadline } = req.body;
 
-    console.log(userId);
-    console.log(id);
 
     const emplyeeData = await Employee.findOne({ owner: userId });
     const jobs = await Jobs.findOne({ _id: id, status: "active" });
@@ -58,6 +64,11 @@ export const submitProposal = AsyncHandler(async (req, res) => {
   }
 });
 
+
+// @DESC users can view the details in a proposal
+// @METHOD get
+// @PATH /viewProposal/:id
+
 export const viewProposal = AsyncHandler(async (req, res) => {
   try {
     const { id } = req.params;
@@ -71,6 +82,10 @@ export const viewProposal = AsyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+// @DESC employers can reject or shortlist the  proposals in their job post
+// @METHOD patch
+// @PATH /updateProposal/:userId/:id
 
 export const updateProposal = AsyncHandler(async (req, res) => {
   try {
@@ -112,6 +127,10 @@ export const updateProposal = AsyncHandler(async (req, res) => {
   }
 });
 
+// @DESC employees can see the proposal posted by them 
+// @METHOD get
+// @PATH /myProposal/:userId/:id
+
 export const myProposals = AsyncHandler(async (req, res) => {
   try {
     const { userId } = req.params;
@@ -127,6 +146,10 @@ export const myProposals = AsyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+// @DESC employers can accept proposal and start the contract.
+// @METHOD post
+// @PATH /acceptProposal/:userId/:id
 
 export const acceptProposal = AsyncHandler(async (req, res) => {
   try {

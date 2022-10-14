@@ -7,12 +7,9 @@ import Proposals from "../models/proposalModal.js";
 import Admin from "../models/adminModel.js";
 import Notification from "../models/messageModal.js";
 
-
-
 // @DESC employers can post jobs
 // @METHOD post
 // @PATH employer/postJob/:userId
-
 
 export const postJobs = AsyncHandler(async (req, res) => {
   const { title, description, budget, deadline, level, searchTag } = req.body;
@@ -46,12 +43,9 @@ export const postJobs = AsyncHandler(async (req, res) => {
   }
 });
 
-
-
 // @DESC employers can see the jobs posted by them
 // @METHOD get
 // @PATH employer/mypost/:userId
-
 
 export const myJobs = AsyncHandler(async (req, res) => {
   try {
@@ -80,12 +74,9 @@ export const myJobs = AsyncHandler(async (req, res) => {
   }
 });
 
-
-
 // @DESC get the data of all the jobs in the data base
 // @METHOD get
 // @PATH employer/getAllJobs
-
 
 export const getAllJobs = AsyncHandler(async (req, res) => {
   try {
@@ -102,11 +93,9 @@ export const getAllJobs = AsyncHandler(async (req, res) => {
   }
 });
 
-
 // @DESC employers can change the status of the job to cancel
 // @METHOD get
 // @PATH employer/jobsStatus/:userId/:id
-
 
 export const endJob = AsyncHandler(async (req, res) => {
   try {
@@ -124,12 +113,9 @@ export const endJob = AsyncHandler(async (req, res) => {
   }
 });
 
-
-
 // @DESC gets the data of a particular job post
 // @METHOD get
 // @PATH employer/jobs/:id
-
 
 export const jobView = AsyncHandler(async (req, res) => {
   try {
@@ -148,6 +134,10 @@ export const jobView = AsyncHandler(async (req, res) => {
     throw new Error("No such jobs found");
   }
 });
+
+// @DESC employers can approve the job once it is finished by the employee
+// @METHOD get
+// @PATH employer/jobs/:id
 
 export const approveJob = AsyncHandler(async (req, res) => {
   try {
