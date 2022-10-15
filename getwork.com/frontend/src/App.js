@@ -26,6 +26,8 @@ import ViewProposal from "./components/EmployeeComponents/ViewProposal/ViewPropo
 import EmployerPublicView from "./Pages/EmployerPage/EmployerPublicView/EmployerPublicView";
 import EmployeeJobsPage from "./Pages/EmployeePage/JobsPage/EmployeeJobsPage";
 import { useDispatch, useSelector } from "react-redux";
+import EmployeeEarnings from "./Pages/EmployeePage/EployeeEarnings/EmployeeEarnings";
+import EmployeeConnects from "./Pages/EmployeePage/EmployeeConnects/EmployeeConnects";
 
 const Landing = React.lazy(() => import("./Pages/LandingPage.js/Landing"));
 const Login = React.lazy(() => import("./Pages/LoginPage/Login"));
@@ -39,10 +41,10 @@ function App() {
 
   useEffect(() => {
   
-setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1500);
+// setLoading(true);
+//     setTimeout(() => {
+//       setLoading(false);
+//     }, 1500);
   }, []);
   
   return (
@@ -94,6 +96,9 @@ setLoading(true);
 
             <Route exact path="/user/myjobs" element={<EmployeeJobsPage />} />
             <Route exact path="/user/proposal/:id" element={<ViewProposal />} />
+            <Route exact path="/user/earnings" element={<EmployeeEarnings />} />
+            <Route exact path="/user/connects" element={<EmployeeConnects />} />
+            
 
             <Route exact path="/employer/home" element={<EmployerHome />} />
             <Route

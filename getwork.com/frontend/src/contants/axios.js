@@ -26,4 +26,9 @@ export const axiosProposalInstance = axios.create({
   baseURL: "http://localhost:3001/api/",
 });
 
+export const axiosPaymentInstance = axios.create({
+  baseURL: "http://localhost:3001/api/credit/",
+});
+
+
 

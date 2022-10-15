@@ -9,8 +9,10 @@ import EmployerRouter from "./routes/EmplyerRoutes.js";
 import JobsRouter from "./routes/jobsRoute.js";
 import AdminRouter from "./routes/AdminRoutes.js";
 import ProposalRouter from "./routes/ProposalRoutes.js";
+import PaymentRouter from './routes/paymentRoutes.js'
 import { notFound, errorHandler } from "./middlewares/errorMiddleware.js";
 import cors from "cors";
+import Razorpay from 'razorpay'
 
 mongoDB();
 
@@ -21,6 +23,11 @@ const corsOptions = {
 };
 
 dotenv.config();
+
+export const instance = new Razorpay({
+  key_id: "rzp_test_7wPhwS45ZkJnjR",
+  key_secret: "KxL3P87LVayeD69Aav20mHjU",
+});
 
 const app = express();
 app.use(express.json());
@@ -37,6 +44,7 @@ app.use("/api/employer", EmployerRouter);
 app.use("/api/admin", AdminRouter);
 app.use("/api", JobsRouter);
 app.use("/api", ProposalRouter);
+app.use("/api/credit",PaymentRouter );
 
 app.use(notFound);
 app.use(errorHandler);
