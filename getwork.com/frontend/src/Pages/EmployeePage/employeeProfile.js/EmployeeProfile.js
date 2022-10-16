@@ -133,11 +133,12 @@ const EmployeeProfile = () => {
               </div>
             </div>
             <div className="ep-tp-btn">
-              <button>Buy Credits</button>
+            <Link to='/user/connects'><button>Buy Credits</button></Link>
+              
               <button>
                 <Link style={{textDecoration: 'none', color: 'white'}} to={`/user/publicView/${userData?.owner?._id}`}>
                   Public View
-                </Link>{" "}
+                </Link>
               </button>
             </div>
           </div>
