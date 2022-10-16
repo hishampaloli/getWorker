@@ -47,6 +47,12 @@ import {
   viewProposalReducer,
 } from "./reducers/proposalReducer";
 import { acceptProposal } from "./actions/proposalActions";
+import {
+  PURCHASE_hISTORY_REQUEST,
+  PURCHASE_hISTORY_FAIL,
+  PURCHASE_hISTORY_SUCCUSS,
+} from "./contants/paymentConstants";
+import { purchaseHistoryReducer } from "./reducers/purchaseReducer";
 
 const reducer = combineReducers({
   employee: userRegisterReducer,
@@ -87,6 +93,8 @@ const reducer = combineReducers({
   acceptProposal: acceptProposalReducer,
 
   deleteMessage: deleteMessageReducer,
+
+  purchaseHistory: purchaseHistoryReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

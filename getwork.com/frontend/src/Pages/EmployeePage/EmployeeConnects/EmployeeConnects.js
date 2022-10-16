@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./EmployeeConnects.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { checkout, myParchaseHistory } from "../../../actions/paymentActions";
+import ConnectBox from "../../../components/EmployeeComponents/ConnectsHelpers/ConnectBox";
+import PurchaseHisrory from "../../../components/EmployeeComponents/ConnectsHelpers/PurchaseHisrory";
 
 const EmployeeConnects = () => {
   const dispatch = useDispatch();
 
   const [ed, setEd] = useState("connect");
+  const purchaseHistory = useSelector((state) => state.purchaseHistory);
 
-  useEffect(() => {
-    dispatch(myParchaseHistory())
-  }, [])
+
 
   return (
     <div className="employeeConnects">
@@ -20,59 +21,23 @@ const EmployeeConnects = () => {
 
       <div className="connect-box">
         <div className="left">
-          <button onClick={() => setEd('connect')} >Buy Connects</button>
-          <button onClick={() => setEd('history')} >Purchase Hitsory</button>
+          <button style={ed === 'connect' ? {backgroundColor: '#1d4354', color: "white"} : {}} onClick={() => setEd("connect")}>Buy Connects</button>
+          <button style={ed === 'history' ? {backgroundColor: '#1d4354', color: "white"} : {}} onClick={() => setEd("history")}>Purchase Hitsory</button>
         </div>
 
         <div className="right">
-
-        {ed === 'connect' ? <div className="row">
-            <div className="buy-box">
-              <p>100 connects</p>
-              <p>
-                Buy for <strong>RS: 500.00</strong>
-              </p>
-              <h3>Basic Pack</h3>
-              <button
-                onClick={() => {
-                  dispatch(checkout(500));
-                }}
-              >
-                Buy Now
-              </button>
+          {ed === "connect" ? (
+            <div className="row">
+              <ConnectBox number={100} amount={500} pack={"Basic Pack"} />
+              <ConnectBox number={200} amount={1000} pack={"Value Pack"} />
+              <ConnectBox number={500} amount={5000} pack={"Premium Pack"} />
             </div>
-
-            <div className="buy-box">
-              <p>200 connects</p>
-              <p>
-                Buy for <strong>RS: 1000.00</strong>
-              </p>
-              <h3>Basic Pack</h3>
-              <button
-                onClick={() => {
-                  dispatch(checkout(1000));
-                }}
-              >
-                Buy Now
-              </button>
+          ) : (
+            <div className="row-1">
+             <PurchaseHisrory />
+                  
             </div>
-
-            <div className="buy-box">
-              <p>500 connects</p>
-              <p>
-                Buy for <strong>RS: 5000.00</strong>
-              </p>
-              <h3>Basic Pack</h3>
-              <button
-                onClick={() => {
-                  dispatch(checkout(5000));
-                }}
-              >
-                Buy Now
-              </button>
-            </div>
-          </div> : <div className="row-1">tyfghvj</div> }
-          
+          )}
         </div>
       </div>
     </div>

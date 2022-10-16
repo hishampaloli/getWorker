@@ -18,7 +18,6 @@ const ProposalPage = () => {
 
   const userProfile = useSelector((state) => state.employeeData);
 
-  console.log(userProfile.userData?.connects);
 
   const { id } = useParams();
   const [cover, setCover] = useState("");
@@ -125,9 +124,12 @@ const ProposalPage = () => {
                 ""
               )}
             </div>
-            <button className="pp-btn" type="submit">
+            {user.userInfo?.isBlocked ? <button style={{backgroundColor: '#FF9393'}} className="pp-btn" disabled>
+              Account blocked
+            </button> : <button className="pp-btn" type="submit">
               Submit a proposal for 5 credits
-            </button>
+            </button>}
+            
             {postProposalStatus?.loading ? (
               <Alert severity="info">
                 This is an info alert — check it out!

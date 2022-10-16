@@ -84,6 +84,11 @@ const AdminProfile = () => {
           </div>
 
           <div className="l-box">
+            <h3>CONNECTS SOLD</h3>
+            <strong>{ Profile?.data?.adminData?.adminData?.soldConnect}</strong>
+          </div>
+
+          <div className="l-box">
             <h3 style={{ color: "#3ccf4e" }}>In Escrow</h3>
             <strong>₹ {escrowSum}</strong>
           </div>

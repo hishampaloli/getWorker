@@ -60,7 +60,7 @@ const EmployerPublicView = () => {
 
         <div className="bottom">
           <div className="left">
-            <div className="left-top ltp" style={{ height: "100%" }}>
+            <div className="left-top ltp" >
               <span>
                 <strong>{userInfo?.totalSpend}</strong>
                 <p>Total Spent</p>

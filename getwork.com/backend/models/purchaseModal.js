@@ -6,11 +6,9 @@ const PusrchaseSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  details: [
-    {
-      type: Array,
-    },
-  ],
+  details: {
+    type: Array
+  },
 });
 
 const Purchase = mongoose.model("Purchase", PusrchaseSchema);

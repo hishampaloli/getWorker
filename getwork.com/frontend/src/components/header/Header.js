@@ -69,6 +69,9 @@ const Header = () => {
                 <Link style={{ marginRight: "45px" }} to="/findTalents ">
                   Find talents
                 </Link>
+                <Link style={{ marginRight: "45px" }} to="/employer/recharge ">
+                  Recharge
+                </Link>
                 <Link style={{ marginRight: "30px" }}>
                   Balance : {employerProfile?.userInfo?.balance}
                 </Link>

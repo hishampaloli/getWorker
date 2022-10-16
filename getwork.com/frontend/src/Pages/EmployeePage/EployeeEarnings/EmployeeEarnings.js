@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import "./EmployeeEarnings.scss";
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import { useSelector } from "react-redux";
 
 const EmployeeEarnings = () => {
   const [ed, setEd] = useState("active");
+  const employeeData = useSelector(state => state.employeeData)
+
+  console.log(employeeData);
 
   return (
     <div className="postJobs">
@@ -54,22 +58,22 @@ const EmployeeEarnings = () => {
             <div className="earn-main-box">
               <div className="earn-box">
                 <p>Total Earned</p>
-                <strong>$0</strong>
+                <strong>₹{employeeData.userData?.totalEarned}.00</strong>
               </div>
             </div>
           ) : ed === "rejected" ? (
             <div className="earn-main-box">
               <div className="earn-box">
                 <p>Pending for Withdraw</p>
-                <strong>$0</strong>
+                <strong>₹{employeeData.userData?.pendingWithdraw}</strong>
               </div>
-              <button className="rst-btn" >Request Withdraw</button>
+              <button className="rst-btn mt-2" style={{marginLeft : '5px'}} >Request Withdraw</button>
             </div>
           ) : ed === "shortlisted" ? (
             <div className="earn-main-box">
              <div className="withdraw-history">
              <div>
-                <p>$100.00</p>
+                <p>₹100.00</p>
              </div>
 
              <div className="btn-gp" >
