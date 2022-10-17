@@ -1,0 +1,3 @@
+export const MY_ROOMS_REQUEST = "MY_ROOMS_REQUEST"
+export const MY_ROOMS_SUCCESS = "MY_ROOMS_SUCCESS"
+export const MY_ROOMS_FAIL = "MY_ROOMS_FAIL"

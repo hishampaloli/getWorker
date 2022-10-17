@@ -9,10 +9,16 @@ import EmployerRouter from "./routes/EmplyerRoutes.js";
 import JobsRouter from "./routes/jobsRoute.js";
 import AdminRouter from "./routes/AdminRoutes.js";
 import ProposalRouter from "./routes/ProposalRoutes.js";
-import PaymentRouter from './routes/paymentRoutes.js'
+import PaymentRouter from "./routes/paymentRoutes.js";
+import ChatRouter from "./routes/ChatRoutes.js";
 import { notFound, errorHandler } from "./middlewares/errorMiddleware.js";
 import cors from "cors";
-import Razorpay from 'razorpay'
+import http from "http";
+import { Server } from "socket.io";
+import path from "path";
+import { fileURLToPath } from "url";
+import Razorpay from "razorpay";
+import sockets from "./sockets/routes.js";
 
 mongoDB();
 
@@ -34,6 +40,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 
+const httpServer = http.createServer(app);
+const io = new Server(httpServer, {
+  cors: {
+    origin: ["http://localhost:3000"],
+  },
+});
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 app.get("/", (req, res) => {
   res.send("API IS HOT");
 });
@@ -44,11 +60,14 @@ app.use("/api/employer", EmployerRouter);
 app.use("/api/admin", AdminRouter);
 app.use("/api", JobsRouter);
 app.use("/api", ProposalRouter);
-app.use("/api/credit",PaymentRouter );
+app.use("/api/credit", PaymentRouter);
+app.use("/api/chat", ChatRouter);
 
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(process.env.PORT || 3001, () => {
+io.on("connection", sockets);
+
+httpServer.listen(process.env.PORT || 3001, () => {
   console.log("SERVER STARTED");
 });

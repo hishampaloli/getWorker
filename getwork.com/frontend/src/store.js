@@ -53,6 +53,7 @@ import {
   PURCHASE_hISTORY_SUCCUSS,
 } from "./contants/paymentConstants";
 import { purchaseHistoryReducer } from "./reducers/purchaseReducer";
+import { myRoomsReducer } from "./reducers/chatReducer";
 
 const reducer = combineReducers({
   employee: userRegisterReducer,
@@ -95,6 +96,8 @@ const reducer = combineReducers({
   deleteMessage: deleteMessageReducer,
 
   purchaseHistory: purchaseHistoryReducer,
+
+  myRooms: myRoomsReducer
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

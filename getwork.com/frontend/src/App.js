@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 import Header from "./components/header/Header";
 import Signup from "./Pages/signUpPage/Signup";
 
-import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import { useNavigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import EmployeeHome from "./Pages/EmployeePage/EmployeeHome.js/EmployeeHome";
 import EmployerHome from "./Pages/EmployerPage/EmployerPage.js/EmployerHome";
@@ -29,6 +29,10 @@ import { useDispatch, useSelector } from "react-redux";
 import EmployeeEarnings from "./Pages/EmployeePage/EployeeEarnings/EmployeeEarnings";
 import EmployeeConnects from "./Pages/EmployeePage/EmployeeConnects/EmployeeConnects";
 import EmployerRecharge from "./Pages/EmployerPage/Recharge/EmployerRecharge";
+import { io } from "socket.io-client";
+import EmployeeMessage from "./Pages/EmployeePage/EmployeeMessage/EmployeeMessage";
+import EmployeeMessageRooms from "./Pages/EmployeePage/EmployeeMessage/EmployeeMessageRooms";
+import EmployerMessage from "./Pages/EmployerPage/EmployerMessage/EmployerMessage";
 
 const Landing = React.lazy(() => import("./Pages/LandingPage.js/Landing"));
 const Login = React.lazy(() => import("./Pages/LoginPage/Login"));
@@ -37,17 +41,21 @@ const EmployeeProfile = React.lazy(() =>
 );
 
 function App() {
-  const [loading, setLoading] = useState(false);  
+  const [loading, setLoading] = useState(false);
 
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-  
-// setLoading(true);
-//     setTimeout(() => {
-//       setLoading(false);
-//     }, 1500);
+    setSocket(io("http://localhost:3001"));
   }, []);
-  
+
+  useEffect(() => {
+    // setLoading(true);
+    //     setTimeout(() => {
+    //       setLoading(false);
+    //     }, 1500);
+  }, []);
+
   return (
     <div className="App">
       {loading ? (
@@ -77,6 +85,8 @@ function App() {
             />
 
             <Route exact path="/users/home" element={<EmployeeHome />} />
+            <Route exact path="/user/message" element={<EmployeeMessage socket={socket} />} />
+            <Route exact path="/user/message/:roomId" element={<EmployeeMessageRooms socket={socket} />} />
             <Route
               exact
               path="/user/profile"
@@ -96,10 +106,9 @@ function App() {
             <Route exact path="/user/proposals" element={<AllProposal />} />
 
             <Route exact path="/user/myjobs" element={<EmployeeJobsPage />} />
-            <Route exact path="/user/proposal/:id" element={<ViewProposal />} />
+            <Route exact path="/user/proposal/:id" element={<ViewProposal socket={socket} />} />
             <Route exact path="/user/earnings" element={<EmployeeEarnings />} />
             <Route exact path="/user/connects" element={<EmployeeConnects />} />
-            
 
             <Route exact path="/employer/home" element={<EmployerHome />} />
             <Route
@@ -110,7 +119,12 @@ function App() {
             <Route exact path="/findTalents" element={<FindTalentsPage />} />
             <Route exact path="/employer/postjob" element={<PostJobs />} />
             <Route exact path="/employer/myposts" element={<MyPosts />} />
-            <Route exact path="/employer/recharge" element={<EmployerRecharge  />} />
+            <Route exact path="/employer/message" element={<EmployerMessage socket={socket} />} />
+            <Route
+              exact
+              path="/employer/recharge"
+              element={<EmployerRecharge />}
+            />
             <Route
               exact
               path="/employer/publicview/:id"

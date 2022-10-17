@@ -54,10 +54,15 @@ const Header = () => {
                 <Link style={{ marginRight: "45px" }} to="/user/proposals">
                   Proposals
                 </Link>
+
+                <Link  style={{ marginRight: "15px"}} to="user/message ">message</Link>
+                
                 <Link
                   onClick={() => setNoti(!noti)}
                   style={{ marginRight: "45px", position: 'relative' }}
                 >
+                
+                
                 {userProfile?.userData?.notification.length ? <div className="not-ball"></div> : ''}
                 
                   <NotificationsActiveIcon />
@@ -72,6 +77,10 @@ const Header = () => {
                 <Link style={{ marginRight: "45px" }} to="/employer/recharge ">
                   Recharge
                 </Link>
+
+                
+                <Link  style={{ marginRight: "15px"}} to="employer/message ">message</Link>
+
                 <Link style={{ marginRight: "30px" }}>
                   Balance : {employerProfile?.userInfo?.balance}
                 </Link>

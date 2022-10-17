@@ -10,26 +10,30 @@ import {
 import CustomSpinner from "../../customSpinner/CustomSpinner";
 import "./ViewProposal.css";
 import Alert from "@mui/material/Alert";
+import { v4 as uuidv4 } from "uuid";
+import { getMyRooms } from "../../../actions/chatActions";
 
-const ViewProposal = () => {
+const ViewProposal = ({ socket }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const viewProposal = useSelector((state) => state.viewProposal?.data);
   const user = useSelector((state) => state.user);
   const acceptProposalData = useSelector((state) => state.acceptProposal);
 
-  console.log(acceptProposalData);
+  console.log(viewProposal?.owner?._id);
 
   const { id } = useParams();
   useEffect(() => {
     dispatch(viewProposals(id));
-    setMsg(false)
-    if(acceptProposalData.data) {
-      navigate('/employer/myposts')
+    setMsg(false);
+    if (acceptProposalData.data) {
+      navigate("/employer/myposts");
     }
   }, []);
 
   console.log(viewProposal);
+
+  const [rooms, setRooms] = useState([]);
 
   const [msg, setMsg] = useState(false);
 
@@ -125,10 +129,17 @@ const ViewProposal = () => {
                     dispatch(
                       acceptProposal(viewProposal?._id, viewProposal?.bid)
                     );
-                    setTimeout(() => {
+                    setTimeout(() => {}, 1000);
+                    setMsg(true);
 
-                    },1000)
-                    setMsg(true)
+                    const roomId = uuidv4();
+                    navigate(`/user/message/${roomId}`);
+                    socket.emit("new-room-created", {
+                      roomId,
+                      employer: user?.userInfo?._id,
+                      employee: viewProposal?.owner?._id,
+                    });
+                    setRooms([...rooms, roomId]);
                   }}
                 >
                   Accept Proposal

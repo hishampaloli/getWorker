@@ -1,0 +1,26 @@
+.chat-list {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.chat-room-list {
+    display: flex;
+    background-color: white;
+    min-height: 500px;
+    width: 70%;
+    border-radius: 5px;
+    flex-direction: column;
+    padding: 10px;
+
+      a {
+        text-decoration: none;
+        padding: 15px 10px;
+        display: flex;
+        justify-content: space-between;
+        background-color: black;
+        border-radius: 5px;
+        margin-bottom: 10px;
+      }
+
+}

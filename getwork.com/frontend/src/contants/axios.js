@@ -31,4 +31,8 @@ export const axiosPaymentInstance = axios.create({
 });
 
 
+export const axiosChatInstance = axios.create({
+  baseURL: "http://localhost:3001/api/chat/",
+})
+
 
