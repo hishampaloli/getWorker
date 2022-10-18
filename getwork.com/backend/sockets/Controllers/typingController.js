@@ -2,15 +2,16 @@ import BaseController from "./baseController.js";
 
 export default class TypingController extends BaseController {
   
-    typingStarted = ({ roomId }) => {
+    typingStarted = ({ room }) => {
+
       let skt = this.socket.broadcast;
-      skt = roomId ? skt.to(roomId) : skt;
+      skt = room ? skt.to(room) : skt;
       skt.emit("typing-started-from-server");
     };
   
-    typingStoped = ({ roomId }) => {
+    typingStoped = ({ room }) => {
       let skt = this.socket.broadcast;
-      skt = roomId ? skt.to(roomId) : skt;
+      skt = room ? skt.to(room) : skt;
       skt.emit("typing-stoped-from-server");
     };
   }

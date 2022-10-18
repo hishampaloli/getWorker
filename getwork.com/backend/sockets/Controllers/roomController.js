@@ -23,13 +23,13 @@ export default class RoomController extends BaseController {
       await room.save();
       this.socket.emit("new-room-created-server",{roomId} );
     } else {
-      console.log(roomFound[0]);
       this.socket.emit("new-room-created-server", (roomFound[0].roomId));
     }
   };
 
-  joinRoom = ({ roomId }) => {
-    this.socket.join(roomId);
+  joinRoom = ({ room }) => {
+    console.log(room.roomId);
+    this.socket.join(room.roomId);
     this.socket.broadcast.emit("new-room-created");
   };
 }

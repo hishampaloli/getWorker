@@ -1,26 +1,35 @@
 .chat-list {
-    display: flex;
-    justify-content: center;
-    margin-top: 100px;
+  display: flex;
+  justify-content: space-between;
+  padding: 3rem;
+  margin-top: 70px;
 }
 
 .chat-room-list {
-    display: flex;
-    background-color: white;
-    min-height: 500px;
-    width: 70%;
-    border-radius: 5px;
-    flex-direction: column;
-    padding: 10px;
+  display: flex;
+  background-color: white;
+  min-height: 500px;
+  width: 30%;
+  border-radius: 5px;
+  flex-direction: column;
+  padding: 10px;
 
-      a {
-        text-decoration: none;
-        padding: 15px 10px;
-        display: flex;
-        justify-content: space-between;
-        background-color: black;
-        border-radius: 5px;
-        margin-bottom: 10px;
-      }
+    a {
+      text-decoration: none;
+      padding: 15px 10px;
+      display: flex;
+      justify-content: space-between;
+      background-color: black;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
 
+}
+
+
+.show-chat {
+width: 60%;
+background-color: white;
+
+height: 70vh;
 }
