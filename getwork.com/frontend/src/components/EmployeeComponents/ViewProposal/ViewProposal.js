@@ -20,18 +20,23 @@ const ViewProposal = ({ socket }) => {
   const user = useSelector((state) => state.user);
   const acceptProposalData = useSelector((state) => state.acceptProposal);
 
-  console.log(viewProposal?.owner?._id);
-
   const { id } = useParams();
   useEffect(() => {
     dispatch(viewProposals(id));
     setMsg(false);
     if (acceptProposalData.data) {
-      navigate("/employer/myposts");
+      // navigate("/employer/myposts");
     }
   }, []);
 
-  console.log(viewProposal);
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on("new-room-created-server", (roomId) => {
+      navigate(`/employer/message/${roomId}`)
+    });
+
+  }, [socket]);
 
   const [rooms, setRooms] = useState([]);
 
@@ -117,6 +122,12 @@ const ViewProposal = ({ socket }) => {
                   >
                     Shortlist
                   </button>{" "}
+                  <button onClick={() => {
+                     socket.emit("new-room-created", {
+                      employer: user?.userInfo?._id,
+                      employee: viewProposal?.owner?._id,
+                    });
+                  }} >d</button>
                 </>
               )}
               {user.userInfo?.isBlocked ? (
@@ -132,14 +143,10 @@ const ViewProposal = ({ socket }) => {
                     setTimeout(() => {}, 1000);
                     setMsg(true);
 
-                    const roomId = uuidv4();
-                    navigate(`/user/message/${roomId}`);
                     socket.emit("new-room-created", {
-                      roomId,
                       employer: user?.userInfo?._id,
                       employee: viewProposal?.owner?._id,
                     });
-                    setRooms([...rooms, roomId]);
                   }}
                 >
                   Accept Proposal

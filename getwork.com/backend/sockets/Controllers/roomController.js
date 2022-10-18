@@ -2,32 +2,30 @@
 import BaseController from "./baseController.js";
 import { RoomOwner } from "../models/roomOwner.js";
 import { Room } from "../models/rooms.js";
+import { v4 as uuidv4 } from "uuid";
 
 export default class RoomController extends BaseController {
-  newRoomCreated = async ({ roomId, employer, employee }) => {
-    const room = new Room({
-      employer: employer,
-      employee: employee,
-      roomId: roomId,
+  newRoomCreated = async ({ employer, employee }) => {
+    const roomId = uuidv4();
+
+    const roomFound = await Room.find({
+      $and: [{ employee: employee }, { employer: employer }],
     });
 
-    const roomUser = await RoomOwner.findOne({ employee: employee });
 
-    if (roomUser) {
-      roomUser.availableRooms.push(room);
-      await roomUser.save();
-    } else {
-      const newRoomUser = new RoomOwner({
-        employee: employee,
+    if (roomFound.length === 0) {
+      const room = new Room({
         employer: employer,
+        employee: employee,
+        roomId: roomId,
       });
 
-      newRoomUser.availableRooms.push(room._id);
-      await newRoomUser.save();
+      await room.save();
+      this.socket.emit("new-room-created-server",{roomId} );
+    } else {
+      console.log(roomFound[0]);
+      this.socket.emit("new-room-created-server", (roomFound[0].roomId));
     }
-
-    await room.save();
-    this.socket.broadcast.emit("new-room-created", { roomId });
   };
 
   joinRoom = ({ roomId }) => {

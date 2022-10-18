@@ -20,3 +20,15 @@ export const getMyChats = AsyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+export const getChats = AsyncHandler(async (req, res) => {
+  const { roomId } = req.params;
+
+  try {
+    const chat = await Room.findOne({roomId: roomId});
+
+    res.json(chat)
+  } catch (error) {
+    throw new Error(error);
+  }
+});

@@ -5,10 +5,12 @@ const roomSchema = new Schema({
   employer: {
     type: Schema.Types.ObjectId,
     ref: "User",
+    required: true,
   },
   employee: {
     type: Schema.Types.ObjectId,
     ref: "User",
+    required: true
   },
   roomId: {
     type: String,

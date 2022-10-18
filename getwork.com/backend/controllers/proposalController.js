@@ -207,7 +207,7 @@ export const acceptProposal = AsyncHandler(async (req, res) => {
         </div>`,
       });
 
-        res.status.json({
+        res.status(200).json({
           message: "Success",
         });
       } else {
@@ -216,6 +216,7 @@ export const acceptProposal = AsyncHandler(async (req, res) => {
     }
   } catch (error) {
     res.status(404);
+    console.log(error);
     throw new Error(error)
   }
 });

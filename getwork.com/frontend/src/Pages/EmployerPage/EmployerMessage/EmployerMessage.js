@@ -28,7 +28,7 @@ const EmployerMessage = ({socket}) => {
         className="chat-room-list"
       >
         {myRooms?.data?.map((room) => {
-          return <Link to={`/user/message/${room?.roomId}`}>{room?.employee?.name} <ChatIcon /> </Link>;
+          return <Link to={`/employer/message/${room?.roomId}`}>{room?.employee?.name} <ChatIcon /> </Link>;
         })}
       </div>
     </div>

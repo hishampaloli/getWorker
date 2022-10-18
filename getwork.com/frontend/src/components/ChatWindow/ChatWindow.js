@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 import TextField from "@mui/material/TextField";
 import { useParams } from "react-router-dom";
 
-const ChatWindow = ({ socket }) => {
+const ChatWindow = ({ socket, user }) => {
 
   const [message, setMessage] = useState("");
   const [chat, setchat] = useState([]);
@@ -19,6 +19,7 @@ const ChatWindow = ({ socket }) => {
     });
 
     socket.on("typing-started-from-server", () => {
+      console.log(34);
       setTyping(true);
     });
 
@@ -29,7 +30,8 @@ const ChatWindow = ({ socket }) => {
 
   const handleFrom = (e) => {
     e.preventDefault();
-    socket.emit("send-message", { message, roomId });
+       socket.emit("send-message", { message, roomId , user });
+   
     setchat((prev) => [...prev, { messages: message, received: false }]);
     setMessage("");
   };

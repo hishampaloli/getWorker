@@ -15,7 +15,7 @@ const EmployeeMessageRooms = ({socket}) => {
   }, [socket]);
 
   return (
-    <div><ChatWindow socket={socket} /></div>
+    <div><ChatWindow socket={socket} user={"employee"} /></div>
   )
 }
 
