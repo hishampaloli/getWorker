@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Button from "@mui/material/Button";
 import { io } from "socket.io-client";
 import TextField from "@mui/material/TextField";
@@ -7,7 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import SendIcon from "@mui/icons-material/Send";
 import { getMyRooms } from "../../actions/chatActions";
 
+import { SocketContext } from "../../SocketContext";
+import CallMePage from "../../Pages/CallMePage";
+
 const ChatWindow = ({ socket, user, room }) => {
+  const { me, call, callAcccepted } = useContext(SocketContext);
   const [message, setMessage] = useState("");
   const dispatch = useDispatch();
   const [chat, setchat] = useState([]);
@@ -15,30 +19,31 @@ const ChatWindow = ({ socket, user, room }) => {
   const [typingTimeout, setTypingTimeout] = useState(null);
   const [filest, setFile] = useState();
   const { roomId } = useParams();
-
-  console.log(chat);
+  const [videoLink, setVideoLink] = useState("");
 
   const fileSelected = (e) => {
     const file = e.target.files[0];
-    
     setFile(file);
-    // if (!file) return;
-
-    // const reader = new FileReader();
-    // reader.readAsDataURL(file);
-    // reader.onload = () => {
-    //   const data = reader.result;
-    //   socket.emit("upload", { data, room });
-    // };
   };
+
   useEffect(() => {
     if (!socket) return;
+
     socket.on("message-from-server", (data) => {
-      setchat((prev) => [...prev, { messages: data.message, received: true, type: 'lgy' }]);
+      console.log(data);
+      if (data.message) {
+        setchat((prev) => [
+          ...prev,
+          { messages: data.message, received: true, type: "lgy" },
+        ]);
+      }
+    });
+
+    socket.on("link-from-server", (data) => {
+      setVideoLink(data.me)
     });
 
     socket.on("typing-started-from-server", () => {
-      console.log(34);
       setTyping(true);
     });
 
@@ -47,19 +52,23 @@ const ChatWindow = ({ socket, user, room }) => {
     });
 
     socket.on("uploaded", (data) => {
-      setchat((prev) => [ ...prev, { messages: data.buffer, received: false, type: "image" },]);
+      setchat((prev) => [
+        ...prev,
+        { messages: data.buffer, received: false, type: "image" },
+      ]);
     });
   }, [socket]);
 
   const handleFrom = (e) => {
     e.preventDefault();
-    console.log(3434344);
     socket.emit("send-message", { message, room, user });
-    if (message !== '') {
-      setchat((prev) => [...prev, { messages: message, received: false, type: 'dfg' }]);
-    setMessage("");
+    if (message !== "") {
+      setchat((prev) => [
+        ...prev,
+        { messages: message, received: false, type: "dfg" },
+      ]);
+      setMessage("");
     }
-    
 
     if (!filest) return;
 
@@ -68,10 +77,17 @@ const ChatWindow = ({ socket, user, room }) => {
     reader.onload = () => {
       const data = reader.result;
       socket.emit("upload", { data, room });
-      setchat((prev) => [...prev, { messages: data, received: false, type: 'image' }]);
-    setFile("");
+      setchat((prev) => [
+        ...prev,
+        { messages: data, received: false, type: "image" },
+      ]);
+      setFile("");
     };
+  };
 
+  const handleVideoLink = () => {
+    console.log(333);
+    socket.emit("send-message", { message, room, user, me });
   };
 
   const handleInput = (e) => {
@@ -91,7 +107,11 @@ const ChatWindow = ({ socket, user, room }) => {
 
   return (
     <div>
-      {roomId && <h2>ROOM : {roomId}</h2>}
+      {videoLink && <CallMePage callId={videoLink} />}
+
+      {call.isReceivedCall && !callAcccepted && (
+        <CallMePage callId={videoLink} />
+      )}
       <div
         className="chat-box"
         style={{ display: "flex", flexDirection: "column" }}
@@ -107,7 +127,11 @@ const ChatWindow = ({ socket, user, room }) => {
               }
             >
               {el.type === "image" ? (
-                <img  style={{width:'100%', height: '50px'}} src={el.messages} alt="" />
+                <img
+                  style={{ width: "100%", height: "50px" }}
+                  src={el.messages}
+                  alt=""
+                />
               ) : (
                 <p
                   style={
@@ -127,6 +151,8 @@ const ChatWindow = ({ socket, user, room }) => {
             </div>
           );
         })}
+
+        <h3>{videoLink}</h3>
 
         <div>
           {typing && (
@@ -151,6 +177,9 @@ const ChatWindow = ({ socket, user, room }) => {
             <Button>
               <input type="file" onChange={fileSelected} />{" "}
             </Button>
+
+            <Button onClick={handleVideoLink}>video</Button>
+
             <Button type="submit">
               <SendIcon />
             </Button>

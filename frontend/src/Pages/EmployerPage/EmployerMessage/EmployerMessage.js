@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getMyChats, getMyRooms } from "../../../actions/chatActions";
@@ -9,10 +9,15 @@ import axios from "axios";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import CustomSpinner from "../../../components/customSpinner/CustomSpinner";
 
+import { SocketContext } from "../../../SocketContext";
+
 const EmployerMessage = ({ socket }) => {
+  
+  const { me, setMe, myId } = useContext(SocketContext);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [room, setRoom] = useState("");
+  const [callto, setCallTo] = useState("")
 
   const myRooms = useSelector((state) => state.myRooms);
   const myChats = useSelector((state) => state.myChats);
@@ -21,9 +26,9 @@ const EmployerMessage = ({ socket }) => {
     async function fetchRooms() {
       const { data } = await axios.get("http://localhost:3001/rooms");
       const { rooms } = data;
-      console.log(rooms);
     }
 
+    // socket.emit("sent-my-video", me);
     fetchRooms();
   }, []);
 
@@ -74,6 +79,7 @@ const EmployerMessage = ({ socket }) => {
       <div className="show-chat">
         <div className="top">
           <h6>This is a private chat between 2 people</h6>
+          <p>{callto || "user not acdive"}</p>
           <VideoCallIcon />
         </div>
 

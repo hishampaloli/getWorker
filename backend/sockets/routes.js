@@ -45,14 +45,14 @@ const sockets = (socket) => {
   socket.emit("me", socket.id);
 
   socket.on("calluser", ({ userToCall, signalData, from, name }) => {
-    io.to(userToCall).emit("calluser", { signal: signalData, from, name });
+    socket.to(userToCall).emit("calluser", { signal: signalData, from, name });
   });
 
   socket.on("answercall", (data) => {
-    io.to(data.to).emit("callaccepted", data.signal);
+    socket.to(data.to).emit("callaccepted", data.signal);
   });
 
-  socket.on("disconnect", (socket) => {
+  socket.on("disconnect", () => {
     socket.broadcast.emit("callended");
   });
 };

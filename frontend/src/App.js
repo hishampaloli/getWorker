@@ -34,6 +34,7 @@ import EmployeeMessage from "./Pages/EmployeePage/EmployeeMessage/EmployeeMessag
 import EmployeeMessageRooms from "./Pages/EmployeePage/EmployeeMessage/EmployeeMessageRooms";
 import EmployerMessage from "./Pages/EmployerPage/EmployerMessage/EmployerMessage";
 import EmployerMessageRoom from "./Pages/EmployerPage/EmployerMessage/EmployerMessageRoom";
+import CallMePage from "./Pages/CallMePage";
 
 const Landing = React.lazy(() => import("./Pages/LandingPage.js/Landing"));
 const Login = React.lazy(() => import("./Pages/LoginPage/Login"));
@@ -85,9 +86,18 @@ function App() {
               }
             />
 
+
             <Route exact path="/users/home" element={<EmployeeHome />} />
-            <Route exact path="/user/message" element={<EmployeeMessage socket={socket} />} />
-            <Route exact path="/user/message/:roomId" element={<EmployeeMessageRooms socket={socket} />} />
+            <Route
+              exact
+              path="/user/message"
+              element={<EmployeeMessage socket={socket} />}
+            />
+            <Route
+              exact
+              path="/user/message/:roomId"
+              element={<EmployeeMessageRooms socket={socket} />}
+            />
             <Route
               exact
               path="/user/profile"
@@ -107,7 +117,11 @@ function App() {
             <Route exact path="/user/proposals" element={<AllProposal />} />
 
             <Route exact path="/user/myjobs" element={<EmployeeJobsPage />} />
-            <Route exact path="/user/proposal/:id" element={<ViewProposal socket={socket} />} />
+            <Route
+              exact
+              path="/user/proposal/:id"
+              element={<ViewProposal socket={socket} />}
+            />
             <Route exact path="/user/earnings" element={<EmployeeEarnings />} />
             <Route exact path="/user/connects" element={<EmployeeConnects />} />
 
@@ -120,8 +134,16 @@ function App() {
             <Route exact path="/findTalents" element={<FindTalentsPage />} />
             <Route exact path="/employer/postjob" element={<PostJobs />} />
             <Route exact path="/employer/myposts" element={<MyPosts />} />
-            <Route exact path="/employer/message" element={<EmployerMessage socket={socket} />} />
-            <Route exact path="/employer/message/:roomId" element={<EmployerMessageRoom socket={socket} />} />
+            <Route
+              exact
+              path="/employer/message"
+              element={<EmployerMessage socket={socket} />}
+            />
+            <Route
+              exact
+              path="/employer/message/:roomId"
+              element={<EmployerMessageRoom socket={socket} />}
+            />
             <Route
               exact
               path="/employer/recharge"

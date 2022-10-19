@@ -43,7 +43,6 @@ const Header = ({socket}) => {
     }
   })
 
-console.log(notis+"><>><><><>>>><><><>");
 
   useEffect(() => {
     dispatch(getEmployeeProfile());

@@ -12,7 +12,6 @@ export default class RoomController extends BaseController {
       $and: [{ employee: employee }, { employer: employer }],
     });
 
-
     if (roomFound.length === 0) {
       const room = new Room({
         employer: employer,
@@ -21,15 +20,15 @@ export default class RoomController extends BaseController {
       });
 
       await room.save();
-      this.socket.emit("new-room-created-server",{roomId} );
+      this.socket.emit("new-room-created-server", { roomId });
     } else {
-      this.socket.emit("new-room-created-server", (roomFound[0].roomId));
+      this.socket.emit("new-room-created-server", roomFound[0].roomId);
     }
   };
 
   joinRoom = ({ room }) => {
-    console.log(room.roomId);
     this.socket.join(room.roomId);
     this.socket.broadcast.emit("new-room-created");
+    // this.socket.to(room.roomId).emit("videoId-from-server", this.socket.id);
   };
 }
