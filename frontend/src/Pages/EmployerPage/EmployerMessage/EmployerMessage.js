@@ -62,7 +62,7 @@ const EmployerMessage = ({ socket }) => {
                     <NotificationsActiveIcon />
                   ) : (
                     ""
-                  )}{" "}
+                  )}
                   <ChatIcon />
                 </div>
               </Link>
