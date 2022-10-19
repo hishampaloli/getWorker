@@ -64,7 +64,7 @@ const EmployerMessage = ({ socket }) => {
                     ""
                   )}{" "}
                   <ChatIcon />
-                </div>{" "}
+                </div>
               </Link>
             );
           })}
