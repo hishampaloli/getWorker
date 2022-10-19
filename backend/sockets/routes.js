@@ -29,23 +29,31 @@ const sockets = (socket) => {
     const Foundroom = await Room.findOne({ roomId: room });
 
     const chatMessages = {
-      message:  data.toString("base64") ,
-      user: 'employer',
-      image: true
+      message: data.toString("base64"),
+      user: "employer",
+      image: true,
     };
 
     if (Foundroom) {
       Foundroom.chats.push(chatMessages);
-
-
 
       await Foundroom.save();
     }
     socket.to(room).emit("uploaded", { buffer: data.toString("base64") });
   });
 
+  socket.emit("me", socket.id);
+
+  socket.on("calluser", ({ userToCall, signalData, from, name }) => {
+    io.to(userToCall).emit("calluser", { signal: signalData, from, name });
+  });
+
+  socket.on("answercall", (data) => {
+    io.to(data.to).emit("callaccepted", data.signal);
+  });
+
   socket.on("disconnect", (socket) => {
-    console.log("user left");
+    socket.broadcast.emit("callended");
   });
 };
 
