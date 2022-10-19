@@ -1,0 +1,113 @@
+.employeeConnects {
+  width: 100%;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+
+  div {
+    width: 100%;
+
+    h2 {
+      text-align: center;
+    }
+  }
+
+  .connect-box {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .left {
+      width: 25%;
+      border-radius: 10px;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+       
+       button {
+        border: none;
+        background-color: #dcdcdc;
+        border-radius: 5px;
+        color: rgb(138, 138, 138);
+        margin-top: 10px;
+        transition: .3s ease;
+        padding: 10px 15px;
+       }
+
+       button:hover {
+        background-color: #1d4354;
+       }
+    }
+
+    .right {
+      width: 70%;
+      border-radius: 10px;
+      background-color: white;
+    }
+  }
+
+  .row {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 30px;
+    .buy-box {
+      width: 300px;
+      background-color: #1d4354;
+      margin-left: 10px;
+      border-radius: 10px;
+      margin-top: 20px;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 20px;
+      p {
+        width: 100%;
+        margin-bottom: -2px;
+      }
+      h3 {
+        width: 100%;
+        margin-top: 20px;
+      }
+      button {
+        width: 100%;
+        border: none;
+        padding: 10px 15px;
+        margin-bottom: 5px;
+        border-radius: 5px;
+        color: white;
+        background-color: #3ccf4e;
+      }
+    }
+  }
+
+  .row-1 {
+    display: flex;
+    
+    .history-box {
+      display: flex;
+      padding: 10px;
+      width: 100%;
+      table {
+        width: 100%;
+
+        .tr-row {
+      }
+        th {
+          margin-left: 10px;
+        }
+
+        td {
+          margin-left: 10px;
+          padding: 5px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,197 @@
+.postJobs {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.post-box {
+  width: 80%;
+  min-height: 500px;
+  background-color: white;
+  border-radius: 10px;
+  margin-bottom: 100px;
+
+  // @top-div 
+
+  .top h4 {
+    padding: 20px;
+    padding-left: 50px;
+    font-weight: 600;
+    color: rgb(102, 102, 102);
+    border-bottom: 2px solid rgba(208, 208, 208, 0.667);
+  }
+
+  // @ bottom-div
+
+  .bottom form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+
+    input {
+      width: 90%;
+      border: 1px solid #aaaa;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    textarea {
+      width: 90%;
+      border: 1px solid #aaaa;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 15px 0;
+    }
+
+    button {
+      border: none;
+      background-color: #3ccf4e;
+      padding: 10px 15px;
+      border-radius: 5px;
+      width: 150px;
+      margin-left: 50px;
+      color: white;
+      margin-right: auto;
+      margin-bottom: 10px;
+    }
+
+    .row {
+      display: flex;
+      width: 90%;
+      margin: 10px 0;
+      flex-wrap: nowrap;
+
+      input {
+        width: 160px;
+        margin-right: 10px;
+        height: 45px;
+      }
+
+      button {
+        margin-left: 0px;
+      }
+    }
+
+    .row1 {
+      display: flex;
+      width: 100%;
+      margin-left: 100px;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+    }
+    
+    .row1 p {
+      margin-right: 10px;
+      background-color: rgba(170, 170, 170, 0.42);
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    
+
+    .row-2 {
+      display: flex;
+      flex-wrap: wrap;
+      width: 90%;
+      justify-content: flex-start;
+
+      select {
+        border-radius: 5px;
+        padding: 10px;
+        width: 200px;
+        margin-right: 10px;
+      }
+
+      input {
+        width: 25%;
+        margin-right: 10px;
+      }
+    }
+
+    .btn-div- {
+      width: 90%;
+
+      button {
+        width: 230px;
+        margin-top: 20px;
+        margin-left: 0px;
+      }
+    }
+    
+}
+}
+
+
+
+
+
+.post-box .header {
+    padding: 20px;
+    border-bottom: 2px solid rgba(170, 170, 170, 0.434);
+}
+
+.post-box .header button {
+    border: none;
+    background: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+}
+
+.post-box .header button:focus ,.post-box .header button:hover {
+    background-color:  #1d4354;
+    color: white;
+}
+
+
+.myjobs {
+    width: 80%;
+    min-height: 200px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+
+
+@media (max-width: 650px) {
+  .post-box {
+    .bottom form {
+      .row-2 {
+        input {
+          width: 47%;
+        }
+        select {
+          margin-top: 20px;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 470px) {
+  .post-box {
+    .bottom form {
+
+      .row {
+        input {
+          width: 150px;
+        }
+
+        button {
+          width: 90px;
+        }
+      }
+      .row-2 {
+        input {
+          width: 100%;
+          margin-top: 20px;
+        }
+        select {
+          margin-top: 20px;
+          width: 100%;
+        }
+      }
+    }
+  }
+}

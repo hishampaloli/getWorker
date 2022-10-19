@@ -1,0 +1,18 @@
+.proposal-view-actions {
+  display: flex;
+  margin-top: 50px;
+}
+
+.proposal-view-actions button {
+  margin-left: 10px;
+  transition: 0.3s ease;
+}
+.proposal-view-actions button:nth-child(1) {
+  background-color: #FF5454;
+}
+
+  
+
+.proposal-view-actions button:hover {
+  background-color: #1d4354;
+}

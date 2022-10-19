@@ -1,0 +1,101 @@
+
+.portfoilio-Popup {
+    width: 80%;
+    color: white;
+    position: absolute;
+    border: 1px solid rgb(223, 223, 223);
+    top: 140px; 
+    left: 50%;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1;
+    background-color: #1D4354;
+    transform: translateX(-50%);
+    border-radius: 25px;
+}
+
+.closeicon {
+    margin-left: 460px;
+    margin-top: 10px;
+    color: #ff6c6c;
+}
+.portfoilio-Popup form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    align-items: baseline;
+}
+
+.portfoilio-Popup form div .inp-img {
+    display: flex;
+    margin-left: -17px;
+    flex-direction: column;justify-content: flex-start;
+}
+
+.portfoilio-Popup form input {
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    width: 425px;
+}
+
+.portfoilio-Popup form textarea {
+    height: 200px;
+    width: 425px;
+}
+
+
+
+
+.portfoilio-Popup form button {
+    border: none;
+    margin-top: 25px;
+    border-radius: 5px;
+    height: 45px;
+    width: 130px;
+    color: white;
+    background-color: #3ccf4e;
+}
+
+.portfoilio-Popup span {
+    color: #e1e1e1;
+    width: 100%;
+    margin-bottom: 100px;
+    margin-left: -30px;
+}
+
+
+.portfoilio-Popup .bank-p p {
+    color: #e8e8e8;
+    width: 100%;
+    margin-left: -90px;
+}
+
+
+
+
+@media (max-width: 790px) {
+    .portfoilio-Popup {
+      width: 90%;
+    }
+  
+    .portfoilio-Popup ul {
+      width: 420px;
+      margin-bottom: 40px;
+    }
+  }
+  
+  
+  @media (max-width: 490px) {
+  
+    
+    .portfoilio-Popup ul {
+        width: 300px;
+        margin-bottom: 40px;
+      }
+    }
+  
+    

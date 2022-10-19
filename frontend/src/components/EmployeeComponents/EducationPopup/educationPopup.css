@@ -1,0 +1,116 @@
+.educationPopUp {
+  width: 80%;
+  color: white;
+  position: absolute;
+  border: 1px solid rgb(223, 223, 223);
+  top: 140px;
+  left: 50%;
+  min-height: 400px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  align-items: center;
+  background-color: #1d4354;
+  transform: translateX(-50%);
+  border-radius: 25px;
+}
+
+.closeicon {
+  margin-left: 460px;
+  margin-top: 10px;
+  color: #ff6c6c;
+}
+.educationPopUp form {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  align-items: baseline;
+}
+
+.educationPopUp form input,
+textarea {
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.educationPopUp form button {
+  border: none;
+  border-radius: 5px;
+  height: 45px;
+  width: 100px;
+  background-color: #3ccf4e;
+  margin-top: 40px;
+}
+
+
+.educationPopUp span {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.educationPopUp span div {
+  width: 80%;
+}
+
+.educationPopUp ul {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.educationPopUp ul h3 {
+  color: #3ccf4d79;
+  margin-bottom: 20px;
+}
+
+.educationPopUp ul p {
+  color: #ffffff79;
+  margin-bottom: 20px;
+}
+
+.educationPopUp ul p {
+  display: flex;
+  justify-content: space-between;
+}
+
+.educationPopUp ul p button {
+  margin-right: 20px;
+}
+
+@media (max-width: 790px) {
+  .educationPopUp {
+    width: 90%;
+  }
+
+  .educationPopUp ul {
+    width: 420px;
+    margin-bottom: 40px;
+  }
+}
+
+
+@media (max-width: 490px) {
+
+  
+    .educationPopUp ul {
+      width: 300px;
+      margin-bottom: 40px;
+    }
+  }
+
+  
+@media (max-width: 390px) {
+
+  
+    .educationPopUp ul {
+      width: 250px;
+      margin-bottom: 40px;
+    }
+  }
+  
+  
