@@ -1,22 +1,28 @@
 .call-main-div {
   width: 62%;
-  background-color: black;
+  background-color: #1d4354;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   position: absolute;
-  top: 20px;
+  top: 120px;
   border-radius: 10px;
   z-index: 100;
   right: 50px;
   color: white;
 }
 
+.vid-box {
+  display: flex;
+  width: 80%;
+  justify-content: space-between;
+}
+
 .videoplaye {
   width: 200px;
-  height: 200px;
-  background-color: aqua;
+  height: 150px;
+  background-color: rgb(237, 237, 237);
   border-radius: 5px;
 }
 
@@ -38,34 +44,34 @@
   }
 
   .hang-btn {
-    background-color: #FF5454;
+    background-color: #ff5454;
+    color: white;
   }
 
   .call-btn {
     background-color: #3ccf4e;
+    color: white;
   }
 }
 
-
 .call-notification {
-    width: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  div {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    div {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 20px;
+    justify-content: center;
+    margin-bottom: 20px;
 
-        button {
-            border: none;
-            background-color: #3ccf4e;
-            border-radius: 5px;
-            padding: 10px 15px;
-            margin-right: 10px;
-            color: white;
-        }
+    button {
+      border: none;
+      background-color: #3ccf4e;
+      border-radius: 5px;
+      padding: 10px 15px;
+      margin-right: 10px;
+      color: white;
     }
-   
+  }
 }

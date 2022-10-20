@@ -31,9 +31,7 @@ import EmployeeConnects from "./Pages/EmployeePage/EmployeeConnects/EmployeeConn
 import EmployerRecharge from "./Pages/EmployerPage/Recharge/EmployerRecharge";
 import { io } from "socket.io-client";
 import EmployeeMessage from "./Pages/EmployeePage/EmployeeMessage/EmployeeMessage";
-import EmployeeMessageRooms from "./Pages/EmployeePage/EmployeeMessage/EmployeeMessageRooms";
 import EmployerMessage from "./Pages/EmployerPage/EmployerMessage/EmployerMessage";
-import EmployerMessageRoom from "./Pages/EmployerPage/EmployerMessage/EmployerMessageRoom";
 
 const Landing = React.lazy(() => import("./Pages/LandingPage.js/Landing"));
 const Login = React.lazy(() => import("./Pages/LoginPage/Login"));
@@ -85,18 +83,13 @@ function App() {
               }
             />
 
-
             <Route exact path="/users/home" element={<EmployeeHome />} />
             <Route
               exact
               path="/user/message"
               element={<EmployeeMessage socket={socket} />}
             />
-            <Route
-              exact
-              path="/user/message/:roomId"
-              element={<EmployeeMessageRooms socket={socket} />}
-            />
+
             <Route
               exact
               path="/user/profile"
@@ -138,11 +131,7 @@ function App() {
               path="/employer/message"
               element={<EmployerMessage socket={socket} />}
             />
-            <Route
-              exact
-              path="/employer/message/:roomId"
-              element={<EmployerMessageRoom socket={socket} />}
-            />
+
             <Route
               exact
               path="/employer/recharge"

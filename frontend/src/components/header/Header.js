@@ -126,7 +126,6 @@ const Header = ({socket}) => {
                   <NotificationsActiveIcon />
                 </Link>
 
-                <Link to="/message ">message</Link>
               </>
             ) : (
               <>

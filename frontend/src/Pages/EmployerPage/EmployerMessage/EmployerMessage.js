@@ -12,12 +12,11 @@ import CustomSpinner from "../../../components/customSpinner/CustomSpinner";
 import { SocketContext } from "../../../SocketContext";
 
 const EmployerMessage = ({ socket }) => {
-  
   const { me, setMe, myId } = useContext(SocketContext);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [room, setRoom] = useState("");
-  const [callto, setCallTo] = useState("")
+  const [callto, setCallTo] = useState("");
 
   const myRooms = useSelector((state) => state.myRooms);
   const myChats = useSelector((state) => state.myChats);
@@ -79,12 +78,23 @@ const EmployerMessage = ({ socket }) => {
       <div className="show-chat">
         <div className="top">
           <h6>This is a private chat between 2 people</h6>
-          <p>{callto || "user not acdive"}</p>
-          <VideoCallIcon />
         </div>
 
         <div className="bottom">
-        {myChats.loading && room ? <div style={{width: '100%', display:'flex', justifyContent: 'center'}}> <CustomSpinner /></div>: ''}
+          {myChats.loading && room ? (
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              {" "}
+              <CustomSpinner />
+            </div>
+          ) : (
+            ""
+          )}
           {myChats.chat?.chats?.map((el) => {
             return (
               <>
@@ -97,7 +107,11 @@ const EmployerMessage = ({ socket }) => {
                   }
                 >
                   {el.image ? (
-                    <img style={{width:'100%', height: '50px'}} src={el.message} alt="" />
+                    <img
+                      style={{ width: "100%", height: "50px" }}
+                      src={el.message}
+                      alt=""
+                    />
                   ) : (
                     <p
                       style={

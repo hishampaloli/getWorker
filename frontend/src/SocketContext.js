@@ -46,6 +46,7 @@ const ContextProvider = ({ children }) => {
     });
   }, [socket]);
 
+
   const answerCall = () => {
     setCallAccepted(true);
 

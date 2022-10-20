@@ -5,7 +5,7 @@ const VideoPlayer = () => {
   const {  callAccepted, myVideo, userVideo, callEnded,  stream } =
     useContext(SocketContext);
   return (
-    <div>
+    <div className="vid-box">
       {stream && (
         <div className="myVideo">
           <div>

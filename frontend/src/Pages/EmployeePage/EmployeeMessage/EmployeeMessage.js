@@ -85,8 +85,7 @@ const EmployeeMessage = ({ socket }) => {
       <div className="show-chat">
         <div className="top">
           <h6>This is a private chat between 2 people</h6>
-          <p>{callto || "user not acdive"}</p>
-          <VideoCallIcon />
+          
         </div>
 
         <div className="bottom">

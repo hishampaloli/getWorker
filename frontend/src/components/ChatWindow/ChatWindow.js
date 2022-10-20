@@ -6,6 +6,8 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import SendIcon from "@mui/icons-material/Send";
 import { getMyRooms } from "../../actions/chatActions";
+import CloseIcon from '@mui/icons-material/Close';
+import VideocamIcon from '@mui/icons-material/Videocam';
 
 import { SocketContext } from "../../SocketContext";
 import CallMePage from "../../Pages/callMePage/CallMePage";
@@ -109,7 +111,7 @@ const ChatWindow = ({ socket, user, room }) => {
 
   return (
     <div>
-      {videoLink && <> <div> <button style={{position: 'absolute', right: '60px', top: '30px', zIndex: '101'}} onClick={() => setVideoLink('')} >Close</button> <CallMePage callId={videoLink} /></div></> }
+      {videoLink && <> <div> <div style={{position: 'absolute', right: '60px', top: '130px', zIndex: '101', border: 'none', borderRadius: '50%', width: '25px', height: '25px', backgroundColor: '#FF5454', color: 'white',padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center'}} onClick={() => setVideoLink('')} > <CloseIcon /> </div> <CallMePage callId={videoLink} /></div></> }
 
       {call.isReceivedCall && !callAcccepted && (
         <CallMePage callId={videoLink} name={userName}  />
@@ -154,8 +156,6 @@ const ChatWindow = ({ socket, user, room }) => {
           );
         })}
 
-        <h3>{videoLink}</h3>
-
         <div>
           {typing && (
             <div className="chat-bubble">
@@ -180,7 +180,7 @@ const ChatWindow = ({ socket, user, room }) => {
               <input type="file" onChange={fileSelected} />{" "}
             </Button>
 
-            <Button onClick={handleVideoLink}>video</Button>
+            <Button onClick={handleVideoLink}> <VideocamIcon/> </Button>
 
             <Button type="submit">
               <SendIcon />
