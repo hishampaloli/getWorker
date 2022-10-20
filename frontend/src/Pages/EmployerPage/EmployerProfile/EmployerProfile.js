@@ -14,7 +14,6 @@ const EmployerProfile = () => {
   const user = useSelector((state) => state.user);
   const employerData = useSelector((state) => state.employerData);
 
-  console.log(employerData.userInfo?.completedJobs);
 
   const [ed, setEd] = useState("profile");
   const [show, setShow] = useState(false);

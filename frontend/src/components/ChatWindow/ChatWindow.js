@@ -1,11 +1,8 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "@mui/material/Button";
-import { io } from "socket.io-client";
 import TextField from "@mui/material/TextField";
-import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import SendIcon from "@mui/icons-material/Send";
-import { getMyRooms } from "../../actions/chatActions";
 import CloseIcon from '@mui/icons-material/Close';
 import VideocamIcon from '@mui/icons-material/Videocam';
 
@@ -15,12 +12,10 @@ import CallMePage from "../../Pages/callMePage/CallMePage";
 const ChatWindow = ({ socket, user, room }) => {
   const { me, call, callAcccepted } = useContext(SocketContext);
   const [message, setMessage] = useState("");
-  const dispatch = useDispatch();
   const [chat, setchat] = useState([]);
   const [typing, setTyping] = useState(false);
   const [typingTimeout, setTypingTimeout] = useState(null);
   const [filest, setFile] = useState();
-  const { roomId } = useParams();
   const [videoLink, setVideoLink] = useState("");
   const userI = useSelector(state => state.user)
   const userName = userI.userInfo?.name
@@ -34,7 +29,6 @@ const ChatWindow = ({ socket, user, room }) => {
     if (!socket) return;
 
     socket.on("message-from-server", (data) => {
-      console.log(data);
       if (data.message) {
         setchat((prev) => [
           ...prev,
@@ -90,7 +84,6 @@ const ChatWindow = ({ socket, user, room }) => {
   };
 
   const handleVideoLink = () => {
-    console.log(333);
     socket.emit("send-message", { message, room, user, me });
   };
 
@@ -120,9 +113,10 @@ const ChatWindow = ({ socket, user, room }) => {
         className="chat-box"
         style={{ display: "flex", flexDirection: "column" }}
       >
-        {chat.map((el) => {
+        {chat.map((el,idx) => {
           return (
             <div
+            key={idx+el}
               className="blk mt-2"
               style={
                 el.received
@@ -181,7 +175,6 @@ const ChatWindow = ({ socket, user, room }) => {
             </Button>
 
             <Button onClick={handleVideoLink}> <VideocamIcon/> </Button>
-
             <Button type="submit">
               <SendIcon />
             </Button>

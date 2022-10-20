@@ -15,7 +15,6 @@ const CancelledJobs = ({jobs}) => {
     const [keyword, setKeyword] = useState("");
     const [alert, setAlert] = useState(false);
   
-    console.log(jobs);
   
     const Employers = "";
     return (

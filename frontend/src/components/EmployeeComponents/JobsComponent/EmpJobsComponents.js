@@ -12,7 +12,6 @@ import Alert from "@mui/material/Alert";
 const EmpJobsComponents = ({ jobs, sv }) => {
   const dispatch = useDispatch();
 
-  console.log(jobs);
   return (
     <div
       style={{
@@ -26,11 +25,11 @@ const EmpJobsComponents = ({ jobs, sv }) => {
       {jobs
         ? jobs?.map((job) => {
             return (
-              <div className="emp-jobs-div">
+              <div key={job._id} className="emp-jobs-div">
                 <div className="s">
-                  <h4 style={{ color: "#BFACE0" }}>{job?.title}</h4>
+                  <h4 style={{ color: "#1d4354" }}>{job?.title?.toString().slice(0, 50)}...</h4>
 
-                  <p  className="mt-3">{job?.description?.split(0, 1)}...</p>
+                  <p  className="mt-3">{job?.description?.toString().slice(0, 100)}...</p>
 
                   <div className="rowEm">
                     <p className="rpEm  mt-0">

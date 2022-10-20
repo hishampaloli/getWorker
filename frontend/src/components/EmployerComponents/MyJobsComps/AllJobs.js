@@ -15,7 +15,6 @@ const AllJobs = ({ jobs }) => {
     const [keyword, setKeyword] = useState("");
     const [alert, setAlert] = useState(false);
   
-    console.log(jobs);
   
     return (
       <div className="jobPostPage">

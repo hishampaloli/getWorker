@@ -1,41 +1,26 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { getMyChats, getMyRooms } from "../../../actions/chatActions";
 import ChatIcon from "@mui/icons-material/Chat";
 import ChatWindow from "../../../components/ChatWindow/ChatWindow";
-import VideoCallIcon from "@mui/icons-material/VideoCall";
-import axios from "axios";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import CustomSpinner from "../../../components/customSpinner/CustomSpinner";
 
-import { SocketContext } from "../../../SocketContext";
-
 const EmployerMessage = ({ socket }) => {
-  const { me, setMe, myId } = useContext(SocketContext);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [room, setRoom] = useState("");
-  const [callto, setCallTo] = useState("");
 
   const myRooms = useSelector((state) => state.myRooms);
   const myChats = useSelector((state) => state.myChats);
 
-  useEffect(() => {
-    async function fetchRooms() {
-      const { data } = await axios.get("http://localhost:3001/rooms");
-      const { rooms } = data;
-    }
-
-    // socket.emit("sent-my-video", me);
-    fetchRooms();
-  }, []);
 
   useEffect(() => {
     if (!socket) return;
 
     dispatch(getMyRooms());
-  }, [socket]);
+  }, [socket, dispatch]);
+
   return (
     <div className="chat-list">
       <div className="chat-room-list">
@@ -46,6 +31,7 @@ const EmployerMessage = ({ socket }) => {
           {myRooms?.data?.map((room) => {
             return (
               <Link
+              key={room?.roomId}
                 style={
                   room?.employerViewed === false
                     ? { backgroundColor: "#aaaa" }
@@ -95,10 +81,11 @@ const EmployerMessage = ({ socket }) => {
           ) : (
             ""
           )}
-          {myChats.chat?.chats?.map((el) => {
+          {myChats.chat?.chats?.map((el,idx) => {
             return (
               <>
                 <div
+                key={idx}
                   className="blk mt-2"
                   style={
                     el.user === "employee"

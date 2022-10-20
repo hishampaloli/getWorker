@@ -7,7 +7,7 @@ const LoadingPage = () => {
     <div
       style={{ width: "100%", height: "100vh", backgroundColor: " #1d4354", alignItems :'center', justifyContent: 'center', display: 'flex' }}
     >
-     <div class="kineti"></div>
+     <div className="kineti"></div>
     </div>
   );
 };

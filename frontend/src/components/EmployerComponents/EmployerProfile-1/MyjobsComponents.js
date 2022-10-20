@@ -4,7 +4,7 @@ import "./myjobs.scss";
 import { Link } from "react-router-dom";
 
 const MyjobsComponents = ({ jobs }) => {
-  console.log(jobs);
+
   return (
     <div
       style={{
@@ -16,9 +16,9 @@ const MyjobsComponents = ({ jobs }) => {
       }}
     >
       {jobs
-        ? jobs?.map((job) => {
+        ? jobs?.map((job,idx) => {
             return (
-              <div key={job?._id} className="my-jobs-div">
+              <div key={job?._id + idx} className="my-jobs-div">
                 <div className="s">
                   <h4>{job?.title}</h4>
                   <p>

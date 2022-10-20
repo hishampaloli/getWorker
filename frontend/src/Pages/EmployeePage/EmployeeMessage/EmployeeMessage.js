@@ -1,46 +1,30 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link} from "react-router-dom";
 import ChatWindow from "../../../components/ChatWindow/ChatWindow";
-import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 import "./Chat.scss";
-import VideoCallIcon from "@mui/icons-material/VideoCall";
 import { useDispatch, useSelector } from "react-redux";
 import { getMyChats, getMyRooms } from "../../../actions/chatActions";
 import ChatIcon from "@mui/icons-material/Chat";
+import {v4 as uuidv4} from 'uuid'
 import CustomSpinner from "../../../components/customSpinner/CustomSpinner.js";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 
-import { SocketContext } from "../../../SocketContext";
 
 const EmployeeMessage = ({ socket }) => {
-  const { me, setMe, myId } = useContext(SocketContext);
+
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [rooms, setRooms] = useState([]);
   const [room, setRoom] = useState("");
-  const [callto, setCallTo] = useState("");
 
   const myRooms = useSelector((state) => state.myRooms);
   const myChats = useSelector((state) => state.myChats);
 
-  useEffect(() => {
-    async function fetchRooms() {
-      const { data } = await axios.get("http://localhost:3001/rooms");
-      const { rooms } = data;
-      setRooms(rooms);
-
-    }
-
-    fetchRooms();
-  }, []);
-
+  
   useEffect(() => {
     if (!socket) return;
     
     dispatch(getMyRooms());
-  }, [socket]);
+  }, [socket, dispatch]);
 
   return (
     <div className="chat-list">
@@ -53,6 +37,7 @@ const EmployeeMessage = ({ socket }) => {
           {myRooms?.data?.map((room) => {
             return (
               <Link
+              key={room.roomId}
                 style={
                   room?.employeeViewed === false
                     ? { backgroundColor: "#aaaa" }
@@ -103,10 +88,11 @@ const EmployeeMessage = ({ socket }) => {
           ) : (
             ""
           )}
-          {myChats.chat?.chats?.map((el) => {
+          {myChats.chat?.chats?.map((el,idx) => {
             return (
               <>
                 <div
+                key={uuidv4()}
                   className="blk mt-2"
                   style={
                     el.user === "employee"
@@ -157,3 +143,4 @@ const EmployeeMessage = ({ socket }) => {
 };
 
 export default EmployeeMessage;
+

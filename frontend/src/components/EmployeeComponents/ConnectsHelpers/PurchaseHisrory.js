@@ -13,21 +13,25 @@ const PurchaseHisrory = () => {
   return (
     <div className="history-box">
       <table>
+      <thead>
         <tr>
           <th>no:</th>
           <th>Order Id</th>
           <th>Payment Id</th>
           <th>Amount</th>
         </tr>
+        </thead>
 
         {purchaseHistory.history?.details?.map((el, idx) => {
           return (
+            <tbody key={el.orderId} >
             <tr className="tr-row">
               <td>{idx + 1}</td>
               <td>{el?.orderId}</td>
               <td>{el?.paymentId}</td>
               <td>{el?.amount}.00</td>
             </tr>
+            </tbody>
           );
         })}
       </table>

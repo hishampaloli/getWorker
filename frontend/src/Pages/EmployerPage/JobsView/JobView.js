@@ -35,7 +35,6 @@ const JobView = () => {
   });
 
   useEffect(() => {
-    console.log(id);
     dispatch(JobsDetails(id));
   }, [dispatch]);
 

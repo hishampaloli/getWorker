@@ -3,7 +3,7 @@ import './Spinner.css'
 
 const CustomSpinner = () => {
   return (
-    <div class="kinetic"></div>
+    <div className="kinetic"></div>
   )
 }
 

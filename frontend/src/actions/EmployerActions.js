@@ -34,7 +34,6 @@ export const getEmployerProfile = () => async (dispatch) => {
       config
     );
 
-    console.log(data);
 
     dispatch({
       type: EMPLOYER_PROFILE_SUCCESS,
@@ -68,7 +67,6 @@ export const getEmployerProfileData = (id) => async (dispatch) => {
       config
     );
 
-    console.log(data);
 
     dispatch({
       type: EMPLOYER_PROFILE_SUCCESS,
@@ -88,7 +86,6 @@ export const editEmployerProfile =
       dispatch({
         type: CHANGE_E_PASSWORD_REQUEST,
       });
-      console.log(image);
 
       const id = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -124,7 +121,6 @@ export const editEmployerProfile =
         });
       }
     } catch (error) {
-      console.log(error);
     }
   };
 
@@ -158,7 +154,6 @@ export const findTalents =
       dispatch({
         type: FIND_TALENDS_FAIL,
       });
-      console.log(error);
     }
   };
 
@@ -188,7 +183,6 @@ export const saveTalents = (id) => async (dispatch, getState) => {
       });
     }
   } catch (error) {
-    console.log(error);
   }
 };
 
@@ -211,7 +205,6 @@ export const removeSavedTalent = (id) => async (dispatch, getState) => {
       config
     );
 
-    console.log(data);
 
     if (data) {
       dispatch({
@@ -220,7 +213,6 @@ export const removeSavedTalent = (id) => async (dispatch, getState) => {
       });
     }
   } catch (error) {
-    console.log(error);
   }
 };
 

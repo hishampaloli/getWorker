@@ -87,8 +87,8 @@ const PostJobs = () => {
             </div>
 
             <div className="row1">
-              {tagsArray.map((el) => (
-                <p>{el}</p>
+              {tagsArray.map((el,idx) => (
+                <p key={idx}>{el}</p>
               ))}
             </div>
 

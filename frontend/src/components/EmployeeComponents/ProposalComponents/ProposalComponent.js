@@ -31,7 +31,7 @@ const ProposalComponent = ({ proposals, sort }) => {
       {proposals
         ? proposals?.map((proposal) => {
             return (
-              <div className="emp-prop-div">
+              <div key={proposal._id} className="emp-prop-div">
                 <div className="s">
                   <h4>{proposal?.cover?.slice(0, 20)}...</h4>
 

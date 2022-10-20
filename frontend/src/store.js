@@ -39,21 +39,16 @@ import {
   MyJobsReducer,
   saveJobsReducer,
 } from "./reducers/jobsReducer";
-import { JobsDetails } from "./actions/jobsActions";
 import {
   acceptProposalReducer,
   MyProposalReducer,
   postProposalReducer,
   viewProposalReducer,
 } from "./reducers/proposalReducer";
-import { acceptProposal } from "./actions/proposalActions";
-import {
-  PURCHASE_hISTORY_REQUEST,
-  PURCHASE_hISTORY_FAIL,
-  PURCHASE_hISTORY_SUCCUSS,
-} from "./contants/paymentConstants";
+
 import { purchaseHistoryReducer } from "./reducers/purchaseReducer";
 import { callReducer, myChatsReducer, myRoomsReducer } from "./reducers/chatReducer";
+
 
 const reducer = combineReducers({
   employee: userRegisterReducer,
@@ -119,3 +114,4 @@ const store = createStore(
 );
 
 export default store;
+

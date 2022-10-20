@@ -35,7 +35,6 @@ const MyPosts = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(332);
     dispatch(myJobs(keyword));
   };
 

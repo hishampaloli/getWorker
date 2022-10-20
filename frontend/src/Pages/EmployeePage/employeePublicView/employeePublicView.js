@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-
-  getEmployeeProfileView,
-} from "../../../actions/EmplyeeActions";
+import { getEmployeeProfileView } from "../../../actions/EmplyeeActions";
 import "../employeeProfile.js/employeeProfile.scss";
 import { EffectCards } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import "swiper/css/effect-coverflow";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import "swiper/css/pagination";
 import { EffectCoverflow, Pagination } from "swiper";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import SwipPage from '../../../components/EmployeeComponents/Swiper/SwipPage'
-import VisibilityIcon from '@mui/icons-material/Visibility';
-
+import SwipPage from "../../../components/EmployeeComponents/Swiper/SwipPage";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 const EmployeePublicView = () => {
   const dispatch = useDispatch();
@@ -94,9 +90,9 @@ const EmployeePublicView = () => {
                     }}
                   >
                     <strong>since :</strong>{" "}
-                    <p style={{ color: "#3CCF4E", marginLeft: "10px" }}>
+                    <span style={{ color: "#3CCF4E", marginLeft: "10px" }}>
                       {userData?.owner?.createdAt.slice(0, 10)}
-                    </p>
+                    </span>
                   </p>
                 </div>
               </div>
@@ -116,7 +112,7 @@ const EmployeePublicView = () => {
                   </span>
 
                   <span>
-                    <strong>{userData?.workHistory.length}</strong>
+                    <strong>{userData?.workHistory?.length}</strong>
                     <p>Total Jobs</p>
                   </span>
                 </div>
@@ -126,7 +122,10 @@ const EmployeePublicView = () => {
                     <h5>Language </h5>
                     {userData?.languages.map((language) => {
                       return (
-                        <p key={language?.language} style={{ marginLeft: "0px" }}>
+                        <p
+                          key={language?.language }
+                          style={{ marginLeft: "0px" }}
+                        >
                           {language?.language}
                         </p>
                       );
@@ -138,7 +137,10 @@ const EmployeePublicView = () => {
 
                     {userData?.skills.map((education) => {
                       return (
-                        <li key={education?.skill} style={{ marginLeft: "0px" }}>
+                        <li
+                          key={education?.skill }
+                          style={{ marginLeft: "0px" }}
+                        >
                           {education?.skill}
                         </li>
                       );
@@ -162,10 +164,8 @@ const EmployeePublicView = () => {
               </div>
 
               <div className="right">
-                <h1 >
-                  {userData?.userTitle}
-                </h1>
-                <p >{userData?.userInfo}</p>
+                <h1>{userData?.userTitle}</h1>
+                <p>{userData?.userInfo}</p>
               </div>
             </div>
           </div>
@@ -176,25 +176,28 @@ const EmployeePublicView = () => {
             </div>
 
             <div className="body">
-            <div  style={{width: '100%'}}   className="left">
-            {userData?.completedJobs?.map(job => {
-              return  <div className="work-div-box">
-            <div>
-              <h4>{job?.title}</h4>
-              <div className="left-text">
-                <strong>${job?.budget}</strong>
-                <p>Successfully Completed</p>
+              <div style={{ width: "100%" }} className="left">
+                {userData?.completedJobs?.map((job) => {
+                  return (
+                    <div key={job._id} className="work-div-box">
+                      <div>
+                        <h4>{job?.title}</h4>
+                        <div className="left-text">
+                          <strong>${job?.budget}</strong>
+                          <p>Successfully Completed</p>
+                        </div>
+                      </div>
+                      <Link to={`/jobs/${job?._id}`}>
+                        {" "}
+                        <button style={{ color: "white" }}>
+                          {" "}
+                          <VisibilityIcon />{" "}
+                        </button>
+                      </Link>
+                    </div>
+                  );
+                })}
               </div>
-              </div>
-              <Link to={`/jobs/${job?._id}`}> <button style={{color: 'white'}}> <VisibilityIcon /> </button></Link>
-            
-
-            </div>
-            })}
-           
-
-            </div>
-
             </div>
           </div>
 
@@ -358,129 +361,125 @@ const EmployeePublicView = () => {
               </Swiper>
             </div>
             <Swiper
-                effect={"cards"}
-                grabCursor={true}
-                // modules={[EffectCards]}
-                className="mySwipe"
-              >
-                {userData?.portfolios[0]?.Image ? (
-                  <SwiperSlide>
-                    <img
-                      className="swp-img"
-                      src={userData?.portfolios[0]?.Image}
-                      alt=""
-                    />{" "}
-                    <button
-                      onClick={() => {
-                        setTitle(userData?.portfolios[0]?.title);
-                        setDescription(userData?.portfolios[0]?.description);
-                        setShowPortfolio("portfolio");
-                        setImgUrl(userData?.portfolios[0]?.Image);
-                        setId(userData?.portfolios[0]?._id);
-                      }}
-                      style={{ marginLeft: "0px" }}
-                      className="editIco mt-2 mb-2"
-                    >
-                      <RemoveRedEyeIcon />
-                    </button>
-                  </SwiperSlide>
-                ) : (
-                  ""
-                )}
-                {userData?.portfolios[1]?.Image ? (
-                  <SwiperSlide className="swp-cls">
-                    <img
-                      className="swp-img"
-                      src={userData?.portfolios[1]?.Image}
-                      alt=""
-                    />{" "}
-                    <button
-                      onClick={() => {
-                        setTitle(userData?.portfolios[1]?.title);
-                        setDescription(userData?.portfolios[1]?.description);
-                        setShowPortfolio("portfolio");
-                        setImgUrl(userData?.portfolios[1]?.Image);
-                        setId(userData?.portfolios[1]?._id);
-                      }}
-                      style={{ marginLeft: "0px" }}
-                      className="editIco mt-2 mb-2"
-                    >
-                      <RemoveRedEyeIcon />
-                    </button>
-                  </SwiperSlide>
-                ) : (
-                  ""
-                )}
-                {userData?.portfolios[2]?.Image ? (
-                  <SwiperSlide>
-                    <img
-                      className="swp-img"
-                      src={userData?.portfolios[2]?.Image}
-                      alt=""
-                    />{" "}
-                    <button
-                      onClick={() => {
-                        setTitle(userData?.portfolios[2]?.title);
-                        setDescription(userData?.portfolios[2]?.description);
-                        setShowPortfolio("portfolio");
-                        setImgUrl(userData?.portfolios[2]?.Image);
-                        setId(userData?.portfolios[2]?._id);
-                      }}
-                      style={{ marginLeft: "0px" }}
-                      className="editIco mt-2 mb-2"
-                    >
-                      <RemoveRedEyeIcon />
-                    </button>
-                  </SwiperSlide>
-                ) : (
-                  ""
-                )}
-                {userData?.portfolios[3]?.Image ? (
-                  <SwiperSlide>
-                    <img
-                      className="swp-img"
-                      src={userData?.portfolios[3]?.Image}
-                      alt=""
-                    />{" "}
-                    <button
-                      onClick={() => {
-                        setTitle(userData?.portfolios[3]?.title);
-                        setDescription(userData?.portfolios[3]?.description);
-                        setShowPortfolio("portfolio");
-                        setImgUrl(userData?.portfolios[3]?.Image);
-                        setId(userData?.portfolios[3]?._id);
-                      }}
-                      style={{ marginLeft: "0px" }}
-                      className="editIco mt-2 mb-2"
-                    >
-                      <RemoveRedEyeIcon />
-                    </button>
-                  </SwiperSlide>
-                ) : (
-                  ""
-                )}
-                <p style={{ marginLeft: "100px", color: "#75E6FF" }}>
-                  {"swip >"}
-                </p>
-              </Swiper>
+              effect={"cards"}
+              grabCursor={true}
+              // modules={[EffectCards]}
+              className="mySwipe"
+            >
+              {userData?.portfolios[0]?.Image ? (
+                <SwiperSlide>
+                  <img
+                    className="swp-img"
+                    src={userData?.portfolios[0]?.Image}
+                    alt=""
+                  />{" "}
+                  <button
+                    onClick={() => {
+                      setTitle(userData?.portfolios[0]?.title);
+                      setDescription(userData?.portfolios[0]?.description);
+                      setShowPortfolio("portfolio");
+                      setImgUrl(userData?.portfolios[0]?.Image);
+                      setId(userData?.portfolios[0]?._id);
+                    }}
+                    style={{ marginLeft: "0px" }}
+                    className="editIco mt-2 mb-2"
+                  >
+                    <RemoveRedEyeIcon />
+                  </button>
+                </SwiperSlide>
+              ) : (
+                ""
+              )}
+              {userData?.portfolios[1]?.Image ? (
+                <SwiperSlide className="swp-cls">
+                  <img
+                    className="swp-img"
+                    src={userData?.portfolios[1]?.Image}
+                    alt=""
+                  />{" "}
+                  <button
+                    onClick={() => {
+                      setTitle(userData?.portfolios[1]?.title);
+                      setDescription(userData?.portfolios[1]?.description);
+                      setShowPortfolio("portfolio");
+                      setImgUrl(userData?.portfolios[1]?.Image);
+                      setId(userData?.portfolios[1]?._id);
+                    }}
+                    style={{ marginLeft: "0px" }}
+                    className="editIco mt-2 mb-2"
+                  >
+                    <RemoveRedEyeIcon />
+                  </button>
+                </SwiperSlide>
+              ) : (
+                ""
+              )}
+              {userData?.portfolios[2]?.Image ? (
+                <SwiperSlide>
+                  <img
+                    className="swp-img"
+                    src={userData?.portfolios[2]?.Image}
+                    alt=""
+                  />{" "}
+                  <button
+                    onClick={() => {
+                      setTitle(userData?.portfolios[2]?.title);
+                      setDescription(userData?.portfolios[2]?.description);
+                      setShowPortfolio("portfolio");
+                      setImgUrl(userData?.portfolios[2]?.Image);
+                      setId(userData?.portfolios[2]?._id);
+                    }}
+                    style={{ marginLeft: "0px" }}
+                    className="editIco mt-2 mb-2"
+                  >
+                    <RemoveRedEyeIcon />
+                  </button>
+                </SwiperSlide>
+              ) : (
+                ""
+              )}
+              {userData?.portfolios[3]?.Image ? (
+                <SwiperSlide>
+                  <img
+                    className="swp-img"
+                    src={userData?.portfolios[3]?.Image}
+                    alt=""
+                  />{" "}
+                  <button
+                    onClick={() => {
+                      setTitle(userData?.portfolios[3]?.title);
+                      setDescription(userData?.portfolios[3]?.description);
+                      setShowPortfolio("portfolio");
+                      setImgUrl(userData?.portfolios[3]?.Image);
+                      setId(userData?.portfolios[3]?._id);
+                    }}
+                    style={{ marginLeft: "0px" }}
+                    className="editIco mt-2 mb-2"
+                  >
+                    <RemoveRedEyeIcon />
+                  </button>
+                </SwiperSlide>
+              ) : (
+                ""
+              )}
+              <p style={{ marginLeft: "100px", color: "#75E6FF" }}>
+                {"swip >"}
+              </p>
+            </Swiper>
           </div>
-
-          
         </div>
       )}
 
       {showPortfolio === "portfolio" ? (
         <div className="port-show">
-          {/* <div> */}
-            {" "}
-            <CloseIcon
+          {/* <div> */}{" "}
+          <CloseIcon
             className="portClose"
             onClick={() => {
               setShowPortfolio("");
             }}
           />
           {/* </div> */}
-
           <img src={imgUlr} alt="" />
           <div style={{ display: "flex", alignItems: "center" }}>
             <div>

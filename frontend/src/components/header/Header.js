@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../../actions/UserAction";
 import "./header.scss";
-import Dropdown from "react-bootstrap/Dropdown";
 import CancelIcon from "@mui/icons-material/Cancel";
 import {
   deleteMessageEmployee,
@@ -16,7 +15,7 @@ import { deleteMessageEmployer } from "../../actions/EmployerActions";
 import Alert from "@mui/material/Alert";
 import { getMyRooms } from "../../actions/chatActions";
 
-const Header = ({socket}) => {
+const Header = ({ socket }) => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user);
@@ -27,28 +26,30 @@ const Header = ({socket}) => {
   const deleteMessage = useSelector((state) => state.deleteMessage);
   const myRooms = useSelector((state) => state.myRooms);
 
-  console.log(myRooms);
   let notis = false;
-  let eNotis = false
+  let eNotis = false;
 
-  myRooms.data?.map(el => {
+  myRooms.data?.map((el) => {
     if (el?.employerViewed === false) {
-      notis = true
+      notis = true;
     }
-  })
+    return 0;
+  });
 
-  myRooms.data?.map(el => {
+  myRooms.data?.map((el) => {
     if (el?.employeeViewed === false) {
-      eNotis = true
+      eNotis = true;
     }
-  })
-
+    return 0;
+  });
 
   useEffect(() => {
-    dispatch(getEmployeeProfile());
+    if (user.userInfo?.userType === "employee") {
+      dispatch(getEmployeeProfile());
+    }
 
     dispatch(getMyRooms());
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -78,7 +79,14 @@ const Header = ({socket}) => {
                 </Link>
 
                 <Link style={{ marginRight: "15px" }} to="user/message ">
-                {eNotis ? <div style={{position: 'absolute', marginLeft: '-10px'}} className="not-ball"></div> :'' }
+                  {eNotis ? (
+                    <div
+                      style={{ position: "absolute", marginLeft: "-10px" }}
+                      className="not-ball"
+                    ></div>
+                  ) : (
+                    ""
+                  )}
                   message
                 </Link>
 
@@ -106,7 +114,14 @@ const Header = ({socket}) => {
                 </Link>
 
                 <Link style={{ marginRight: "15px" }} to="employer/message ">
-                {notis ? <div style={{position: 'absolute', marginLeft: '-10px'}} className="not-ball"></div> :'' }
+                  {notis ? (
+                    <div
+                      style={{ position: "absolute", marginLeft: "-10px" }}
+                      className="not-ball"
+                    ></div>
+                  ) : (
+                    ""
+                  )}
                   message
                 </Link>
 
@@ -125,7 +140,6 @@ const Header = ({socket}) => {
 
                   <NotificationsActiveIcon />
                 </Link>
-
               </>
             ) : (
               <>
@@ -204,15 +218,15 @@ const Header = ({socket}) => {
               <ul>
                 <CancelIcon onClick={() => setNoti(false)} className="cln" />
                 {userProfile.userData
-                  ? userProfile?.userData?.notification?.map((message) => {
+                  ? userProfile?.userData?.notification?.map((message,idx) => {
                       return (
-                        <Link>
+                        <Link style={{textDecoration: 'none'}} key={idx}>
                           {message?.message}{" "}
                           <CloseIcon
                             onClick={(e) => {
                               dispatch(deleteMessageEmployee(message?._id));
                             }}
-                            style={{ cursor: "pointer" }}
+                            style={{ cursor: "pointer", color: '#FF5454', backgroundColor: 'white', borderRadius: '50%', padding: '2px' }}
                           />
                         </Link>
                       );
@@ -233,7 +247,7 @@ const Header = ({socket}) => {
                 ) : (
                   ""
                 )}
-                {userProfile?.userData?.notification.length == 0 ? (
+                {userProfile?.userData?.notification.length === 0 ? (
                   <Alert severity="info">Oops — no notifications found !</Alert>
                 ) : (
                   ""
@@ -243,9 +257,9 @@ const Header = ({socket}) => {
               <ul>
                 <CancelIcon onClick={() => setNoti(false)} className="cln" />
                 {employerProfile.userInfo
-                  ? employerProfile?.userInfo?.notification?.map((message) => {
+                  ? employerProfile?.userInfo?.notification?.map((message, idx) => {
                       return (
-                        <Link>
+                        <Link style={{textDecoration: 'none'}} key={idx}>
                           {message?.message}{" "}
                           <CloseIcon
                             onClick={(e) => {
@@ -272,7 +286,7 @@ const Header = ({socket}) => {
                 ) : (
                   ""
                 )}
-                {employerProfile?.userInfo?.notification.length == 0 ? (
+                {employerProfile?.userInfo?.notification.length === 0 ? (
                   <Alert severity="info">Oops — no notifications found !</Alert>
                 ) : (
                   ""

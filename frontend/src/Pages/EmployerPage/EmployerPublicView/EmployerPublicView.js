@@ -13,7 +13,6 @@ const EmployerPublicView = () => {
   const employerData = useSelector((state) => state.employerData);
   const { userInfo } = employerData;
 
-  console.log(userInfo);
   useEffect(() => {
     dispatch(getEmployerProfileData(id));
   }, []);
@@ -45,24 +44,21 @@ const EmployerPublicView = () => {
                 }}
               >
                 <strong>since :</strong>{" "}
-                <p style={{ color: "#3CCF4E", marginLeft: "10px" }}>
+                <span style={{ color: "#3CCF4E", marginLeft: "10px" }}>
                   {userInfo?.owner?.createdAt.slice(0, 10)}
-                </p>
+                </span>
               </p>
             </div>
           </div>
 
-          <div className="rigth">
-            {" "}
-            <button>message</button>{" "}
-          </div>
+         
         </div>
 
         <div className="bottom">
           <div className="left">
             <div className="left-top ltp" >
               <span>
-                <strong>{userInfo?.totalSpend}</strong>
+                <strong>{userInfo?.totalSpend}.00</strong>
                 <p>Total Spent</p>
               </span>
 
@@ -76,8 +72,9 @@ const EmployerPublicView = () => {
           <div className="right">
             <div style={{ width: "100%" }}>
               {userInfo?.completedJobs?.map((post) => {
+                
                 return (
-                  <div className="work-div-box-em">
+                  <div key={post._id} className="work-div-box-em">
                     <div>
                       <h4>{post?.title}</h4>
                       <div className="left-text">

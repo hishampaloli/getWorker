@@ -5,7 +5,6 @@ import Header from "./components/header/Header";
 import Signup from "./Pages/signUpPage/Signup";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 import EmployeeHome from "./Pages/EmployeePage/EmployeeHome.js/EmployeeHome";
 import EmployerHome from "./Pages/EmployerPage/EmployerPage.js/EmployerHome";
@@ -25,7 +24,6 @@ import AllProposal from "./Pages/EmployeePage/AllProposal/AllProposal";
 import ViewProposal from "./components/EmployeeComponents/ViewProposal/ViewProposal";
 import EmployerPublicView from "./Pages/EmployerPage/EmployerPublicView/EmployerPublicView";
 import EmployeeJobsPage from "./Pages/EmployeePage/JobsPage/EmployeeJobsPage";
-import { useDispatch, useSelector } from "react-redux";
 import EmployeeEarnings from "./Pages/EmployeePage/EployeeEarnings/EmployeeEarnings";
 import EmployeeConnects from "./Pages/EmployeePage/EmployeeConnects/EmployeeConnects";
 import EmployerRecharge from "./Pages/EmployerPage/Recharge/EmployerRecharge";

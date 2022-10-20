@@ -16,7 +16,6 @@ const EmployerHome = () => {
 
   
 
-  console.log(myJobsData);
 
   const activeJobs = myJobsData?.myJobs?.filter((el) => {
     return el.status === "active";
@@ -26,7 +25,6 @@ const EmployerHome = () => {
     return el.status === "running";
   });
 
-  console.log(running);
 
   useEffect(() => {
     if (!user?.userInfo) {

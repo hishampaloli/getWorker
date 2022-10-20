@@ -9,7 +9,6 @@ const AllProposal = () => {
   const myProposalData = useSelector((state) => state.myProposalsData);
   const [ed, setEd] = useState("active");
 
-  console.log(myProposalData);
 
   const activeProposals = myProposalData?.data?.filter((el) => {
     return el.status === "active";
@@ -23,8 +22,6 @@ const AllProposal = () => {
     return el.status === "shortlisted";
   });
 
-  console.log(activeProposals);
-  console.log(rejectedProposals);
 
   useEffect(() => {
     dispatch(myProposals());

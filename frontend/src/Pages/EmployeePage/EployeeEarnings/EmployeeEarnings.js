@@ -7,8 +7,6 @@ const EmployeeEarnings = () => {
   const [ed, setEd] = useState("active");
   const employeeData = useSelector(state => state.employeeData)
 
-  console.log(employeeData);
-
   return (
     <div className="postJobs">
       <div className="post-box">

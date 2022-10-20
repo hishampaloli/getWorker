@@ -25,7 +25,6 @@ export const myJobs =
         type: MYJOBS_REQUEST,
       });
 
-      console.log(keyword);
 
       const tokenId = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -40,8 +39,6 @@ export const myJobs =
         `/mypost/${tokenId._id}?keyword=${keyword}`,
         config
       );
-
-      console.log(data);
 
       dispatch({
         type: MYJOBS_SUCCES,
@@ -133,7 +130,7 @@ export const getAllJobs =
   };
 
 export const JobsDetails = (id) => async (dispatch) => {
-  console.log(32453535);
+
   try {
     dispatch({
       type: JOBS_DETAILS_REQUEST,
@@ -163,15 +160,12 @@ export const JobsDetails = (id) => async (dispatch) => {
 };
 
 export const cancelJob = (id) => async (dispatch) => {
-  console.log(32453535);
-  console.log(id);
   try {
     // dispatch({
     //   type: JOBS_DETAILS_REQUEST,
     // });
 
     const tokenId = JSON.parse(localStorage.getItem("userInfo"));
-    console.log(tokenId._id);
 
     const config = {
       headers: {
@@ -193,15 +187,12 @@ export const cancelJob = (id) => async (dispatch) => {
 };
 
 export const approveJob = (id) => async (dispatch) => {
-  console.log(32453535);
-  console.log(id);
   try {
     // dispatch({
     //   type: JOBS_DETAILS_REQUEST,
     // });
 
     const tokenId = JSON.parse(localStorage.getItem("userInfo"));
-    console.log(tokenId._id);
 
     const config = {
       headers: {
@@ -215,12 +206,6 @@ export const approveJob = (id) => async (dispatch) => {
       config
     );
 
-    console.log(data);
   } catch (error) {
-    console.log(error);
-    // dispatch({
-    //   type: JOBS_DETAILS_FAIL,
-    //   error: error,
-    // });
   }
 };

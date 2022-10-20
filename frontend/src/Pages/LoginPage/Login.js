@@ -24,7 +24,6 @@ const Login = () => {
   const user = useSelector((state) => state.user);
   const forgotPasswordData = useSelector((state) => state.forgotPassword);
 
-  console.log(forgotPasswordData);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -47,7 +46,6 @@ const Login = () => {
   };
 
   const handleForgot = (e) => {
-    console.log(323);
     e.preventDefault();
     dispatch(forgotPasswordVerify(email, otp, password));
     setOtp("");
@@ -64,7 +62,6 @@ const Login = () => {
       }, 1500);
     }
   };
-  console.log(otpSent);
 
   useEffect(() => {
     if (user?.userInfo?.userType === "employee") {

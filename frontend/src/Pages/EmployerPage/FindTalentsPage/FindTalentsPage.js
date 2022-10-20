@@ -31,7 +31,6 @@ const FindTalentsPage = () => {
   const [jobsDone, setJobsDone] = useState("");
   const [show, setShow] = useState(false);
 
-  console.log(show);
 
   const [showSavedJobs, setShowSavedJobs] = useState("");
   const [alert, setAlret] = useState(false);

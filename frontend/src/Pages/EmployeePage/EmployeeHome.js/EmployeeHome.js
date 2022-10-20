@@ -19,7 +19,6 @@ const EmployeeHome = () => {
   const userProfile = useSelector((state) => state.employeeData);
 
 
-  console.log(userProfile);
   const [ed, setEd] = useState("search");
   const [keyword, setKeyword] = useState("");
 

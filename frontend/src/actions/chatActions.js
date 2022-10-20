@@ -29,7 +29,6 @@ export const getMyRooms =
         config
       );
 
-      console.log(data);
 
       dispatch({
         type: MY_ROOMS_SUCCESS,
@@ -44,7 +43,6 @@ export const getMyRooms =
   };
 
 export const getMyChats = (roomId, user) => async (dispatch) => {
-  console.log(user + ">>>>>>>>>>>>>>>>>>>>>>>>>>>..");
   try {
     dispatch({
       type: MY_CHATS_REQUEST,
@@ -65,7 +63,6 @@ export const getMyChats = (roomId, user) => async (dispatch) => {
     );
 
 
-    console.log(data);
 
     dispatch({
       type: MY_CHATS_SUCCESS,

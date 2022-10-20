@@ -163,6 +163,8 @@ export const approveJob = AsyncHandler(async (req, res) => {
     });
 
     const escrow = admin.inEscrow.filter((el) => {
+      console.log(el);
+      console.log(proposal._id);
       return el.proposal + "*" !== proposal._id + "*";
     });
 
