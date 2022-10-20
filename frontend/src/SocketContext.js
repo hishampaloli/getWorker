@@ -2,6 +2,8 @@ import React, { createContext, useState, useRef, useEffect } from "react";
 
 import { io } from "socket.io-client";
 import Peer from "simple-peer";
+import { useDispatch } from "react-redux";
+import { CALL_SUCCESS } from "./contants/chatConstants";
 
 const SocketContext = createContext();
 
@@ -15,6 +17,7 @@ const ContextProvider = ({ children }) => {
   const [callAccepted, setCallAccepted] = useState(false);
   const [callEnded, setCallEnded] = useState(false);
   const [callDeclined, setCallDeclined] = useState(false);
+  const dispatch = useDispatch();
 
   const myVideo = useRef();
   const userVideo = useRef();
@@ -36,6 +39,12 @@ const ContextProvider = ({ children }) => {
       setMe(id);
     });
   }, []);
+
+  useEffect(() => {
+    socket.on("callended", () => {
+      leaveCall();
+    });
+  }, [socket]);
 
   const answerCall = () => {
     setCallAccepted(true);
@@ -76,15 +85,16 @@ const ContextProvider = ({ children }) => {
     });
 
     socket.on("callaccepted", (signal) => {
+      dispatch({
+        type: CALL_SUCCESS,
+      });
       setCallAccepted(true);
-
-      setCallDeclined(false);
       peer.signal(signal);
     });
   };
 
   const leaveCall = () => {
-   
+    socket.emit("endCall");
     setCallEnded(true);
     window.location.reload();
     connectionRef.current.destroy();

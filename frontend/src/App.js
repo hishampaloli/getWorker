@@ -34,7 +34,6 @@ import EmployeeMessage from "./Pages/EmployeePage/EmployeeMessage/EmployeeMessag
 import EmployeeMessageRooms from "./Pages/EmployeePage/EmployeeMessage/EmployeeMessageRooms";
 import EmployerMessage from "./Pages/EmployerPage/EmployerMessage/EmployerMessage";
 import EmployerMessageRoom from "./Pages/EmployerPage/EmployerMessage/EmployerMessageRoom";
-import CallMePage from "./Pages/CallMePage";
 
 const Landing = React.lazy(() => import("./Pages/LandingPage.js/Landing"));
 const Login = React.lazy(() => import("./Pages/LoginPage/Login"));

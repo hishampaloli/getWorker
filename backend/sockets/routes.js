@@ -23,8 +23,12 @@ const sockets = (socket) => {
   socket.on("calluser", videoController.userCalling);
   socket.on("answercall", videoController.answerCall);
 
-  socket.on("disconnect", () => {
+  socket.on("endCall", () => {
     socket.broadcast.emit("callended");
+  })
+
+  socket.on("disconnect", () => {
+    console.log('userLeft');
   });
 };
 

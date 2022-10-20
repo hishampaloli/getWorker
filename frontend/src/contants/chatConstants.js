@@ -5,3 +5,8 @@ export const MY_ROOMS_FAIL = "MY_ROOMS_FAIL"
 export const MY_CHATS_REQUEST = "MY_CHATS_REQUEST"
 export const MY_CHATS_SUCCESS = "MY_CHATS_SUCCESS"
 export const MY_CHATS_FAIL = "MY_CHATS_FAIL"
+
+
+export const CALL_REQUEST = 'CALL_REQUEST'
+export const CALL_SUCCESS = 'CALL_SUCCESS'
+export const CALL_FAIL = 'CALL_FAIL'

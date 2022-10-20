@@ -8,7 +8,7 @@ import SendIcon from "@mui/icons-material/Send";
 import { getMyRooms } from "../../actions/chatActions";
 
 import { SocketContext } from "../../SocketContext";
-import CallMePage from "../../Pages/CallMePage";
+import CallMePage from "../../Pages/callMePage/CallMePage";
 
 const ChatWindow = ({ socket, user, room }) => {
   const { me, call, callAcccepted } = useContext(SocketContext);
@@ -20,6 +20,8 @@ const ChatWindow = ({ socket, user, room }) => {
   const [filest, setFile] = useState();
   const { roomId } = useParams();
   const [videoLink, setVideoLink] = useState("");
+  const userI = useSelector(state => state.user)
+  const userName = userI.userInfo?.name
 
   const fileSelected = (e) => {
     const file = e.target.files[0];
@@ -107,10 +109,10 @@ const ChatWindow = ({ socket, user, room }) => {
 
   return (
     <div>
-      {videoLink && <CallMePage callId={videoLink} />}
+      {videoLink && <> <div> <button style={{position: 'absolute', right: '60px', top: '30px', zIndex: '101'}} onClick={() => setVideoLink('')} >Close</button> <CallMePage callId={videoLink} /></div></> }
 
       {call.isReceivedCall && !callAcccepted && (
-        <CallMePage callId={videoLink} />
+        <CallMePage callId={videoLink} name={userName}  />
       )}
       <div
         className="chat-box"

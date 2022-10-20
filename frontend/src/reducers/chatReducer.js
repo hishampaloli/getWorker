@@ -5,6 +5,9 @@ import {
   MY_CHATS_FAIL,
   MY_CHATS_REQUEST,
   MY_CHATS_SUCCESS,
+  CALL_REQUEST,
+  CALL_SUCCESS,
+  CALL_FAIL,
 } from "../contants/chatConstants";
 
 export const myRoomsReducer = (state = {}, action) => {
@@ -32,6 +35,22 @@ export const myChatsReducer = (state = {}, action) => {
 
     case MY_CHATS_FAIL:
       return { loading: false, error: action.error };
+    default:
+      return state;
+  }
+};
+
+export const callReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CALL_REQUEST:
+      return { loading: true, onCall: false, callRej: false };
+
+    case CALL_SUCCESS:
+      return { loading: false, onCall: true };
+
+    case CALL_FAIL:
+      return { loading: false, callRej: true };
+
     default:
       return state;
   }
