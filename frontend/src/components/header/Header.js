@@ -286,8 +286,8 @@ const Header = ({ socket }) => {
                       justifyContent: "center",
                     }}
                   >
-                    {" "}
-                    <CustomSpinner />{" "}
+                    
+                    <CustomSpinner />
                   </div>
                 ) : (
                   ""
