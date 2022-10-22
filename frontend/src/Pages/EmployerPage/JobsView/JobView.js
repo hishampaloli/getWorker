@@ -15,6 +15,7 @@ const JobView = () => {
   const myProposalData = useSelector((state) => state.myProposalsData);
   const user = useSelector((state) => state.user);
 
+
   const [ed, setEd] = useState("active");
   const [filter, setFilter] = useState(false);
 

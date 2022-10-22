@@ -23,6 +23,9 @@ import {
   SKILL_N_LANGUAGE_FAIL,
   SKILL_N_LANGUAGE_REQUEST,
   SKILL_N_LANGUAGE_SUCCESS,
+  WITHDRAW_FAIL,
+  WITHDRAW_REQUEST,
+  WITHDRAW_SUCCESS,
 } from "../contants/employeeConstants.js";
 import { axiosEmployeeInstance } from "../contants/axios";
 import {
@@ -45,6 +48,7 @@ export const getEmployeeProfile = () => async (dispatch) => {
     const id = JSON.parse(localStorage.getItem("userInfo"));
 
     const { data } = await axiosEmployeeInstance.get(`/profile/${id._id}`);
+
 
     dispatch({
       type: EMPLOYEE_PROFILE_SUCCESS,
@@ -234,7 +238,6 @@ export const editInfo = (title, info) => async (dispatch, getState) => {
     if (data) {
       if (title) {
         getState().employeeData.userData.userTitle = title;
-        console.log(getState().employeeData.userData.userTitle);
       }
       if (info) {
         getState().employeeData.userData.userInfo = info;
@@ -285,7 +288,6 @@ export const addkyc =
     dispatch({
       type: EMPLOYEE_PROFILE_REQUEST,
     });
-    console.log(aathar);
 
     const tokenId = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -296,20 +298,17 @@ export const addkyc =
       },
     };
 
-    const { datad } = await axiosEmployeeInstance.post(
+    const { data } = await axiosEmployeeInstance.post(
       `/kyc/${tokenId._id}`,
       { aathar, aatharSelfie, pan, gstNumber },
       config
     );
 
-    const { data } = await axios.get(`/api/employee/profile/${tokenId._id}`);
-    console.log(data);
+    // const { data } = await axios.get(`/api/employee/profile/${tokenId._id}`);
     dispatch({
       type: EMPLOYEE_PROFILE_SUCCESS,
       payload: data,
     });
-
-    console.log(data);
   };
 
 export const addBankDetails = (ifsc, acNumber, acName) => async (dispatch) => {
@@ -332,13 +331,12 @@ export const addBankDetails = (ifsc, acNumber, acName) => async (dispatch) => {
       { ifsc, acNumber, acName },
       config
     );
-    console.log(data);
+
     dispatch({
       type: BANK_DETAILS_SUCCESS,
       payload: data,
     });
   } catch (error) {
-    console.log(error);
     dispatch({
       type: BANK_DETAILS_FAIL,
       error: error,
@@ -381,7 +379,6 @@ export const addPortfolio =
         });
       }
     } catch (error) {
-      console.log(error);
       dispatch({
         type: PORTFOLIO_FAIL,
       });
@@ -393,8 +390,6 @@ export const deletePortfolio = (id) => async (dispatch, getState) => {
     dispatch({
       type: PORTFOLIO_REQUEST,
     });
-
-    console.log(id);
 
     const tokenId = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -423,7 +418,6 @@ export const deletePortfolio = (id) => async (dispatch, getState) => {
       });
     }
   } catch (error) {
-    console.log(error);
 
     dispatch({
       type: PORTFOLIO_FAIL,
@@ -470,7 +464,6 @@ export const saveJobs = (id) => async (dispatch) => {
       `/saveJobs/${tokenId._id}/${id}`,
       config
     );
-    console.log(data);
     dispatch({
       type: SAVE_JOBS_SUCCES,
     });
@@ -483,7 +476,6 @@ export const saveJobs = (id) => async (dispatch) => {
 };
 
 export const removeSaveJobs = (id) => async (dispatch, getState) => {
-  console.log(id);
   try {
     dispatch({
       type: SAVE_JOBS_REQUEST,
@@ -502,7 +494,7 @@ export const removeSaveJobs = (id) => async (dispatch, getState) => {
       `/saveJobs/${tokenId._id}/${id}`,
       config
     );
-    console.log(data);
+
     if (data) {
       getState().employeeData.userData.savedJobs = data;
     }
@@ -519,7 +511,6 @@ export const removeSaveJobs = (id) => async (dispatch, getState) => {
 };
 
 export const deleteMessageEmployee = (id) => async (dispatch, getState) => {
-
   try {
     dispatch({
       type: DELETE_MESSAGE_REQUEST,
@@ -555,6 +546,63 @@ export const deleteMessageEmployee = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: DELETE_MESSAGE_FAIL,
+    });
+  }
+};
+
+export const withdrawBalance = () => async (dispatch, getState) => {
+  try {
+    const token_id = JSON.parse(localStorage.getItem("userInfo"));
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token_id.token}`,
+      },
+    };
+
+    const { data } = await axiosEmployeeInstance.post(
+      `/withdraw/${token_id._id}`
+    );
+
+
+    dispatch({
+      type: EMPLOYEE_PROFILE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {}
+};
+
+export const withdrawHistory = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: WITHDRAW_REQUEST,
+    });
+
+    const token_id = JSON.parse(localStorage.getItem("userInfo"));
+
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token_id.token}`,
+      },
+    };
+
+    const { data } = await axiosEmployeeInstance.get(
+      `/withdrawHistory/${token_id._id}`
+    );
+
+    dispatch({
+      type: WITHDRAW_SUCCESS,
+      payload: data,
+    });
+
+
+    
+  } catch (error) {
+    dispatch({
+      type: WITHDRAW_FAIL
     });
   }
 };

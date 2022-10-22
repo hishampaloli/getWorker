@@ -277,14 +277,8 @@ const EmployeeProfile = () => {
                 )}
 
                 {userData?.bankDetails ? (
-                  <>
-                    <button
-                      className="kyc-btn"
-                      onClick={() => setEd("bankPopup")}
-                      style={{ backgroundColor: "#3ccf4e" }}
-                    >
-                      Payment Details Added
-                    </button>
+                  <>                                  
+                   
                   </>
                 ) : (
                   <button

@@ -48,9 +48,6 @@ const AdminKyc = () => {
   }, [user]);
 
 
-  useEffect(() => {
-  }, []);
-
   return (
     <div className="kyc">
       <div className="kyc-box">

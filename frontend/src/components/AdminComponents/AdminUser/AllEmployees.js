@@ -21,7 +21,6 @@ const AllEmployees = () => {
   const [keyword, setKeyword] = useState("");
   const [alert, setAlert] = useState(false);
 
-  console.log(Employees);
 
   useEffect(() => {
     dispatch(getAllEmplyees(keyword));

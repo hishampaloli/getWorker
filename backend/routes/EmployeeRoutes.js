@@ -16,8 +16,15 @@ import {
   saveJobs,
   removeSavedJobs,
   deleteMessage,
+  withdrawBalance,
+  getMyWithdrawals,
 } from "../controllers/employeeControllers.js";
-import { protect, isOwner, isEmployee } from "../middlewares/authMiddleware.js";
+import {
+  protect,
+  isOwner,
+  isEmployee,
+  isAdmin,
+} from "../middlewares/authMiddleware.js";
 
 router.route("/profile/:id").get(employeeProfile);
 router.route("/education/:userId").post(protect, isOwner, postEducations);
@@ -50,5 +57,9 @@ router
 router
   .route("/deleteMessage/:userId/:id")
   .delete(protect, isOwner, isEmployee, deleteMessage);
+
+router.route("/withdraw/:userId").post(withdrawBalance);
+
+router.route("/withdrawHistory/:userId").get(getMyWithdrawals);
 
 export default router;

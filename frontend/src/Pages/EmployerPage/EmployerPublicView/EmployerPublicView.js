@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getEmployerProfileData } from "../../../actions/EmployerActions";
-import "./EmployerPublicView.css";
+import "./EmployerPublicView.scss";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
 
@@ -55,8 +55,8 @@ const EmployerPublicView = () => {
         </div>
 
         <div className="bottom">
-          <div className="left">
-            <div className="left-top ltp" >
+          <div className="left" style={{display: 'flex'}}>
+            <div className="left-top ltpff" style={{display: 'flex'}}  >
               <span>
                 <strong>{userInfo?.totalSpend}.00</strong>
                 <p>Total Spent</p>

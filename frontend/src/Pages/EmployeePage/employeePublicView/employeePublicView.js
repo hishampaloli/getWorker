@@ -96,11 +96,6 @@ const EmployeePublicView = () => {
                   </p>
                 </div>
               </div>
-
-              <div className="rigth">
-                {" "}
-                <button>message</button>{" "}
-              </div>
             </div>
 
             <div className="bottom">
@@ -119,11 +114,12 @@ const EmployeePublicView = () => {
 
                 <div className="left-bottom">
                   <span>
-                    <h5>Language </h5>
+                    {userData?.languages.length ? <h5>Language</h5> : ""}
+
                     {userData?.languages.map((language) => {
                       return (
                         <p
-                          key={language?.language }
+                          key={language?.language}
                           style={{ marginLeft: "0px" }}
                         >
                           {language?.language}
@@ -133,12 +129,12 @@ const EmployeePublicView = () => {
                   </span>
 
                   <span>
-                    <h5>Skills </h5>
+                    {userData?.skills.length ? <h5>Skills </h5> : ""}
 
                     {userData?.skills.map((education) => {
                       return (
                         <li
-                          key={education?.skill }
+                          key={education?.skill}
                           style={{ marginLeft: "0px" }}
                         >
                           {education?.skill}
@@ -148,7 +144,7 @@ const EmployeePublicView = () => {
                   </span>
 
                   <span>
-                    <h5>Education </h5>
+                    {userData?.educations.length ? <h5>Education </h5> : ""}
                     {userData?.educations.map((education) => {
                       return (
                         <ul key={education?._id}>
@@ -177,6 +173,8 @@ const EmployeePublicView = () => {
 
             <div className="body">
               <div style={{ width: "100%" }} className="left">
+              
+              {userData?.completedJobs?.length  ? '': <p style={{textAlign: 'center'}}>No completed Jobs</p> }
                 {userData?.completedJobs?.map((job) => {
                   return (
                     <div key={job._id} className="work-div-box">
@@ -206,6 +204,7 @@ const EmployeePublicView = () => {
               <p className="common-heading">Portfolio</p>
             </div>
             <div className="bottom">
+            {userData?.portfolios[0]?.Image ? '' : <p>No portfolios</p> }
               <Swiper
                 effect={"coverflow"}
                 grabCursor={true}

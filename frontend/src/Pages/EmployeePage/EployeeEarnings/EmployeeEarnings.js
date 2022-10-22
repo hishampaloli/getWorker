@@ -1,11 +1,20 @@
 import React, { useState } from "react";
 import "./EmployeeEarnings.scss";
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import { useSelector } from "react-redux";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import {
+  withdrawBalance,
+  withdrawHistory,
+} from "../../../actions/EmplyeeActions";
 
 const EmployeeEarnings = () => {
+  const dispatch = useDispatch();
   const [ed, setEd] = useState("active");
-  const employeeData = useSelector(state => state.employeeData)
+  const employeeData = useSelector((state) => state.employeeData);
+  const withdrawHistoryData = useSelector((state) => state.withdrawHistory);
+
+  console.log(withdrawHistoryData);
 
   return (
     <div className="postJobs">
@@ -37,9 +46,12 @@ const EmployeeEarnings = () => {
                 ? { backgroundColor: "#1d4354", color: "white" }
                 : {}
             }
-            onClick={() => setEd("shortlisted")}
+            onClick={() => {
+              dispatch(withdrawHistory());
+              setEd("shortlisted");
+            }}
           >
-            Withdraw history & Status
+            Withdraw history
           </button>
         </div>
         {/* <form  className="jobs-search">
@@ -65,22 +77,83 @@ const EmployeeEarnings = () => {
                 <p>Pending for Withdraw</p>
                 <strong>₹{employeeData.userData?.pendingWithdraw}</strong>
               </div>
-              <button className="rst-btn mt-2" style={{marginLeft : '5px'}} >Request Withdraw</button>
+              {employeeData?.userData?.kycApproved !== "accepted" ? (
+                <Link to={`/user/profile`}>
+                  <button
+                    className="rst-btn mt-2"
+                    style={{ marginLeft: "5px", backgroundColor: "#FF5454", cursor: 'pointer'   }}
+                  >
+                    Complete Kyc
+                  </button>
+                </Link>
+              ) : !employeeData?.userData?.bankDetails ? (
+                <Link to={`/user/profile`}>
+                  <button
+                    className="rst-btn mt-2"
+                    style={{ marginLeft: "5px", backgroundColor: "#FF5454", cursor: 'pointer' }}
+                  >
+                    Complete payment method
+                  </button>
+                </Link>
+              ) : employeeData.userData?.pendingWithdraw <= 0 ? (
+                <button
+                  disabled
+                  className="rst-btn mt-2"
+                  style={{ marginLeft: "5px", backgroundColor: "#FF5454", cursor: 'not-allowed'  }}
+                >
+                  No balance
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    dispatch(withdrawBalance());
+                  }}
+                  className="rst-btn mt-2"
+                  style={{ marginLeft: "5px" }}
+                >
+                  Withdraw balance
+                </button>
+              )}
             </div>
           ) : ed === "shortlisted" ? (
             <div className="earn-main-box">
-             <div className="withdraw-history">
-             <div>
-                <p>₹100.00</p>
-             </div>
+              {withdrawHistoryData.data?.map((history) => {
+                return (
+                  <div className="withdraw-history">
+                    <div>
+                      <p>₹{history?.amount}.00</p>
+                    </div>
 
-             <div className="btn-gp" >
-             <button style={{backgroundColor: '#FF5454'}} className="pn-btn">Pending</button>
-             <button style={{backgroundColor: '#75E6FF'}}  className="pn-btn">Success</button>
-             <button style={{backgroundColor: '#75E6FF', borderRadius: '50%', width: '50px', height: '50px'}}  className="pn-btn knefr"> <VisibilityIcon /> </button>
-             </div>
-             
-             </div>
+                    <div className="btn-gp">
+                    {history.status === 'pending' ?  <button
+                        style={{ backgroundColor: "#FF5454" }}
+                        className="pn-btn"
+                      >
+                        Pending
+                      </button>  : <button
+                        style={{ backgroundColor: "#75E6FF" }}
+                        className="pn-btn"
+                      >
+                        Success
+                      </button> }
+                     
+                      
+                      <button
+                        style={{
+                          backgroundColor: "#75E6FF",
+                          borderRadius: "50%",
+                          width: "50px",
+                          height: "50px",
+                        }}
+                        className="pn-btn knefr"
+                      >
+                        {" "}
+                        <VisibilityIcon />{" "}
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           ) : (
             ""

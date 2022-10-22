@@ -74,7 +74,7 @@ export const myParchaseHistory = (amount) => async (dispatch) => {
       `/history/${tokenId._id}`,
       config
     );
-
+console.log(data);
     dispatch({
       type: PURCHASE_hISTORY_SUCCUSS,
       payload: data,

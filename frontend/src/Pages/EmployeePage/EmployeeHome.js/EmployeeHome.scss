@@ -233,3 +233,15 @@
     }
   }
 }
+
+
+@media (max-width: 500px) {
+  .employeeHome {
+    padding: 10px;
+  }
+  .employeehome-div {
+    .left {
+      display: block;
+    }
+  }
+}

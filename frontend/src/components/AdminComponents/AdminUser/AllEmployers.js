@@ -15,7 +15,6 @@ const AllEmployers = () => {
   const [keyword, setKeyword] = useState("");
   const [alert, setAlert] = useState(false);
 
-  console.log(Employers.data);
 
   useEffect(() => {
     dispatch(getAllEmplyers(keyword));

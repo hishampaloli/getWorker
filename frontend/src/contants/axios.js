@@ -1,38 +1,39 @@
 import axios from "axios";
 
+const axiosBaseUrl = "http://localhost:3001/api"
+
 export const axiosUserInstance = axios.create({
-  baseURL: "http://localhost:3001/api",
+  baseURL: axiosBaseUrl,
 });
 
 export const axiosEmployerInstance = axios.create({
-  baseURL: "http://localhost:3001/api/employer",
+  baseURL: `${axiosBaseUrl}/employer`,
 });
 
 export const axiosEmployeeInstance = axios.create({
-  baseURL: "http://localhost:3001/api/employee",
+  baseURL: `${axiosBaseUrl}/employee`,
 });
 
 export const axiosAdminInstance = axios.create({
-  baseURL: "http://localhost:3001/api/admin",
+  baseURL: `${axiosBaseUrl}/admin`,
 });
 
 
 export const axiosJobsInstance = axios.create({
-  baseURL: "http://localhost:3001/api/",
+  baseURL: axiosBaseUrl,
 });
 
 
 export const axiosProposalInstance = axios.create({
-  baseURL: "http://localhost:3001/api/",
+  baseURL: axiosBaseUrl,
 });
 
 export const axiosPaymentInstance = axios.create({
-  baseURL: "http://localhost:3001/api/credit/",
+  baseURL: `${axiosBaseUrl}/credit/`,
 });
 
-
 export const axiosChatInstance = axios.create({
-  baseURL: "http://localhost:3001/api/chat/",
+  baseURL: `${axiosBaseUrl}/chat/`,
 })
 
 

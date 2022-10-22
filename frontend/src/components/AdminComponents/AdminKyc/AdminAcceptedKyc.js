@@ -17,7 +17,6 @@ const AdminAcceptedKyc = ({ acceptedRequest }) => {
 
   
   const kycStatus = useSelector((state) => state.kycReq);
-  //
   const [ed, setEd] = useState(false);
 
   return (
@@ -79,14 +78,14 @@ const AdminAcceptedKyc = ({ acceptedRequest }) => {
           >
             <form action="">
             
-            <input onChange={(e) => setMsg(e.target.value)} type="text" placeholder="Reason for Rejecting" />
+            <input onChange={(e) => setMsg(e.target.value)} type="text" style={{border: 'none', padding: '10px 15px', borderRadius: '5px'}} placeholder="Reason for Rejecting" />
             <button
-              style={{ backgroundColor: "#FF5454" }}
+              style={{ backgroundColor: "#FF5454"}}
               onClick={() => {
                 dispatch(acceptOrRejectKyc(id, "reject", msg));
                 setEd(false)
               }}
-              className="mx-3"
+              className="mx-3 mt-2"
             >
               Reject
             </button>

@@ -23,6 +23,9 @@ import {
   EMPLOYEE_PROFILE_PUBLIC_REQUEST,
   EMPLOYEE_PROFILE_PUBLIC_SUCCESS,
   EMPLOYEE_PROFILE_PUBLIC_FAIL,
+  WITHDRAW_REQUEST,
+  WITHDRAW_SUCCESS,
+  WITHDRAW_FAIL,
 } from "../contants/employeeConstants.js";
 
 import { USER_LOGOUT } from "../contants/userConstants.js";
@@ -147,6 +150,24 @@ export const PorfileImageReducer = (state = {}, action) => {
       return { loading: false, action: action.payload };
 
     case PROFILE_PIC_FAIL:
+      return { loading: false, error: action.error };
+    default:
+      return state;
+  }
+};
+
+
+
+
+export const WithdrawHistroyReducer = (state = {}, action) => {
+  switch (action.type) {
+    case WITHDRAW_REQUEST:
+      return { loading: true };
+
+    case WITHDRAW_SUCCESS:
+      return { loading: false, data: action.payload };
+
+    case WITHDRAW_FAIL:
       return { loading: false, error: action.error };
     default:
       return state;

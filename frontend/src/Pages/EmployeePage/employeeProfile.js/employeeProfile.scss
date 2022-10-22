@@ -8,12 +8,14 @@
   font-size: 20px;
   margin-top: 20px;
 }
+
 .emplyeeProfile .box1 {
   width: 90%;
   background-color: rgb(255, 255, 255);
   margin-top: 50px;
   border-radius: 20px;
 }
+
 .emplyeeProfile .box1 .top {
   display: flex;
   align-items: center;
@@ -167,6 +169,8 @@
   justify-content: space-between;
   padding: 20px;
 }
+
+
 .emplyeeProfile .box2 .body h4 {
   color: #3ccf4e;
 }
@@ -403,6 +407,9 @@ height: 250px;
 
 @media (max-width: 550px) {
 
+  .emplyeeProfile .box1 .bottom .left {
+    display: block;
+  }
 
   .kyc-btn-div {
     display: flex;
@@ -411,6 +418,10 @@ height: 250px;
   .kyc-btn {
     width: 100%;
     margin-top: 10px;
+  }
+
+  .emplyeeProfile .box2 .body .left{
+    display: block;
   }
 }
 

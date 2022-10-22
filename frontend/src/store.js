@@ -17,6 +17,7 @@ import {
   portfolioReducer,
   PorfileImageReducer,
   employeeProfilePublicViewReducer,
+  WithdrawHistroyReducer,
 } from "./reducers/employeeReducer";
 import {
   deleteMessageReducer,
@@ -30,6 +31,7 @@ import {
   AllEmployersREducer,
   AllKycReducer,
   blockedUserReducer,
+  doWithdrawReducer,
   kycStatusReducer,
 } from "./reducers/adminReducer";
 import {
@@ -65,6 +67,7 @@ const reducer = combineReducers({
   profileImage: PorfileImageReducer,
   changePasswords: changePasswordReducer,
   forgotPassword: ForgotPasswordReducer,
+  withdrawHistory: WithdrawHistroyReducer,
 
   employerData: EmpoyerProfileReducer,
   employerChangePassword: EmpoyerPasswordReducer,
@@ -76,6 +79,7 @@ const reducer = combineReducers({
   blockedUsers: blockedUserReducer,
   allKyc: AllKycReducer,
   kycReq: kycStatusReducer,
+  doWidthdrawal: doWithdrawReducer,
 
   myJobs: MyJobsReducer,
   jobsDetail: jobsDetailsReducer,

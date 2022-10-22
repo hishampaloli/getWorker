@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector,  } from "react-redux";
 import Ifsc from "ifsc-finder";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -13,10 +13,11 @@ import {
   deleteLanguageOrSkill,
   getEmployeeProfile,
 } from "../../../actions/EmplyeeActions";
+import { useNavigate } from "react-router-dom";
 
 const BankPopup = ({ bankData }) => {
   const dispatch = useDispatch();
-  console.log(bankData);
+  const navigate = useNavigate();
   //   ifsc.get('SBIN0005943').then(function(res){
   //     console.log(res);
   // })
@@ -35,12 +36,13 @@ const BankPopup = ({ bankData }) => {
   console.log(BankData);
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (acNumber != ConfirmAcNumber) {
       setErr("Account number does'nt match");
       return;
     } else {
       dispatch(addBankDetails(ifsc, acNumber, acName));
+      
+    navigate('/user/profile')
     }
   };
 
@@ -81,7 +83,7 @@ const BankPopup = ({ bankData }) => {
             </p>
           </div>
         ) : (
-          <form>
+          <form >
             {" "}
             <input
               type="text"

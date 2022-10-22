@@ -8,7 +8,6 @@
   width: 30%;
   flex-direction: column;
   overflow-y: scroll;
-  height: 85vh;
   background-color: #ffffff;
 
   .top {
@@ -46,7 +45,7 @@
   width: 70%;
   background-color: rgba(255, 255, 255, 0.562);
   overflow-y: scroll;
-  height: 76vh;
+  height: 84vh;
 
 
   .top {
@@ -63,6 +62,7 @@
 
   .bottom {
     margin-top: 50px;
+
     padding: 20px 20px;
 
     
@@ -70,7 +70,7 @@ form {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
+  position: absolute;
   margin-top: 20px;
   bottom: 0px;
   width: 70%;
@@ -171,3 +171,15 @@ form {
     background-color: #B5D9CB; //rgba(20,105,69,.2);
   }
 }
+
+
+@media (max-width: 650px)  {
+  .chat-room-list {
+    .top {
+      h2 {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+

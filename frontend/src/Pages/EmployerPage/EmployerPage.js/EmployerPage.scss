@@ -59,3 +59,27 @@
     }
   }
 }
+
+
+
+@media (max-width:519px) {
+  .employeePage{
+
+    .right {
+      button {
+        margin-left: -25px;
+      }
+    }
+    .bottom {
+      width: 95%;
+      
+      .left {
+        margin-top: 10px;
+        display: block;
+        h3 {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+}

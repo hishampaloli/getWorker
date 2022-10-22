@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { logout } from "../../actions/UserAction";
 import "./header.scss";
 import CancelIcon from "@mui/icons-material/Cancel";
+import MenuIcon from "@mui/icons-material/Menu";
 import {
   deleteMessageEmployee,
   getEmployeeProfile,
@@ -25,6 +26,18 @@ const Header = ({ socket }) => {
   const employerProfile = useSelector((state) => state.employerData);
   const deleteMessage = useSelector((state) => state.deleteMessage);
   const myRooms = useSelector((state) => state.myRooms);
+  
+  const [small, setSmall] = useState(false)
+
+  if (document.querySelectorAll('a').forEach(el => {
+    el.addEventListener('click', () => {
+      setSmall(false)
+    })
+  })) {
+    
+  }
+  
+
 
   let notis = false;
   let eNotis = false;
@@ -58,30 +71,34 @@ const Header = ({ socket }) => {
   return (
     <div className="main-header" style={{ width: "100%" }}>
       <header>
-        <div className="left">
+        <div className="left" style={{display: 'flex'}}>
           <Link style={{ color: "white", textDecoration: "none" }} to="/">
             <h2>GETWORKER</h2>
           </Link>
         </div>
 
+        <div className="ham"><MenuIcon onClick={() => setSmall(!small)} fontSize="large" /></div>
+
         {user?.userInfo?._id ? (
-          <div className="right big-nav">
+          <>
+          <div className={!small ? "right big-nav " : "right  small-nav"}>
             {user?.userInfo?.userType === "employee" ? (
               <>
-                <Link style={{ marginRight: "45px" }} to="/user/myjobs ">
+                <Link to="/user/myjobs ">
                   My Jobs
                 </Link>
-                <Link style={{ marginRight: "45px" }} to="/user/earnings ">
+
+                <Link to="/user/earnings ">
                   Earnings
                 </Link>
-                <Link style={{ marginRight: "45px" }} to="/user/proposals">
+                <Link to="/user/proposals">
                   Proposals
                 </Link>
 
-                <Link style={{ marginRight: "15px" }} to="user/message ">
+                <Link  to="user/message ">
                   {eNotis ? (
                     <div
-                      style={{ position: "absolute", marginLeft: "-10px" }}
+                      style={{ position: "absolute" }}
                       className="not-ball"
                     ></div>
                   ) : (
@@ -92,9 +109,9 @@ const Header = ({ socket }) => {
 
                 <Link
                   onClick={() => setNoti(!noti)}
-                  style={{ marginRight: "45px", position: "relative" }}
+                  style={{ position: "relative" }}
                 >
-                  {userProfile?.userData?.notification.length ? (
+                  {userProfile?.userData?.notification?.length ? (
                     <div className="not-ball"></div>
                   ) : (
                     ""
@@ -106,14 +123,14 @@ const Header = ({ socket }) => {
               </>
             ) : user?.userInfo?.userType === "employer" ? (
               <>
-                <Link style={{ marginRight: "45px" }} to="/findTalents ">
+                <Link to="/findTalents ">
                   Find talents
                 </Link>
-                <Link style={{ marginRight: "45px" }} to="/employer/recharge ">
+                <Link  to="/employer/recharge ">
                   Recharge
                 </Link>
 
-                <Link style={{ marginRight: "15px" }} to="employer/message ">
+                <Link  to="employer/message ">
                   {notis ? (
                     <div
                       style={{ position: "absolute", marginLeft: "-10px" }}
@@ -125,12 +142,12 @@ const Header = ({ socket }) => {
                   message
                 </Link>
 
-                <Link style={{ marginRight: "30px" }}>
+                <Link >
                   Balance : {employerProfile?.userInfo?.balance}
                 </Link>
                 <Link
                   onClick={() => setNoti(!noti)}
-                  style={{ marginRight: "45px", position: "relative" }}
+                  style={{ position: "relative" }}
                 >
                   {employerProfile?.userInfo?.notification.length ? (
                     <div className="not-ball"></div>
@@ -143,13 +160,13 @@ const Header = ({ socket }) => {
               </>
             ) : (
               <>
-                <Link style={{ marginRight: "45px" }} to="admin/users">
+                <Link to="admin/users">
                   Users
                 </Link>
-                <Link style={{ marginRight: "45px" }} to="admin/withdraw">
+                <Link to="admin/withdraw">
                   Withdraw request
                 </Link>
-                <Link style={{ marginRight: "45px" }} to="admin/kyc">
+                <Link  to="admin/kyc">
                   Kyc
                 </Link>
                 <p>s</p>
@@ -157,38 +174,19 @@ const Header = ({ socket }) => {
               </>
             )}
 
-            <button
+            
+
+           
+          </div>
+
+          <button
               className="btn"
               style={{ backgroundColor: "transparent", color: " #3CCF4E" }}
-              id="dropdown-basic"
               onClick={() => setDrop(true)}
             >
               {user?.userInfo?.name}
             </button>
-
-            {drop ? (
-              <div onClick={() => setDrop(false)} className="drop-div">
-                <ul>
-                  <CancelIcon className="cln" />
-
-                  <Link
-                    to={
-                      user?.userInfo?.userType === "employee"
-                        ? "user/profile"
-                        : user?.userInfo?.userType === "employer"
-                        ? "employer/profile"
-                        : "admin/profile"
-                    }
-                  >
-                    profile
-                  </Link>
-                  <Link onClick={handleLogout}>Logout</Link>
-                </ul>
-              </div>
-            ) : (
-              ""
-            )}
-          </div>
+            </>
         ) : (
           <div className="right">
             <button className="btn-1sdf">
@@ -218,15 +216,21 @@ const Header = ({ socket }) => {
               <ul>
                 <CancelIcon onClick={() => setNoti(false)} className="cln" />
                 {userProfile.userData
-                  ? userProfile?.userData?.notification?.map((message,idx) => {
+                  ? userProfile?.userData?.notification?.map((message, idx) => {
                       return (
-                        <Link style={{textDecoration: 'none'}} key={idx}>
+                        <Link style={{ textDecoration: "none" }} key={idx}>
                           {message?.message}{" "}
                           <CloseIcon
                             onClick={(e) => {
                               dispatch(deleteMessageEmployee(message?._id));
                             }}
-                            style={{ cursor: "pointer", color: '#FF5454', backgroundColor: 'white', borderRadius: '50%', padding: '2px' }}
+                            style={{
+                              cursor: "pointer",
+                              color: "#FF5454",
+                              backgroundColor: "white",
+                              borderRadius: "50%",
+                              padding: "2px",
+                            }}
                           />
                         </Link>
                       );
@@ -257,19 +261,21 @@ const Header = ({ socket }) => {
               <ul>
                 <CancelIcon onClick={() => setNoti(false)} className="cln" />
                 {employerProfile.userInfo
-                  ? employerProfile?.userInfo?.notification?.map((message, idx) => {
-                      return (
-                        <Link style={{textDecoration: 'none'}} key={idx}>
-                          {message?.message}{" "}
-                          <CloseIcon
-                            onClick={(e) => {
-                              dispatch(deleteMessageEmployer(message?._id));
-                            }}
-                            style={{ cursor: "pointer" }}
-                          />
-                        </Link>
-                      );
-                    })
+                  ? employerProfile?.userInfo?.notification?.map(
+                      (message, idx) => {
+                        return (
+                          <Link style={{ textDecoration: "none" }} key={idx}>
+                            {message?.message}{" "}
+                            <CloseIcon
+                              onClick={(e) => {
+                                dispatch(deleteMessageEmployer(message?._id));
+                              }}
+                              style={{ cursor: "pointer" }}
+                            />
+                          </Link>
+                        );
+                      }
+                    )
                   : ""}
                 {deleteMessage?.loading ? (
                   <div
@@ -298,6 +304,30 @@ const Header = ({ socket }) => {
       ) : (
         ""
       )}
+
+
+      {drop ? (
+              <div onClick={() => setDrop(false)} className="drop-div">
+                <ul>
+                  <CancelIcon className="cln" />
+
+                  <Link
+                    to={
+                      user?.userInfo?.userType === "employee"
+                        ? "user/profile"
+                        : user?.userInfo?.userType === "employer"
+                        ? "employer/profile"
+                        : "admin/profile"
+                    }
+                  >
+                    profile
+                  </Link>
+                  <Link onClick={handleLogout}>Logout</Link>
+                </ul>
+              </div>
+            ) : (
+              ""
+            )}
     </div>
   );
 };

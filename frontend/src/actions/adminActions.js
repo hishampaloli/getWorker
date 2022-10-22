@@ -20,6 +20,12 @@ import {
   KYC_STATUS_SUCCESS,
 } from "../contants/adminConstants";
 import { axiosAdminInstance } from "../contants/axios";
+import {
+  DO_WITHDRAW_REQUEST,
+  WITHDRAW_FAIL,
+  WITHDRAW_REQUEST,
+  WITHDRAW_SUCCESS,
+} from "../contants/employeeConstants.js";
 
 export const adminProfile = () => async (dispatch) => {
   try {
@@ -71,7 +77,6 @@ export const getAllEmplyees =
         `/allEmployees?keyword=${keyword}`,
         config
       );
-
 
       dispatch({
         type: ALL_EMPLYEES_SUCCESS,
@@ -184,10 +189,7 @@ export const allblockedUsers =
         },
       };
 
-      const { data } = await axiosAdminInstance.get(
-        `/blockedUsers`,
-        config
-      );
+      const { data } = await axiosAdminInstance.get(`/blockedUsers`, config);
 
       // const { data } = await axios.get(
       //   `/api/admin/allEmployees?keyword=${key}`,
@@ -227,7 +229,6 @@ export const blacklistUsers = (_id) => async (dispatch, getState) => {
       type: ADMIN_PROFILE_SUCCESS,
       payload: data,
     });
-
   } catch (error) {
     dispatch({
       type: BLOCKED_USERS_FAIL,
@@ -257,7 +258,6 @@ export const removeBlacklist = (id) => async (dispatch, getState) => {
       type: ADMIN_PROFILE_SUCCESS,
       payload: data,
     });
-
   } catch (error) {
     dispatch({
       type: ADMIN_PROFILE_FAIL,
@@ -281,10 +281,7 @@ export const getAllKyc = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axiosAdminInstance.get(
-      `/allKyc`,
-      config
-    );
+    const { data } = await axiosAdminInstance.get(`/allKyc`, config);
 
     dispatch({
       type: ALL_KYC_SUCCESS,
@@ -298,10 +295,58 @@ export const getAllKyc = (id) => async (dispatch, getState) => {
   }
 };
 
-export const acceptOrRejectKyc = (id, status, msg) => async (dispatch, getState) => {
+export const acceptOrRejectKyc =
+  (id, status, msg) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: KYC_STATUS_REQUEST,
+      });
+      const tokenId = JSON.parse(localStorage.getItem("userInfo"));
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenId.token}`,
+        },
+      };
+
+      const { data } = await axiosAdminInstance.post(
+        `/acceptKyc`,
+        { id, status, msg },
+        config
+      );
+
+
+      dispatch({
+        type: KYC_STATUS_SUCCESS,
+      });
+
+      if (status === "accept") {
+        getState().allKyc.data.forEach((el) => {
+          if (el.owner._id === id) {
+            el.kycStatus = "accepted";
+          }
+        });
+      } else {
+        getState().allKyc.data.forEach((el) => {
+          if (el.owner._id === id) {
+            el.kycStatus = "rejected";
+          }
+        });
+      }
+    } catch (error) {
+      dispatch({
+        type: KYC_STATUS_FAIL,
+        error: error,
+      });
+    }
+  };
+
+
+export const getAllWithdraw = () => async (dispatch, getState) => {
   try {
     dispatch({
-      type: KYC_STATUS_REQUEST,
+      type: WITHDRAW_REQUEST,
     });
     const tokenId = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -312,35 +357,54 @@ export const acceptOrRejectKyc = (id, status, msg) => async (dispatch, getState)
       },
     };
 
-    const { data } = await axiosAdminInstance.post(
-      `/acceptKyc`,
-      { id, status, msg },
-      config
-    );
-
-    console.log(data);
+    const { data } = await axiosAdminInstance.get("/getAllWithdraw", config);
 
     dispatch({
-      type: KYC_STATUS_SUCCESS,
+      type: WITHDRAW_SUCCESS,
+      payload: data,
     });
-
-    if (status === "accept") {
-      getState().allKyc.data.forEach((el) => {
-        if (el.owner._id === id) {
-          el.kycStatus = "accepted";
-        }
-      });
-    } else {
-      getState().allKyc.data.forEach((el) => {
-        if (el.owner._id === id) {
-          el.kycStatus = "rejected";
-        }
-      });
-    }
-
   } catch (error) {
     dispatch({
-      type: KYC_STATUS_FAIL,
+      type: WITHDRAW_FAIL,
+      error: error,
+    });
+  }
+};
+
+
+
+export const doWithdraw = (id) => async (dispatch, getState) => {
+  try {
+
+    dispatch({
+      type: DO_WITHDRAW_REQUEST,
+    })
+
+    const tokenId = JSON.parse(localStorage.getItem("userInfo"));
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenId.token}`,
+      },
+    };
+
+    const { data } = await axiosAdminInstance.post(`doWithdraw/${tokenId._id}/${id}`, config);
+    if (data) {
+      getState().withdrawHistory.data.map(el => {
+        if (el._id === id) {
+          el.status = 'finished'
+        } 
+      })
+    }
+
+    dispatch({
+      type: DO_WITHDRAW_REQUEST,
+      // payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: DO_WITHDRAW_REQUEST,
       error: error,
     });
   }

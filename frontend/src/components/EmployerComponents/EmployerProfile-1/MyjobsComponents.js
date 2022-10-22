@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 
 const MyjobsComponents = ({ jobs }) => {
 
+  console.log(jobs);
+
   return (
     <div
       style={{
@@ -21,10 +23,15 @@ const MyjobsComponents = ({ jobs }) => {
               <div key={job?._id + idx} className="my-jobs-div">
                 <div className="s">
                   <h4>{job?.title}</h4>
-                  <p>
+                  <p className="mt-3">
                     status:{" "}
                     <span style={{ color: "#3ccf4e" }}>{job?.status}</span>
                   </p>
+                  <p>
+                    Proposals:{" "}
+                    <span style={{ color: "#3ccf4e" }}>{job?.proposals?.length}</span>
+                  </p>
+                  
                 </div>
 
                 <Link to={`/jobs/${job?._id}`}>

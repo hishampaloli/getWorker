@@ -37,7 +37,8 @@
             width: 100%;
 
             .l-box {
-                background-color: rgb(255, 255, 255);
+                background-color:  #1d4354;
+                color: white;
                 width: 30%;
                 height: 200px;
                 display: flex;
@@ -45,6 +46,10 @@
                 align-items: center;
                 justify-content: center;
                 border-radius: 10px;
+
+                h3 {
+                    font-size: 1rem;
+                }
             }
         }
 

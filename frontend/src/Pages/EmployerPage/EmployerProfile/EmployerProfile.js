@@ -7,6 +7,7 @@ import "./EmployerProfile.scss";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import AllJobs from "../../../components/EmployerComponents/MyJobsComps/AllJobs";
+import PurchaseHisrory from "../../../components/EmployeeComponents/ConnectsHelpers/PurchaseHisrory";
 
 const EmployerProfile = () => {
   const navigate = useNavigate();
@@ -56,19 +57,28 @@ const EmployerProfile = () => {
         <div className="left-bottom">
           <button
             className={ed === "profile" ? "btn-a" : "btn"}
-            onClick={(e) => setEd("profile")}
+            onClick={(e) => {
+              setEd("profile")
+              setShow(false)
+            }}
           >
             My profile
           </button>
           <button
             className={ed === "jobs" ? "btn-a" : "btn"}
-            onClick={(e) => setEd("jobs")}
+            onClick={(e) => {
+              setEd("jobs")
+              setShow(false)
+            } }
           >
             Jobs History
           </button>
           <button
             className={ed === "" ? "btn-a" : "btn"}
-            onClick={(e) => setEd("")}
+            onClick={(e) => {
+              setEd("")
+              setShow(false)
+            } }
           >
             Parchase History
           </button>
@@ -84,7 +94,8 @@ const EmployerProfile = () => {
             <AllJobs jobs={employerData.userInfo?.completedJobs} />
           </>
         ) : (
-          ""
+          <div > <h4 style={{borderBottom: '1px solid #aaaa', padding:'20px'}}>Purchase history</h4> <PurchaseHisrory /></div>
+          
         )}
       </div>
     </div>

@@ -63,7 +63,7 @@ export const paymentVerification = AsyncHandler(async (req, res) => {
     if (user === "employee") {
       const employee = await Employee.findOne({ owner: userId });
 
-      employee.connects = employee.connects + amnt / 5;
+      employee.connects  = employee.connects + amnt / 5;
       admin.balance = admin.balance + amnt;
       admin.soldConnect = admin.soldConnect + amnt / 5;
       await employee.save();
@@ -90,6 +90,7 @@ export const myParchaseHistory = AsyncHandler(async (req, res) => {
     const { userId } = req.params;
     const history = await Purchase.findOne({ owner: userId });
 
+    history.details = history.details.reverse()
     res.json(history);
   } catch (error) {
     req.status(404);

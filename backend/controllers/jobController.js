@@ -51,7 +51,6 @@ export const myJobs = AsyncHandler(async (req, res) => {
   try {
     const { userId } = req.params;
 
-    console.log(userId);
     const keyword = req.query.keyword
       ? {
           owner: userId,
@@ -79,9 +78,35 @@ export const myJobs = AsyncHandler(async (req, res) => {
 // @PATH employer/getAllJobs
 
 export const getAllJobs = AsyncHandler(async (req, res) => {
+  const { budget } = req.query;
   try {
-    const allJobs = await Jobs.find({ status: "active" });
-    console.log(allJobs + "sfd");
+    const allJobs = await Jobs.find({
+      $and: [
+        { status: "active" },
+        // { budget: { $lt: budget ? budget : "1000" } },
+        // { proposals: { $size: 0 } },
+      ],
+    });
+
+    // {
+    //   $or: [
+    //     {
+    //       "languages.language": {
+    //         $regex: language ? language : "null",
+    //         $options: "i",
+    //       },
+    //     },
+    //     {
+    //       "skills.skill": {
+    //         $regex: keyword ? keyword : "null",
+    //         $options: "i",
+    //       },
+    //     },
+    //     {
+    //       totalEarned: { $lt: earnings ? earnings : "-20" },
+    //     },
+    //   ],
+    // }
     if (allJobs) {
       res.status(200).json(allJobs);
     } else {
@@ -89,7 +114,7 @@ export const getAllJobs = AsyncHandler(async (req, res) => {
     }
   } catch (error) {
     res.status(404);
-    throw new Error(error)
+    throw new Error(error);
   }
 });
 
@@ -110,7 +135,7 @@ export const endJob = AsyncHandler(async (req, res) => {
     });
   } catch (error) {
     res.status(404);
-    throw new Error(error)
+    throw new Error(error);
   }
 });
 
@@ -133,7 +158,7 @@ export const jobView = AsyncHandler(async (req, res) => {
     }
   } catch (error) {
     res.status(404);
-    throw new Error(error)
+    throw new Error(error);
   }
 });
 
@@ -206,6 +231,6 @@ export const approveJob = AsyncHandler(async (req, res) => {
     });
   } catch (error) {
     res.status(404);
-    throw new Error(error)
+    throw new Error(error);
   }
 });

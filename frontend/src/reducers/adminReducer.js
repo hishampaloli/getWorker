@@ -18,6 +18,7 @@ import {
   KYC_STATUS_REQUEST,
   KYC_STATUS_SUCCESS,
 } from "../contants/adminConstants";
+import { DO_WITHDRAW_FAIL, DO_WITHDRAW_REQUEST, DO_WITHDRAW_SUCCESS } from "../contants/employeeConstants.js";
 
 export const adminProfileReducer = (state = {}, action) => {
   switch (action.type) {
@@ -104,6 +105,23 @@ export const kycStatusReducer = (state = {}, action) => {
       return { loading: false};
 
     case KYC_STATUS_FAIL:
+      return { loading: false, error: action.error };
+    default:
+      return state;
+  }
+};
+
+
+
+export const doWithdrawReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DO_WITHDRAW_REQUEST:
+      return { loading: true };
+
+    case DO_WITHDRAW_SUCCESS:
+      return { loading: false};
+
+    case DO_WITHDRAW_FAIL:
       return { loading: false, error: action.error };
     default:
       return state;

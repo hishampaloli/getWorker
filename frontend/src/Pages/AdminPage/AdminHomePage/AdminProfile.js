@@ -16,20 +16,15 @@ const AdminProfile = () => {
   const Profile = useSelector((state) => state.adminProfile);
   const password = useSelector(state => state.changePasswords);
 
-  console.log(password);
-
   const [oldPass, setOldPass] = useState('');
   const [confirm, setConfirm] = useState('');
 
-  console.log(Profile?.data);
-  console.log(user);
   let escrowSum = 0
 
   const inEscrow = Profile?.data?.adminData?.adminData?.inEscrow?.map((el) => {
     return escrowSum = escrowSum + el?.inEscrow
   })
   
-  console.log(escrowSum);
 
 
   useEffect(() => {
@@ -80,7 +75,7 @@ const AdminProfile = () => {
         <div className="top">
           <div className="l-box">
             <h3>TOTAL EARNING</h3>
-            <strong>₹  { Profile?.data?.adminData?.adminData?.balance}</strong>
+            <strong>₹  { Profile?.data?.adminData?.adminData?.balance}.00</strong>
           </div>
 
           <div className="l-box">
@@ -90,7 +85,7 @@ const AdminProfile = () => {
 
           <div className="l-box">
             <h3 style={{ color: "#3ccf4e" }}>In Escrow</h3>
-            <strong>₹ {escrowSum}</strong>
+            <strong>₹ {escrowSum}.00</strong>
           </div>
         </div>
 

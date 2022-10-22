@@ -1,4 +1,5 @@
 .findTalents {
+  overflow-x: hidden;
   display: flex;
   padding: 20px;
   justify-content: space-between;
@@ -235,6 +236,16 @@
 
 
 @media (max-width:630px) {
+
+  .findTalents .right {
+width: 100%;
+  }
+
+  .findTalents .right .bottom .talent-result {
+    display: flex;
+    flex-direction: column;
+  }
+
   .findTalents .right .bottom .talent-result .t-left {
     width: 100%;
   }
@@ -246,8 +257,23 @@
     display: flex;
     align-items: center;
   } 
-  .findTalents .right .bottom .talent-result {
+  .findTalents .right .bottom .talent-result .t-left {
     flex-direction: column;
   }
 
+  .findTalents .left {
+    display: block;
+  }
+
+  
+
+}
+
+
+
+@media (max-width:430px) {
+  .findTalents .right .bottom .talent-result {
+    display: flex;
+    flex-direction: column;
+  }
 }

@@ -9,6 +9,7 @@ import BankDetails from "../models/bankDetailsModel.js";
 import Kyc from "../models/kycModel.js";
 import Portfolio from "../models/portfolioModel.js";
 import Notification from "../models/messageModal.js";
+import Withdraw from "../models/withdrawModel.js";
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -22,17 +23,17 @@ cloudinary.config({
 
 export const employeeProfile = AsyncHandler(async (req, res) => {
   const { id } = req.params;
-
+  console.log(id);
   try {
     const userData = await Employee.findOne({ owner: id })
       .populate("educations")
       .populate("portfolios")
-      .populate("bankDetails")
       .populate("owner")
       .populate("activeContracts")
       .populate("notification")
       .populate("savedJobs")
       .populate("completedJobs");
+
     if (userData) {
       res.status(200).json(userData);
     } else {
@@ -40,8 +41,8 @@ export const employeeProfile = AsyncHandler(async (req, res) => {
       throw new Error("No such profile found");
     }
   } catch (error) {
-    res.status(404)
-    throw new Error(error)
+    res.status(404);
+    throw new Error(error);
   }
 });
 
@@ -71,8 +72,8 @@ export const postEducations = AsyncHandler(async (req, res) => {
       res.status(200).json(educationData);
     }
   } catch (error) {
-    res.status(404)
-    throw new Error(error)
+    res.status(404);
+    throw new Error(error);
   }
 });
 
@@ -96,7 +97,7 @@ export const deleteEducation = AsyncHandler(async (req, res) => {
     });
   } catch (error) {
     res.status(404);
-    throw new Error(error)
+    throw new Error(error);
   }
 });
 
@@ -123,7 +124,7 @@ export const addLanguageAndSkill = AsyncHandler(async (req, res) => {
     res.status(201).json(userData);
   } catch (error) {
     res.status(404);
-    throw new Error(error)
+    throw new Error(error);
   }
 });
 
@@ -155,7 +156,7 @@ export const editInfo = AsyncHandler(async (req, res) => {
     });
   } catch (error) {
     res.status(404);
-    throw new Error(error)
+    throw new Error(error);
   }
 });
 
@@ -187,7 +188,7 @@ export const deleteLanguageOrSkill = AsyncHandler(async (req, res) => {
     });
   } catch (error) {
     res.status(404);
-    throw new Error(error)
+    throw new Error(error);
   }
 });
 
@@ -209,7 +210,7 @@ export const addProfileImage = AsyncHandler(async (req, res) => {
     res.status(201).json(userData);
   } catch (error) {
     res.status(404);
-    throw new Error(error)
+    throw new Error(error);
   }
 });
 
@@ -242,7 +243,7 @@ export const addKyc = AsyncHandler(async (req, res) => {
     res.status(201).json(userData);
   } catch (error) {
     res.status(404);
-    throw new Error(error)
+    throw new Error(error);
   }
   // }
 });
@@ -276,7 +277,7 @@ export const addBankDetails = AsyncHandler(async (req, res) => {
     }
   } catch (error) {
     res.status(404);
-    throw new Error(error)
+    throw new Error(error);
   }
 });
 
@@ -307,7 +308,7 @@ export const addPortfolio = AsyncHandler(async (req, res) => {
     }
   } catch (error) {
     res.status(404);
-    throw new Error(error)
+    throw new Error(error);
   }
 });
 
@@ -319,24 +320,22 @@ export const deletePortFolio = AsyncHandler(async (req, res) => {
   const { id } = req.params;
   const { userId } = req.params;
   try {
-    
-  const userr = await Employee.findOne({ owner: userId });
-  const user = await Employee.findOneAndUpdate(
-    { owner: userId },
-    { $pull: { portfolios: id } }
-  );
-  const deletedData = await Portfolio.findByIdAndDelete(id);
-  res.status(201).json({
-    message: "Deleted Successfully",
-  });
+    const userr = await Employee.findOne({ owner: userId });
+    const user = await Employee.findOneAndUpdate(
+      { owner: userId },
+      { $pull: { portfolios: id } }
+    );
+    const deletedData = await Portfolio.findByIdAndDelete(id);
+    res.status(201).json({
+      message: "Deleted Successfully",
+    });
   } catch (error) {
     res.status(404);
-    throw new Error(error)
+    throw new Error(error);
   }
 });
 
-
-// @DESC Employees can save jobs 
+// @DESC Employees can save jobs
 // @METHOD get
 // @PATH /employee/saveJobs/:userId/:id
 
@@ -359,11 +358,11 @@ export const saveJobs = AsyncHandler(async (req, res) => {
     res.json(emplyeeData);
   } catch (error) {
     res.status(404);
-    throw new Error(error)
+    throw new Error(error);
   }
 });
 
-// @DESC Employees can unsave jobs 
+// @DESC Employees can unsave jobs
 // @METHOD delete
 // @PATH /employee/saveJobs/:userId/:id
 
@@ -388,7 +387,7 @@ export const removeSavedJobs = AsyncHandler(async (req, res) => {
     res.status(201).json(arr);
   } catch (error) {
     res.status(404);
-    throw new Error(error)
+    throw new Error(error);
   }
 });
 
@@ -414,6 +413,62 @@ export const deleteMessage = AsyncHandler(async (req, res) => {
     res.status(201).json(noti);
   } catch (error) {
     res.status(404);
-    throw new Error(error)
+    throw new Error(error);
+  }
+});
+
+export const getBankDetails = AsyncHandler(async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const bankDetails = await BankDetails.findOne({ owner: userId });
+
+    if (bankDetails) {
+      res.json(bankDetails);
+    } else {
+      throw new Error("No bank details");
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+export const withdrawBalance = AsyncHandler(async (req, res) => {
+  try {
+    const { userId } = req.params;
+    console.log(userId);
+    const user = await Employee.findOne({ owner: userId });
+    const bankDetails = await BankDetails.findOne({ owner: userId });
+
+    if (bankDetails) {
+      if (user.pendingWithdraw > 0) {
+        const withdraw = new Withdraw({
+          owner: userId,
+          amount: user.pendingWithdraw,
+        });
+
+        user.pendingWithdraw = 0;
+
+        await user.save();
+        await withdraw.save();
+        res.json(user);
+      }
+    } else {
+      throw new Error("No user found");
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+export const getMyWithdrawals = AsyncHandler(async (req, res) => {
+  try {
+    const {userId} = req.params;
+
+    const withdrawHistory = await Withdraw.find({owner: userId});
+
+    res.json(withdrawHistory.reverse());
+
+  } catch (error) {
+    throw new Error(error);
   }
 });

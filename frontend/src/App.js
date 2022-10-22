@@ -30,6 +30,8 @@ import EmployerRecharge from "./Pages/EmployerPage/Recharge/EmployerRecharge";
 import { io } from "socket.io-client";
 import EmployeeMessage from "./Pages/EmployeePage/EmployeeMessage/EmployeeMessage";
 import EmployerMessage from "./Pages/EmployerPage/EmployerMessage/EmployerMessage";
+import AnimatedBackGround from "./components/AnimatedBackground/AnimatedBackGround";
+import AdminWithdraw from "./Pages/AdminPage/AdminWithdraw/AdminWithdraw";
 
 const Landing = React.lazy(() => import("./Pages/LandingPage.js/Landing"));
 const Login = React.lazy(() => import("./Pages/LoginPage/Login"));
@@ -60,6 +62,9 @@ function App() {
       ) : (
         <Router>
           <Header socket={socket} />
+
+          <AnimatedBackGround />
+
           <Routes>
             <Route
               exact
@@ -147,6 +152,7 @@ function App() {
             <Route exact path="/admin/profile" element={<AdminProfile />} />
             <Route exact path="/admin/users" element={<AdminUserPage />} />
             <Route exact path="/admin/kyc" element={<AdminKyc />} />
+            <Route exact path="/admin/withdraw" element={<AdminWithdraw />} />
           </Routes>
         </Router>
       )}

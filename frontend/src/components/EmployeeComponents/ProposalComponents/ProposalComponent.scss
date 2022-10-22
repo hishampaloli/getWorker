@@ -9,6 +9,7 @@
     margin-top: 10px;
     align-items: center;
     transition: .3s ease;
+    margin-bottom: 10px;
 
     .s {
         width: 90%;
@@ -50,20 +51,23 @@
     
     .emp-prop-div {
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
 
         h4 {
-            text-align: center;
+            text-align: start;
         }
 
         .s {
             .rowEm{
                 display: flex;
-                align-items: center;
+                align-items: flex-start;
                 margin-left: -12px;
                 flex-direction: column;
             }
+        }
+        .eyebtnnx{
+            margin-left: 0;
         }
     }
 }

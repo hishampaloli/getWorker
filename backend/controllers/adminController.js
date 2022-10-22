@@ -10,6 +10,7 @@ import Employer from "../models/employerModel.js";
 import Jobs from "../models/jobsModal.js";
 import Notification from "../models/messageModal.js";
 import { mailTransport } from "../utils/mail.js";
+import Withdraw from "../models/withdrawModel.js";
 
 // @DESC gets the profile of the admin
 // @METHOD get
@@ -42,14 +43,15 @@ export const adminProfile = AsyncHandler(async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(403)
-    throw new Error(error)
+    res.status(403);
+    throw new Error(error);
   }
 });
 
 // @DESC gets the profile of all the employees for the admin
 // @METHOD get
 // @PATH /admin/allEmployees
+// @ QUERY keword(name of the user)
 
 export const findAllEmployees = AsyncHandler(async (req, res) => {
   const keyword = req.query.keyword
@@ -68,7 +70,7 @@ export const findAllEmployees = AsyncHandler(async (req, res) => {
     }).populate("employeeData");
     res.status(200).json(allEmployees);
   } catch (error) {
-    res.status(403)
+    res.status(403);
     throw new Error(error);
   }
 });
@@ -76,6 +78,7 @@ export const findAllEmployees = AsyncHandler(async (req, res) => {
 // @DESC gets the profile of all the employers for the admin
 // @METHOD get
 // @PATH /admin/allEmployers
+// @ QUERY keword(name of the user)
 
 export const findAllEmployers = AsyncHandler(async (req, res) => {
   const keyword = req.query.keyword
@@ -95,14 +98,15 @@ export const findAllEmployers = AsyncHandler(async (req, res) => {
 
     res.status(200).json(allEmployers);
   } catch (error) {
-    res.status(403)
-    throw new Error(error)
+    res.status(403);
+    throw new Error(error);
   }
 });
 
 // @DESC gets the profile of all the blocked users for the admin
 // @METHOD get
 // @PATH /admin/blockedUsers
+// @ QUERY keword(name of the user)
 
 export const getAllBlockedUsers = AsyncHandler(async (req, res) => {
   const keyword = req.query.keyword
@@ -127,14 +131,15 @@ export const getAllBlockedUsers = AsyncHandler(async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(403)
-    throw new Error(error)
+    res.status(403);
+    throw new Error(error);
   }
 });
 
 // @DESC admin can block the user.
 // @METHOD patch
 // @PATH /admin/block/:_id
+// @PARAMS ID(id of the user)
 
 export const blockUsers = AsyncHandler(async (req, res) => {
   const { _id } = req.params;
@@ -152,23 +157,16 @@ export const blockUsers = AsyncHandler(async (req, res) => {
       employee.notification.push(noti._id);
       await noti.save();
       await employee.save();
-
     } else if (user.userType === "employer") {
-
       const employer = await Employer.findOne({ owner: _id });
       const noti = new Notification({
         owner: employer._id,
-        message:
-          "Your accounts blocked, please contact the admin to know more",
+        message: "Your accounts blocked, please contact the admin to know more",
       });
       employer.notification.push(noti._id);
       await noti.save();
       await employer.save();
-
     }
-
-    
-   
 
     user.isBlocked = !user.isBlocked;
     await user.save();
@@ -184,16 +182,16 @@ export const blockUsers = AsyncHandler(async (req, res) => {
     });
 
     res.status(200).json(user);
-
   } catch (error) {
-    res.status(403)
-    throw new Error(error)
+    res.status(403);
+    throw new Error(error);
   }
 });
 
 // @DESC Admin can blacklist user for blocking later
 // @METHOD put
 // @PATH /admin/blacklist
+// @BODY id(id of the blacklisted user)
 
 export const blacklistUsers = AsyncHandler(async (req, res) => {
   const { id } = req.body;
@@ -219,14 +217,15 @@ export const blacklistUsers = AsyncHandler(async (req, res) => {
       res.status(403).json("");
     }
   } catch (error) {
-    res.status(403)
-    throw new Error(error)
+    res.status(403);
+    throw new Error(error);
   }
 });
 
 // @DESC Admin can remove the blacklisted users from the list
 // @METHOD put
 // @PATH /admin/removeBlacklist
+// @BODY id(id of the blacklisted user)
 
 export const removeBlacklist = AsyncHandler(async (req, res) => {
   const { id } = req.body;
@@ -245,8 +244,8 @@ export const removeBlacklist = AsyncHandler(async (req, res) => {
 
     res.status(201).json(adminData);
   } catch (error) {
-    res.status(403)
-    throw new Error(error)
+    res.status(403);
+    throw new Error(error);
   }
 });
 
@@ -256,35 +255,33 @@ export const removeBlacklist = AsyncHandler(async (req, res) => {
 
 export const getAllKyc = AsyncHandler(async (req, res) => {
   try {
-    const { id } = req.body;
-
     const kycData = await Kyc.find({}).populate("owner");
 
     res.status(200).json(kycData);
   } catch (error) {
-    res.status(403)
-    throw new Error(error)
+    res.status(403);
+    throw new Error(error);
   }
 });
 
 // @DESC Admin can accept or reject kyc based on some contitions
 // @METHOD post
 // @PATH /admin/acceptKyc
+// @BODY id(id of the kyc)  ,msg(reason for rejecting), status(status of the kyc(rejected,accepted))
 
 export const acceptNrejectKyc = AsyncHandler(async (req, res) => {
   try {
     const { id, status, msg } = req.body;
 
     const kycDetail = await Kyc.findOne({ owner: id });
-    const userDetail = await Employee.findOne({ owner: id }).populate('owner');
+    const userDetail = await Employee.findOne({ owner: id }).populate("owner");
 
     if (status === "accept") {
       if (kycDetail && userDetail) {
-
         const noti = new Notification({
           owner: id,
-          message: "Your kyc have been accepted"
-        })
+          message: "Your kyc have been accepted",
+        });
 
         kycDetail.kycStatus = "accepted";
         userDetail.kycApproved = "accepted";
@@ -305,14 +302,12 @@ export const acceptNrejectKyc = AsyncHandler(async (req, res) => {
         });
       }
     } else if (status === "reject") {
-      
       if (kycDetail && userDetail) {
-
         const noti = new Notification({
           owner: id,
-          message: "Your kyc have been Rejected :- " + msg
-        })
-        
+          message: "Your kyc have been Rejected :- " + msg,
+        });
+
         kycDetail.kycStatus = "rejected";
         userDetail.kycApproved = "rejected";
         userDetail.notification.push(noti._id);
@@ -321,15 +316,15 @@ export const acceptNrejectKyc = AsyncHandler(async (req, res) => {
         await userDetail.save();
         await noti.save();
 
-    mailTransport().sendMail({
-      from: "getworkverification@email.com",
-      to: userDetail.owner.email,
-      subject: "Verify your email account",
-      html: `<div>
+        mailTransport().sendMail({
+          from: "getworkverification@email.com",
+          to: userDetail.owner.email,
+          subject: "Verify your email account",
+          html: `<div>
       <h1>Kyc Status</h1>
       <p>Your kyc have been Rejected</p>
       </div>`,
-    });
+        });
       }
     }
 
@@ -338,6 +333,30 @@ export const acceptNrejectKyc = AsyncHandler(async (req, res) => {
       user: userDetail,
     });
   } catch (error) {
-    res.status(403)
+    res.status(403);
+  }
+});
+
+export const getAllWithdraw = AsyncHandler(async (req, res) => {
+  try {
+    const withdraw = await Withdraw.find().populate('owner');
+    
+    res.json(withdraw);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+export const doWithdrawel = AsyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const withdraw = await Withdraw.findById(id);
+
+  if (withdraw) {
+    withdraw.status = "finished";
+
+    await withdraw.save();
+    res.json(withdraw);
+  } else {
+    throw new Error("Not found");
   }
 });

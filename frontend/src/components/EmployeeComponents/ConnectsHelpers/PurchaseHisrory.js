@@ -11,7 +11,7 @@ const PurchaseHisrory = () => {
   }, []);
 
   return (
-    <div className="history-box">
+    <div style={{padding: '20px', width: '100%'}} className="history-box">
       <table>
       <thead>
         <tr>

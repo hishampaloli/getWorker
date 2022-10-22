@@ -3,11 +3,13 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useSelector } from "react-redux";
 import SendIcon from "@mui/icons-material/Send";
-import CloseIcon from '@mui/icons-material/Close';
-import VideocamIcon from '@mui/icons-material/Videocam';
+import CloseIcon from "@mui/icons-material/Close";
+import VideocamIcon from "@mui/icons-material/Videocam";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
 
 import { SocketContext } from "../../SocketContext";
 import CallMePage from "../../Pages/callMePage/CallMePage";
+import AttachFile from "@mui/icons-material/AttachFile";
 
 const ChatWindow = ({ socket, user, room }) => {
   const { me, call, callAcccepted } = useContext(SocketContext);
@@ -17,8 +19,8 @@ const ChatWindow = ({ socket, user, room }) => {
   const [typingTimeout, setTypingTimeout] = useState(null);
   const [filest, setFile] = useState();
   const [videoLink, setVideoLink] = useState("");
-  const userI = useSelector(state => state.user)
-  const userName = userI.userInfo?.name
+  const userI = useSelector((state) => state.user);
+  const userName = userI.userInfo?.name;
 
   const fileSelected = (e) => {
     const file = e.target.files[0];
@@ -38,7 +40,7 @@ const ChatWindow = ({ socket, user, room }) => {
     });
 
     socket.on("link-from-server", (data) => {
-      setVideoLink(data.me)
+      setVideoLink(data.me);
     });
 
     socket.on("typing-started-from-server", () => {
@@ -104,19 +106,49 @@ const ChatWindow = ({ socket, user, room }) => {
 
   return (
     <div>
-      {videoLink && <> <div> <div style={{position: 'absolute', right: '60px', top: '130px', zIndex: '101', border: 'none', borderRadius: '50%', width: '25px', height: '25px', backgroundColor: '#FF5454', color: 'white',padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center'}} onClick={() => setVideoLink('')} > <CloseIcon /> </div> <CallMePage callId={videoLink} /></div></> }
+      {videoLink && (
+        <>
+          {" "}
+          <div>
+            {" "}
+            <div
+              style={{
+                position: "absolute",
+                right: "60px",
+                top: "130px",
+                zIndex: "101",
+                border: "none",
+                borderRadius: "50%",
+                width: "25px",
+                height: "25px",
+                backgroundColor: "#FF5454",
+                color: "white",
+                padding: "10px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onClick={() => setVideoLink("")}
+            >
+              {" "}
+              <CloseIcon />{" "}
+            </div>{" "}
+            <CallMePage callId={videoLink} />
+          </div>
+        </>
+      )}
 
       {call.isReceivedCall && !callAcccepted && (
-        <CallMePage callId={videoLink} name={userName}  />
+        <CallMePage callId={videoLink} name={userName} />
       )}
       <div
         className="chat-box"
         style={{ display: "flex", flexDirection: "column" }}
       >
-        {chat.map((el,idx) => {
+        {chat.map((el, idx) => {
           return (
             <div
-            key={idx+el}
+              key={idx + el}
               className="blk mt-2"
               style={
                 el.received
@@ -171,10 +203,13 @@ const ChatWindow = ({ socket, user, room }) => {
               onChange={handleInput}
             />
             <Button>
-              <input type="file" onChange={fileSelected} />{" "}
+              <input type="file" onChange={fileSelected} ></input>
             </Button>
 
-            <Button onClick={handleVideoLink}> <VideocamIcon/> </Button>
+            <Button onClick={handleVideoLink}>
+              {" "}
+              <VideocamIcon />{" "}
+            </Button>
             <Button type="submit">
               <SendIcon />
             </Button>

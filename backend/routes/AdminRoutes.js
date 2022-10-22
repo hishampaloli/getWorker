@@ -10,7 +10,9 @@ import {
   removeBlacklist,
   blockUsers,
   getAllKyc,
-  acceptNrejectKyc
+  acceptNrejectKyc,
+  doWithdrawel,
+  getAllWithdraw
 } from "../controllers/adminController.js";
 import { changePassword } from "../controllers/userController.js";
 import { protect, isOwner, isAdmin } from "../middlewares/authMiddleware.js";
@@ -27,6 +29,11 @@ router.route("/removeBlacklist").put(protect, isAdmin, removeBlacklist)
 
 router.route("/allKyc").get(protect, isAdmin, getAllKyc)
 router.route("/acceptKyc").post(protect, isAdmin, acceptNrejectKyc);
+
+router.route("/doWithdraw/:userId/:id").post( doWithdrawel);
+router.route("/getAllWithdraw").get(protect, isAdmin, getAllWithdraw);
+
+
 
 
 

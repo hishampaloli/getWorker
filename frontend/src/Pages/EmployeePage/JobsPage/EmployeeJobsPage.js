@@ -49,7 +49,9 @@ const EmployeeJobsPage = () => {
           
           
         </div>
-        <form className="jobs-search" style={{padding: '0px 20px'}}>
+        <form onSubmit={(e) => {
+          e.preventDefault()
+        }} className="jobs-search" style={{padding: '0px 20px'}}>
           <input
             style={{ width: "81%" }}
             type="text"

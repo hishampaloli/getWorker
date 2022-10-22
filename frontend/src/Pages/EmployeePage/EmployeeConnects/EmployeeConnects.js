@@ -11,8 +11,6 @@ const EmployeeConnects = () => {
   const [ed, setEd] = useState("connect");
   const purchaseHistory = useSelector((state) => state.purchaseHistory);
 
-
-
   return (
     <div className="employeeConnects">
       <div>
@@ -20,12 +18,31 @@ const EmployeeConnects = () => {
       </div>
 
       <div className="connect-box">
-        <div className="left">
-          <button style={ed === 'connect' ? {backgroundColor: '#1d4354', color: "white"} : {}} onClick={() => setEd("connect")}>Buy Connects</button>
-          <button style={ed === 'history' ? {backgroundColor: '#1d4354', color: "white"} : {}} onClick={() => setEd("history")}>Purchase Hitsory</button>
-        </div>
+        
 
         <div className="right">
+          <div className="hed">
+            <button
+              style={
+                ed === "connect"
+                  ? { backgroundColor: "#1d4354", color: "white" }
+                  : {}
+              }
+              onClick={() => setEd("connect")}
+            >
+              Buy Connects
+            </button>
+            <button
+              style={
+                ed === "history"
+                  ? { backgroundColor: "#1d4354", color: "white" }
+                  : {}
+              }
+              onClick={() => setEd("history")}
+            >
+              Purchase Hitsory
+            </button>
+          </div>
           {ed === "connect" ? (
             <div className="row">
               <ConnectBox number={100} amount={500} pack={"Basic Pack"} />
@@ -34,8 +51,7 @@ const EmployeeConnects = () => {
             </div>
           ) : (
             <div className="row-1">
-             <PurchaseHisrory />
-                  
+              <PurchaseHisrory />
             </div>
           )}
         </div>

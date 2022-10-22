@@ -133,7 +133,7 @@ const EmployeeHome = () => {
               </Link>
             </div>
 
-            <div>
+            <div >
               <Link to="/user/connects">
                 {" "}
                 <button style={{padding: '10px 15px', border: 'none'}} >Buy Connects</button>
@@ -144,7 +144,6 @@ const EmployeeHome = () => {
               </Link>
             </div>
           </div>
-          <div className="r-bottom"></div>
         </div>
       </div>
     </div>
