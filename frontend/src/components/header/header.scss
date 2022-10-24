@@ -24,44 +24,64 @@
 
       .big-nav{
         margin-left: 0;
+        width: 100%;
       }
       
       a {
         text-decoration: none;
         color: white;
-        margin-right: 40px;
+        margin-left: 40px;
       }
 
       a:hover {
         color: #3ccf4e;
       }
+    
 
-      .btn-1sdf {
-        color: #3ccf4e;
-        transition: 0.3s ease;
+      button {
+        padding: 10px 25px;
+        margin-right: 20px;
+        border: none;
+        border-radius: 25px;
+        font-weight: 400;
       }
 
+      .btn-1sdf {
+        transition: 0.3s ease;
+        color: black;
+        a{
+          color: black;
+          margin-left: 0;
+        }
+      }
       .btn-1sdf:hover {
         background-color: #3ccf4e;
+      }
+      .btn-1sdf:hover > a {
         color: white;
       }
 
       .btn-2ad {
         background-color: #3ccf4e;
-        color: white;
+        text-align: center;
         transition: 0.3s ease;
+        a{
+          color: white;
+          margin-left: 0;
+        }
       } 
+
+      .btn-2ad:hover {
+        background-color: white;
+      }
+
+      .btn-2ad:hover > a {
+        color: black;
+      }
     }
 
     
-    button {
-      padding: 10px 25px;
-      margin-right: 20px;
-      border: none;
-      border-radius: 35px;
-      font-weight: 400;
-      background-color: white;
-    }
+
   }
 }
 .left h2 {

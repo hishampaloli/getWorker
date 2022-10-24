@@ -1,4 +1,4 @@
-import { json, Router } from "express";
+import e, { json, Router } from "express";
 import AsyncHandler from "express-async-handler";
 import generateToken from "../utils/jsonwebtoken.js";
 import Employee from "../models/employeeModal.js";
@@ -11,6 +11,7 @@ import Jobs from "../models/jobsModal.js";
 import Notification from "../models/messageModal.js";
 import { mailTransport } from "../utils/mail.js";
 import Withdraw from "../models/withdrawModel.js";
+import Purchase from "../models/purchaseModal.js";
 
 // @DESC gets the profile of the admin
 // @METHOD get
@@ -30,15 +31,27 @@ export const adminProfile = AsyncHandler(async (req, res) => {
         ],
       });
 
-    const employee = await Employee.find({});
-    const employer = await Employer.find({});
+    let employee = 0;
+    let employer = 0;
     const jobs = await Jobs.find();
+
+    const users = await User.find({});
+
+    users.map(el => {
+      if (el.userType === 'employer' && el.emailVerified) {
+        employer++;
+      }else if (el.userType === 'employee' && el.emailVerified) {
+        employee++
+      }
+    })
+
+    console.log(employee);
 
     if (user) {
       res.status(200).json({
         adminData: user,
-        emplyeeLength: employee.length,
-        emplyerLength: employer.length,
+        emplyeeLength: employee,
+        emplyerLength: employer,
         jobsLength: jobs.length,
       });
     }
@@ -339,8 +352,8 @@ export const acceptNrejectKyc = AsyncHandler(async (req, res) => {
 
 export const getAllWithdraw = AsyncHandler(async (req, res) => {
   try {
-    const withdraw = await Withdraw.find().populate('owner');
-    
+    const withdraw = await Withdraw.find().populate("owner");
+
     res.json(withdraw);
   } catch (error) {
     throw new Error(error);
@@ -358,5 +371,21 @@ export const doWithdrawel = AsyncHandler(async (req, res) => {
     res.json(withdraw);
   } else {
     throw new Error("Not found");
+  }
+});
+
+export const purchaseHistory = AsyncHandler(async (req, res) => {
+  try {
+    const history = await Purchase.find({});
+    const allData = [];
+    history.forEach((el) => {
+      el.details.map((dt) => {
+        allData.push(dt);
+      });
+    });
+
+    res.status(200).json(allData.reverse());
+  } catch (error) {
+    throw new Error(error);
   }
 });

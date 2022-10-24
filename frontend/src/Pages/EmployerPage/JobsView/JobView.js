@@ -52,7 +52,7 @@ const JobView = () => {
 
           <div className="row">
             <p>
-              Budget: <strong>${jobsInfo?.budget}</strong>
+              Budget: <strong>₹{jobsInfo?.budget}</strong>
             </p>
             <p>
               Deadline: <strong>{jobsInfo?.deadline} days</strong>

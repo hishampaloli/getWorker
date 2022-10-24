@@ -26,6 +26,7 @@ import {
   WITHDRAW_REQUEST,
   WITHDRAW_SUCCESS,
 } from "../contants/employeeConstants.js";
+import { PURCHASE_hISTORY_FAIL, PURCHASE_hISTORY_REQUEST, PURCHASE_hISTORY_SUCCUSS } from "../contants/paymentConstants";
 
 export const adminProfile = () => async (dispatch) => {
   try {
@@ -405,6 +406,43 @@ export const doWithdraw = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: DO_WITHDRAW_REQUEST,
+      error: error,
+    });
+  }
+};
+
+
+
+
+
+export const ParchaseHistory = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: PURCHASE_hISTORY_REQUEST,
+    });
+
+    const tokenId = JSON.parse(localStorage.getItem("userInfo"));
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenId.token}`,
+      },
+    };
+
+    const { data } = await axiosAdminInstance.get(
+      `/allPurchase`,
+      config
+    );
+
+
+    dispatch({
+      type: PURCHASE_hISTORY_SUCCUSS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: PURCHASE_hISTORY_FAIL,
       error: error,
     });
   }

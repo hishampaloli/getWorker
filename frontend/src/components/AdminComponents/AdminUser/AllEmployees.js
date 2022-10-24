@@ -67,8 +67,8 @@ const AllEmployees = () => {
                     <p style={{ color: "#3ccf4e" }}>{dt?.name}</p>
                     {/* <h4>{dt?.userTitle.slice(0, 20)}. . .</h4> */}
                     <p className="esr">
-                      total earend:{" "}
-                      <strong>{dt?.employeeData?.totalEarned?.toString().slice(0,3)}.00</strong>
+                      total earend: 
+                      <strong> ₹{dt?.employeeData?.totalEarned?.toString().slice(0,3)}.00</strong>
                     </p>
                   </div>
                 </div>

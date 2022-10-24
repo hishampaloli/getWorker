@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { checkout } from "../../../actions/paymentActions";
+import BuyBox from "./BuyBox";
+import Paypay from "./Paypay";
+import './BuyBox.scss'
 
 const ConnectBox = ({ user, number, amount, pack }) => {
-  const dispatch = useDispatch();
+  const [buy, setBuy] = useState(false);
   
   return (
     <div className="buy-box">
@@ -13,13 +16,13 @@ const ConnectBox = ({ user, number, amount, pack }) => {
             Recharge for <strong>RS: {amount}.00</strong>
           </p>
           <h3>{pack}</h3>
-          <button
-        onClick={() => {
-          dispatch(checkout(amount, 'employer'));
-        }}
-      >
-        Recharge Now
-      </button>
+         
+          <button onClick={() => setBuy(true)} >
+            Buy Now
+          </button>
+
+          {buy ? <BuyBox buy={() =>setBuy(false)} amount={amount} user={user} /> : ''}
+      
         </>
       ) : (
         <>
@@ -28,16 +31,17 @@ const ConnectBox = ({ user, number, amount, pack }) => {
             Buy for <strong>RS: {amount}.00</strong>
           </p>
           <h3>{pack}</h3>
-          <button
-        onClick={() => {
-          dispatch(checkout(amount,'employee'));
-        }}
-      >
-        Buy Now
-      </button>
+
+          <button onClick={() => setBuy(true)} >
+            Buy Now
+          </button>
+
+          {buy ? <BuyBox buy={() =>setBuy(false)} amount={amount} user={user} /> : ''}
+         
         </>
       )}
 
+     
      
     </div>
   );

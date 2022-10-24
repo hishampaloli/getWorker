@@ -43,7 +43,7 @@ const EmpJobsComponents = ({ jobs, sv }) => {
 
                   <div style={{display: 'flex'}}>
                     <p className="mt-2">
-                      Est.Budget: <strong>${job?.budget}</strong>
+                      Est.Budget: <strong>₹{job?.budget}</strong>
                     </p>
 
                     <p className="mt-2" >Proposals: {job?.proposals?.length}</p>

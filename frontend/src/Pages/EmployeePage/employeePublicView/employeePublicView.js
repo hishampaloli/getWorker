@@ -102,7 +102,7 @@ const EmployeePublicView = () => {
               <div className="left">
                 <div className="left-top">
                   <span>
-                    <strong>{userData?.totalEarned}</strong>
+                    <strong>₹{userData?.totalEarned}.00</strong>
                     <p>Total Earnings</p>
                   </span>
 
@@ -181,7 +181,7 @@ const EmployeePublicView = () => {
                       <div>
                         <h4>{job?.title}</h4>
                         <div className="left-text">
-                          <strong>${job?.budget}</strong>
+                          <strong>₹{job?.budget}</strong>
                           <p>Successfully Completed</p>
                         </div>
                       </div>

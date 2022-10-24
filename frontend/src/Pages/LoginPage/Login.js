@@ -187,6 +187,7 @@ const Login = () => {
                   setPassword("");
                 }}
                 className="fg-p"
+                style={{cursor: 'pointer'}}
               >
                 Forgot Password ?
               </p>

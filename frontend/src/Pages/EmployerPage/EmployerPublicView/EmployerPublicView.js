@@ -58,7 +58,7 @@ const EmployerPublicView = () => {
           <div className="left" style={{display: 'flex'}}>
             <div className="left-top ltpff" style={{display: 'flex'}}  >
               <span>
-                <strong>{userInfo?.totalSpend}.00</strong>
+                <strong> ₹{userInfo?.totalSpend}.00</strong>
                 <p>Total Spent</p>
               </span>
 
@@ -78,7 +78,7 @@ const EmployerPublicView = () => {
                     <div>
                       <h4>{post?.title}</h4>
                       <div className="left-text">
-                        <strong className="mt-4">${post?.budget}</strong>
+                        <strong className="mt-4">₹{post?.budget}</strong>
                         <p>Successfully Completed</p>
                       </div>
                     </div>

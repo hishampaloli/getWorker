@@ -62,7 +62,7 @@ const BlockedUsers = () => {
                     {/* <h4>{dt?.userTitle.slice(0, 20)}. . .</h4> */}
                     <p>
                       total earend:{" "}
-                      <strong>{dt?.employeeData?.totalEarned}</strong>
+                      <strong> ₹{dt?.employeeData?.totalEarned}</strong>
                     </p>
                   </div>
                 </div>

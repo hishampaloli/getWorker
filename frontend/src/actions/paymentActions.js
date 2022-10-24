@@ -55,7 +55,7 @@ export const checkout = (amount, user) => async (dispatch) => {
   } catch (error) {}
 };
 
-export const myParchaseHistory = (amount) => async (dispatch) => {
+export const myParchaseHistory = () => async (dispatch) => {
   try {
     dispatch({
       type: PURCHASE_hISTORY_REQUEST,
@@ -74,7 +74,7 @@ export const myParchaseHistory = (amount) => async (dispatch) => {
       `/history/${tokenId._id}`,
       config
     );
-console.log(data);
+
     dispatch({
       type: PURCHASE_hISTORY_SUCCUSS,
       payload: data,

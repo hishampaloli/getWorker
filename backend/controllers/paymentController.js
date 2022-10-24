@@ -22,11 +22,15 @@ export const checkout = AsyncHandler(async (req, res) => {
 });
 
 export const paymentVerification = AsyncHandler(async (req, res) => {
-  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
-    req.body;
+  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
   const { userId, amount, user } = req.query;
   const amnt = amount / 100;
+
+  
+  const d = new Date();
+  let month = d.getMonth();
+
 
   let body = razorpay_order_id + "|" + razorpay_payment_id;
 
@@ -46,6 +50,8 @@ export const paymentVerification = AsyncHandler(async (req, res) => {
         amount: amnt,
         orderId: razorpay_order_id,
         paymentId: razorpay_payment_id,
+        method: 'razorPay',
+        month: month
       });
       await purchase.save();
     } else {
@@ -55,6 +61,8 @@ export const paymentVerification = AsyncHandler(async (req, res) => {
           amount: amnt,
           orderId: razorpay_order_id,
           paymentId: razorpay_payment_id,
+          method: 'razorPay',
+          month: month
         },
       });
       await purch.save();
@@ -85,6 +93,69 @@ export const paymentVerification = AsyncHandler(async (req, res) => {
   }
 });
 
+
+
+
+
+export const payPalVerification = AsyncHandler(async (req, res) => {
+  const { payPal_order_id, payPal_payment_id, payPal_signature } = req.body;
+
+  const { userId, amount, user } = req.query;
+  const amnt = amount / 100;
+
+  const d = new Date();
+  let month = d.getMonth();
+
+
+  const admin = await Admin.findById("633be9b307ec8a154a57bc9e");
+
+  if (isAuthentic) {
+    const purchase = await Purchase.findOne({ owner: userId });
+
+    purchase.details.push({
+        amount: amnt,
+        orderId: payPal_order_id,
+        paymentId: payPal_payment_id,
+        method: 'PayPal',
+        month: month
+      });
+      await purchase.save();
+    } else {
+      const purch = new Purchase({
+        owner: userId,
+        details: {
+          amount: amnt,
+          orderId: payPal_order_id,
+          paymentId: payPal_payment_id,
+          method: 'PayPal',
+          month: month
+        },
+      });
+      await purch.save();
+    }
+
+    if (user === "employee") {
+      const employee = await Employee.findOne({ owner: userId });
+
+      employee.connects  = employee.connects + amnt / 5;
+      admin.balance = admin.balance + amnt;
+      admin.soldConnect = admin.soldConnect + amnt / 5;
+      await employee.save();
+      await admin.save();
+
+      res.redirect(`http://localhost:3000`);
+    } else {
+      const employer = await Employer.findOne({ owner: userId });
+
+      employer.balance = employer.balance + amnt;
+      admin.balance = admin.balance + amnt;
+      await employer.save();
+      await admin.save();
+
+      res.redirect(`http://localhost:3000`);
+    }
+});
+
 export const myParchaseHistory = AsyncHandler(async (req, res) => {
   try {
     const { userId } = req.params;
@@ -97,3 +168,5 @@ export const myParchaseHistory = AsyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+

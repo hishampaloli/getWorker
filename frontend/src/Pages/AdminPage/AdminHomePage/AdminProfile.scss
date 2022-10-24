@@ -1,142 +1,213 @@
-
 .adminProfile {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+
+  .admin-top {
     display: flex;
+    width: 100%;
     justify-content: space-between;
-    padding: 30px;
 
     .leftt {
-        width: 25%;
-        background-color: white;
-        border-radius: 10px;
+      width: 25%;
+      background-color: white;
+      border-radius: 10px;
 
-        .top {
-            border-bottom: 1px solid rgb(219, 219, 219);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-        }
+      .top {
+        border-bottom: 1px solid rgb(219, 219, 219);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+      }
 
-        .bottom {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            padding: 15px;
-        } 
-    }
-
-    .right  {
-        width: 70%;
+      .bottom {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+        padding: 15px;
+      }
+    }
+
+    .right {
+      width: 100%;
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      .top {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        .l-box {
+          background-color: #1d4354;
+          color: white;
+          width: 30%;
+          height: 200px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          border-radius: 10px;
+
+          h3 {
+            font-size: 1rem;
+          }
+        }
+      }
+
+      .bottom {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        input {
+          border: none;
+          padding: 15px;
+          margin-top: 10px;
+          border-radius: 10px;
+        }
+
+        div {
+          display: flex;
+          justify-content: space-between;
+
+          input {
+            width: 47%;
+          }
+        }
+      }
+    }
+  }
+
+  .purchase-div {
+    width: 100%;
+    margin-top: 30px;
+    min-height: 200px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    .top {
+      padding: 10px 15px;
+      border-bottom: 1px solid rgb(210, 210, 210);
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+
+      button {
+        padding: 10px 25px;
+        border: none;
+        border-radius: 5px;
+        background-color: #1d4354;
+        color: white;
+      }
+    }
+
+    ul {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+
+      li {
+        margin-left: 50px;
+        list-style: none;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        div {
+          width: 15px;
+          height: 15px;
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}
+
+.adminProfile .right .bottom button {
+  background-color: #3ccf4e;
+  width: 100%;
+  margin-left: 0;
+  margin-top: 10px;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  color: white;
+}
+
+@media (max-width: 850px) {
+  .adminProfile {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .admin-top {
+      flex-direction: column;
+
+      .leftt {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      .right {
+        background-color: white;
+        width: 100%;
+        border-radius: 10px;
+        padding: 30px;
 
         .top {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-
-            .l-box {
-                background-color:  #1d4354;
-                color: white;
-                width: 30%;
-                height: 200px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                border-radius: 10px;
-
-                h3 {
-                    font-size: 1rem;
-                }
-            }
+          .l-box {
+            background-color: #1d4354;
+            color: white;
+          }
         }
 
         .bottom {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-
-            input {
-                border:  none;
-                padding: 15px;
-                margin-top: 10px;
-                border-radius: 10px;
-            }
-
-            div {
-                display: flex;
-                justify-content: space-between;
-
-                input {
-                    width: 47%;
-                }
-            }
-
-
+          input {
+            background-color: #c6c6c637;
+          }
         }
+      }
     }
-    
+  }
 }
 
-
-.adminProfile .right .bottom button {
-    background-color: #3ccf4e;
-    width: 100%;
-    margin-left: 0;
-    margin-top: 10px;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 10px;
-    color: white;
-}
-
-
-@media (max-width: 850px) {
-    .adminProfile {
-        flex-direction: column;
-        align-items: center;
-
-        .leftt {
-            width: 80%;
-            margin-bottom: 20px;
-        }
-
-        .right {
-            background-color: white;
-            width: 80%;
-            border-radius: 10px;
-            padding: 30px;
-
-            .top {
-                .l-box {
-                    background-color:  #1d4354;
-                    color: white;
-                }
-            }
-
-            .bottom {
-                input {
-                    background-color: #c6c6c637;
-                }
-            }
-        }
-    }
-}
-
-
-
-@media (max-width: 780px)  {
-.adminProfile {
-    .right {
+@media (max-width: 780px) {
+  .adminProfile {
+    .admin-top {
+      .right {
         .top {
-            flex-direction: column;
-            align-items: center;
+          flex-direction: column;
+          align-items: center;
 
-            .l-box {
-                width: 100%;
-                margin-top: 10px;
+          .l-box {
+            width: 100%;
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+@media (max-width: 480px) {
+.adminProfile {
+    .purchase-div {
+        ul {
+            flex-direction: column;
+            li {
+                margin-left: 0;
+                div {
+                    margin-left: 0;
+                    margin-right: 40px;
+                }
             }
         }
     }

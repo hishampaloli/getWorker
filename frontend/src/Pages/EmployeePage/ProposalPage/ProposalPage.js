@@ -76,7 +76,7 @@ const ProposalPage = () => {
                 Your Bid ({`₹20.00 - ₹${jobsInfo.budget}.00`})
               </label>
               <InputGroup className="mb-3 in">
-                <InputGroup.Text>$</InputGroup.Text>
+                <InputGroup.Text>₹</InputGroup.Text>
                 <Form.Control
                   onChange={(e) => setBid(e.target.value)}
                   type="number"

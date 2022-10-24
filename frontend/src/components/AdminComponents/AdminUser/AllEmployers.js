@@ -63,7 +63,7 @@ const AllEmployers = () => {
                     {/* <h4>{dt?.userTitle.slice(0, 20)}. . .</h4> */}
                     <p>
                       total Spend:{" "}
-                      <strong>{dt?.employerData?.totalSpend}</strong>
+                      <strong> ₹{dt?.employerData?.totalSpend}</strong>
                     </p>
                   </div>
                 </div>
