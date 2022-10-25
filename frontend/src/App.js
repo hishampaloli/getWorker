@@ -32,6 +32,8 @@ import EmployeeMessage from "./Pages/EmployeePage/EmployeeMessage/EmployeeMessag
 import EmployerMessage from "./Pages/EmployerPage/EmployerMessage/EmployerMessage";
 import AnimatedBackGround from "./components/AnimatedBackground/AnimatedBackGround";
 import AdminWithdraw from "./Pages/AdminPage/AdminWithdraw/AdminWithdraw";
+import AdminMessage from "./Pages/AdminPage/AdminMessage/AdminMessage";
+import UserHelpPage from "./Pages/UserHelp/UserHelpPage";
 
 const Landing = React.lazy(() => import("./Pages/LandingPage.js/Landing"));
 const Login = React.lazy(() => import("./Pages/LoginPage/Login"));
@@ -140,6 +142,11 @@ function App() {
               path="/employer/recharge"
               element={<EmployerRecharge />}
             />
+             <Route
+              exact
+              path="/help"
+              element={<UserHelpPage socket={socket} />}
+            />
             <Route
               exact
               path="/employer/publicview/:id"
@@ -153,6 +160,7 @@ function App() {
             <Route exact path="/admin/users" element={<AdminUserPage />} />
             <Route exact path="/admin/kyc" element={<AdminKyc />} />
             <Route exact path="/admin/withdraw" element={<AdminWithdraw />} />
+            <Route exact path="/admin/message" element={<AdminMessage socket={socket} />} />
           </Routes>
         </Router>
       )}

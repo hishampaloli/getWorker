@@ -1,21 +1,23 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-const roomOwnerSchema = new Schema({
-  employer: {
+const AdminRoomSchema = new Schema({
+  admin: {
     type: Schema.Types.ObjectId,
     ref: "User",
   },
-  employee: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-  },
-  availableRooms: [
+  user: 
     {
       type: Schema.Types.ObjectId,
-      ref: "Room",
+      ref: "User",
     },
-  ],
+  roomId: {
+    type: String,
+    required: true,
+  },
+  chats: {
+    type: Array,
+  },
 });
 
-export const RoomOwner = mongoose.model("RoomOwner", roomOwnerSchema);
+export const AdminRoom = mongoose.model("AdminRoom", AdminRoomSchema);

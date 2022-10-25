@@ -1,5 +1,5 @@
 import AsyncHandler from "express-async-handler";
-import { RoomOwner } from "../sockets/models/roomOwner.js";
+import { AdminRoom } from "../sockets/models/roomOwner.js";
 import { Room } from "../sockets/models/rooms.js";
 
 export const getMyChats = AsyncHandler(async (req, res) => {
@@ -43,3 +43,15 @@ export const getChats = AsyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+
+export const myHelpChat = AsyncHandler(async(req, res) => {
+  try {
+    const {userId} = req.params;
+    const room = await AdminRoom.findOne({user: userId})
+    
+    res.json(room);
+  } catch (error) {
+    throw new Error(error)
+  }
+})

@@ -1,0 +1,207 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&family=Secular+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Peralta&display=swap");
+.main-header .ham {
+  display: none;
+  position: absolute;
+  right: 20px;
+}
+.main-header header {
+  width: 100%;
+  height: 100px;
+  background-color: #1d4354;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px;
+  font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+.main-header header .right {
+  display: flex;
+  align-items: center;
+}
+.main-header header .right .big-nav {
+  margin-left: 0;
+  width: 100%;
+}
+.main-header header .right a {
+  text-decoration: none;
+  color: white;
+  margin-left: 40px;
+}
+.main-header header .right a:hover {
+  color: #3ccf4e;
+}
+.main-header header .right button {
+  padding: 10px 25px;
+  margin-right: 20px;
+  border: none;
+  border-radius: 25px;
+  font-weight: 400;
+}
+.main-header header .right .btn-1sdf {
+  transition: 0.3s ease;
+  color: black;
+}
+.main-header header .right .btn-1sdf a {
+  color: black;
+  margin-left: 0;
+}
+.main-header header .right .btn-1sdf:hover {
+  background-color: #3ccf4e;
+}
+.main-header header .right .btn-1sdf:hover > a {
+  color: white;
+}
+.main-header header .right .btn-2ad {
+  background-color: #3ccf4e;
+  text-align: center;
+  transition: 0.3s ease;
+}
+.main-header header .right .btn-2ad a {
+  color: white;
+  margin-left: 0;
+}
+.main-header header .right .btn-2ad:hover {
+  background-color: white;
+}
+.main-header header .right .btn-2ad:hover > a {
+  color: black;
+}
+
+.left h2 {
+  color: #3ccf4e;
+  font-family: "Secular One", sans-serif;
+}
+
+.logo-text {
+  color: #3ccf4e;
+  font-family: "Secular One", sans-serif;
+}
+
+/* .right .btn-2ad:hover {
+  background-color: white;
+  color: #3ccf4e;
+} */
+.drop-div {
+  position: absolute;
+  top: 100px;
+  right: 0px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  z-index: 15;
+}
+
+.drop-div ul,
+.drop-div-mgs ul {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  padding-top: 30px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+}
+
+.drop-div ul .cln,
+.drop-div-mgs ul .cln {
+  position: absolute;
+  right: 10px;
+  top: 2px;
+  transition: 0.3s ease;
+  color: #1d4354;
+}
+
+.drop-div ul .cln:hover,
+.drop-div-mgs ul .cln:hover {
+  transform: rotate(280deg);
+}
+
+.drop-div ul a,
+.drop-div-mgs ul a {
+  background-color: #1d4354;
+  color: white;
+  margin-top: 0px;
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  border-top: 1px solid;
+}
+
+.drop-div-mgs {
+  position: absolute;
+  top: 100px;
+  right: 0px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+
+.drop-div-mgs ul {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.not-ball {
+  width: 10px;
+  height: 10px;
+  background-color: orangered;
+  border-radius: 50%;
+}
+
+.drop-div-mgs a {
+  background-color: #1d4354;
+  color: white;
+  margin-top: 0px;
+  cursor: auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  border-top: 1px solid;
+}
+
+@media (max-width: 1050px) {
+  .left {
+    display: block;
+  }
+  .main-header .ham {
+    display: block;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s ease;
+    z-index: 100;
+  }
+  .main-header .ham:hover {
+    color: #3ccf4e;
+    transform: scale(1.1);
+  }
+  .main-header header .big-nav {
+    display: none;
+  }
+  .main-header header .small-nav {
+    position: fixed;
+    display: flex;
+    right: 0;
+    top: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: rgba(29, 66, 84, 0.9333333333);
+    width: 300px;
+    height: 1000px;
+    padding-top: 50px;
+    z-index: 10;
+  }
+  .main-header header .small-nav a {
+    margin-top: 10px;
+    margin-left: 20px;
+    color: #1d4354;
+    background-color: white;
+    width: 170px;
+    padding: 10px 15px;
+    border-radius: 5px;
+  }
+}/*# sourceMappingURL=header.css.map */

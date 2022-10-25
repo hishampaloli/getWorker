@@ -8,6 +8,9 @@ import {
   CALL_REQUEST,
   CALL_SUCCESS,
   CALL_FAIL,
+  HELP_CHAT_REQUEST,
+  HELP_CHAT_SUCCESS,
+  HELP_CHAT_FAIL,
 } from "../contants/chatConstants";
 
 export const myRoomsReducer = (state = {}, action) => {
@@ -34,6 +37,22 @@ export const myChatsReducer = (state = {}, action) => {
       return { loading: false, chat: action.payload };
 
     case MY_CHATS_FAIL:
+      return { loading: false, error: action.error };
+    default:
+      return state;
+  }
+};
+
+
+export const myHelpChatsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case HELP_CHAT_REQUEST:
+      return { loading: true };
+
+    case HELP_CHAT_SUCCESS:
+      return { loading: false, chatData: action.payload };
+
+    case HELP_CHAT_FAIL:
       return { loading: false, error: action.error };
     default:
       return state;

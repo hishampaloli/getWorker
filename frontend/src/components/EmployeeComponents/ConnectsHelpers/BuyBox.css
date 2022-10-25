@@ -1,0 +1,30 @@
+.pay-main-box {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  height: 1000vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.639);
+}
+
+.pay-box {
+  max-width: 400px;
+  border-radius: 10px;
+  margin-top: 150px;
+  min-height: 300px;
+  position: relative;
+  padding: 20px;
+  background-color: rgb(236, 236, 236);
+}
+.pay-box h3 {
+  color: black;
+}
+.pay-box p {
+  color: black;
+  text-align: center;
+  margin-top: 20px;
+}/*# sourceMappingURL=BuyBox.css.map */

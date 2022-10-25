@@ -1,0 +1,70 @@
+.earn-main-box {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.earn-main-box .rst-btn {
+  width: 300px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  color: white;
+  border: none;
+  transition: 0.4s ease;
+  background-color: #3ccf4e;
+}
+.earn-main-box .rst-btn {
+  background-color: #1d4354;
+}
+.earn-main-box .btn-gp {
+  display: flex;
+}
+.earn-main-box .pn-btn {
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  color: white;
+}
+.earn-main-box .knefr {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.earn-box {
+  width: 300px;
+  height: 200px;
+  background-color: #1d4354;
+  margin-top: 50px;
+  border-radius: 10px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.withdraw-history {
+  width: 90%;
+  padding: 15px;
+  height: 100px;
+  margin-top: 10px;
+  border-radius: 10px;
+  background-color: rgba(211, 211, 211, 0.288);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (max-width: 500px) {
+  .earn-box {
+    width: 90%;
+  }
+  .earn-main-box .rst-btn {
+    width: 90%;
+  }
+  .earn-main-box .knefr {
+    display: none;
+  }
+}/*# sourceMappingURL=EmployeeEarnings.css.map */

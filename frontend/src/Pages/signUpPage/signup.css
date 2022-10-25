@@ -1,0 +1,228 @@
+.main {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f1f2f4;
+}
+.main .box {
+  width: 700px;
+  margin-top: 50px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+}
+.main .box h1 {
+  font-size: 27px;
+  color: rgb(32, 32, 32);
+  margin-top: 20px;
+  padding: 13px;
+}
+.main .box .btn-2 {
+  background-color: #050505;
+  border: none;
+  border-radius: 35px;
+  padding: 15px 15px;
+  margin-top: 20px;
+  width: 300px;
+  color: white;
+}
+.main .box .p {
+  margin-top: 10px;
+}
+.main .box .btn-1 {
+  background-color: #4285f4;
+  border: none;
+  border-radius: 35px;
+  margin-top: 30px;
+  height: 60px;
+  width: 300px;
+  color: white;
+  display: flex;
+  position: relative;
+  align-items: center;
+  width: 350px;
+}
+.main .box .btn-1 img {
+  width: 50px;
+  height: 100%;
+  position: absolute;
+  left: -1px;
+  border-radius: 50%;
+}
+.main .box .btn-1 p {
+  margin-top: 10px;
+  font-size: medium;
+}
+.main .box .line-wrapper {
+  display: flex;
+  align-items: center;
+}
+.main .box .box .line-wrapper .line {
+  width: 100px;
+  height: 1px;
+  background-color: #dddddd;
+}
+.main .box .box .line-wrapper p {
+  margin: 0px 10px;
+}
+.main .box .row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  width: 100%;
+  overflow-y: hidden;
+}
+.main .box .row .btn-2-sg {
+  background-color: #050505;
+  border: none;
+  border-radius: 10px;
+  padding: 15px 15px;
+  width: 80%;
+  color: white;
+  margin-top: -30px;
+  transition: 0.3s ease;
+}
+.main .box .row .btn-2-sg:hover {
+  background-color: #3ccf4e;
+  border-radius: 0px;
+}
+.main .box .row input {
+  padding: 10px 15px;
+  width: 80%;
+  margin: 5px;
+  background: #ffffff;
+  border: 1px solid #b7b7b7;
+  border-radius: 5px;
+  transition: 0.4s ease;
+}
+.main .box .row input:focus {
+  outline: none;
+  border: 1px solid #3ccf4e;
+  border-radius: 15px;
+}
+.main .box .row label {
+  margin-top: 10px;
+  width: 80%;
+  margin-bottom: -2px;
+  margin-left: -15px;
+}
+.main .box .row .vt-inp {
+  background-color: black;
+  padding: 10px 15px;
+  margin: 5px;
+  border: 1px solid #b7b7b7;
+  border-radius: 15px;
+  color: white;
+}
+.main .box .row .btn-2 {
+  width: 80%;
+  border-radius: 5px;
+}
+.main .box .row .otpInp {
+  width: 80%;
+  margin-top: 10px;
+  padding: 15px 15px;
+}
+.main .box .row .btn-otp {
+  margin-top: -40px;
+  transition: 0.4s all;
+}
+.main .box .row .btn-otp:hover {
+  background-color: #3ccf4e;
+  border-radius: 0px;
+}
+.main .mini-box-wrapper {
+  display: flex;
+  margin-top: 50px;
+}
+.main .mini-box-wrapper .mini-box-1 {
+  padding: 30px;
+  background-color: #b9e2b5;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  color: white;
+}
+.main .mini-box-wrapper .mini-box-2 {
+  background-color: #b9e2b5;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  background-color: #1c2f1e;
+  margin-left: 15px;
+  color: white;
+}
+
+@media (max-width: 650px) {
+  .box {
+    width: 500px;
+  }
+  .box h1 {
+    font-size: 20px;
+    text-align: center;
+  }
+  .box .row1 input {
+    padding: 10px 15px;
+    width: 42%;
+    margin: 7px;
+    background: #ffffff;
+    border: 1px solid #b7b7b7;
+    margin-bottom: 10px;
+    border-radius: 15px;
+  }
+}
+@media (max-width: 550px) {
+  .box {
+    width: 450px;
+  }
+  .mini-box-1 {
+    padding: 25px;
+  }
+  .mini-box-2 {
+    padding: 25px;
+  }
+}
+@media (max-width: 480px) {
+  .box {
+    width: 350px;
+  }
+  .box .row .btn-2 {
+    width: 300px;
+  }
+  .box .btn-1 {
+    width: 300px;
+  }
+  .box .p-er {
+    width: 250px;
+  }
+  .mini-box-1 {
+    padding: 10px;
+    height: 130px;
+  }
+  .mini-box-2 {
+    padding: 10px;
+  }
+  .box .row1 input {
+    width: 39%;
+  }
+}
+@media (max-width: 380px) {
+  .box {
+    width: 340px;
+  }
+  .mini-box-1 {
+    padding: 10px;
+    height: 130px;
+  }
+  .mini-box-2 {
+    padding: 10px;
+  }
+}/*# sourceMappingURL=signup.css.map */

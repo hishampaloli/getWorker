@@ -1,5 +1,8 @@
 import axios from "axios";
 import {
+  ADMIN_CHATS_FAIL,
+  ADMIN_CHATS_REQUEST,
+  ADMIN_CHATS_SUCCESS,
   ADMIN_PROFILE_FAIL,
   ADMIN_PROFILE_REQUEST,
   ADMIN_PROFILE_SUCCESS,
@@ -26,7 +29,11 @@ import {
   WITHDRAW_REQUEST,
   WITHDRAW_SUCCESS,
 } from "../contants/employeeConstants.js";
-import { PURCHASE_hISTORY_FAIL, PURCHASE_hISTORY_REQUEST, PURCHASE_hISTORY_SUCCUSS } from "../contants/paymentConstants";
+import {
+  PURCHASE_hISTORY_FAIL,
+  PURCHASE_hISTORY_REQUEST,
+  PURCHASE_hISTORY_SUCCUSS,
+} from "../contants/paymentConstants";
 
 export const adminProfile = () => async (dispatch) => {
   try {
@@ -317,7 +324,6 @@ export const acceptOrRejectKyc =
         config
       );
 
-
       dispatch({
         type: KYC_STATUS_SUCCESS,
       });
@@ -342,7 +348,6 @@ export const acceptOrRejectKyc =
       });
     }
   };
-
 
 export const getAllWithdraw = () => async (dispatch, getState) => {
   try {
@@ -372,14 +377,11 @@ export const getAllWithdraw = () => async (dispatch, getState) => {
   }
 };
 
-
-
 export const doWithdraw = (id) => async (dispatch, getState) => {
   try {
-
     dispatch({
       type: DO_WITHDRAW_REQUEST,
-    })
+    });
 
     const tokenId = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -390,13 +392,16 @@ export const doWithdraw = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axiosAdminInstance.post(`doWithdraw/${tokenId._id}/${id}`, config);
+    const { data } = await axiosAdminInstance.post(
+      `doWithdraw/${tokenId._id}/${id}`,
+      config
+    );
     if (data) {
-      getState().withdrawHistory.data.map(el => {
+      getState().withdrawHistory.data.map((el) => {
         if (el._id === id) {
-          el.status = 'finished'
-        } 
-      })
+          el.status = "finished";
+        }
+      });
     }
 
     dispatch({
@@ -410,10 +415,6 @@ export const doWithdraw = (id) => async (dispatch, getState) => {
     });
   }
 };
-
-
-
-
 
 export const ParchaseHistory = () => async (dispatch) => {
   try {
@@ -430,11 +431,7 @@ export const ParchaseHistory = () => async (dispatch) => {
       },
     };
 
-    const { data } = await axiosAdminInstance.get(
-      `/allPurchase`,
-      config
-    );
-
+    const { data } = await axiosAdminInstance.get(`/allPurchase`, config);
 
     dispatch({
       type: PURCHASE_hISTORY_SUCCUSS,
@@ -443,6 +440,35 @@ export const ParchaseHistory = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: PURCHASE_hISTORY_FAIL,
+      error: error,
+    });
+  }
+};
+
+export const myUserChats = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: ADMIN_CHATS_REQUEST,
+    });
+
+    const tokenId = JSON.parse(localStorage.getItem("userInfo"));
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenId.token}`,
+      },
+    };
+
+    const { data } = await axiosAdminInstance.get(`/mychatsHelp`, config);
+console.log(data);
+    dispatch({
+      type: ADMIN_CHATS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ADMIN_CHATS_FAIL,
       error: error,
     });
   }

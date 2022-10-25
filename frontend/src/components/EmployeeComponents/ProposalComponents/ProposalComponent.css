@@ -1,0 +1,62 @@
+.emp-prop-div {
+  display: flex;
+  width: 90%;
+  background-color: rgba(221, 221, 221, 0.1882352941);
+  border-radius: 10px;
+  justify-content: space-between;
+  padding: 15px;
+  margin-top: 10px;
+  align-items: center;
+  transition: 0.3s ease;
+  margin-bottom: 10px;
+}
+.emp-prop-div .s {
+  width: 90%;
+}
+.emp-prop-div .s .rowEm {
+  display: flex;
+  align-items: center;
+}
+.emp-prop-div .s .rowEm p {
+  margin-left: 15px;
+}
+.emp-prop-div .eyebtnnx {
+  padding: 10px;
+  border: none;
+  border-radius: 50%;
+  background-color: #75E6FF;
+  color: white;
+}
+.emp-prop-div h4 {
+  font-size: 19px;
+  font-weight: 500;
+}
+.emp-prop-div p {
+  font-size: 13px;
+  margin-top: -8px;
+}
+
+.emp-prop-div:hover {
+  background-color: #1d4354;
+  color: white;
+}
+
+@media (max-width: 550px) {
+  .emp-prop-div {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .emp-prop-div h4 {
+    text-align: start;
+  }
+  .emp-prop-div .s .rowEm {
+    display: flex;
+    align-items: flex-start;
+    margin-left: -12px;
+    flex-direction: column;
+  }
+  .emp-prop-div .eyebtnnx {
+    margin-left: 0;
+  }
+}/*# sourceMappingURL=ProposalComponent.css.map */

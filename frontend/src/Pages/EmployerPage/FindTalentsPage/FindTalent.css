@@ -1,0 +1,252 @@
+.findTalents {
+  overflow-x: hidden;
+  display: flex;
+  padding: 20px;
+  justify-content: space-between;
+}
+.findTalents button {
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+.findTalents button a {
+  text-decoration: none;
+  color: white;
+}
+
+.findTalents .save-alert {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
+
+.findTalents .left {
+  width: 30%;
+  background-color: white;
+  border-radius: 25px;
+  min-height: 400px;
+  padding: 10px 20px;
+  padding-top: 30px;
+}
+
+.findTalents .left .lef-close-icn {
+  display: none;
+}
+
+.findTalents .left .main-cate-div {
+  margin-bottom: 30px;
+}
+
+.findTalents .left .main-cate-div p {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.findTalents .left .cate-div {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.findTalents .left .cate-div input {
+  width: 134px;
+  height: 14px;
+  border: 2px solid #ba3434;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.findTalents .right {
+  min-height: 300px;
+  width: 65%;
+  background-color: white;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.findTalents .right .top {
+  border-bottom: 2px solid #f1f2f4;
+  width: 100%;
+  color: rgb(94, 94, 94);
+  padding: 10px 15px;
+}
+
+.findTalents .right .top strong {
+  color: #3ccf4e;
+}
+
+.findTalents .right .top .set-icn {
+  display: none;
+}
+
+.findTalents .right .top .btn {
+  color: #ffffff;
+  background-color: #1d4354;
+}
+
+.findTalents .right .top .btn-k {
+  background-color: #ffffff;
+  color: #4a4a4a;
+}
+
+.findTalents .right .middle {
+  width: 100%;
+  padding: 20px 15px;
+  border-bottom: 2px solid #f1f2f4;
+}
+
+.findTalents .right .middle form {
+  display: flex;
+  justify-content: center;
+}
+
+.findTalents .right .middle form input {
+  width: 73%;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 1px solid rgb(95, 95, 95);
+}
+
+.findTalents .right .middle form button {
+  background-color: #3ccf4e;
+  border-radius: 10px;
+  color: white;
+  margin-left: 5px;
+}
+
+.findTalents .right .bottom {
+  padding: 20px 15px;
+  width: 100%;
+}
+
+.findTalents .right .bottom .talent-result {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 30px;
+  align-items: center;
+  background-color: #f1f2f4;
+  margin-top: 10px;
+  border-radius: 10px;
+  transition: 0.5s ease;
+}
+
+.findTalents .right .bottom .talent-result:hover {
+  background-color: #1d4354;
+  border-radius: 23px;
+  transition: 0.5s ease;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.findTalents .right .bottom .talent-result .t-left {
+  display: flex;
+  width: 70%;
+  align-items: center;
+  color: rgb(125, 125, 125);
+}
+
+.findTalents .right .bottom .talent-result .t-left img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.findTalents .right .bottom .talent-result .t-left div {
+  margin-left: 10px;
+}
+
+.findTalents .right .bottom .talent-result .t-left div h4 {
+  margin-top: -10px;
+}
+
+.findTalents .right .bottom .talent-result .t-right button {
+  background-color: #3ccf4e;
+  border-radius: 35px;
+  color: white;
+  margin-right: 10px;
+  transition: 0.3s ease;
+}
+
+.findTalents .right .bottom .talent-result .t-right button:hover {
+  background-color: white;
+  color: #1d4354;
+}
+
+.findTalents .right .bottom .talent-result .t-right .hb-btn {
+  color: #3ccf4e;
+}
+
+@media (max-width: 850px) {
+  .findTalents {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  .findTalents .right {
+    width: 90%;
+  }
+  .findTalents .left {
+    width: 270px;
+    transform: translateX(200%);
+    margin-top: 40px;
+    position: relative;
+  }
+  .findTalents .left.show {
+    position: fixed;
+    transform: translateX(0);
+    top: 80px;
+    right: 0px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+  .findTalents .right .top .set-icn {
+    display: inline;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  .findTalents .left .lef-close-icn {
+    display: inline;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    padding: 5px;
+    background-color: #FF6C6C;
+    color: white;
+    border-radius: 50%;
+  }
+}
+@media (max-width: 850px) {
+  .findTalents .right .bottom .talent-result .t-left {
+    width: 50%;
+  }
+}
+@media (max-width: 630px) {
+  .findTalents .right {
+    width: 100%;
+  }
+  .findTalents .right .bottom .talent-result {
+    display: flex;
+    flex-direction: column;
+  }
+  .findTalents .right .bottom .talent-result .t-left {
+    width: 100%;
+  }
+  .findTalents .right .bottom .talent-result .t-right {
+    width: 90%;
+    margin-top: 20px;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+  }
+  .findTalents .right .bottom .talent-result .t-left {
+    flex-direction: column;
+  }
+  .findTalents .left {
+    display: block;
+  }
+}
+@media (max-width: 430px) {
+  .findTalents .right .bottom .talent-result {
+    display: flex;
+    flex-direction: column;
+  }
+}/*# sourceMappingURL=FindTalent.css.map */

@@ -10,3 +10,7 @@ export const MY_CHATS_FAIL = "MY_CHATS_FAIL"
 export const CALL_REQUEST = 'CALL_REQUEST'
 export const CALL_SUCCESS = 'CALL_SUCCESS'
 export const CALL_FAIL = 'CALL_FAIL'
+
+export const HELP_CHAT_REQUEST = 'HELP_CHAT_REQUEST'
+export const HELP_CHAT_SUCCESS = 'HELP_CHAT_SUCCESS'
+export const HELP_CHAT_FAIL = 'HELP_CHAT_FAIL'

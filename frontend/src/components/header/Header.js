@@ -154,7 +154,7 @@ const Header = ({ socket }) => {
                   <Link to="admin/withdraw">Withdraw request</Link>
                   <Link to="admin/kyc">Kyc</Link>
                   <p>s</p>
-                  <Link to="/message ">message</Link>
+                  <Link to="admin/message ">message</Link>
                 </>
               )}
             </div>
@@ -302,6 +302,7 @@ const Header = ({ socket }) => {
             >
               profile
             </Link>
+            <Link to={'/help'}>Help</Link>
             <Link onClick={handleLogout}>Logout</Link>
           </ul>
         </div>

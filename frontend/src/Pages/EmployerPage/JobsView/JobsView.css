@@ -1,0 +1,43 @@
+.jobsDetails-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.job-details-box {
+  width: 80%;
+  border-radius: 15px;
+  background-color: white;
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
+.job-details-box .top {
+  padding: 20px;
+  border-bottom: 2px solid rgba(170, 170, 170, 0.6666666667);
+}
+.job-details-box .bottom {
+  padding: 20px;
+}
+.job-details-box .bottom button {
+  border-radius: 30px;
+  background-color: #3ccf4e;
+  padding: 10px 15px;
+  margin-top: 30px;
+  border: none;
+  color: white;
+  transition: 0.3s ease;
+}
+.job-details-box .bottom button:hover {
+  background-color: #1d4354;
+}
+.job-details-box .bottom .row {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 0px;
+}
+.job-details-box .bottom .row p {
+  width: 180px;
+  margin-top: 20px;
+  white-space: nowrap;
+}/*# sourceMappingURL=JobsView.css.map */

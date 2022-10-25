@@ -1,4 +1,7 @@
 import {
+  ADMIN_CHATS_FAIL,
+  ADMIN_CHATS_REQUEST,
+  ADMIN_CHATS_SUCCESS,
   ADMIN_PROFILE_FAIL,
   ADMIN_PROFILE_REQUEST,
   ADMIN_PROFILE_SUCCESS,
@@ -18,7 +21,11 @@ import {
   KYC_STATUS_REQUEST,
   KYC_STATUS_SUCCESS,
 } from "../contants/adminConstants";
-import { DO_WITHDRAW_FAIL, DO_WITHDRAW_REQUEST, DO_WITHDRAW_SUCCESS } from "../contants/employeeConstants.js";
+import {
+  DO_WITHDRAW_FAIL,
+  DO_WITHDRAW_REQUEST,
+  DO_WITHDRAW_SUCCESS,
+} from "../contants/employeeConstants.js";
 
 export const adminProfileReducer = (state = {}, action) => {
   switch (action.type) {
@@ -80,7 +87,6 @@ export const blockedUserReducer = (state = {}, action) => {
   }
 };
 
-
 export const AllKycReducer = (state = {}, action) => {
   switch (action.type) {
     case ALL_KYC_REQUEST:
@@ -102,7 +108,7 @@ export const kycStatusReducer = (state = {}, action) => {
       return { loading: true };
 
     case KYC_STATUS_SUCCESS:
-      return { loading: false};
+      return { loading: false };
 
     case KYC_STATUS_FAIL:
       return { loading: false, error: action.error };
@@ -111,15 +117,13 @@ export const kycStatusReducer = (state = {}, action) => {
   }
 };
 
-
-
 export const doWithdrawReducer = (state = {}, action) => {
   switch (action.type) {
     case DO_WITHDRAW_REQUEST:
       return { loading: true };
 
     case DO_WITHDRAW_SUCCESS:
-      return { loading: false};
+      return { loading: false };
 
     case DO_WITHDRAW_FAIL:
       return { loading: false, error: action.error };
@@ -128,3 +132,17 @@ export const doWithdrawReducer = (state = {}, action) => {
   }
 };
 
+export const adminUserChats = (state = {}, action) => {
+  switch (action.type) {
+    case ADMIN_CHATS_REQUEST:
+      return { loading: true };
+
+    case ADMIN_CHATS_SUCCESS:
+      return { loading: false, data: action.payload };
+
+    case ADMIN_CHATS_FAIL:
+      return { loading: false, error: action.error };
+    default:
+      return state;
+  }
+};

@@ -1,0 +1,73 @@
+.call-main-div {
+  width: 62%;
+  background-color: #1d4354;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  top: 120px;
+  border-radius: 10px;
+  z-index: 100;
+  right: 50px;
+  color: white;
+}
+
+.vid-box {
+  display: flex;
+  width: 80%;
+  justify-content: space-between;
+}
+
+.videoplaye {
+  width: 200px;
+  height: 150px;
+  background-color: rgb(237, 237, 237);
+  border-radius: 5px;
+}
+
+.call-options {
+  width: 100%;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.call-options button {
+  border: none;
+  padding: 10px 15px;
+  background-color: white;
+  width: 100px;
+  height: 50px;
+  border-radius: 5px;
+}
+.call-options .hang-btn {
+  background-color: #ff5454;
+  color: white;
+}
+.call-options .call-btn {
+  background-color: #3ccf4e;
+  color: white;
+}
+
+.call-notification {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.call-notification div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.call-notification div button {
+  border: none;
+  background-color: #3ccf4e;
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin-right: 10px;
+  color: white;
+}/*# sourceMappingURL=CallMePage.css.map */

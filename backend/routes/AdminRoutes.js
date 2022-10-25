@@ -14,6 +14,7 @@ import {
   doWithdrawel,
   getAllWithdraw,
   purchaseHistory,
+  myHelpChats,
 } from "../controllers/adminController.js";
 import { changePassword } from "../controllers/userController.js";
 import { protect, isOwner, isAdmin } from "../middlewares/authMiddleware.js";
@@ -33,5 +34,6 @@ router.route("/acceptKyc").post(protect, isAdmin, acceptNrejectKyc);
 router.route("/doWithdraw/:userId/:id").post(doWithdrawel);
 router.route("/getAllWithdraw").get(protect, isAdmin, getAllWithdraw);
 router.route("/allPurchase").get(protect, isAdmin, purchaseHistory);
+router.route("/mychatsHelp").get(protect, isAdmin, myHelpChats);
 
 export default router;

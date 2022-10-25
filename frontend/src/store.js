@@ -27,6 +27,7 @@ import {
 } from "./reducers/employerReducer";
 import {
   adminProfileReducer,
+  adminUserChats,
   AllEmployeesREducer,
   AllEmployersREducer,
   AllKycReducer,
@@ -49,8 +50,12 @@ import {
 } from "./reducers/proposalReducer";
 
 import { purchaseHistoryReducer } from "./reducers/purchaseReducer";
-import { callReducer, myChatsReducer, myRoomsReducer } from "./reducers/chatReducer";
-
+import {
+  callReducer,
+  myChatsReducer,
+  myHelpChatsReducer,
+  myRoomsReducer,
+} from "./reducers/chatReducer";
 
 const reducer = combineReducers({
   employee: userRegisterReducer,
@@ -80,6 +85,7 @@ const reducer = combineReducers({
   allKyc: AllKycReducer,
   kycReq: kycStatusReducer,
   doWidthdrawal: doWithdrawReducer,
+  adminUserChats: adminUserChats,
 
   myJobs: MyJobsReducer,
   jobsDetail: jobsDetailsReducer,
@@ -98,6 +104,7 @@ const reducer = combineReducers({
 
   myRooms: myRoomsReducer,
   myChats: myChatsReducer,
+  helpChats: myHelpChatsReducer,
   callVideo: callReducer,
 });
 
@@ -118,4 +125,3 @@ const store = createStore(
 );
 
 export default store;
-

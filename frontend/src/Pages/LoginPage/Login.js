@@ -197,19 +197,9 @@ const Login = () => {
             {user?.error ? <p>{user?.error}</p> : ""}
             <button className="vt-inp">Continue with email</button>
 
-            <div className="line-wrapper">
-              <div className="line"></div>
-              <p>or</p>
-              <div className="line"></div>
-            </div>
+         
 
-            <button type="submit" className="btn-1">
-              <img
-                src="https://banner2.cleanpng.com/20180521/ers/kisspng-google-logo-5b02bbe1d5c6e0.2384399715269058258756.jpg"
-                alt=""
-              />
-              <p>Continue with Google</p>
-            </button>
+        
 
             <p className="p">
               new to getwork.com ?{" "}

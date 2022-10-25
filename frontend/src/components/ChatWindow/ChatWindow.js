@@ -31,6 +31,7 @@ const ChatWindow = ({ socket, user, room }) => {
     if (!socket) return;
 
     socket.on("message-from-server", (data) => {
+      console.log('message from server');
       if (data.message) {
         setchat((prev) => [
           ...prev,
@@ -69,20 +70,6 @@ const ChatWindow = ({ socket, user, room }) => {
       ]);
       setMessage("");
     }
-
-    if (!filest) return;
-
-    const reader = new FileReader();
-    reader.readAsDataURL(filest);
-    reader.onload = () => {
-      const data = reader.result;
-      socket.emit("upload", { data, room });
-      setchat((prev) => [
-        ...prev,
-        { messages: data, received: false, type: "image" },
-      ]);
-      setFile("");
-    };
   };
 
   const handleVideoLink = () => {
@@ -203,7 +190,7 @@ const ChatWindow = ({ socket, user, room }) => {
               onChange={handleInput}
             />
             <Button>
-              <input type="file" onChange={fileSelected} ></input>
+              <input type="file" onChange={fileSelected}></input>
             </Button>
 
             <Button onClick={handleVideoLink}>

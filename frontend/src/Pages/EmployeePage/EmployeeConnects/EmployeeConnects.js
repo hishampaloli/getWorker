@@ -18,8 +18,6 @@ const EmployeeConnects = () => {
       </div>
 
       <div className="connect-box">
-        
-
         <div className="right">
           <div className="hed">
             <button
@@ -45,9 +43,24 @@ const EmployeeConnects = () => {
           </div>
           {ed === "connect" ? (
             <div className="row">
-              <ConnectBox number={100} amount={500} pack={"Basic Pack"} />
-              <ConnectBox number={200} amount={1000} pack={"Value Pack"} />
-              <ConnectBox number={500} amount={5000} pack={"Premium Pack"} />
+              <ConnectBox
+                user={"employee"}
+                number={100}
+                amount={500}
+                pack={"Basic Pack"}
+              />
+              <ConnectBox
+                user={"employee"}
+                number={200}
+                amount={1000}
+                pack={"Value Pack"}
+              />
+              <ConnectBox
+                user={"employee"}
+                number={500}
+                amount={5000}
+                pack={"Premium Pack"}
+              />
             </div>
           ) : (
             <div className="row-1">

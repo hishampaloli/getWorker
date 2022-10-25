@@ -1,0 +1,77 @@
+.proposalPage {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.proposal-div {
+  width: 80%;
+  min-height: 300px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 15px;
+  margin-bottom: 100px;
+}
+.proposal-div .top {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 2px solid rgb(194, 194, 194);
+}
+.proposal-div .top h3 {
+  color: rgb(59, 59, 59);
+}
+.proposal-div .bottom {
+  padding: 10px 15px;
+  display: flex;
+  flex-direction: column;
+}
+.proposal-div .bottom .inp-div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.proposal-div .bottom .inp-div label {
+  margin-left: 5px;
+  color: rgb(40, 40, 40);
+}
+.proposal-div .bottom .inp-div textarea {
+  width: 100%;
+  border: 1px solid rgba(170, 170, 170, 0.6666666667);
+  border-radius: 5px;
+  padding: 15px;
+}
+.proposal-div .bottom .inp-div .in {
+  width: 200px;
+}
+
+.pp-btn {
+  background-color: #3ccf4e;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 15px;
+  width: 300px;
+  color: white;
+  margin-top: 40px;
+  margin-left: auto;
+  margin-bottom: 20px;
+  transition: 0.3s ease;
+}
+
+.pp-btn:hover {
+  background-color: #1d4354;
+  border-radius: 10px;
+}
+
+@media (max-width: 620px) {
+  .pp-btn {
+    margin-left: 0;
+  }
+}
+@media (max-width: 420px) {
+  .pp-btn {
+    width: 100%;
+    margin-left: 0;
+  }
+}/*# sourceMappingURL=PropodalPage.css.map */

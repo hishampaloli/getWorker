@@ -12,6 +12,7 @@ import Notification from "../models/messageModal.js";
 import { mailTransport } from "../utils/mail.js";
 import Withdraw from "../models/withdrawModel.js";
 import Purchase from "../models/purchaseModal.js";
+import { AdminRoom } from "../sockets/models/roomOwner.js";
 
 // @DESC gets the profile of the admin
 // @METHOD get
@@ -389,3 +390,14 @@ export const purchaseHistory = AsyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+
+export const myHelpChats = AsyncHandler(async(req, res) => {
+  try {
+    const rooms = await AdminRoom.find().populate('user');
+    res.json(rooms)
+  } catch (error) {
+    throw new Error(error)
+  }
+})
+
