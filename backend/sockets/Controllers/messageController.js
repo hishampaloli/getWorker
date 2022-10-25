@@ -41,7 +41,13 @@ export default class MEssageController extends BaseController {
       
     }
 
-    if (AdminRoom) {
+    if (adminRoom && message !== '') {
+      adminRoom.chats.push({
+        message: message,
+        user: user,
+      })
+
+      await adminRoom.save()
       let skt = this.socket.broadcast;
       skt = room ? skt.to(room) : skt;
       skt.emit("message-from-server", { message });

@@ -25,20 +25,27 @@ export const getChats = AsyncHandler(async (req, res) => {
   const { roomId } = req.params;
   const { user } = req.query;
 
-  console.log(user);
-
   try {
     const chat = await Room.findOne({ roomId: roomId });
 
-    if (user === "employer") {
-      chat.employerViewed = true;
-    } else if (user === "employee") {
-      chat.employeeViewed = true;
+    if (chat) {
+      if (user === "employer") {
+        chat.employerViewed = true;
+      } else if (user === "employee") {
+        chat.employeeViewed = true;
+      }
+  
+      await chat.save();
+      res.json(chat);
+    }else {
+      const helpChat = await AdminRoom.findOne({roomId: roomId});
+      if (helpChat) {
+        res.json(helpChat);
+      }else {
+        throw new Error("No chats found");
+      }
     }
-
-    await chat.save();
-
-    res.json(chat);
+   
   } catch (error) {
     throw new Error(error);
   }
@@ -49,7 +56,7 @@ export const myHelpChat = AsyncHandler(async(req, res) => {
   try {
     const {userId} = req.params;
     const room = await AdminRoom.findOne({user: userId})
-    
+
     res.json(room);
   } catch (error) {
     throw new Error(error)

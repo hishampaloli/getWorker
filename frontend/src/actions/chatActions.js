@@ -47,6 +47,7 @@ export const getMyRooms =
   };
 
 export const getMyChats = (roomId, user) => async (dispatch) => {
+  // console.log(roomId);
   try {
     dispatch({
       type: MY_CHATS_REQUEST,
@@ -65,7 +66,7 @@ export const getMyChats = (roomId, user) => async (dispatch) => {
       `/chats/${roomId}?user=${user}`,
       config
     );
-
+console.log(data);
 
 
     dispatch({
@@ -102,7 +103,6 @@ export const getMyHelpChats = ( user) => async (dispatch) => {
       `/helpchats/${user}`,
       config
     );
-console.log(data);
 
     dispatch({
       type: HELP_CHAT_SUCCESS,

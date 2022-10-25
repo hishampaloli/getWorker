@@ -29,11 +29,10 @@ const AdminMessage = ({ socket }) => {
     }
   });
 
-  console.log(roomId);
-
   useEffect(() => {
     dispatch(myUserChats());
-  }, []);
+    dispatch(getMyChats(roomId, "employee"))
+  }, [dispatch, roomId]);
 
   useEffect(() => {
     if (!socket) return;
@@ -154,7 +153,7 @@ const AdminMessage = ({ socket }) => {
 
           <div>
             {roomId ? (
-              <ChatWindow room={roomId} socket={socket} user={"employee"} />
+              <ChatWindow room={roomId} socket={socket} user={"admin"} />
             ) : (
               ""
             )}

@@ -11,7 +11,7 @@ import { SocketContext } from "../../SocketContext";
 import CallMePage from "../../Pages/callMePage/CallMePage";
 import AttachFile from "@mui/icons-material/AttachFile";
 
-const ChatWindow = ({ socket, user, room }) => {
+const ChatWindow = ({ socket, user, room, help }) => {
   const { me, call, callAcccepted } = useContext(SocketContext);
   const [message, setMessage] = useState("");
   const [chat, setchat] = useState([]);
@@ -31,7 +31,7 @@ const ChatWindow = ({ socket, user, room }) => {
     if (!socket) return;
 
     socket.on("message-from-server", (data) => {
-      console.log('message from server');
+      console.log("message from server");
       if (data.message) {
         setchat((prev) => [
           ...prev,
@@ -153,11 +153,20 @@ const ChatWindow = ({ socket, user, room }) => {
                 <p
                   style={
                     !el.received
-                      ? { textAlign: "right", backgroundColor: "white" }
+                      ? {
+                          textAlign: "right",
+                          backgroundColor: "white",
+                          display: "inline",
+                          padding: "10px 25px",
+                          borderRadius: "30px",
+                        }
                       : {
                           textAlign: "left",
                           backgroundColor: "#3ccf4d",
                           color: "white",
+                          display: "inline",
+                          padding: "10px 25px",
+                          borderRadius: "30px",
                         }
                   }
                   className={el.user === "employee" ? "al-left" : "al-right"}
@@ -170,37 +179,98 @@ const ChatWindow = ({ socket, user, room }) => {
         })}
 
         <div>
-          {typing && (
-            <div className="chat-bubble">
-              <div className="typing">
-                <div className="dot"></div>
-                <div className="dot"></div>
-                <div className="dot"></div>
-              </div>
+          {help ? (
+            <div style={{position: 'sticky', top: '90%'}}>
+              {typing && (
+                <div className="chat-bubble">
+                  <div className="typing">
+                    <div className="dot"></div>
+                    <div className="dot"></div>
+                    <div className="dot"></div>
+                  </div>
+                </div>
+              )}
             </div>
+          ) : (
+            <>
+              {" "}
+              {typing && (
+                <div className="chat-bubble">
+                  <div className="typing">
+                    <div className="dot"></div>
+                    <div className="dot"></div>
+                    <div className="dot"></div>
+                  </div>
+                </div>
+              )}
+            </>
           )}
 
-          <form onSubmit={handleFrom}>
-            <TextField
-              id="standard-basic"
-              className="sdf"
-              variant="standard"
-              placeholder="Send message"
-              value={message}
-              onChange={handleInput}
-            />
-            <Button>
-              <input type="file" onChange={fileSelected}></input>
-            </Button>
+          {help ? (
+            <div style={{ position: "sticky", top: "90%" }} className='mt-3'>
+              <form onSubmit={handleFrom}>
+                <TextField
+                  id="standard-basic"
+                  className="sdf"
+                  variant="standard"
+                  placeholder="Send message"
+                  value={message}
+                  onChange={handleInput}
+                />
+                {help ? (
+                  ""
+                ) : (
+                  <Button>
+                    <input type="file" onChange={fileSelected}></input>
+                  </Button>
+                )}
 
-            <Button onClick={handleVideoLink}>
-              {" "}
-              <VideocamIcon />{" "}
-            </Button>
-            <Button type="submit">
-              <SendIcon />
-            </Button>
-          </form>
+                {help ? (
+                  ""
+                ) : (
+                  <Button onClick={handleVideoLink}>
+                    {" "}
+                    <VideocamIcon />{" "}
+                  </Button>
+                )}
+
+                <Button type="submit">
+                  <SendIcon />
+                </Button>
+              </form>
+            </div>
+          ) : (
+            <form onSubmit={handleFrom}>
+              <TextField
+                id="standard-basic"
+                className="sdf"
+                variant="standard"
+                placeholder="Send message"
+                value={message}
+                onChange={handleInput}
+              />
+              {help ? (
+                ""
+              ) : (
+                <Button>
+                  <input type="file" onChange={fileSelected}></input>
+                </Button>
+              )}
+
+              {help ? (
+                ""
+              ) : (
+                <Button onClick={handleVideoLink}>
+                  {" "}
+                  <VideocamIcon />{" "}
+                </Button>
+              )}
+
+              <Button type="submit">
+                <SendIcon />
+              </Button>
+            </form>
+          )}
         </div>
       </div>
     </div>

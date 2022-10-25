@@ -1,0 +1,88 @@
+.help-page {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  min-height: 100vh;
+  align-items: center;
+}
+.help-page .top {
+  background-color: white;
+  width: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+.help-page .top div {
+  margin-left: 5%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+.help-page .top div h2 {
+  font-size: 3rem;
+}
+.help-page .top div h3 {
+  font-size: 2rem;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+.help-page .top img {
+  width: 50%;
+}
+.help-page .middle {
+  width: 100%;
+  background-color: #1d4354;
+  color: white;
+}
+.help-page .middle h3 {
+  margin: 5%;
+  margin-bottom: 2%;
+}
+.help-page .middle button {
+  width: 200px;
+  padding: 10px 15px;
+  border: none;
+  background-color: #3ccf4e;
+  color: white;
+  margin: 5%;
+  margin-top: 0;
+}
+.help-page .bottom {
+  width: 90%;
+  margin-top: 40px;
+  background-color: white;
+  height: 400px;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 100px;
+  position: relative;
+  overflow-y: scroll;
+  background-image: url("https://i.pinimg.com/736x/8c/98/99/8c98994518b575bfd8c949e91d20548b.jpg");
+  background-size: contain;
+}
+.help-page .bottom .blk {
+  display: block;
+  padding: 10px;
+}
+.help-page .bottom .blk .cht-p {
+  display: inline;
+  padding: 10px 25px;
+  border-radius: 30px;
+}
+.help-page .bottom .chat-box {
+  width: 99%;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+@media (max-width: 620px) {
+  .help-page .top {
+    flex-direction: column;
+  }
+  .help-page .top div {
+    margin-top: 40px;
+    width: 90%;
+  }
+  .help-page .top img {
+    width: 70%;
+  }
+}/*# sourceMappingURL=UserHelpPage.css.map */
