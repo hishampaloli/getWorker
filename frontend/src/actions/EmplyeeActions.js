@@ -573,7 +573,9 @@ export const withdrawBalance = () => async (dispatch, getState) => {
   } catch (error) {}
 };
 
-export const withdrawHistory = () => async (dispatch, getState) => {
+export const withdrawHistory = (pageNumber='') => async (dispatch, getState) => {
+
+  console.log(pageNumber);
   try {
     dispatch({
       type: WITHDRAW_REQUEST,
@@ -590,8 +592,9 @@ export const withdrawHistory = () => async (dispatch, getState) => {
     };
 
     const { data } = await axiosEmployeeInstance.get(
-      `/withdrawHistory/${token_id._id}`
+      `/withdrawHistory/${token_id._id}?pageNumber=${pageNumber}`
     );
+
 
     dispatch({
       type: WITHDRAW_SUCCESS,

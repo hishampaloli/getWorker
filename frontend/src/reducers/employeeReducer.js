@@ -165,7 +165,7 @@ export const WithdrawHistroyReducer = (state = {}, action) => {
       return { loading: true };
 
     case WITHDRAW_SUCCESS:
-      return { loading: false, data: action.payload };
+      return { loading: false, data: action.payload.withdraw,page: action.payload.page, pages: action.payload.pages  };
 
     case WITHDRAW_FAIL:
       return { loading: false, error: action.error };

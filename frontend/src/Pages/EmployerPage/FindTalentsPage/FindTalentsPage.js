@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import Alert from "@mui/material/Alert";
 import {
   findTalents,
@@ -16,6 +16,7 @@ import "./FindTalent.scss";
 import CustomSpinner from "../../../components/customSpinner/CustomSpinner";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Close from "@mui/icons-material/Close";
+import Paginate from "../../../components/PaginateComponent/Paginate";
 
 const FindTalentsPage = () => {
   const navigate = useNavigate();
@@ -25,12 +26,14 @@ const FindTalentsPage = () => {
   const employerData = useSelector((state) => state.employerData);
   const talents = useSelector((state) => state.findTalents);
 
+  console.log(talents);
+
   const [keyword, setKeyword] = useState("");
   const [earnings, setEarnings] = useState("");
   const [language, setLanguage] = useState("");
+  const [page, setPage] = useState(1);
   const [jobsDone, setJobsDone] = useState("");
   const [show, setShow] = useState(false);
-
 
   const [showSavedJobs, setShowSavedJobs] = useState("");
   const [alert, setAlret] = useState(false);
@@ -38,9 +41,15 @@ const FindTalentsPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setShow(false)
-    dispatch(findTalents(keyword, earnings, language, jobsDone));
+    setShow(false);
+    dispatch(findTalents(keyword, earnings, language, jobsDone, page));
   };
+
+  useEffect(() => {
+    dispatch(findTalents(keyword, earnings, language, jobsDone, page));
+  }, [page]);
+
+  console.log(talents?.pages);
 
   useEffect(() => {
     if (!user?.userInfo) {
@@ -53,7 +62,6 @@ const FindTalentsPage = () => {
       navigate("/admin/profile");
     }
   });
-
 
   return (
     <div className="findTalents">
@@ -72,8 +80,8 @@ const FindTalentsPage = () => {
       ) : (
         ""
       )}
-      <div className={show ? 'left show' : 'left'}>
-      <CloseIcon onClick={() => setShow(!show)}  className="lef-close-icn" />
+      <div className={show ? "left show" : "left"}>
+        <CloseIcon onClick={() => setShow(!show)} className="lef-close-icn" />
         <div className="main-cate-div">
           <p>Total Earned</p>
           <div className="cate-div">
@@ -165,10 +173,15 @@ const FindTalentsPage = () => {
             />
           </div>
         </div>
-        
-        <button style={{backgroundColor: '#3CCF4E', color: 'white'}} onClick={handleSubmit} >Apply filter</button>
+
+        <button
+          style={{ backgroundColor: "#3CCF4E", color: "white" }}
+          onClick={handleSubmit}
+        >
+          Apply filter
+        </button>
       </div>
-      <div className="right">
+      <div className="right mb-3">
         <div className="top">
           <button
             className={showSavedJobs === "" ? "btn" : "btn-k"}
@@ -189,8 +202,10 @@ const FindTalentsPage = () => {
               {employerData?.userInfo?.savedTalents.length}
             </strong>
           </button>
-          <button  className="set-icn" onClick={() => setShow(!show)}> <SettingsIcon  /></button>
-         
+          <button className="set-icn" onClick={() => setShow(!show)}>
+            {" "}
+            <SettingsIcon />
+          </button>
         </div>
 
         {showSavedJobs === "" ? (
@@ -210,50 +225,53 @@ const FindTalentsPage = () => {
               {talents?.data ? (
                 talents?.data?.map((talent) => {
                   return (
-                    <div key={talent?.owner?._id} className="talent-result">
-                      <div className="t-left">
-                        <img
-                          src={
-                            talent?.image
-                              ? talent?.image
-                              : "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
-                          }
-                          alt=""
-                        />
-                        <div>
-                          <p style={{ color: "#3ccf4e" }}>
-                            {talent?.owner?.name}
-                          </p>
-                          <h4>{talent?.userTitle.slice(0, 20)}. . .</h4>
-                          <p>
-                            total earend:{" "}
-                            <strong>
-                              {talent?.totalEarned.toString().slice(0, 3)}.00
-                            </strong>
-                          </p>
+                    <>
+                      <div key={talent?.owner?._id} className="talent-result">
+                        <div className="t-left">
+                          <img
+                            src={
+                              talent?.image
+                                ? talent?.image
+                                : "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+                            }
+                            alt=""
+                          />
+                          <div>
+                            <p style={{ color: "#3ccf4e" }}>
+                              {talent?.owner?.name}
+                            </p>
+                            <h4>{talent?.userTitle.slice(0, 20)}. . .</h4>
+                            <p>
+                              total earend:{" "}
+                              <strong>
+                                {talent?.totalEarned.toString().slice(0, 3)}.00
+                              </strong>
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="t-right">
+                          <BookmarkBorderIcon
+                            onClick={() => {
+                              dispatch(saveTalents(talent?.owner?._id));
+                              setAlret(true);
+                              setTimeout(() => {
+                                setAlret(false);
+                              }, 1000);
+                            }}
+                            style={{ color: "#3ccf4e", cursor: "pointer" }}
+                          />
+                          <button style={{ marginLeft: "20px" }}>
+                            {" "}
+                            <Link to={`/user/publicView/${talent?.owner._id}`}>
+                              {" "}
+                              View Profile
+                            </Link>
+                          </button>
                         </div>
                       </div>
-
-                      <div className="t-right">
-                        <BookmarkBorderIcon
-                          onClick={() => {
-                            dispatch(saveTalents(talent?.owner?._id));
-                            setAlret(true);
-                            setTimeout(() => {
-                              setAlret(false);
-                            }, 1000);
-                          }}
-                          style={{ color: "#3ccf4e", cursor: "pointer" }}
-                        />
-                        <button style={{ marginLeft: "20px" }}>
-                          {" "}
-                          <Link to={`/user/publicView/${talent?.owner._id}`}>
-                            {" "}
-                            View Profile
-                          </Link>
-                        </button>
-                      </div>
-                    </div>
+                      
+                    </>
                   );
                 })
               ) : (
@@ -276,6 +294,9 @@ const FindTalentsPage = () => {
               ) : (
                 ""
               )}
+              <div className="mt-4 mb-4">
+                        <Paginate count={talents?.pages} giveBack={setPage} />
+                      </div>
             </div>
             {talents?.data ? (
               ""

@@ -39,8 +39,7 @@ export const getEmployerProfile = AsyncHandler(async (req, res) => {
   }
 });
 
-
-// @DESC Gets all the employer data 
+// @DESC Gets all the employer data
 // @METHOD get
 // @PATH /employer/profile/:userId/:id
 
@@ -115,7 +114,7 @@ export const editEmployerProfile = AsyncHandler(async (req, res) => {
     }
   } catch (error) {
     res.status(404);
-    throw new Error(error)
+    throw new Error(error);
   }
 });
 
@@ -124,9 +123,12 @@ export const editEmployerProfile = AsyncHandler(async (req, res) => {
 // @PATH /employer/allEmployees
 
 export const getAllEmplyees = AsyncHandler(async (req, res) => {
-  const { keyword, earnings, language, jobsDone } = req.query;
+  const { keyword, earnings, language, jobsDone, pageNumber } = req.query;
 
   try {
+    const pageSize = 2;
+    const page = Number(pageNumber) || 1;
+
     if (keyword || language || earnings || jobsDone) {
       const allEmplyees = await Employee.find({
         $or: [
@@ -146,16 +148,29 @@ export const getAllEmplyees = AsyncHandler(async (req, res) => {
             totalEarned: { $lt: earnings ? earnings : "-20" },
           },
         ],
-      }).populate("owner");
+      })
+        .limit(pageSize)
+        .skip(pageSize * (page - 1))
+        .populate("owner");
 
-      res.json(allEmplyees);
+      res.json({
+        allEmplyees,
+        page,
+        pages: Math.ceil(allEmplyees.length / pageSize),
+      });
     } else {
-      const allEmplyees = await Employee.find({}).populate("owner");
-      res.status(200).json(allEmplyees);
+      const count = await Employee.find({}).count({});
+      const allEmplyees = await Employee.find({})
+        .limit(pageSize)
+        .skip(pageSize * (page - 1))
+        .populate("owner");
+      res
+        .status(200)
+        .json({ allEmplyees, page, pages: Math.ceil(count / pageSize) });
     }
   } catch (error) {
     res.status(404);
-    throw new Error(error)
+    throw new Error(error);
   }
 });
 
@@ -185,7 +200,7 @@ export const saveJobs = AsyncHandler(async (req, res) => {
     }
   } catch (error) {
     res.status(404);
-    throw new Error(error)
+    throw new Error(error);
   }
 });
 
@@ -221,16 +236,13 @@ export const removeSavedTalent = AsyncHandler(async (req, res) => {
     res.status(201).json(emplyerData);
   } catch (error) {
     res.status(404);
-    throw new Error(error)
+    throw new Error(error);
   }
 });
-
-
 
 // @DESC Delete employer notification
 // @METHOD delete
 // @PATH employer/deleteMessage/:userId/:id
-
 
 export const deleteMessageEmployer = AsyncHandler(async (req, res) => {
   try {
@@ -250,7 +262,6 @@ export const deleteMessageEmployer = AsyncHandler(async (req, res) => {
     res.status(201).json(noti);
   } catch (error) {
     res.status(404);
-    throw new Error(error)
+    throw new Error(error);
   }
 });
-

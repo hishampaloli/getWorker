@@ -137,11 +137,14 @@ export const updateProposal = AsyncHandler(async (req, res) => {
 export const myProposals = AsyncHandler(async (req, res) => {
   try {
     const { userId } = req.params;
+    const pageSize = 4;
+    const page = Number(req.query.pageSize) || 1;
 
-    const proposals = await Proposals.find({ owner: userId });
+    const count = await Proposals.count({owner: userId});
+    const proposals = await Proposals.find({ owner: userId }).limit(pageSize).skip(pageSize * page - 1)
 
     if (proposals) {
-      res.status(200).json(proposals);
+      res.status(200).json({proposals, page, pages: Math.ceil(count / pageSize)});
     } else {
       throw new Error("no proposals found");
     }

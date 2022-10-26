@@ -96,8 +96,9 @@ export const postJobs =
   };
 
 export const getAllJobs =
-  (keyword = "") =>
+  (keyword = "", pageNumber = '') =>
   async (dispatch) => {
+    console.log(pageNumber);
     try {
       dispatch({
         type: ALL_JOBS_REQUEST,
@@ -113,9 +114,11 @@ export const getAllJobs =
       };
 
       const { data } = await axiosJobsInstance.get(
-        `/getAllJobs?keyword=${keyword}`,
+        `/getAllJobs?keyword=${keyword}&pageNumber=${pageNumber}`,
         config
       );
+
+      console.log(data);
 
       dispatch({
         type: ALL_JOBS_SUCCES,

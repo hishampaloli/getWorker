@@ -462,12 +462,21 @@ export const withdrawBalance = AsyncHandler(async (req, res) => {
 
 export const getMyWithdrawals = AsyncHandler(async (req, res) => {
   try {
-    const {userId} = req.params;
+    const { userId } = req.params;
+    const pageSize = 3;
+    const page = Number(req.query.pageNumber) || 1;
 
-    const withdrawHistory = await Withdraw.find({owner: userId});
+    const count = await Withdraw.count({ owner: userId });
+    const withdrawHistory = await Withdraw.find({ owner: userId })
+      .limit(pageSize)
+      .skip(pageSize * (page - 1))
+      .sort({ status: -1 });
 
-    res.json(withdrawHistory.reverse());
-
+    res.json({
+      withdraw: withdrawHistory,
+      page,
+      pages: Math.ceil(count / pageSize),
+    });
   } catch (error) {
     throw new Error(error);
   }

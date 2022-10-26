@@ -35,7 +35,7 @@ export const MyProposalReducer = (state = {}, action) => {
       return { loading: true };
 
     case MY_PROPOSAL_SUCCUSS:
-      return { loading: false, data: action.payload };
+      return { loading: false, data: action.payload.proposals, page: action.payload.page, pages: action.payload.pages };
 
     case MY_PROPOSAL_FAIL:
       return { loading: false, error: action.error };

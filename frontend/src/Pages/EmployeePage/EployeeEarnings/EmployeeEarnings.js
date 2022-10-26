@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./EmployeeEarnings.scss";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,18 +7,23 @@ import {
   withdrawBalance,
   withdrawHistory,
 } from "../../../actions/EmplyeeActions";
+import Paginate from "../../../components/PaginateComponent/Paginate";
+import CustomSpinner from "../../../components/customSpinner/CustomSpinner";
 
 const EmployeeEarnings = () => {
   const dispatch = useDispatch();
   const [ed, setEd] = useState("active");
+  const [page, setPage] = useState(1);
   const employeeData = useSelector((state) => state.employeeData);
   const withdrawHistoryData = useSelector((state) => state.withdrawHistory);
 
-  console.log(withdrawHistoryData);
+  useEffect(() => {
+    dispatch(withdrawHistory(page));
+  }, [page, dispatch]);
 
   return (
     <div className="postJobs">
-      <div className="post-box">
+      <div className="post-box pb-4">
         <div className="header">
           <button
             style={
@@ -47,7 +52,7 @@ const EmployeeEarnings = () => {
                 : {}
             }
             onClick={() => {
-              dispatch(withdrawHistory());
+              dispatch(withdrawHistory(page));
               setEd("shortlisted");
             }}
           >
@@ -81,7 +86,11 @@ const EmployeeEarnings = () => {
                 <Link to={`/user/profile`}>
                   <button
                     className="rst-btn mt-2"
-                    style={{ marginLeft: "5px", backgroundColor: "#FF5454", cursor: 'pointer'   }}
+                    style={{
+                      marginLeft: "5px",
+                      backgroundColor: "#FF5454",
+                      cursor: "pointer",
+                    }}
                   >
                     Complete Kyc
                   </button>
@@ -90,7 +99,11 @@ const EmployeeEarnings = () => {
                 <Link to={`/user/profile`}>
                   <button
                     className="rst-btn mt-2"
-                    style={{ marginLeft: "5px", backgroundColor: "#FF5454", cursor: 'pointer' }}
+                    style={{
+                      marginLeft: "5px",
+                      backgroundColor: "#FF5454",
+                      cursor: "pointer",
+                    }}
                   >
                     Complete payment method
                   </button>
@@ -99,7 +112,11 @@ const EmployeeEarnings = () => {
                 <button
                   disabled
                   className="rst-btn mt-2"
-                  style={{ marginLeft: "5px", backgroundColor: "#FF5454", cursor: 'not-allowed'  }}
+                  style={{
+                    marginLeft: "5px",
+                    backgroundColor: "#FF5454",
+                    cursor: "not-allowed",
+                  }}
                 >
                   No balance
                 </button>
@@ -125,19 +142,22 @@ const EmployeeEarnings = () => {
                     </div>
 
                     <div className="btn-gp">
-                    {history.status === 'pending' ?  <button
-                        style={{ backgroundColor: "#FF5454" }}
-                        className="pn-btn"
-                      >
-                        Pending
-                      </button>  : <button
-                        style={{ backgroundColor: "#75E6FF" }}
-                        className="pn-btn"
-                      >
-                        Success
-                      </button> }
-                     
-                      
+                      {history.status === "pending" ? (
+                        <button
+                          style={{ backgroundColor: "#FF5454" }}
+                          className="pn-btn"
+                        >
+                          Pending
+                        </button>
+                      ) : (
+                        <button
+                          style={{ backgroundColor: "#75E6FF" }}
+                          className="pn-btn"
+                        >
+                          Success
+                        </button>
+                      )}
+
                       <button
                         style={{
                           backgroundColor: "#75E6FF",
@@ -154,6 +174,20 @@ const EmployeeEarnings = () => {
                   </div>
                 );
               })}
+              {withdrawHistoryData?.loading && (
+                <div className="mt-5">
+                  <CustomSpinner />{" "}
+                </div>
+              )}
+              <div
+                className="mt-3"
+                style={{ position: "absolute", bottom: "0" }}
+              >
+                <Paginate
+                  count={withdrawHistoryData?.pages}
+                  giveBack={setPage}
+                />
+              </div>
             </div>
           ) : (
             ""

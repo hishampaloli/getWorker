@@ -9,6 +9,8 @@ import "./EmployeeHome.scss";
 import Alert from "@mui/material/Alert";
 import { getEmployeeProfile } from "../../../actions/EmplyeeActions";
 import DateObject from "react-date-object";
+import CustomSpinner from '../../../components/customSpinner/CustomSpinner'
+import Paginate from "../../../components/PaginateComponent/Paginate";
 
 const EmployeeHome = () => {
   const dispatch = useDispatch();
@@ -18,15 +20,22 @@ const EmployeeHome = () => {
   const saveStatus = useSelector((state) => state.saveStatus);
   const userProfile = useSelector((state) => state.employeeData);
 
+  console.log(allJobs);
 
   const [ed, setEd] = useState("search");
   const [keyword, setKeyword] = useState("");
+  const [page, setPage] = useState(Number);
+
+  console.log(page + ">>>>>>>>>>>>>>>>>>>>>>>>>>.");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    dispatch(getAllJobs(keyword));
+    dispatch(getAllJobs("", page));
   };
+
+  useEffect(() => {
+    dispatch(getAllJobs("", page));
+  }, [page, dispatch]);
 
   // dispatch(logout());
   useEffect(() => {
@@ -41,7 +50,7 @@ const EmployeeHome = () => {
     }
 
     dispatch(getEmployeeProfile());
-    dispatch(getAllJobs());
+    dispatch(getAllJobs(keyword, 1));
   }, [user, dispatch]);
 
   return (
@@ -79,7 +88,11 @@ const EmployeeHome = () => {
                   saved Jobs
                 </button>
               </div>
-              <form onSubmit={handleSubmit} style={{padding: '0px 25px'}} className="jobs-search">
+              <form
+                onSubmit={handleSubmit}
+                style={{ padding: "0px 25px" }}
+                className="jobs-search"
+              >
                 <input
                   style={{ width: "85%" }}
                   type="text"
@@ -102,6 +115,8 @@ const EmployeeHome = () => {
                       ""
                     )}{" "}
                     <EmpJobsComponents jobs={allJobs?.jobs} sv={false} />
+                    <Paginate count={allJobs?.pages} giveBack={setPage} />
+                    {allJobs.loading ? <div className="mt-4" style={{width: '100%',display: 'flex', justifyContent: 'center'}} > <CustomSpinner /></div> : ''}
                   </div>
                 ) : ed === "completed" ? (
                   <SavedJobs />
@@ -118,7 +133,7 @@ const EmployeeHome = () => {
         </div>
 
         <div className="right">
-          <div className="r-top">
+          <div className="r-top ">
             <div>
               {userProfile?.userData?.image ? (
                 <img src={userProfile?.userData?.image} alt="" />
@@ -128,19 +143,26 @@ const EmployeeHome = () => {
                   alt=""
                 />
               )}
-              <Link style={{ color: "black", textDecoration: 'none' }} to="/user/profile">
+              <Link
+                style={{ color: "black", textDecoration: "none" }}
+                to="/user/profile"
+              >
                 <p>{user?.userInfo?.name}</p>
               </Link>
             </div>
 
-            <div >
+            <div>
               <Link to="/user/connects">
                 {" "}
-                <button style={{padding: '10px 15px', border: 'none'}} >Buy Connects</button>
+                <button style={{ padding: "10px 15px", border: "none" }}>
+                  Buy Connects
+                </button>
               </Link>
               <Link to="/user/proposals">
                 {" "}
-                <button style={{padding: '10px 15px', border: 'none'}}>View Proposals</button>
+                <button style={{ padding: "10px 15px", border: "none" }}>
+                  View Proposals
+                </button>
               </Link>
             </div>
           </div>

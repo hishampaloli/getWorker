@@ -38,13 +38,13 @@ export const adminProfile = AsyncHandler(async (req, res) => {
 
     const users = await User.find({});
 
-    users.map(el => {
-      if (el.userType === 'employer' && el.emailVerified) {
+    users.map((el) => {
+      if (el.userType === "employer" && el.emailVerified) {
         employer++;
-      }else if (el.userType === 'employee' && el.emailVerified) {
-        employee++
+      } else if (el.userType === "employee" && el.emailVerified) {
+        employee++;
       }
-    })
+    });
 
     console.log(employee);
 
@@ -377,13 +377,19 @@ export const doWithdrawel = AsyncHandler(async (req, res) => {
 
 export const purchaseHistory = AsyncHandler(async (req, res) => {
   try {
+    const pageSize = 2;
+    const page = Number(req.query.pageSize) || 1;
+
     const history = await Purchase.find({});
+    
+    
     const allData = [];
     history.forEach((el) => {
       el.details.map((dt) => {
         allData.push(dt);
       });
     });
+    
 
     res.status(200).json(allData.reverse());
   } catch (error) {
@@ -391,13 +397,11 @@ export const purchaseHistory = AsyncHandler(async (req, res) => {
   }
 });
 
-
-export const myHelpChats = AsyncHandler(async(req, res) => {
+export const myHelpChats = AsyncHandler(async (req, res) => {
   try {
-    const rooms = await AdminRoom.find().populate('user');
-    res.json(rooms)
+    const rooms = await AdminRoom.find().populate("user");
+    res.json(rooms);
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error);
   }
-})
-
+});

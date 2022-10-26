@@ -78,37 +78,25 @@ export const myJobs = AsyncHandler(async (req, res) => {
 // @PATH employer/getAllJobs
 
 export const getAllJobs = AsyncHandler(async (req, res) => {
-  const { budget } = req.query;
+  const { budget, pageNumber } = req.query;
   try {
-    const allJobs = await Jobs.find({
-      $and: [
-        { status: "active" },
-        // { budget: { $lt: budget ? budget : "1000" } },
-        // { proposals: { $size: 0 } },
-      ],
-    });
+    const pageSize = 3;
+    const page = Number(pageNumber) || 1;
 
-    // {
-    //   $or: [
-    //     {
-    //       "languages.language": {
-    //         $regex: language ? language : "null",
-    //         $options: "i",
-    //       },
-    //     },
-    //     {
-    //       "skills.skill": {
-    //         $regex: keyword ? keyword : "null",
-    //         $options: "i",
-    //       },
-    //     },
-    //     {
-    //       totalEarned: { $lt: earnings ? earnings : "-20" },
-    //     },
-    //   ],
-    // }
+    let skip = pageSize * (page - 1);
+    console.log(skip);
+    const count = await Jobs.count({ status: "active" });
+    const allJobs = await Jobs.find({
+      $and: [{ status: "active" }],
+    })
+      .limit(pageSize)
+      .skip(skip);
+
     if (allJobs) {
-      res.status(200).json(allJobs);
+      console.log(allJobs);
+      res
+        .status(200)
+        .json({ allJobs, page, pages: Math.ceil(count / pageSize) });
     } else {
       throw new Error("No jobs found");
     }

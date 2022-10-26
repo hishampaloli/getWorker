@@ -50,7 +50,7 @@ export const postProposal =
     }
   };
 
-export const myProposals = () => async (dispatch) => {
+export const myProposals = (pageNumber = '') => async (dispatch) => {
   try {
     dispatch({
       type: MY_PROPOSAL_REQUEST,
@@ -66,7 +66,7 @@ export const myProposals = () => async (dispatch) => {
     };
 
     const { data } = await axiosProposalInstance.get(
-      `/myProposals/${tokenId._id}`,
+      `/myProposals/${tokenId._id}?pageNumber=${pageNumber} `,
       config
     );
 

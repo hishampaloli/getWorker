@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { checkout, myParchaseHistory } from "../../../actions/paymentActions";
 import ConnectBox from "../../../components/EmployeeComponents/ConnectsHelpers/ConnectBox";
 import PurchaseHisrory from "../../../components/EmployeeComponents/ConnectsHelpers/PurchaseHisrory";
+import Paginate from "../../../components/PaginateComponent/Paginate";
 
 const EmployeeConnects = () => {
   const dispatch = useDispatch();
@@ -63,7 +64,7 @@ const EmployeeConnects = () => {
               />
             </div>
           ) : (
-            <div className="row-1">
+            <div className="row-1 pb-4" >
               <PurchaseHisrory />
             </div>
           )}

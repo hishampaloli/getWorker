@@ -125,7 +125,7 @@ export const editEmployerProfile =
   };
 
 export const findTalents =
-  (keyword = "", earnings = "", language = "", jobsDone = "") =>
+  (keyword = "", earnings = "", language = "", jobsDone = "", pageNumber='') =>
   async (dispatch, getState) => {
     try {
       dispatch({
@@ -142,7 +142,7 @@ export const findTalents =
       };
 
       const { data } = await axiosEmployerInstance.get(
-        `/allEmployees?keyword=${keyword}&earnings=${earnings}&language=${language}&jobsDone=${jobsDone}`,
+        `/allEmployees?keyword=${keyword}&earnings=${earnings}&language=${language}&jobsDone=${jobsDone}&pageNumber=${pageNumber}`,
         config
       );
 

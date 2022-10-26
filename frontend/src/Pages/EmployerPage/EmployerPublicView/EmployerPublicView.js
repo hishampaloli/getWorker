@@ -70,7 +70,7 @@ const EmployerPublicView = () => {
           </div>
 
           <div className="right">
-            <div style={{ width: "100%" }}>
+            <div style={{ width: "100%", }}>
               {userInfo?.completedJobs?.map((post) => {
                 
                 return (

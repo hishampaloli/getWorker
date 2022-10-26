@@ -51,7 +51,7 @@ export const FindTalentsReducer = (state = {}, action) => {
       return { loading: true };
 
     case FIND_TALENDS_SUCCESS:
-      return { loading: false, data: action.payload };
+      return { loading: false, data: action.payload.allEmplyees, page: action.payload.page, pages: action.payload.pages };
 
     case FIND_TALENDS_FAIL:
       return { loading: false, error: action.error };

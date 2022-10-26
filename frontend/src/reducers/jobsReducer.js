@@ -75,7 +75,7 @@ export const allJobsReducer = (state = {}, action) => {
         return { loading: true };
   
       case ALL_JOBS_SUCCES:
-        return { loading: false, jobs: action.payload };
+        return { loading: false, jobs: action.payload.allJobs, page: action.payload.page, pages: action.payload.pages, };
   
       case ALL_JOBS_FAIL:
         return { loading: false, error: action.error };

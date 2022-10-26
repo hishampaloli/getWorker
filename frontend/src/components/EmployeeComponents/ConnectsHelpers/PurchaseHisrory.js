@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { myParchaseHistory } from "../../../actions/paymentActions";
 import { ParchaseHistory } from "../../../actions/adminActions";
+import Paginate from "../../PaginateComponent/Paginate";
 
 const PurchaseHisrory = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const PurchaseHisrory = () => {
   }, []);
 
   return (
-    <div style={{ padding: "20px", width: "100%" }} className="history-box">
+    <div style={{ padding: "20px", width: "100%" ,display: 'flex', flexDirection: 'column' }} className="history-box">
       <table>
         <thead>
           <tr>
@@ -93,6 +94,8 @@ const PurchaseHisrory = () => {
           </>
         )}
       </table>
+      
+      <Paginate />
     </div>
   );
 };

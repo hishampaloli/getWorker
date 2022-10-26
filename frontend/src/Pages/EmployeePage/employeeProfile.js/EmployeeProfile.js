@@ -31,6 +31,7 @@ import { PORTFOLIO_FAIL } from "../../../contants/employeeConstants.js";
 import CustomSpinner from "../../../components/customSpinner/CustomSpinner";
 import SwipPage from '../../../components/EmployeeComponents/Swiper/SwipPage'
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import Paginate from "../../../components/PaginateComponent/Paginate";
 
 const EmployeeProfile = () => {
   const dispatch = useDispatch();
@@ -293,7 +294,7 @@ const EmployeeProfile = () => {
           </div>
         </div>
 
-        <div className="box2">
+        <div className="box2 pb-3">
           <div className="top">
             <p className="common-heading">Work History</p>
           </div>
@@ -318,6 +319,7 @@ const EmployeeProfile = () => {
 
             </div>
           </div>
+          <Paginate count={4} />
         </div>
 
         <div className="box3 mb-5">
