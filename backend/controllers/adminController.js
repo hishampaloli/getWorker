@@ -46,7 +46,6 @@ export const adminProfile = AsyncHandler(async (req, res) => {
       }
     });
 
-    console.log(employee);
 
     if (user) {
       res.status(200).json({

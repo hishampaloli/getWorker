@@ -16,7 +16,7 @@ import {
 
 export const postProposal =
   (id, credit, cover, bid, deadline) => async (dispatch) => {
-    console.log(id);
+    
     try {
       dispatch({
         type: POST_PROPOSAL_REQUEST,
@@ -37,7 +37,7 @@ export const postProposal =
         config
       );
 
-      console.log(data);
+      
 
       dispatch({
         type: POST_PROPOSAL_SUCCUSS,
@@ -102,8 +102,6 @@ export const viewProposals = (id) => async (dispatch) => {
       config
     );
 
-    console.log(data);
-
     dispatch({
       type: VIEW_PROPOSAL_SUCCUSS,
       payload: data,
@@ -137,7 +135,6 @@ export const proposalState = (id, status) => async (dispatch) => {
       config
     );
 
-    console.log(data);
 
     // dispatch({
     //   type: VIEW_PROPOSAL_SUCCUSS,
@@ -166,14 +163,14 @@ export const acceptProposal = (id, totalAmount) => async (dispatch) => {
       },
     };
 
-    console.log(id);
+    
     const { data } = await axiosProposalInstance.post(
       `/acceptProposal/${tokenId._id}/${id}`,
       { totalAmount },
       config
     );
 
-    console.log(data);
+
 
     dispatch({
       type: ACCEPT_PROPOSAL_SUCCUSS,

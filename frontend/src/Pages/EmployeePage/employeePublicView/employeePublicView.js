@@ -13,6 +13,7 @@ import { EffectCoverflow, Pagination } from "swiper";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import SwipPage from "../../../components/EmployeeComponents/Swiper/SwipPage";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import Paginate from "../../../components/PaginateComponent/Paginate";
 
 const EmployeePublicView = () => {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ const EmployeePublicView = () => {
 
   const userProfile = useSelector((state) => state.emplyeePublicData);
 
+  const data = userProfile?.userData?.completedJobs;
   const user = useSelector((state) => state.user);
   const [title, setTitle] = useState("");
   const [imgUlr, setImgUrl] = useState("");
@@ -30,11 +32,18 @@ const EmployeePublicView = () => {
 
   const { userData } = userProfile;
 
+  
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(3);
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = data?.slice(indexOfFirstPost, indexOfLastPost);
+
   useEffect(() => {
     if (!user?.userInfo) {
       navigate("/login");
     }
-
     dispatch(getEmployeeProfileView(userId));
   }, [user]);
 
@@ -166,7 +175,7 @@ const EmployeePublicView = () => {
             </div>
           </div>
 
-          <div className="box2">
+          <div className="box2 pb-3">
             <div className="top">
               <p className="common-heading">Work History</p>
             </div>
@@ -174,8 +183,8 @@ const EmployeePublicView = () => {
             <div className="body">
               <div style={{ width: "100%" }} className="left">
               
-              {userData?.completedJobs?.length  ? '': <p style={{textAlign: 'center'}}>No completed Jobs</p> }
-                {userData?.completedJobs?.map((job) => {
+              {currentPosts?.length  ? '': <p style={{textAlign: 'center'}}>No completed Jobs</p> }
+                {currentPosts?.map((job) => {
                   return (
                     <div key={job._id} className="work-div-box">
                       <div>
@@ -197,6 +206,12 @@ const EmployeePublicView = () => {
                 })}
               </div>
             </div>
+            {currentPosts && (
+            <Paginate
+              count={Math.ceil(data?.length / postsPerPage)}
+              giveBack={setCurrentPage}
+            />
+          )}
           </div>
 
           <div className="box3 mb-5">

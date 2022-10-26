@@ -23,14 +23,14 @@ import SkillsPopup from "../../../components/EmployeeComponents/skillsPopup/Skil
 import InfoPopup from "../../../components/EmployeeComponents/infoPopup/InfoPopup";
 import ImagePopup from "../../../components/EmployeeComponents/profileImgPoprup/ProfileImgPopup";
 import KycPopup from "../../../components/EmployeeComponents/kcyPopup/KycPopup";
-import PortfoilioPopup from "../../../components/EmployeeComponents/PortfolioPopUp.js/PortfoilioPopup"
+import PortfoilioPopup from "../../../components/EmployeeComponents/PortfolioPopUp.js/PortfoilioPopup";
 import BankPopup from "../../../components/EmployeeComponents/BankdetailsPopup/BankDetailsPopup";
 import ChangePasswordPopup from "../../../components/EmployeeComponents/changePasswordPopup/chnagePasswordPopup";
 import { CHANGE_PASSWORD_FAIL } from "../../../contants/userConstants";
 import { PORTFOLIO_FAIL } from "../../../contants/employeeConstants.js";
 import CustomSpinner from "../../../components/customSpinner/CustomSpinner";
-import SwipPage from '../../../components/EmployeeComponents/Swiper/SwipPage'
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import SwipPage from "../../../components/EmployeeComponents/Swiper/SwipPage";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import Paginate from "../../../components/PaginateComponent/Paginate";
 
 const EmployeeProfile = () => {
@@ -41,7 +41,7 @@ const EmployeeProfile = () => {
   const portfolio = useSelector((state) => state.portfolio);
   const User = useSelector((state) => state.user);
 
-
+  const data = userProfile?.userData?.completedJobs;
   const user = useSelector((state) => state.user);
   const [ed, setEd] = useState(false);
   const [title, setTitle] = useState("");
@@ -52,6 +52,12 @@ const EmployeeProfile = () => {
 
   const { userData } = userProfile;
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(3);
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = data?.slice(indexOfFirstPost, indexOfLastPost);
 
   useEffect(() => {
     if (!user?.userInfo) {
@@ -64,7 +70,7 @@ const EmployeeProfile = () => {
       navigate("/admin/profile");
     }
     dispatch(getEmployeeProfile());
-  }, [user]);
+  }, [user, navigate, dispatch]);
 
   return (
     <div>
@@ -134,10 +140,15 @@ const EmployeeProfile = () => {
               </div>
             </div>
             <div className="ep-tp-btn">
-            <Link to='/user/connects'><button>Buy Credits</button></Link>
-              
+              <Link to="/user/connects">
+                <button>Buy Credits</button>
+              </Link>
+
               <button>
-                <Link style={{textDecoration: 'none', color: 'white'}} to={`/user/publicView/${userData?.owner?._id}`}>
+                <Link
+                  style={{ textDecoration: "none", color: "white" }}
+                  to={`/user/publicView/${userData?.owner?._id}`}
+                >
                   Public View
                 </Link>
               </button>
@@ -148,12 +159,16 @@ const EmployeeProfile = () => {
             <div className="left">
               <div className="left-top">
                 <span>
-                  <strong>${userData?.totalEarned?.toString().slice(0, 6)}</strong>
+                  <strong>
+                    ${userData?.totalEarned?.toString().slice(0, 6)}
+                  </strong>
                   <p>Total Earnings</p>
                 </span>
 
                 <span>
-                  <strong>${userData?.pendingWithdraw?.toString().slice(0, 6)}</strong>
+                  <strong>
+                    ${userData?.pendingWithdraw?.toString().slice(0, 6)}
+                  </strong>
                   <p>Pending withdraw</p>
                 </span>
               </div>
@@ -171,7 +186,9 @@ const EmployeeProfile = () => {
                   </h5>
                   {userData?.languages?.map((language) => {
                     return (
-                      <p key={language?.language} style={{ marginLeft: "0px" }}>{language?.language}</p>
+                      <p key={language?.language} style={{ marginLeft: "0px" }}>
+                        {language?.language}
+                      </p>
                     );
                   })}
                 </span>
@@ -189,7 +206,9 @@ const EmployeeProfile = () => {
 
                   {userData?.skills?.map((education) => {
                     return (
-                      <li key={education?.skill} style={{ marginLeft: "0px" }}>{education?.skill}</li>
+                      <li key={education?.skill} style={{ marginLeft: "0px" }}>
+                        {education?.skill}
+                      </li>
                     );
                   })}
                 </span>
@@ -278,9 +297,7 @@ const EmployeeProfile = () => {
                 )}
 
                 {userData?.bankDetails ? (
-                  <>                                  
-                   
-                  </>
+                  <></>
                 ) : (
                   <button
                     className="kyc-btn"
@@ -300,26 +317,35 @@ const EmployeeProfile = () => {
           </div>
 
           <div className="body">
-            <div  style={{width: '100%'}}   className="left">
-            {userData?.completedJobs?.map(job => {
-              return  <div className="work-div-box">
-            <div>
-              <h4>{job?.title}</h4>
-              <div className="left-text">
-                <strong>${job?.budget}</strong>
-                <p>Successfully Completed</p>
-              </div>
-              </div>
-              <Link to={`/jobs/${job?._id}`}> <button style={{color: 'white'}}> <VisibilityIcon /> </button></Link>
-            
-
-            </div>
-            })}
-           
-
+            <div style={{ width: "100%" }} className="left">
+              {currentPosts?.map((job) => {
+                return (
+                  <div className="work-div-box">
+                    <div>
+                      <h4>{job?.title}</h4>
+                      <div className="left-text">
+                        <strong>${job?.budget}</strong>
+                        <p>Successfully Completed</p>
+                      </div>
+                    </div>
+                    <Link to={`/jobs/${job?._id}`}>
+                      {" "}
+                      <button style={{ color: "white" }}>
+                        {" "}
+                        <VisibilityIcon />{" "}
+                      </button>
+                    </Link>
+                  </div>
+                );
+              })}
             </div>
           </div>
-          <Paginate count={4} />
+          {currentPosts && (
+            <Paginate
+              count={Math.ceil(data?.length / postsPerPage)}
+              giveBack={setCurrentPage}
+            />
+          )}
         </div>
 
         <div className="box3 mb-5">
@@ -576,7 +602,6 @@ const EmployeeProfile = () => {
             className="portClose"
             onClick={() => {
               setShowPortfolio("");
-           
             }}
           />
           <img src={imgUlr} alt="" />

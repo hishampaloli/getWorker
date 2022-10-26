@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { getAllWithdraw } from '../../../actions/adminActions';
 import AdminWithDrawComponent from '../../../components/AdminComponents/AdminWithdrawComponent/AdminWithDrawComponent';
 
@@ -8,9 +9,12 @@ const AdminWithdraw = () => {
     
   const [ed, setEd] = useState("kycReq");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const withdrawHistory = useSelector(state => state.withdrawHistory)
+  const user = useSelector((state) => state.user);
   const doWidthdrawal = useSelector(state => state.doWidthdrawal);
 
+  console.log(withdrawHistory);
 
   const pending = withdrawHistory?.data?.filter(el => {
     return el.status === 'pending'
@@ -24,6 +28,20 @@ const AdminWithdraw = () => {
   useEffect(() => {
     dispatch(getAllWithdraw())
   }, [])
+  
+
+  
+  useEffect(() => {
+    if (!user?.userInfo) {
+      navigate("/login");
+    }
+    if (user?.userInfo?.userType === "employer") {
+      navigate("/employer/home");
+    }
+    if (user?.userInfo?.userType === "employee") {
+      navigate("/employee/profile");
+    }
+  }, [user, navigate, dispatch]);
   
 
   return (

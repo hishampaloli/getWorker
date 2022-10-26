@@ -45,7 +45,7 @@ const AdminKyc = () => {
     }
     dispatch(getAllKyc());
 
-  }, [user]);
+  }, [user, navigate,dispatch]);
 
 
   return (

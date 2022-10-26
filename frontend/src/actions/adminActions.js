@@ -461,7 +461,7 @@ export const myUserChats = () => async (dispatch) => {
     };
 
     const { data } = await axiosAdminInstance.get(`/mychatsHelp`, config);
-console.log(data);
+    
     dispatch({
       type: ADMIN_CHATS_SUCCESS,
       payload: data,

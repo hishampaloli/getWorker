@@ -11,6 +11,7 @@ const UserHelpPage = ({ socket }) => {
 
   const { userInfo } = useSelector((state) => state.user);
   const { chatData } = useSelector((state) => state.helpChats);
+  const user = useSelector((state) => state.user);
   const [room, setRoom] = useState("");
 
   const myChats = useSelector((state) => state.myChats?.chat);
@@ -36,6 +37,15 @@ const UserHelpPage = ({ socket }) => {
       console.log("joined");
     });
   }, [socket]);
+
+  useEffect(() => {
+    if (!user?.userInfo) {
+      navigate("/login");
+    }
+    if (user?.userInfo?.userType === "admin") {
+      navigate("/admin/profile");
+    }
+  }, [user, navigate]);
 
   return (
     <div className="help-page">

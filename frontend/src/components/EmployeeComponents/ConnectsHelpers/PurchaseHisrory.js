@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { myParchaseHistory } from "../../../actions/paymentActions";
 import { ParchaseHistory } from "../../../actions/adminActions";
@@ -7,9 +7,22 @@ import Paginate from "../../PaginateComponent/Paginate";
 const PurchaseHisrory = () => {
   const dispatch = useDispatch();
   const purchaseHistoryy = useSelector((state) => state.purchaseHistory);
+
   const {
     userInfo: { userType },
   } = useSelector((state) => state.user);
+
+  const data = userType === 'admin' ? purchaseHistoryy.history : purchaseHistoryy?.history?.details;
+  
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const [postsPerPage] = useState(4);
+
+  const indexOfLastPost = page * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = userType === 'admin' ? data?.slice(indexOfFirstPost, indexOfLastPost) : data?.slice(indexOfFirstPost, indexOfLastPost);
+  // const admPosts = admData?.slice(indexOfFirstPost, indexOfLastPost);
+
 
 
   useEffect(() => {
@@ -21,7 +34,15 @@ const PurchaseHisrory = () => {
   }, []);
 
   return (
-    <div style={{ padding: "20px", width: "100%" ,display: 'flex', flexDirection: 'column' }} className="history-box">
+    <div
+      style={{
+        padding: "20px",
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+      }}
+      className="history-box"
+    >
       <table>
         <thead>
           <tr>
@@ -34,7 +55,7 @@ const PurchaseHisrory = () => {
         </thead>
         {userType === "admin" ? (
           <>
-            {purchaseHistoryy.history?.map((el, idx) => {
+            {currentPosts?.map((el, idx) => {
               return (
                 <tbody key={el.orderId}>
                   <tr className="tr-row">
@@ -64,7 +85,7 @@ const PurchaseHisrory = () => {
           </>
         ) : (
           <>
-            {purchaseHistoryy.history?.details?.map((el, idx) => {
+            {currentPosts?.map((el, idx) => {
               return (
                 <tbody key={el.orderId}>
                   <tr className="tr-row">
@@ -94,8 +115,20 @@ const PurchaseHisrory = () => {
           </>
         )}
       </table>
-      
-      <Paginate />
+
+      {userType === "admin" ? (
+        <div style={{width: '100%'}}>
+          <Paginate
+            count={Math.ceil(data?.length / postsPerPage)}
+            giveBack={setPage}
+          />
+        </div>
+      ) : (
+        <Paginate
+          count={Math.ceil(data?.length / postsPerPage)}
+          giveBack={setPage}
+        />
+      )}
     </div>
   );
 };

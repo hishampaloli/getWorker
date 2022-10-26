@@ -44,7 +44,7 @@ const AdminProfile = () => {
 
     dispatch(adminProfile());
     dispatch(ParchaseHistory());
-  }, [user]);
+  }, [user, navigate, dispatch]);
 
   return (
     <div className="adminProfile">

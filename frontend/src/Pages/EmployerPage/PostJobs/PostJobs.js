@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postJobs } from "../../../actions/jobsActions";
 import CustomSpinner from "../../../components/customSpinner/CustomSpinner";
@@ -41,6 +41,19 @@ const PostJobs = () => {
     
     }
   };
+
+  useEffect(() => {
+    if (!user?.userInfo) {
+      navigate("/login");
+    }
+    if (user?.userInfo?.userType === "employee") {
+      navigate("/users/home");
+    }
+    if (user?.userInfo?.userType === "admin") {
+      navigate("/admin/profile");
+    }
+  }, [user, navigate]);
+
 
   return (
     <div className="postJobs">

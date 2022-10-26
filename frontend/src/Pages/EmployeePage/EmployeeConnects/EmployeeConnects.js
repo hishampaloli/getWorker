@@ -5,12 +5,27 @@ import { checkout, myParchaseHistory } from "../../../actions/paymentActions";
 import ConnectBox from "../../../components/EmployeeComponents/ConnectsHelpers/ConnectBox";
 import PurchaseHisrory from "../../../components/EmployeeComponents/ConnectsHelpers/PurchaseHisrory";
 import Paginate from "../../../components/PaginateComponent/Paginate";
+import { useNavigate } from "react-router-dom";
 
 const EmployeeConnects = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
 
   const [ed, setEd] = useState("connect");
   const purchaseHistory = useSelector((state) => state.purchaseHistory);
+
+  useEffect(() => {
+    if (!user?.userInfo) {
+      navigate("/login");
+    }
+    if (user?.userInfo?.userType === "employer") {
+      navigate("/employer/home");
+    }
+    if (user?.userInfo?.userType === "admin") {
+      navigate("/admin/profile");
+    }
+  },[user, navigate])
 
   return (
     <div className="employeeConnects">
@@ -66,6 +81,7 @@ const EmployeeConnects = () => {
           ) : (
             <div className="row-1 pb-4" >
               <PurchaseHisrory />
+              
             </div>
           )}
         </div>

@@ -65,7 +65,7 @@ const ViewProposal = ({ socket }) => {
 
           <div className="row">
             <p>
-              Budget: <strong>${viewProposal?.bid}</strong>
+              Budget: <strong> ₹{viewProposal?.bid}</strong>
             </p>
             <p>
               Deadline: <strong>{viewProposal?.deadline} days</strong>

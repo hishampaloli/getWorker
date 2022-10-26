@@ -3,7 +3,7 @@ import CustomSpinner from "../../../components/customSpinner/CustomSpinner";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import { useDispatch, useSelector } from "react-redux";
 import { getMyChats, getMyRooms } from "../../../actions/chatActions";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ChatIcon from "@mui/icons-material/Chat";
 import { v4 as uuidv4 } from "uuid";
 import ChatWindow from "../../../components/ChatWindow/ChatWindow";
@@ -11,6 +11,8 @@ import { myUserChats } from "../../../actions/adminActions";
 
 const AdminMessage = ({ socket }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [roomId, setRoom] = useState("");
   const [message, setMessage] = useState("");
   const [chat, setchat] = useState([]);
@@ -20,6 +22,7 @@ const AdminMessage = ({ socket }) => {
   const [videoLink, setVideoLink] = useState("");
 
   const myRooms = useSelector((state) => state.adminUserChats);
+  const user = useSelector((state) => state.user);
 
   let myChats = null;
 
@@ -31,7 +34,7 @@ const AdminMessage = ({ socket }) => {
 
   useEffect(() => {
     dispatch(myUserChats());
-    dispatch(getMyChats(roomId, "employee"))
+    dispatch(getMyChats(roomId, "employee"));
   }, [dispatch, roomId]);
 
   useEffect(() => {
@@ -68,9 +71,21 @@ const AdminMessage = ({ socket }) => {
     });
 
     socket.on("new-admin-room-created", () => {
-        console.log("joined");
-    })
+      console.log("joined");
+    });
   }, [socket, dispatch]);
+
+  useEffect(() => {
+    if (!user?.userInfo) {
+      navigate("/login");
+    }
+    if (user?.userInfo?.userType === "employer") {
+      navigate("/employer/home");
+    }
+    if (user?.userInfo?.userType === "employee") {
+      navigate("/employee/profile");
+    }
+  }, [user, navigate, dispatch]);
 
   return (
     <div className="chat-list">
@@ -82,14 +97,13 @@ const AdminMessage = ({ socket }) => {
         <div style={{ display: "flex", flexDirection: "column-reverse" }}>
           {myRooms?.data?.map((room) => {
             return (
-                
               <Link
                 key={room.roomId}
                 onClick={() => {
                   dispatch(getMyChats(room?.roomId, "employee"));
                   if (socket) {
                     socket.emit("join-admin-room", room);
-                  setRoom(room?.roomId);
+                    setRoom(room?.roomId);
                   }
                 }}
                 // to={`/user/message/${room?.roomId}`}

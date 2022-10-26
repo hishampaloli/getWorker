@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link} from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import ChatWindow from "../../../components/ChatWindow/ChatWindow";
 import "./Chat.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,8 +12,10 @@ import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 
 const EmployeeMessage = ({ socket }) => {
 
-
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+
   const [room, setRoom] = useState("");
 
   const myRooms = useSelector((state) => state.myRooms);
@@ -25,6 +27,18 @@ const EmployeeMessage = ({ socket }) => {
     
     dispatch(getMyRooms());
   }, [socket, dispatch]);
+
+  useEffect(() => {
+    if (!user?.userInfo) {
+      navigate("/login");
+    }
+    if (user?.userInfo?.userType === "employer") {
+      navigate("/employer/home");
+    }
+    if (user?.userInfo?.userType === "admin") {
+      navigate("/admin/profile");
+    }
+  }, [user, navigate])
 
   return (
     <div className="chat-list">

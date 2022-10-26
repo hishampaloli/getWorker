@@ -84,7 +84,7 @@ export const getAllJobs = AsyncHandler(async (req, res) => {
     const page = Number(pageNumber) || 1;
 
     let skip = pageSize * (page - 1);
-    console.log(skip);
+    
     const count = await Jobs.count({ status: "active" });
     const allJobs = await Jobs.find({
       $and: [{ status: "active" }],
@@ -93,7 +93,7 @@ export const getAllJobs = AsyncHandler(async (req, res) => {
       .skip(skip);
 
     if (allJobs) {
-      console.log(allJobs);
+      
       res
         .status(200)
         .json({ allJobs, page, pages: Math.ceil(count / pageSize) });
@@ -157,7 +157,7 @@ export const jobView = AsyncHandler(async (req, res) => {
 export const approveJob = AsyncHandler(async (req, res) => {
   try {
     const { userId, id } = req.params;
-    console.log(userId);
+    
 
     const job = await Jobs.findById(id);
 
@@ -176,8 +176,7 @@ export const approveJob = AsyncHandler(async (req, res) => {
     });
 
     const escrow = admin.inEscrow.filter((el) => {
-      console.log(el);
-      console.log(proposal._id);
+          
       return el.proposal + "*" !== proposal._id + "*";
     });
 

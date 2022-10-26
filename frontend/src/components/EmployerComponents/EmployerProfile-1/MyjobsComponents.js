@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import "./myjobs.scss";
 import { Link } from "react-router-dom";
+import Paginate from "../../PaginateComponent/Paginate";
 
 const MyjobsComponents = ({ jobs }) => {
 
-  console.log(jobs);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(3);
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = jobs?.slice(indexOfFirstPost, indexOfLastPost);
+
 
   return (
     <div
@@ -18,7 +25,7 @@ const MyjobsComponents = ({ jobs }) => {
       }}
     >
       {jobs
-        ? jobs?.map((job,idx) => {
+        ? currentPosts?.map((job,idx) => {
             return (
               <div key={job?._id + idx} className="my-jobs-div">
                 <div className="s">
@@ -43,6 +50,8 @@ const MyjobsComponents = ({ jobs }) => {
             );
           })
         : ""}
+        {jobs?.length > 2 && <Paginate count={Math.ceil(jobs?.length / postsPerPage )} giveBack={setCurrentPage} />
+}
     </div>
   );
 };

@@ -39,6 +39,13 @@ const JobView = () => {
     dispatch(JobsDetails(id));
   }, [dispatch]);
 
+  useEffect(() => {
+    if (!user?.userInfo) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
+
+
   return (
     <div className="jobsDetails-view">
       <div className="job-details-box">

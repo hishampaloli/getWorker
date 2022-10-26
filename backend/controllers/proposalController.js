@@ -219,7 +219,6 @@ export const acceptProposal = AsyncHandler(async (req, res) => {
     }
   } catch (error) {
     res.status(404);
-    console.log(error);
     throw new Error(error)
   }
 });

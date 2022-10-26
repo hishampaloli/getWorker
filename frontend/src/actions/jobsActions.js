@@ -98,7 +98,7 @@ export const postJobs =
 export const getAllJobs =
   (keyword = "", pageNumber = '') =>
   async (dispatch) => {
-    console.log(pageNumber);
+
     try {
       dispatch({
         type: ALL_JOBS_REQUEST,
@@ -118,7 +118,6 @@ export const getAllJobs =
         config
       );
 
-      console.log(data);
 
       dispatch({
         type: ALL_JOBS_SUCCES,

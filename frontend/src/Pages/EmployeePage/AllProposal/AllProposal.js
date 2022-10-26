@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { myProposals } from "../../../actions/proposalActions";
 import ProposalComponent from "../../../components/EmployeeComponents/ProposalComponents/ProposalComponent";
 
 const AllProposal = () => {
+
+  
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
 
   const myProposalData = useSelector((state) => state.myProposalsData);
   const [ed, setEd] = useState("active");
@@ -26,6 +31,19 @@ const AllProposal = () => {
   useEffect(() => {
     dispatch(myProposals());
   }, []);
+
+  
+  useEffect(() => {
+    if (!user?.userInfo) {
+      navigate("/login");
+    }
+    if (user?.userInfo?.userType === "employer") {
+      navigate("/employer/home");
+    }
+    if (user?.userInfo?.userType === "admin") {
+      navigate("/admin/profile");
+    }
+  }, [user, dispatch]);
   return (
     <div className="postJobs">
       <div className="post-box">

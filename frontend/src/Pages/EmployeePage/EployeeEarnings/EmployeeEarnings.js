@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./EmployeeEarnings.scss";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   withdrawBalance,
   withdrawHistory,
@@ -12,14 +12,31 @@ import CustomSpinner from "../../../components/customSpinner/CustomSpinner";
 
 const EmployeeEarnings = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [ed, setEd] = useState("active");
   const [page, setPage] = useState(1);
   const employeeData = useSelector((state) => state.employeeData);
+  const user = useSelector((state) => state.user);
   const withdrawHistoryData = useSelector((state) => state.withdrawHistory);
 
   useEffect(() => {
     dispatch(withdrawHistory(page));
   }, [page, dispatch]);
+
+  
+  useEffect(() => {
+    if (!user?.userInfo) {
+      navigate("/login");
+    }
+    if (user?.userInfo?.userType === "employer") {
+      navigate("/employer/home");
+    }
+    if (user?.userInfo?.userType === "admin") {
+      navigate("/admin/profile");
+    }
+    
+  }, [user, navigate, dispatch]);
 
   return (
     <div className="postJobs">

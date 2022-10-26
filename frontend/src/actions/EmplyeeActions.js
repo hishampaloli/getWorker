@@ -575,7 +575,6 @@ export const withdrawBalance = () => async (dispatch, getState) => {
 
 export const withdrawHistory = (pageNumber='') => async (dispatch, getState) => {
 
-  console.log(pageNumber);
   try {
     dispatch({
       type: WITHDRAW_REQUEST,

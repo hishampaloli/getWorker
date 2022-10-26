@@ -61,7 +61,7 @@ const FindTalentsPage = () => {
     if (user?.userInfo?.userType === "admin") {
       navigate("/admin/profile");
     }
-  });
+  }, [user, navigate]);
 
   return (
     <div className="findTalents">

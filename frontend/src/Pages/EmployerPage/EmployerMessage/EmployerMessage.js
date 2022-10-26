@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getMyChats, getMyRooms } from "../../../actions/chatActions";
 import ChatIcon from "@mui/icons-material/Chat";
 import ChatWindow from "../../../components/ChatWindow/ChatWindow";
@@ -8,18 +8,32 @@ import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import CustomSpinner from "../../../components/customSpinner/CustomSpinner";
 
 const EmployerMessage = ({ socket }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   const [room, setRoom] = useState("");
 
   const myRooms = useSelector((state) => state.myRooms);
   const myChats = useSelector((state) => state.myChats);
-
 
   useEffect(() => {
     if (!socket) return;
 
     dispatch(getMyRooms());
   }, [socket, dispatch]);
+
+  
+  useEffect(() => {
+    if (!user?.userInfo) {
+      navigate("/login");
+    }
+    if (user?.userInfo?.userType === "employee") {
+      navigate("/user/home");
+    }
+    if (user?.userInfo?.userType === "admin") {
+      navigate("/admin/profile");
+    }
+  }, [user, navigate]);
 
   return (
     <div className="chat-list">
@@ -31,7 +45,7 @@ const EmployerMessage = ({ socket }) => {
           {myRooms?.data?.map((room) => {
             return (
               <Link
-              key={room?.roomId}
+                key={room?.roomId}
                 style={
                   room?.employerViewed === false
                     ? { backgroundColor: "#aaaa" }
@@ -81,11 +95,11 @@ const EmployerMessage = ({ socket }) => {
           ) : (
             ""
           )}
-          {myChats.chat?.chats?.map((el,idx) => {
+          {myChats.chat?.chats?.map((el, idx) => {
             return (
               <>
                 <div
-                key={idx}
+                  key={idx}
                   className="blk mt-2"
                   style={
                     el.user === "employee"

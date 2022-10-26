@@ -13,11 +13,11 @@ export const protect = asyncHandler(async (req, res, next) => {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.user = await User.findById(decoded.id);
 
-      // console.log(req.user + 2334443);
+      
 
       next();
     } catch (error) {
-      console.log(error);
+      
       res.status(401);
       throw new Error("Not authorized, token fail");
     }
@@ -33,11 +33,8 @@ export const protect = asyncHandler(async (req, res, next) => {
 
 export const isOwner = asyncHandler(async (req, res, next) => {
   
-  // console.log(req.user);
+  
   if (req.user._id + "1" !== req.params.userId + "1") {
-    // console.log(req.user._id);
-    // console.log(req.params.userId);
-    // console.log(req.user);
     console.log("not owner");
     throw new Error("Only the owner of this account can edit this");
   } else {

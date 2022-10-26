@@ -20,13 +20,11 @@ const EmployeeHome = () => {
   const saveStatus = useSelector((state) => state.saveStatus);
   const userProfile = useSelector((state) => state.employeeData);
 
-  console.log(allJobs);
 
   const [ed, setEd] = useState("search");
   const [keyword, setKeyword] = useState("");
   const [page, setPage] = useState(Number);
 
-  console.log(page + ">>>>>>>>>>>>>>>>>>>>>>>>>>.");
 
   const handleSubmit = (e) => {
     e.preventDefault();

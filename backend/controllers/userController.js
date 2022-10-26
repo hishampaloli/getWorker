@@ -264,7 +264,7 @@ export const forgotPasswordVerify = AsyncHandler(async (req, res) => {
 
   const user = await User.findOne({ email: email });
   const id = user?._id + "*";
-  console.log(id);
+  
   const token = await VerificationToken.findOne({ owner: id });
   if (!token) {
     throw new Error("No tokon");

@@ -36,7 +36,7 @@ export const login = (email, password) => async (dispatch) => {
       { email, password },
       config
     );
-    console.log(data);
+    
 
 
     dispatch({
@@ -109,7 +109,7 @@ export const verifyEmail = (userId, otp, userType) => async (dispatch) => {
       config
     );
 
-    console.log(data + ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    
 
     dispatch({
       type: OTP_HELPER_SUCCESS,
@@ -123,7 +123,7 @@ export const verifyEmail = (userId, otp, userType) => async (dispatch) => {
 
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
-    console.log(error);
+    
     dispatch({
       type: OTP_HELPER_FAIL,
       error:
@@ -135,7 +135,7 @@ export const verifyEmail = (userId, otp, userType) => async (dispatch) => {
 };
 
 export const logout = () => async (dispatch) => {
-  console.log(3443);
+  
   try {
     dispatch({
       type: USER_LOGOUT,
@@ -143,7 +143,7 @@ export const logout = () => async (dispatch) => {
 
     localStorage.removeItem("userInfo");
   } catch (error) {
-    console.log(error);
+    
   }
 };
 
@@ -172,7 +172,7 @@ export const changePassword = (oldPass, newPass) => async (dispatch) => {
         type: CHANGE_PASSWORD_SUCCESS,
         message: "Incorrect Old Password!",
       });
-      console.log("sdsdfdfsdfsdfdsf");
+      
     } else {
       dispatch({
         type: CHANGE_PASSWORD_SUCCESS,
@@ -180,9 +180,9 @@ export const changePassword = (oldPass, newPass) => async (dispatch) => {
       });
     }
 
-    console.log(data);
+    
   } catch (error) {
-    console.log(error);
+    
     dispatch({
       type: CHANGE_PASSWORD_FAIL,
     });
@@ -207,13 +207,13 @@ export const forgotPassword = (email) => async (dispatch) => {
       config
     );
 
-    console.log(data);
+    
 
     dispatch({
       type: RESET_PASSWORD_SUCCESS,
       message: data,
     });
-    console.log(data);
+    
   } catch (error) {
     dispatch({
       type: RESET_PASSWORD_FAIL,
@@ -224,7 +224,7 @@ export const forgotPassword = (email) => async (dispatch) => {
 
 export const forgotPasswordVerify =
   (email, otp, password) => async (dispatch) => {
-    console.log(23);
+    
     try {
       dispatch({
         type: RESET_PASSWORD_REQUEST,
@@ -242,14 +242,14 @@ export const forgotPasswordVerify =
         config
       );
 
-      console.log(data);
+      
 
       dispatch({
         type: RESET_PASSWORD_SUCCESS,
         message: data,
       });
     } catch (error) {
-      console.log(error);
+      
       dispatch({
         type: RESET_PASSWORD_FAIL,
         error: error,

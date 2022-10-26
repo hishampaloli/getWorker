@@ -17,7 +17,9 @@ const EmployeeJobsPage = () => {
   const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
-    
+    if (!user?.userInfo) {
+      navigate("/login");
+    }
     dispatch(getEmployeeProfile());
   }, [user]);
 

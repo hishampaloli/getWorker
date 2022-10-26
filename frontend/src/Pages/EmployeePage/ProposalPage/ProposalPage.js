@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./PropodalPage.scss";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -26,6 +26,8 @@ const ProposalPage = () => {
   const [alert, setAler] = useState(false);
   const [msg, setMsg] = useState(false);
 
+  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (bid > jobsInfo?.budget || bid < 20 || days <= 0) {
@@ -43,6 +45,19 @@ const ProposalPage = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (!user?.userInfo) {
+      navigate("/login");
+    }
+    if (user?.userInfo?.userType === "employer") {
+      navigate("/employer/home");
+    }
+    if (user?.userInfo?.userType === "admin") {
+      navigate("/admin/profile");
+    }
+  })
+
 
   return (
     <div className="proposalPage">
@@ -132,7 +147,7 @@ const ProposalPage = () => {
             
             {postProposalStatus?.loading ? (
               <Alert severity="info">
-                This is an info alert — check it out!
+                On progress
               </Alert>
             ) : (
               ""

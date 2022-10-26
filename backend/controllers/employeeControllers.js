@@ -23,7 +23,7 @@ cloudinary.config({
 
 export const employeeProfile = AsyncHandler(async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+
   try {
     const userData = await Employee.findOne({ owner: id })
       .populate("educations")
@@ -403,7 +403,7 @@ export const deleteMessage = AsyncHandler(async (req, res) => {
     const message = await Notification.findByIdAndDelete(id);
 
     const noti = user.notification.filter((el) => {
-      console.log(el);
+      
       return el._id + "*" !== id + "*";
     });
 
@@ -435,7 +435,7 @@ export const getBankDetails = AsyncHandler(async (req, res) => {
 export const withdrawBalance = AsyncHandler(async (req, res) => {
   try {
     const { userId } = req.params;
-    console.log(userId);
+    
     const user = await Employee.findOne({ owner: userId });
     const bankDetails = await BankDetails.findOne({ owner: userId });
 

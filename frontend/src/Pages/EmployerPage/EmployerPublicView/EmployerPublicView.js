@@ -1,21 +1,44 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getEmployerProfileData } from "../../../actions/EmployerActions";
 import "./EmployerPublicView.scss";
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import Paginate from "../../../components/PaginateComponent/Paginate";
+import Pagination from '@mui/material/Pagination';
 
 
 const EmployerPublicView = () => {
+
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+
   const { id } = useParams();
 
   const employerData = useSelector((state) => state.employerData);
   const { userInfo } = employerData;
+  const data = userInfo?.completedJobs
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(3);
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = data?.slice(indexOfFirstPost, indexOfLastPost);
+
 
   useEffect(() => {
     dispatch(getEmployerProfileData(id));
   }, []);
+
+  
+  useEffect(() => {
+    if (!user?.userInfo) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
+
   return (
     <div  className="emplyeeProfile px-3">
       <div className="box1">
@@ -71,7 +94,7 @@ const EmployerPublicView = () => {
 
           <div className="right">
             <div style={{ width: "100%", }}>
-              {userInfo?.completedJobs?.map((post) => {
+              {currentPosts?.map(post => {
                 
                 return (
                   <div key={post._id} className="work-div-box-em">
@@ -89,6 +112,9 @@ const EmployerPublicView = () => {
                   </div>
                 );
               })}
+              
+              {userInfo?.completedJobs?.length > 2  && <Paginate count={Math.ceil(userInfo?.completedJobs?.length / postsPerPage )} giveBack={setCurrentPage} />}
+
             </div>
           </div>
         </div>

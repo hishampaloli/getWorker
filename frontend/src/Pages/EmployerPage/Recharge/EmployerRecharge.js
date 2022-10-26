@@ -1,14 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import ConnectBox from "../../../components/EmployeeComponents/ConnectsHelpers/ConnectBox";
 import PurchaseHisrory from "../../../components/EmployeeComponents/ConnectsHelpers/PurchaseHisrory";
 import './EmployerRecharge.scss'
 
 const EmployerRecharge = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
 
   const [ed, setEd] = useState("connect");
   const purchaseHistory = useSelector((state) => state.purchaseHistory);
+
+  useEffect(() => {
+    if (!user?.userInfo) {
+      navigate("/login");
+    }
+    if (user?.userInfo?.userType === "employee") {
+      navigate("/users/home");
+    }
+    if (user?.userInfo?.userType === "admin") {
+      navigate("/admin/profile");
+    }
+  }, [user, navigate]);
+
 
   return (
     <div className="employeeConnects">

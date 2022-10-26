@@ -47,7 +47,7 @@ export const getMyRooms =
   };
 
 export const getMyChats = (roomId, user) => async (dispatch) => {
-  // console.log(roomId);
+  
   try {
     dispatch({
       type: MY_CHATS_REQUEST,
@@ -66,7 +66,6 @@ export const getMyChats = (roomId, user) => async (dispatch) => {
       `/chats/${roomId}?user=${user}`,
       config
     );
-console.log(data);
 
 
     dispatch({

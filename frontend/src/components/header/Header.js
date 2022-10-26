@@ -302,7 +302,8 @@ const Header = ({ socket }) => {
             >
               profile
             </Link>
-            <Link to={'/help'}>Help</Link>
+            {user?.userInfo?.userType !== "admin" && <Link to={'/help'}>Help</Link>}
+            
             <Link onClick={handleLogout}>Logout</Link>
           </ul>
         </div>

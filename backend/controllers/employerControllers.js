@@ -252,7 +252,7 @@ export const deleteMessageEmployer = AsyncHandler(async (req, res) => {
     const message = await Notification.findByIdAndDelete(id);
 
     const noti = user.notification.filter((el) => {
-      console.log(el);
+      
       return el._id + "*" !== id + "*";
     });
 
