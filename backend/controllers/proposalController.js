@@ -6,7 +6,7 @@ import Employer from "../models/employerModel.js";
 import Proposals from "../models/proposalModal.js";
 import Notification from "../models/messageModal.js";
 import Admin from "../models/adminModel.js";
-import { mailTransport } from "../utils/mail.js";
+import { mailTransport, sendMail } from "../utils/mail.js";
 
 
 
@@ -138,11 +138,12 @@ export const myProposals = AsyncHandler(async (req, res) => {
   try {
     const { userId } = req.params;
     const pageSize = 4;
-    const page = Number(req.query.pageSize) || 1;
+    const page = Number(req.query.pageNumber) || 1;
+    console.log(userId);
 
     const count = await Proposals.count({owner: userId});
-    const proposals = await Proposals.find({ owner: userId }).limit(pageSize).skip(pageSize * page - 1)
-
+    const proposals = await Proposals.find({ owner: userId }).limit(pageSize).skip(pageSize * (page - 1))
+console.log(proposals);
     if (proposals) {
       res.status(200).json({proposals, page, pages: Math.ceil(count / pageSize)});
     } else {
@@ -163,14 +164,17 @@ export const acceptProposal = AsyncHandler(async (req, res) => {
     const { id, userId } = req.params;
     const { totalAmount } = req.body;
 
+
+
     const proposal = await Proposals.findById(id);
     const employer = await Employer.findOne({ owner: userId });
     const job = await Jobs.findById(proposal.jobs);
     const employee = await Employee.findOne({ owner: proposal.owner }).populate("owner");
-    const admin = await Admin.findById("633be9b307ec8a154a57bc9e");
+    const admin = await Admin.findById("635a47fd9968c6d1c6870827");
 
-    
+  
     if (proposal && employer && employee && admin && job) {
+      console.log(34);
       if (employer.balance >= totalAmount) {
         const noti = new Notification({
           owner: employee._id,
@@ -199,15 +203,18 @@ export const acceptProposal = AsyncHandler(async (req, res) => {
         await noti.save();
 
         
-      mailTransport().sendMail({
-        from: "getworkverification@email.com",
+
+
+      sendMail({
         to: employee.owner.email,
-        subject: "Verify your email account",
-        html: `<div>
-        <h1>OTP for reset password</h1>
-        <p>Your Proposal was accepted, please start yout work as soon as possible</p>
-        <strong>Do not share your otp</strong>
-        </div>`,
+        from: "adm.getworker@gmail.com",
+        subject: "GETWORK PROPOSAL",
+        html: `    
+               <div>
+               <h1>PORPOSAL ACCEPTED</h1>
+               <p>congratulations! Your proposal have been accepted. Please do the work as per the instructions :> </p>
+               </div>
+               `,
       });
 
         res.status(200).json({

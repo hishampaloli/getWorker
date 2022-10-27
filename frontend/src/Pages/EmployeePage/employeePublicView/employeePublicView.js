@@ -32,6 +32,7 @@ const EmployeePublicView = () => {
 
   const { userData } = userProfile;
 
+  console.log(userProfile.userData?.completedJobs.length);
   
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(3);
@@ -116,7 +117,7 @@ const EmployeePublicView = () => {
                   </span>
 
                   <span>
-                    <strong>{userData?.workHistory?.length}</strong>
+                    <strong>{userProfile.userData?.completedJobs.length || 0}</strong>
                     <p>Total Jobs</p>
                   </span>
                 </div>

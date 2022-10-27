@@ -1,4 +1,6 @@
 import nodemailer from "nodemailer";
+import sgMail from '@sendgrid/mail'
+
 
 
 export const mailTransport = () => {
@@ -13,3 +15,14 @@ export const mailTransport = () => {
 
   return transport;
 };
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+export const sendMail = async (msg) => {
+  try {
+    await sgMail.send(msg);
+    console.log("send");
+  } catch (error) {
+    console.log(error);
+  }
+}

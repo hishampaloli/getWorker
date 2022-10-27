@@ -119,7 +119,7 @@ const KycPopup = () => {
           <input
             type="text"
             onChange={(e) => setGstNumber(e.target.value)}
-            placeholder="name of your degree"
+            placeholder="Enter a valid GST number"
           />
 
           {error ? (

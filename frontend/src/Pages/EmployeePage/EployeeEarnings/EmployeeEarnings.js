@@ -20,6 +20,8 @@ const EmployeeEarnings = () => {
   const user = useSelector((state) => state.user);
   const withdrawHistoryData = useSelector((state) => state.withdrawHistory);
 
+  console.log(withdrawHistoryData);
+
   useEffect(() => {
     dispatch(withdrawHistory(page));
   }, [page, dispatch]);
@@ -151,7 +153,7 @@ const EmployeeEarnings = () => {
             </div>
           ) : ed === "shortlisted" ? (
             <div className="earn-main-box">
-              {withdrawHistoryData.data?.map((history) => {
+              {withdrawHistoryData?.data?.withdraw?.map((history) => {
                 return (
                   <div className="withdraw-history">
                     <div>
@@ -200,10 +202,11 @@ const EmployeeEarnings = () => {
                 className="mt-3"
                 style={{ position: "absolute", bottom: "0" }}
               >
-                <Paginate
+              {withdrawHistoryData?.pages && <Paginate
                   count={withdrawHistoryData?.pages}
                   giveBack={setPage}
-                />
+                />}
+                
               </div>
             </div>
           ) : (

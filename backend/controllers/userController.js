@@ -9,6 +9,7 @@ import VerificationToken from "../models/UserVerification.js";
 import { generateOtp } from "../utils/getOtp.js";
 import { mailTransport } from "../utils/mail.js";
 import { isValidObjectId } from "mongoose";
+import { sendMail } from "../utils/mail.js";
 
 // @DESC users can login to the website by validation
 // @METHOD  post
@@ -82,12 +83,25 @@ export const userRegisterRegister = AsyncHandler(async (req, res) => {
       await verificationToken.save();
       await user.save();
 
-      mailTransport().sendMail({
-        from: "getworkverification@email.com",
+      // mailTransport().sendMail({
+      //   from: "getworkverification@email.com",
+      //   to: user.email,
+      //   subject: "Verify your email account",
+      //   html: `<h1>${OTP}</h1>`,
+      // });
+
+      sendMail({
         to: user.email,
-        subject: "Verify your email account",
-        html: `<h1>${OTP}</h1>`,
+        from: "adm.getworker@gmail.com",
+        subject: "GETWORK signUp",
+        html: `    
+    <div>
+    <p>Do not share your OTP with any one</p>
+    <h3>OTP: <strong>${OTP}</strong></h3> 
+    </div>
+</html>`,
       });
+console.log(OTP);
       res.json(user);
     } else {
       res.status(404);
@@ -110,11 +124,16 @@ export const userRegisterRegister = AsyncHandler(async (req, res) => {
     await verificationToken.save();
     await newUser.save();
 
-    mailTransport().sendMail({
-      from: "getworkverification@email.com",
-      to: newUser.email,
-      subject: "Verify your email account",
-      html: `<h1>${OTP}</h1>`,
+    sendMail({
+      to: user.email,
+      from: "adm.getworker@gmail.com",
+      subject: "GETWORK signUp",
+      html: `    
+  <div>
+  <p>Do not share your OTP with any one</p>
+  <h3>OTP: <strong>${OTP}</strong></h3> 
+  </div>
+</html>`,
     });
     res.json(newUser);
   }
@@ -225,7 +244,9 @@ export const forgotPassword = AsyncHandler(async (req, res) => {
   try {
     const { email } = req.body;
 
-    const user = await User.findOne({ $and: [ {email: email}, {emailVerified: true }]});
+    const user = await User.findOne({
+      $and: [{ email: email }, { emailVerified: true }],
+    });
     if (user) {
       const token = await VerificationToken.findOneAndDelete({
         owner: user._id + "*",
@@ -237,16 +258,22 @@ export const forgotPassword = AsyncHandler(async (req, res) => {
         token: OTP,
       });
 
-      mailTransport().sendMail({
-        from: "getworkverification@email.com",
+      sendMail({
         to: user.email,
-        subject: "Verify your email account",
-        html: `<div>
-        <h1>OTP for reset password</h1>
-        <p>${OTP}</p>
-        <strong>Do not share your otp</strong>
-        </div>`,
+        from: "adm.getworker@gmail.com",
+        subject: "GETWORK RESET PASSWORD",
+        html: `    
+    <div>
+    <h1>RESET YOUR PASSWORD</h1>
+    <p>Do not share your OTP with any one</p>
+    <h3>OTP: <strong>${OTP}</strong></h3> 
+    </div>
+</html>`,
       });
+
+      console.log(OTP);
+
+
 
       await verificationToken.save();
       await user.save();
@@ -264,7 +291,7 @@ export const forgotPasswordVerify = AsyncHandler(async (req, res) => {
 
   const user = await User.findOne({ email: email });
   const id = user?._id + "*";
-  
+
   const token = await VerificationToken.findOne({ owner: id });
   if (!token) {
     throw new Error("No tokon");

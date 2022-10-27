@@ -67,10 +67,12 @@ const ProposalComponent = ({ proposals, sort }) => {
       </div>
 
       {data?.length !== 0 && (
+        <div className="mb-4">
         <Paginate
           count={Math.ceil(data?.length / postsPerPage)}
           giveBack={setPage}
         />
+        </div>
       )}
     </>
   );

@@ -19,6 +19,9 @@ const ViewProposal = ({ socket }) => {
   const viewProposal = useSelector((state) => state.viewProposal?.data);
   const user = useSelector((state) => state.user);
   const acceptProposalData = useSelector((state) => state.acceptProposal);
+  const employerProfile = useSelector((state) => state.employerData);
+
+  console.log(employerProfile?.userInfo?.balance);
 
   const { id } = useParams();
   useEffect(() => {
@@ -130,22 +133,28 @@ const ViewProposal = ({ socket }) => {
                   Your account is Blocked
                 </button>
               ) : (
-                <button
+                <>
+                { employerProfile?.userInfo?.balance === 0 ? <button style={{backgroundColor: '#FF6C6C'}} >No Balance</button> : <button
                   onClick={() => {
                     dispatch(
                       acceptProposal(viewProposal?._id, viewProposal?.bid)
                     );
-                    setTimeout(() => {}, 1000);
-                    setMsg(true);
-
-                    socket.emit("new-room-created", {
+                    
+                    
+                    setTimeout(() => {
+                      socket.emit("new-room-created", {
                       employer: user?.userInfo?._id,
                       employee: viewProposal?.owner?._id,
                     });
+                    }, 1000);
+
+                   
                   }}
                 >
                   Accept Proposal
-                </button>
+                </button> }
+               
+                </>
               )}
             </div>
           ) : (

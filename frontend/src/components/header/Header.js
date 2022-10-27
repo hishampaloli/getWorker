@@ -134,12 +134,12 @@ const Header = ({ socket }) => {
                     message
                   </Link>
 
-                  <Link>Balance : {employerProfile?.userInfo?.balance}</Link>
+                  <Link>Balance : {employerProfile?.userInfo?.balance ? employerProfile?.userInfo?.balance  : 0}</Link>
                   <Link
                     onClick={() => setNoti(!noti)}
                     style={{ position: "relative" }}
                   >
-                    {employerProfile?.userInfo?.notification.length ? (
+                    {employerProfile?.userInfo?.notification?.length ? (
                       <div className="not-ball"></div>
                     ) : (
                       ""

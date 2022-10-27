@@ -9,7 +9,7 @@ import Admin from "../models/adminModel.js";
 import Employer from "../models/employerModel.js";
 import Jobs from "../models/jobsModal.js";
 import Notification from "../models/messageModal.js";
-import { mailTransport } from "../utils/mail.js";
+import { mailTransport, sendMail } from "../utils/mail.js";
 import Withdraw from "../models/withdrawModel.js";
 import Purchase from "../models/purchaseModal.js";
 import { AdminRoom } from "../sockets/models/roomOwner.js";
@@ -20,7 +20,7 @@ import { AdminRoom } from "../sockets/models/roomOwner.js";
 
 export const adminProfile = AsyncHandler(async (req, res) => {
   try {
-    const user = await User.findById("633beb1b9678e114623121bc")
+    const user = await User.findById("635a47d079cfa5259456107a")
       .populate("adminData")
       .populate({
         path: "adminData",
@@ -45,8 +45,6 @@ export const adminProfile = AsyncHandler(async (req, res) => {
         employee++;
       }
     });
-
-
     if (user) {
       res.status(200).json({
         adminData: user,
@@ -184,14 +182,16 @@ export const blockUsers = AsyncHandler(async (req, res) => {
     user.isBlocked = !user.isBlocked;
     await user.save();
 
-    mailTransport().sendMail({
-      from: "getworkverification@email.com",
-      to: `${user.email}`,
-      subject: "Verify your email account",
-      html: `<div>
-      <h1>User Update</h1>
+    sendMail({
+      to: user.email,
+      from: "adm.getworker@gmail.com",
+      subject: "GETWORK UPDATE",
+      html: `    
+  <div>
+  <h1>User Update</h1>
       <p>Your accounts blocked, please contact the admin to know more</p>
-      </div>`,
+  </div>
+</html>`,
     });
 
     res.status(200).json(user);
@@ -304,15 +304,18 @@ export const acceptNrejectKyc = AsyncHandler(async (req, res) => {
         await noti.save();
         await userDetail.save();
 
-        mailTransport().sendMail({
-          from: "getworkverification@email.com",
+        sendMail({
           to: userDetail.owner.email,
-          subject: "Verify your email account",
-          html: `<div>
-          <h1>Kyc Status</h1>
+          from: "adm.getworker@gmail.com",
+          subject: "GETWORK KYC UPDATE",
+          html: `    
+  <div>
+  <h1>Kyc Status</h1>
           <p>Your kyc have been Accepted</p>
-          </div>`,
+  </div>
+</html>`,
         });
+        
       }
     } else if (status === "reject") {
       if (kycDetail && userDetail) {
@@ -329,15 +332,18 @@ export const acceptNrejectKyc = AsyncHandler(async (req, res) => {
         await userDetail.save();
         await noti.save();
 
-        mailTransport().sendMail({
-          from: "getworkverification@email.com",
+        sendMail({
           to: userDetail.owner.email,
-          subject: "Verify your email account",
-          html: `<div>
-      <h1>Kyc Status</h1>
-      <p>Your kyc have been Rejected</p>
-      </div>`,
+          from: "adm.getworker@gmail.com",
+          subject: "GETWORK KYC UPDATE",
+          html: `    
+  <div>
+  <h1>Kyc Status</h1>
+          <p>Your kyc have been Rejected</p>
+  </div>
+</html>`,
         });
+
       }
     }
 
@@ -380,15 +386,13 @@ export const purchaseHistory = AsyncHandler(async (req, res) => {
     const page = Number(req.query.pageSize) || 1;
 
     const history = await Purchase.find({});
-    
-    
+
     const allData = [];
     history.forEach((el) => {
       el.details.map((dt) => {
         allData.push(dt);
       });
     });
-    
 
     res.status(200).json(allData.reverse());
   } catch (error) {

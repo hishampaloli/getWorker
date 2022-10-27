@@ -19,7 +19,7 @@
   background-color: white;
   padding: 10px;
   margin-left: 30px;
-  transition: 0.3s all;
+  transition: 0.5s all;
   color: #1d201d;
 }
 .jobPost-box .bottom {
@@ -73,7 +73,7 @@
   background-color: #f1f2f4;
   margin-top: 10px;
   border-radius: 10px;
-  transition: 0.3s ease;
+  transition: 0.5s ease;
 }
 
 .ajobPost-box .bottom .talent-result:hover {

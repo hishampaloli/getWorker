@@ -27,9 +27,10 @@ const AllProposal = () => {
     return el.status === "shortlisted";
   });
 
+  console.log(activeProposals);
 
   useEffect(() => {
-    dispatch(myProposals());
+    dispatch(myProposals(0));
   }, []);
 
   

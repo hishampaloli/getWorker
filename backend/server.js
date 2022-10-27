@@ -12,6 +12,7 @@ import ProposalRouter from "./routes/ProposalRoutes.js";
 import PaymentRouter from "./routes/paymentRoutes.js";
 import ChatRouter from "./routes/ChatRoutes.js";
 import { notFound, errorHandler } from "./middlewares/errorMiddleware.js";
+import nodemailer from "nodemailer";
 import cors from "cors";
 import http from "http";
 import { Server } from "socket.io";
@@ -19,6 +20,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import Razorpay from "razorpay";
 import sockets from "./sockets/routes.js";
+import {sendMail} from './utils/mail.js'
 
 mongoDB();
 
@@ -50,8 +52,9 @@ const io = new Server(httpServer, {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
   res.send("API IS HOT");
+  
 });
 
 app.use("/api", UserRouter);
@@ -62,8 +65,6 @@ app.use("/api", JobsRouter);
 app.use("/api", ProposalRouter);
 app.use("/api/credit", PaymentRouter);
 app.use("/api/chat", ChatRouter);
-
-
 
 app.use(notFound);
 app.use(errorHandler);

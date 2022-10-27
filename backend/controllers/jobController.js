@@ -6,6 +6,7 @@ import Employer from "../models/employerModel.js";
 import Proposals from "../models/proposalModal.js";
 import Admin from "../models/adminModel.js";
 import Notification from "../models/messageModal.js";
+import { sendMail } from "../utils/mail.js";
 
 // @DESC employers can post jobs
 // @METHOD post
@@ -84,7 +85,7 @@ export const getAllJobs = AsyncHandler(async (req, res) => {
     const page = Number(pageNumber) || 1;
 
     let skip = pageSize * (page - 1);
-    
+
     const count = await Jobs.count({ status: "active" });
     const allJobs = await Jobs.find({
       $and: [{ status: "active" }],
@@ -93,7 +94,6 @@ export const getAllJobs = AsyncHandler(async (req, res) => {
       .skip(skip);
 
     if (allJobs) {
-      
       res
         .status(200)
         .json({ allJobs, page, pages: Math.ceil(count / pageSize) });
@@ -157,7 +157,6 @@ export const jobView = AsyncHandler(async (req, res) => {
 export const approveJob = AsyncHandler(async (req, res) => {
   try {
     const { userId, id } = req.params;
-    
 
     const job = await Jobs.findById(id);
 
@@ -165,7 +164,7 @@ export const approveJob = AsyncHandler(async (req, res) => {
 
     const employer = await Employer.findOne({ owner: userId });
     const employee = await Employee.findOne({ owner: proposal.owner });
-    const admin = await Admin.findById("633be9b307ec8a154a57bc9e");
+    const admin = await Admin.findById("635a47fd9968c6d1c6870827");
 
     const activeContract = employee.activeContracts.filter((el) => {
       return el + "*" !== job._id + "*";
@@ -176,7 +175,6 @@ export const approveJob = AsyncHandler(async (req, res) => {
     });
 
     const escrow = admin.inEscrow.filter((el) => {
-          
       return el.proposal + "*" !== proposal._id + "*";
     });
 
@@ -213,9 +211,11 @@ export const approveJob = AsyncHandler(async (req, res) => {
     await job.save();
     await noti.save();
 
-    res.status(200).json({
+
+    res.json({
       message: "Success",
     });
+
   } catch (error) {
     res.status(404);
     throw new Error(error);

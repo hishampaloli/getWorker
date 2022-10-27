@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./JobsView.scss";
-import { approveJob, cancelJob, JobsDetails } from "../../../actions/jobsActions";
+import {
+  approveJob,
+  cancelJob,
+  JobsDetails,
+} from "../../../actions/jobsActions";
 import AllProposal from "../../EmployeePage/AllProposal/AllProposal";
 import ProposalComponent from "../../../components/EmployeeComponents/ProposalComponents/ProposalComponent";
 
@@ -14,7 +18,6 @@ const JobView = () => {
   const jobsInfo = useSelector((state) => state.jobsDetail?.jobDetails);
   const myProposalData = useSelector((state) => state.myProposalsData);
   const user = useSelector((state) => state.user);
-
 
   const [ed, setEd] = useState("active");
   const [filter, setFilter] = useState(false);
@@ -45,13 +48,25 @@ const JobView = () => {
     }
   }, [user, navigate]);
 
-
   return (
     <div className="jobsDetails-view">
       <div className="job-details-box">
-        <div style={{display:'flex', width: '100%', justifyContent: 'space-between', alignItems: 'center'}} className="top">
+        <div
+          style={{
+            display: "flex",
+            width: "100%",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+          className="top"
+        >
           <h4>{jobsInfo?.title}</h4>
-          <Link  to={`/employer/publicview/${jobsInfo?.owner}`} style={{color: '#3ccf4e', textDecoration: 'underLine'}}>Employer</Link>
+          <Link
+            to={`/employer/publicview/${jobsInfo?.owner}`}
+            style={{ color: "#3ccf4e", textDecoration: "underLine" }}
+          >
+            Employer
+          </Link>
         </div>
 
         <div className="bottom">
@@ -78,17 +93,15 @@ const JobView = () => {
           {user?.userInfo?.userType === "employer" ? (
             <>
               {jobsInfo?.status === "running" ? (
-                <Link >
-                  <button
-                    onClick={() => {
-                      dispatch(approveJob(jobsInfo?._id))
-                      navigate('/employer/jobs')
-                    }}
-                    style={{ backgroundColor: "#3ccf4e" }}
-                  >
-                    Approve Job
-                  </button>
-                </Link>
+                <button
+                  onClick={() => {
+                    dispatch(approveJob(jobsInfo?._id));
+                    navigate("/");
+                  }}
+                  style={{ backgroundColor: "#3ccf4e" }}
+                >
+                  Approve Job
+                </button>
               ) : jobsInfo?.status === "active" ? (
                 <Link to={`/employer/myposts`}>
                   <button
@@ -103,14 +116,18 @@ const JobView = () => {
               )}
             </>
           ) : (
-            <>{jobsInfo?.status === "active" ?  <Link to={`/jobs/${jobsInfo?._id}/proposal`}>
-              <button>Submit Proposal</button>
-            </Link>: '' }</>
-           
+            <>
+              {jobsInfo?.status === "active" ? (
+                <Link to={`/jobs/${jobsInfo?._id}/proposal`}>
+                  <button>Submit Proposal</button>
+                </Link>
+              ) : (
+                ""
+              )}
+            </>
           )}
         </div>
       </div>
-
 
       {user?.userInfo?.userType === "employer" &&
       jobsInfo?.status !== "cancelled" &&

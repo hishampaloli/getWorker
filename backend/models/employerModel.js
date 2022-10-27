@@ -19,6 +19,7 @@ const employerSchema = mongoose.Schema({
   },
   balance: {
     type: Number,
+    default: 0,
   },
   contractsPosted: [
     {

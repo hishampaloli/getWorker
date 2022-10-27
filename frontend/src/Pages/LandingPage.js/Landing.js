@@ -33,6 +33,8 @@ const Landing = () => {
           alt=""
         />
       </div>
+      
+      
     </div>
   );
 };

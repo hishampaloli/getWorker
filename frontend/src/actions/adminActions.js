@@ -37,6 +37,7 @@ import {
 
 export const adminProfile = () => async (dispatch) => {
   try {
+
     dispatch({
       type: ADMIN_PROFILE_REQUEST,
     });
@@ -51,7 +52,7 @@ export const adminProfile = () => async (dispatch) => {
     };
 
     const { data } = await axiosAdminInstance.get(`/profile`, config);
-
+    
     dispatch({
       type: ADMIN_PROFILE_SUCCESS,
       payload: data,

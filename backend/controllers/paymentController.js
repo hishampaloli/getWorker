@@ -41,8 +41,8 @@ export const paymentVerification = AsyncHandler(async (req, res) => {
 
   const isAuthentic = expectedSignature === razorpay_signature;
 
-  const admin = await Admin.findById("633be9b307ec8a154a57bc9e");
-
+  const admin = await Admin.findById("635a47fd9968c6d1c6870827");
+console.log(admin);
   if (isAuthentic) {
     const purchase = await Purchase.findOne({ owner: userId });
     if (purchase) {
