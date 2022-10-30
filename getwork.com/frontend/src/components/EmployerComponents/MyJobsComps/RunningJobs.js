@@ -11,7 +11,7 @@ const RunningJobs = ({jobs}) => {
   
     console.log(jobs);
   
-    const Employers = "";
+    const Employers = ""
     return (
       <div className="jobPostPage">
         <div className="jobPost-box">
